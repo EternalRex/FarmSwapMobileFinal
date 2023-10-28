@@ -6,6 +6,7 @@ import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class UserSignUpScreen extends StatefulWidget {
@@ -94,6 +95,26 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                           ),
                           poppinsText("Consumer", Colors.black, 20.sp, FontWeight.w300),
                         ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.sp,
+                    ),
+                    SizedBox(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(RouteManager.userlogin);
+                        },
+                        child: Text(
+                          "I already have an account",
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                            fontFamily: GoogleFonts.poppins().fontFamily,
+                            color: FarmSwapGreen.darkGreenActive,
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
                       ),
                     ),
                   ],

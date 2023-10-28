@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
           ],
           builder: (context, child) {
             return const MaterialApp(
-              initialRoute: RouteManager.usersignup,
+              debugShowCheckedModeBanner: false,
+              initialRoute: RouteManager.userlogin,
               onGenerateRoute: RouteManager.generateRoute,
             );
           },

@@ -1,3 +1,5 @@
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/pending_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_login/screen/user_login_screen.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup10.dart';
@@ -24,6 +26,8 @@ class RouteManager {
   static const userDetailsRegister7 = "/userDetailsRegister7";
   static const userDetailsRegister8 = "/userDetailsRegister8";
   static const userDetailsRegisterEnd = "/userDetailsRegisterEnd";
+  static const pendingAccountsDashboar = "/pendingAccountsDashboar";
+  static const activeDashboard = "/activeDashboard";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -60,6 +64,12 @@ class RouteManager {
 
       case userDetailsRegisterEnd:
         return MaterialPageRoute(builder: (context) => const UserRegisterEndPage());
+
+      case pendingAccountsDashboar:
+        return MaterialPageRoute(builder: (context) => const PendingDashBoard());
+
+      case activeDashboard:
+        return MaterialPageRoute(builder: (context) => ActiveDashboard());
 
       default:
         throw const FormatException("Warning!!! Page Routing Problem");
