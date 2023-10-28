@@ -28,7 +28,7 @@ class ActiveDashboard extends StatelessWidget {
         ),
       ),
       /*Displaying the drawer */
-      drawer: const DashBoardDrawer(),
+      drawer: DashBoardDrawer(),
       body: const Center(
         child: Text("Hi Mega"),
       ),

@@ -1,14 +1,14 @@
 import 'package:farm_swap_mobile_final/authentication/user_authentication.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_login/controllers/login_txt_controller.dart';
+import 'package:farm_swap_mobile_final/karl_modules/user_login/database/update_onlinestatus.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/widgets/registertxtfield.dart';
-import 'package:farm_swap_mobile_final/provider/user_type_provider.dart';
+import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -40,8 +40,19 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
     super.dispose();
   }
 
+  String? userType;
+
   @override
   Widget build(BuildContext context) {
+/*Akon gi pull out ang value nga naa sa login usertype na provider kay akong e pasa didto sa login
+na function */
+
+    String userRole =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType.toUpperCase();
+    setState(() {
+      userType = userRole;
+    });
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -306,15 +317,20 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
     );
   }
 
-/*Instance of the authentication class */
-
+  /*Instance of the authentication class */
   UserAuthentication auth = UserAuthentication();
+
+  /*Instance sa class na mo update sa database field */
+  UpdateOnlineStatus onlineStatus = UpdateOnlineStatus();
 
   void login() async {
     String email = controllers.emailController.text;
     String password = controllers.passwordController.text;
     User? user = await auth.signInUser(email, password);
     if (user != null) {
+      /*Passing the necessary value ngadto sa class na mo update sa user online status */
+      onlineStatus.updateOnlineStatus(
+          FirebaseAuth.instance.currentUser!.uid, true, userType.toString());
       // ignore: use_build_context_synchronously
       Navigator.of(context).pushNamed(RouteManager.activeDashboard);
     }

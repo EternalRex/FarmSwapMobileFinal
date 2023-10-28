@@ -1,5 +1,6 @@
 import "package:farm_swap_mobile_final/firebase_initializations_options.dart";
-import "package:farm_swap_mobile_final/provider/testprovider.dart";
+import "package:farm_swap_mobile_final/provider/login_usertype_provider.dart";
+import 'package:farm_swap_mobile_final/provider/farmer_accountstatus_provider.dart';
 import "package:farm_swap_mobile_final/provider/user_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/user_type_provider.dart";
 import "package:farm_swap_mobile_final/routes/routes.dart";
@@ -29,14 +30,15 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           /*Registering all the providers being used */
           providers: [
-            ChangeNotifierProvider(create: (context) => TestProvider()),
+            ChangeNotifierProvider(create: (context) => FarmerAccounStatusProvider()),
             ChangeNotifierProvider(create: (context) => UserTypeProvider()),
             ChangeNotifierProvider(create: (context) => UserDetailsProvider()),
+            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
           ],
           builder: (context, child) {
             return const MaterialApp(
               debugShowCheckedModeBanner: false,
-              initialRoute: RouteManager.userlogin,
+              initialRoute: RouteManager.userloginselection,
               onGenerateRoute: RouteManager.generateRoute,
             );
           },

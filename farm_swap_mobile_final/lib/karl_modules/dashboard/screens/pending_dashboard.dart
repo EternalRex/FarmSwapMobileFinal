@@ -7,7 +7,7 @@ class PendingDashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pending Dasboard"),
+        title: const Text("Pending Dasboard"),
       ),
     );
   }
