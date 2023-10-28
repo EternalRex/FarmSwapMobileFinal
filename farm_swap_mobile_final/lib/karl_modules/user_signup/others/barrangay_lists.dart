@@ -1,0 +1,54 @@
+class CebuMunicipalities {
+  /*List of all municipalites of cebu*/
+  String alcoy = "Alcoy";
+  String aloguinsan = "Aloguinsan";
+  String alcantara = "Alcantara";
+  String alegria = "Alegria";
+  String argao = "Argao";
+  String asturias = "Asturias";
+  String badian = "Badian";
+  String balamban = "Balamban";
+  String bantayan = "Bantayan";
+  String barili = "Barili";
+  String boljoon = "Boljoon";
+  String borbon = "Borbon";
+  String carcar = "Carcar";
+  String cebu = "Cebu";
+  String catmon = "Catmon";
+  String compostela = "Compostela";
+  String consolacion = "Consolacion";
+  String cordova = "Cordova";
+  String daanbantayan = "Daanbantayan";
+  String dalaguete = "Dalaguete";
+  String dumanjug = "Dumanjug";
+  String ginatilan = "Ginatilan";
+  String guadalupe = "Guadalupe";
+  String kawit = "Kawit";
+  String liloan = "Liloan";
+  String lapulapu = "Lapu-Lapu";
+  String madridejos = "Madridejos";
+  String malabo = "Malabo";
+  String mandaue = "Mandaue";
+  String medellin = "Medellin";
+  String minglanilla = "Minglanilla";
+  String moalboal = "Moalboal";
+  String oslob = "Oslob";
+  String pilar = "Pilar";
+  String pinamungajan = "Pinamungajan";
+  String ronda = "Ronda";
+  String poro = "Poro";
+  String sanFrancisco = "San Francisco";
+  String sanFernando = "San Fernando";
+  String sanRemegio = "San Remigio";
+  String santaFe = "Santa Fe";
+  String santander = "Santander";
+  String sibonga = "Sibonga";
+  String sogod = "Sogod";
+  String tabogon = "Tabogon";
+
+  String tabuelan = "Tabuelan";
+  String talisay = "Talisay";
+  String toledo = "Toledo";
+  String tuburan = "Tuburan";
+  String tudela = "Tudela";
+}

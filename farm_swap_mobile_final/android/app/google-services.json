@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "1095006869916",
+    "project_id": "farmswap-678f3",
+    "storage_bucket": "farmswap-678f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095006869916:android:d856365670cfa2c2091059",
+        "android_client_info": {
+          "package_name": "com.example.farm_swap_mobile_final"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095006869916-fd7ondvskvf4l9do86iik5ovkp2sfv5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeprMtzOTSFl_RH3CLRtI05OoZchmlS3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095006869916-fd7ondvskvf4l9do86iik5ovkp2sfv5d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1095006869916-sgqmbaeif8q58q4q7rkegds5f2i5hjh8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ph.farmswap.farmswapV2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095006869916:android:ffce1a62daa49815091059",
+        "android_client_info": {
+          "package_name": "ph.farmswap.farmswap_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095006869916-cd9ko7itbuvccsiqmen5n58elh8lff1f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ph.farmswap.farmswap_v2",
+            "certificate_hash": "bdf2a17f445cdb44fc92b839e4ed3350eaaf3398"
+          }
+        },
+        {
+          "client_id": "1095006869916-fd7ondvskvf4l9do86iik5ovkp2sfv5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeprMtzOTSFl_RH3CLRtI05OoZchmlS3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095006869916-fd7ondvskvf4l9do86iik5ovkp2sfv5d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1095006869916-sgqmbaeif8q58q4q7rkegds5f2i5hjh8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ph.farmswap.farmswapV2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
