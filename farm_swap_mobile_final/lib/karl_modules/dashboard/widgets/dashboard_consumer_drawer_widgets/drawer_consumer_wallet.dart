@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/*Kani na class is button ni siya  drawer na kung e click mo redirect ni siya sa desired page */
+
 class ConsumerWalletManagementBtn extends StatelessWidget {
   const ConsumerWalletManagementBtn({super.key});
 

@@ -2,6 +2,7 @@ import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/provider/user_type_provider.dart';
+import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -69,7 +70,9 @@ class UserRegisterEndPage extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamed(RouteManager.userloginselection);
+                            },
                             child: const FarmSwapGreenBtn(text: "Finish"),
                           ),
                         ],
@@ -114,7 +117,9 @@ class UserRegisterEndPage extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamed(RouteManager.userloginselection);
+                            },
                             child: const FarmSwapGreenBtn(text: "Finish"),
                           ),
                         ],

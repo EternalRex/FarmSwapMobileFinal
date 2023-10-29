@@ -23,6 +23,8 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 
+/*Mao ni ang main class jud para sa drawer */
+
 class DashBoardDrawer extends StatelessWidget {
   DashBoardDrawer({super.key});
 

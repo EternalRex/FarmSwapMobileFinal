@@ -44,6 +44,7 @@ class _UserPersonalDetailsRegistration8State extends State<UserPersonalDetailsRe
     String userNames = Provider.of<UserDetailsProvider>(context, listen: false).getUsername;
     String docUrls = Provider.of<UserDetailsProvider>(context, listen: false).getDocUrl;
     String idUrls = Provider.of<UserDetailsProvider>(context, listen: false).getPictureUrl;
+    String profilePhoto = Provider.of<UserDetailsProvider>(context, listen: false).getProfilePhoto;
 
     return Scaffold(
       body: SafeArea(
@@ -186,6 +187,7 @@ class _UserPersonalDetailsRegistration8State extends State<UserPersonalDetailsRe
                                 userNames,
                                 docUrls,
                                 idUrls,
+                                profilePhoto,
                                 registerdate,
                                 registerdate2,
                               );
@@ -323,6 +325,7 @@ class _UserPersonalDetailsRegistration8State extends State<UserPersonalDetailsRe
                                 baranggays,
                                 userNames,
                                 idUrls,
+                                profilePhoto,
                                 registerdate,
                                 registerdate2,
                               );
