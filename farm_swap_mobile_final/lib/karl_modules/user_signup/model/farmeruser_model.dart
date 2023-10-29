@@ -13,6 +13,7 @@ class FarmerUserModel {
     required this.userName,
     required this.documentPictureProof,
     required this.idPictureProof,
+    required this.profilePhoto,
     required this.birthdate,
     required this.registrationDate,
     required this.swapCoins,
@@ -32,6 +33,7 @@ class FarmerUserModel {
   String userName;
   String documentPictureProof;
   String idPictureProof;
+  String profilePhoto;
   DateTime birthdate;
   DateTime registrationDate;
   int swapCoins;
@@ -50,6 +52,7 @@ class FarmerUserModel {
       'firstname': firstName,
       'idProof': idPictureProof,
       'lastname': lastName,
+      'profilePhoto': profilePhoto,
       'registrationDate': registrationDate,
       'userId': userId,
       'userName': userName,

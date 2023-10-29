@@ -16,6 +16,7 @@ class AddNewFarmerUserDb {
     String userNames,
     String docUrl,
     String idUrl,
+    String profileUrl,
     DateTime bday,
     DateTime rday,
   ) async {
@@ -32,6 +33,7 @@ class AddNewFarmerUserDb {
     String userName = userNames;
     String documentPictureProof = docUrl;
     String idPictureProof = idUrl;
+    String profilePhoto = profileUrl;
     DateTime birthdate = bday;
     DateTime registrationDate = rday;
     int swapCoins = 5000;
@@ -54,6 +56,7 @@ class AddNewFarmerUserDb {
       registrationDate: registrationDate,
       swapCoins: swapCoins,
       isOnline: true,
+      profilePhoto: profilePhoto,
     );
 
     await farmerQuery.createUser(addData);

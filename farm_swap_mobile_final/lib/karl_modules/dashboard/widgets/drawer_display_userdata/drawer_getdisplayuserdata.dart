@@ -4,6 +4,9 @@ import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+/*This class kay iyang e pull out ang data from the database sa sampleFarmers tapos iya e display
+ngadto sa page nga nagtawag ani na class */
+
 class DrawerDisplayUserData extends StatefulWidget {
   const DrawerDisplayUserData({super.key, required this.documentId});
 
@@ -31,8 +34,8 @@ class _DrawerDisplayUserDataState extends State<DrawerDisplayUserData> {
                 children: [
                   CircleAvatar(
                     backgroundImage:
-                        CachedNetworkImageProvider("${data["idProof"]}"),
-                    radius: 50.w,
+                        CachedNetworkImageProvider("${data["profilePhoto"]}"),
+                    radius: 70.w,
                   ),
                   SizedBox(
                     width: 15.sp,

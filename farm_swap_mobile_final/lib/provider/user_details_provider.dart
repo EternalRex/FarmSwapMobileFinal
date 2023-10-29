@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/*Ang kani na provider is ato gigamit para mag karga sa data sa usser registration aron
+ig abot sa kinalasan nga page sa registration , ma usa ra og save sa database tanan didto
+sa last page sa  registration */
+
 class UserDetailsProvider extends ChangeNotifier {
   /*Properties*/
   String userId = "";
@@ -15,6 +19,7 @@ class UserDetailsProvider extends ChangeNotifier {
   String userName = "";
   String documentPictureProof = "";
   String idPictureProof = "";
+  String profilePhoto = "";
   DateTime birthdate = DateTime.now();
   DateTime registrationDate = DateTime.now();
   int swapCoins = 0;
@@ -148,6 +153,16 @@ class UserDetailsProvider extends ChangeNotifier {
 
   String get getPictureUrl {
     return idPictureProof;
+  }
+
+  /*Setter and getter for the profile */
+  void setProfilPicture(String idUrl) {
+    profilePhoto = idUrl;
+    notifyListeners();
+  }
+
+  String get getProfilePhoto {
+    return profilePhoto;
   }
 
   /*Setter and getter for birthdate */

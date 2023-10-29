@@ -9,14 +9,14 @@ import 'package:provider/provider.dart';
 import '../../../common/colors.dart';
 import '../../../common/poppins_text.dart';
 
-class UserPersonalDetailsRegistration7 extends StatefulWidget {
-  const UserPersonalDetailsRegistration7({super.key});
+class UserProfilePhotoDisplay extends StatefulWidget {
+  const UserProfilePhotoDisplay({super.key});
 
   @override
-  State<UserPersonalDetailsRegistration7> createState() => _UserPersonalDetailsRegistration7State();
+  State<UserProfilePhotoDisplay> createState() => _UserProfilePhotoDisplayState();
 }
 
-class _UserPersonalDetailsRegistration7State extends State<UserPersonalDetailsRegistration7> {
+class _UserProfilePhotoDisplayState extends State<UserProfilePhotoDisplay> {
   @override
   Widget build(BuildContext context) {
     String userRole = Provider.of<UserTypeProvider>(context, listen: false).getUserType;
@@ -72,7 +72,7 @@ class _UserPersonalDetailsRegistration7State extends State<UserPersonalDetailsRe
                               because the provider carries that link */
                                 child: Consumer<UserDetailsProvider>(
                                   builder: (context, value, child) {
-                                    return Image.network(value.getPictureUrl);
+                                    return Image.network(value.getProfilePhoto);
                                   },
                                 ),
                               ),
@@ -81,7 +81,8 @@ class _UserPersonalDetailsRegistration7State extends State<UserPersonalDetailsRe
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).pushNamed(RouteManager.userprofilephoto);
+                                  Navigator.of(context)
+                                      .pushNamed(RouteManager.userDetailsRegister8);
                                 },
                                 child: const FarmSwapGreenBtn(text: "Next"),
                               ),
@@ -129,7 +130,7 @@ class _UserPersonalDetailsRegistration7State extends State<UserPersonalDetailsRe
                               because the provider carries that link */
                                 child: Consumer<UserDetailsProvider>(
                                   builder: (context, value, child) {
-                                    return Image.network(value.getPictureUrl);
+                                    return Image.network(value.getProfilePhoto);
                                   },
                                 ),
                               ),
@@ -138,7 +139,8 @@ class _UserPersonalDetailsRegistration7State extends State<UserPersonalDetailsRe
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).pushNamed(RouteManager.userprofilephoto);
+                                  Navigator.of(context)
+                                      .pushNamed(RouteManager.userDetailsRegister8);
                                 },
                                 child: const FarmSwapGreenBtn(text: "Next"),
                               ),

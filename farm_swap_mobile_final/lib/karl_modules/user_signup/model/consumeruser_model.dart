@@ -12,6 +12,7 @@ class ConsumerUserModel {
     required this.userRole,
     required this.userName,
     required this.idPictureProof,
+    required this.profilePhoto,
     required this.birthdate,
     required this.registrationDate,
     required this.swapCoins,
@@ -30,6 +31,7 @@ class ConsumerUserModel {
   String userRole;
   String userName;
   String idPictureProof;
+  String profilePhoto;
   DateTime birthdate;
   DateTime registrationDate;
   int swapCoins;
@@ -47,6 +49,7 @@ class ConsumerUserModel {
       'firstname': firstName,
       'idProof': idPictureProof,
       'lastname': lastName,
+      'profilePhoto': profilePhoto,
       'registrationDate': registrationDate,
       'userId': userId,
       'userName': userName,

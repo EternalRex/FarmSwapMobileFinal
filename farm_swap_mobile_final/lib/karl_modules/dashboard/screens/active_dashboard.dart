@@ -1,6 +1,8 @@
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
+/*Mao ni ang active dashboard, ma display diri ang mga listings */
+
 class ActiveDashboard extends StatelessWidget {
   ActiveDashboard({super.key});
 

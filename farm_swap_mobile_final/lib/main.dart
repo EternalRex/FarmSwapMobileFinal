@@ -1,4 +1,5 @@
 import "package:farm_swap_mobile_final/firebase_initializations_options.dart";
+import "package:farm_swap_mobile_final/provider/listing_page_provider.dart";
 import "package:farm_swap_mobile_final/provider/login_usertype_provider.dart";
 import 'package:farm_swap_mobile_final/provider/farmer_accountstatus_provider.dart';
 import "package:farm_swap_mobile_final/provider/user_details_provider.dart";
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider(create: (context) => UserDetailsProvider()),
             ChangeNotifierProvider(
                 create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(
+                create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(create: (context) => ListingPageProvider()),
           ],
           builder: (context, child) {
             return const MaterialApp(

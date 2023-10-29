@@ -15,6 +15,7 @@ class AddNewConsumerUserDb {
     String baranggay,
     String userNames,
     String idUrl,
+    String profileUrl,
     DateTime bday,
     DateTime rday,
   ) async {
@@ -30,6 +31,7 @@ class AddNewConsumerUserDb {
     String userRole = "CONSUMER";
     String userName = userNames;
     String idPictureProof = idUrl;
+    String profilePhoto = profileUrl;
     DateTime birthdate = bday;
     DateTime registrationDate = rday;
     int swapCoins = 5000;
@@ -51,6 +53,7 @@ class AddNewConsumerUserDb {
       registrationDate: registrationDate,
       swapCoins: swapCoins,
       isOnline: true,
+      profilePhoto: profilePhoto,
     );
 
     await consumerQuery.createUser(addData);

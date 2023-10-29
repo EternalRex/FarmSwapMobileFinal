@@ -1,7 +1,10 @@
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/pending_dashboard.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_management_mainpage.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_login/screen/user_login_screen.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_login/screen/user_login_selection.dart';
+import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_displayProfilePhoto.dart';
+import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_selectProfilePhoto.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup10.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup2.dart';
@@ -33,6 +36,9 @@ class RouteManager {
   static const activeDashboard = "/activeDashboard";
   static const userloginselection = "/userloginselection";
   static const farmeraccountmanagement = "/farmeraccountmanagement";
+  static const userprofilephoto = "/userprofilephoto";
+  static const displayuserprofilePhoto = "/displayuserprofilePhoto";
+  static const listingmainpage = "/listingmainpage";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -94,6 +100,18 @@ class RouteManager {
       case userloginselection:
         return MaterialPageRoute(
             builder: (context) => const UserTypeLoginSelection());
+
+      case userprofilephoto:
+        return MaterialPageRoute(
+            builder: (context) => const UserProfilePhotoRegistration());
+
+      case displayuserprofilePhoto:
+        return MaterialPageRoute(
+            builder: (context) => const UserProfilePhotoDisplay());
+
+      case listingmainpage:
+        return MaterialPageRoute(
+            builder: (context) => const ListingManagementMainPage());
 
       default:
         throw const FormatException("Warning!!! Page Routing Problem");
