@@ -1,5 +1,6 @@
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/pending_dashboard.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_management_mainpage.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_login/screen/user_login_screen.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_login/screen/user_login_selection.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_displayProfilePhoto.dart';
@@ -34,6 +35,7 @@ class RouteManager {
   static const userloginselection = "/userloginselection";
   static const userprofilephoto = "/userprofilephoto";
   static const displayuserprofilePhoto = "/displayuserprofilePhoto";
+  static const listingmainpage = "/listingmainpage";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -85,6 +87,9 @@ class RouteManager {
 
       case displayuserprofilePhoto:
         return MaterialPageRoute(builder: (context) => const UserProfilePhotoDisplay());
+
+      case listingmainpage:
+        return MaterialPageRoute(builder: (context) => const ListingManagementMainPage());
 
       default:
         throw const FormatException("Warning!!! Page Routing Problem");
