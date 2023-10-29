@@ -10,26 +10,30 @@ class DrawerDisplayConsumerData extends StatefulWidget {
   final String documentId;
 
   @override
-  State<DrawerDisplayConsumerData> createState() => _DrawerDisplayConsumerDataState();
+  State<DrawerDisplayConsumerData> createState() =>
+      _DrawerDisplayConsumerDataState();
 }
 
 class _DrawerDisplayConsumerDataState extends State<DrawerDisplayConsumerData> {
   @override
   Widget build(BuildContext context) {
-    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
 
     return FutureBuilder(
       future: reference.doc(widget.documentId).get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
           return Column(
             children: [
               Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider("${data["idProof"]}"),
-                    radius: 70.w,
+                    backgroundImage:
+                        CachedNetworkImageProvider("${data["idProof"]}"),
+                    radius: 60.w,
                   ),
                   SizedBox(
                     width: 15.sp,

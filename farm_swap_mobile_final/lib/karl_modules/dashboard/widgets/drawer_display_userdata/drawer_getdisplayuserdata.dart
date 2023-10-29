@@ -16,20 +16,23 @@ class DrawerDisplayUserData extends StatefulWidget {
 class _DrawerDisplayUserDataState extends State<DrawerDisplayUserData> {
   @override
   Widget build(BuildContext context) {
-    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_FarmerUsers");
 
     return FutureBuilder(
       future: reference.doc(widget.documentId).get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
           return Column(
             children: [
               Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider("${data["idProof"]}"),
-                    radius: 70.w,
+                    backgroundImage:
+                        CachedNetworkImageProvider("${data["idProof"]}"),
+                    radius: 50.w,
                   ),
                   SizedBox(
                     width: 15.sp,
