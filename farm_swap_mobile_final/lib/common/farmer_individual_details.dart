@@ -49,5 +49,15 @@ class ListinGetFarmerDetails {
     return snapshot["city_baranggay"];
   }
 
+  Future<String> getUname() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    /*E return nato ang value sa doument */
+    return snapshot["userName"];
+  }
+
   //So pun e lang ni og method diri kung aduna pamoy ganahan na value na e pullout sa propert ni farmer
 }

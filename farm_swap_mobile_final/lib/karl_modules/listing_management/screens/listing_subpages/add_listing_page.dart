@@ -1,5 +1,10 @@
+import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
+import 'package:farm_swap_mobile_final/common/poppins_text.dart';
+import 'package:farm_swap_mobile_final/provider/listing_addcategory_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class AddListingPage extends StatefulWidget {
@@ -16,20 +21,107 @@ class _AddListingPageState extends State<AddListingPage> {
   String lastname = "";
   String municipality = "";
   String baranggay = "";
+  String uname = "";
 
   @override
   void initState() {
     super.initState();
     /*Ato gi initialize a function diri para ma update ning variable na firstname */
     getFarmerFirstName();
+    getFarmerBarrangay();
+    getFarmerMunicipality();
+    getFarmerUserName();
+    getFarmerLastName();
   }
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Center(
-          child: Text(firstname),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              /*Conatainer for abarter option */
+              Container(
+                padding: EdgeInsets.all(10.sp),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(0),
+                  ),
+                  /*PUTTING BOX SHADOW ON THE CONTAINER */
+                  boxShadow: [
+                    BoxShadow(
+                      color: shadow,
+                      blurRadius: 2,
+                      offset: const Offset(5, 5),
+                    ),
+                  ],
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    /*Setting the value of our provider as barter so that this page
+                    will be redirected to add barter listing */
+                    Provider.of<AddListingCategoryProvider>(context, listen: false)
+                        .setListingCategory("BARTER");
+                  },
+                  child: Column(
+                    children: [
+                      SvgPicture.asset(
+                        "assets/karl_assets/icons/barteringLogo.svg",
+                        height: 150.h,
+                        width: 150.w,
+                      ),
+                      poppinsText("Add Barter Listing", greenDarkActive, 15.sp, FontWeight.bold)
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              Container(
+                padding: EdgeInsets.all(10.sp),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(0),
+                  ),
+                  /*PUTTING BOX SHADOW ON THE CONTAINER */
+                  boxShadow: [
+                    BoxShadow(
+                      color: shadow,
+                      blurRadius: 2,
+                      offset: const Offset(5, 5),
+                    ),
+                  ],
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    /*Setting the value of our provider as barter so that this page
+                    will be redirected to add selling  listing */
+                    Provider.of<AddListingCategoryProvider>(context, listen: false)
+                        .setListingCategory("SELL");
+                  },
+                  child: Column(
+                    children: [
+                      SvgPicture.asset(
+                        "assets/karl_assets/icons/sellingLogo.svg",
+                        height: 150.h,
+                        width: 150.w,
+                      ),
+                      poppinsText("Add Selling Listing", greenDarkActive, 15.sp, FontWeight.bold)
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 50.sp,
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -66,6 +158,13 @@ ni farmer kato ning class nga  ListinGetFarmerDetails*/
     String barangay = await farmerDetails.getBaranggay();
     setState(() {
       baranggay = barangay;
+    });
+  }
+
+  Future<void> getFarmerUserName() async {
+    String username = await farmerDetails.getUname();
+    setState(() {
+      uname = username;
     });
   }
 }
