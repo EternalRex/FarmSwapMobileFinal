@@ -17,6 +17,8 @@ import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_sig
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup9.dart';
 import 'package:flutter/material.dart';
 
+import '../karl_modules/dashboard/screens/account_management_farmer/account_management_farmer.dart';
+
 class RouteManager {
 /*Properties of the route*/
   static const usersignup = "/";
@@ -33,6 +35,7 @@ class RouteManager {
   static const pendingAccountsDashboar = "/pendingAccountsDashboar";
   static const activeDashboard = "/activeDashboard";
   static const userloginselection = "/userloginselection";
+  static const farmeraccountmanagement = "/farmeraccountmanagement";
   static const userprofilephoto = "/userprofilephoto";
   static const displayuserprofilePhoto = "/displayuserprofilePhoto";
   static const listingmainpage = "/listingmainpage";
@@ -41,55 +44,74 @@ class RouteManager {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case usersignup:
-        return MaterialPageRoute(builder: (context) => const UserSignUpScreen());
+        return MaterialPageRoute(
+            builder: (context) => const UserSignUpScreen());
 
       case userlogin:
         return MaterialPageRoute(builder: (context) => const UserLoginScreen());
 
       case userDetailsRegister:
-        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration());
+        return MaterialPageRoute(
+            builder: (context) => const UserPersonalDetailsRegistration());
 
       case userDetailsRegister2:
-        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration2());
+        return MaterialPageRoute(
+            builder: (context) => const UserPersonalDetailsRegistration2());
 
       case userDetailsRegister3:
-        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration3());
+        return MaterialPageRoute(
+            builder: (context) => const UserPersonalDetailsRegistration3());
 
       case userDetailsRegister4:
-        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration4());
+        return MaterialPageRoute(
+            builder: (context) => const UserPersonalDetailsRegistration4());
 
       case userDetailsRegister5:
-        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration5());
+        return MaterialPageRoute(
+            builder: (context) => const UserPersonalDetailsRegistration5());
 
       case userDetailsRegister6:
-        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration6());
+        return MaterialPageRoute(
+            builder: (context) => const UserPersonalDetailsRegistration6());
 
       case userDetailsRegister7:
-        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration7());
+        return MaterialPageRoute(
+            builder: (context) => const UserPersonalDetailsRegistration7());
 
       case userDetailsRegister8:
-        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration8());
+        return MaterialPageRoute(
+            builder: (context) => const UserPersonalDetailsRegistration8());
 
       case userDetailsRegisterEnd:
-        return MaterialPageRoute(builder: (context) => const UserRegisterEndPage());
+        return MaterialPageRoute(
+            builder: (context) => const UserRegisterEndPage());
 
       case pendingAccountsDashboar:
-        return MaterialPageRoute(builder: (context) => const PendingDashBoard());
+        return MaterialPageRoute(
+            builder: (context) => const PendingDashBoard());
 
       case activeDashboard:
         return MaterialPageRoute(builder: (context) => ActiveDashboard());
 
+      case farmeraccountmanagement:
+        return MaterialPageRoute(
+            builder: (context) => FarmerProfileDashboard());
+
       case userloginselection:
-        return MaterialPageRoute(builder: (context) => const UserTypeLoginSelection());
+        return MaterialPageRoute(
+            builder: (context) => const UserTypeLoginSelection());
 
       case userprofilephoto:
-        return MaterialPageRoute(builder: (context) => const UserProfilePhotoRegistration());
+        return MaterialPageRoute(
+            builder: (context) => const UserProfilePhotoRegistration());
 
       case displayuserprofilePhoto:
-        return MaterialPageRoute(builder: (context) => const UserProfilePhotoDisplay());
+        return MaterialPageRoute(
+            builder: (context) => const UserProfilePhotoDisplay());
 
       case listingmainpage:
-        return MaterialPageRoute(builder: (context) => const ListingManagementMainPage());
+        return MaterialPageRoute(
+            builder: (context) => const ListingManagementMainPage());
 
       default:
         throw const FormatException("Warning!!! Page Routing Problem");
