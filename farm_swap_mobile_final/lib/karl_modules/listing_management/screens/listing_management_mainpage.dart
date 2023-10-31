@@ -1,6 +1,6 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_page.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_listingintro_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/archived_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings_page.dart';
@@ -88,15 +88,6 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
               decoration: BoxDecoration(
                 color: farmSwapTitlegreen,
                 border: Border.all(color: farmSwapTitlegreen),
-                /*PUTTING BOX SHADOW ON THE CONTAINER */
-                boxShadow: [
-                  BoxShadow(
-                    color: farmSwapSmoothGreen,
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.normal,
-                    offset: const Offset(0.0, -5.0),
-                  ),
-                ],
               ),
               child: const ListingManagementBottomNav(),
             ),

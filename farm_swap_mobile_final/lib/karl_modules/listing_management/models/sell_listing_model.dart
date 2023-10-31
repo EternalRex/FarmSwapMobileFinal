@@ -13,12 +13,15 @@ class SellListingModels {
     required this.farmerMuncipality,
     required this.farmerBaranggay,
     required this.farmerUserName,
+    required this.promoted,
+    required this.listingStatus,
   });
 
 /*Properties*/
   String listingName;
+  String listingStatus;
   String listingDiscription;
-  String listingQuantityKg;
+  double listingQuantityKg;
   double listingPircePerKilo;
   String listingCategory;
   String listingPictureUrl;
@@ -29,10 +32,12 @@ class SellListingModels {
   String farmerMuncipality;
   String farmerBaranggay;
   String farmerUserName;
+  bool promoted;
 
   Map<String, dynamic> toMap() {
     return {
       'listingName': listingName,
+      'listingstatus': listingStatus,
       'listingdiscription': listingDiscription,
       'listingQuantity': listingQuantityKg,
       'listingprice': listingPircePerKilo,
@@ -45,6 +50,7 @@ class SellListingModels {
       'farmerMunicipality': farmerMuncipality,
       'farmerBaranggay': farmerBaranggay,
       'farmerUserName': farmerUserName,
+      'promoted': promoted,
     };
   }
 }

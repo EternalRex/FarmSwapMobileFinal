@@ -13,25 +13,21 @@ class DisplayFarmerProfileData extends StatefulWidget {
   final String documentId;
 
   @override
-  State<DisplayFarmerProfileData> createState() =>
-      _DisplayFarmerProfileDataState();
+  State<DisplayFarmerProfileData> createState() => _DisplayFarmerProfileDataState();
 }
 
 class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
   @override
   Widget build(BuildContext context) {
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
 
     return FutureBuilder(
       future: reference.doc(widget.documentId).get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
+          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
 
-          final profileImage =
-              CachedNetworkImageProvider("${data["profilePhoto"]}");
+          final profileImage = CachedNetworkImageProvider("${data["profilePhoto"]}");
 
           Timestamp datatimestamp = data["birthdate"];
           DateTime birthdate = datatimestamp.toDate();
@@ -39,8 +35,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
 
           Timestamp datatimestampreg = data["registrationDate"];
           DateTime registerdate = datatimestampreg.toDate();
-          String finalRegisterDate =
-              DateFormat('yyy-MM-dd').format(registerdate);
+          String finalRegisterDate = DateFormat('yyy-MM-dd').format(registerdate);
 
           return Column(
             children: [
@@ -233,13 +228,11 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ),
                                       border: Border.all(
                                         color: blackLightActive,
-                                        strokeAlign:
-                                            BorderSide.strokeAlignOutside,
+                                        strokeAlign: BorderSide.strokeAlignOutside,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         const SizedBox(
                                           width: 5,
@@ -272,13 +265,11 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ),
                                       border: Border.all(
                                         color: blackLightActive,
-                                        strokeAlign:
-                                            BorderSide.strokeAlignOutside,
+                                        strokeAlign: BorderSide.strokeAlignOutside,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         const SizedBox(
                                           width: 5,
@@ -318,13 +309,11 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ),
                                       border: Border.all(
                                         color: blackLightActive,
-                                        strokeAlign:
-                                            BorderSide.strokeAlignOutside,
+                                        strokeAlign: BorderSide.strokeAlignOutside,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         const SizedBox(
                                           width: 5,
@@ -369,13 +358,11 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ),
                                       border: Border.all(
                                         color: blackLightActive,
-                                        strokeAlign:
-                                            BorderSide.strokeAlignOutside,
+                                        strokeAlign: BorderSide.strokeAlignOutside,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         const SizedBox(
                                           width: 5,
@@ -408,13 +395,11 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ),
                                       border: Border.all(
                                         color: blackLightActive,
-                                        strokeAlign:
-                                            BorderSide.strokeAlignOutside,
+                                        strokeAlign: BorderSide.strokeAlignOutside,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         const SizedBox(
                                           width: 5,
@@ -448,13 +433,11 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ),
                                       border: Border.all(
                                         color: blackLightActive,
-                                        strokeAlign:
-                                            BorderSide.strokeAlignOutside,
+                                        strokeAlign: BorderSide.strokeAlignOutside,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         const SizedBox(
                                           width: 5,
@@ -555,13 +538,11 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ),
                                       border: Border.all(
                                         color: blackLightActive,
-                                        strokeAlign:
-                                            BorderSide.strokeAlignOutside,
+                                        strokeAlign: BorderSide.strokeAlignOutside,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         const SizedBox(
                                           width: 5,
@@ -606,13 +587,11 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ),
                                       border: Border.all(
                                         color: blackLightActive,
-                                        strokeAlign:
-                                            BorderSide.strokeAlignOutside,
+                                        strokeAlign: BorderSide.strokeAlignOutside,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         const SizedBox(
                                           width: 5,
@@ -726,14 +705,12 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       width: 150,
                                       height: 150,
                                       child: CachedNetworkImage(
-                                        imageUrl: data[
-                                            "documentProof"], // The URL of the image
+                                        imageUrl: data["documentProof"], // The URL of the image
                                         fit: BoxFit.fill,
                                         placeholder: (context, url) =>
-                                            CircularProgressIndicator(), // Display a loading indicator while the image is loading
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons
-                                                .error), // Display an error icon if the image fails to load
+                                            const CircularProgressIndicator(), // Display a loading indicator while the image is loading
+                                        errorWidget: (context, url, error) => const Icon(Icons
+                                            .error), // Display an error icon if the image fails to load
                                       ),
                                     )
                                   ],
@@ -780,14 +757,12 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       width: 150,
                                       height: 150,
                                       child: CachedNetworkImage(
-                                        imageUrl: data[
-                                            "idProof"], // The URL of the image
+                                        imageUrl: data["idProof"], // The URL of the image
                                         fit: BoxFit.fill,
                                         placeholder: (context, url) =>
-                                            CircularProgressIndicator(), // Display a loading indicator while the image is loading
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons
-                                                .error), // Display an error icon if the image fails to load
+                                            const CircularProgressIndicator(), // Display a loading indicator while the image is loading
+                                        errorWidget: (context, url, error) => const Icon(Icons
+                                            .error), // Display an error icon if the image fails to load
                                       ),
                                     )
                                   ],

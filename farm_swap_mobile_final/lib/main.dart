@@ -3,6 +3,7 @@ import "package:farm_swap_mobile_final/provider/listing_addcategory_provider.dar
 import "package:farm_swap_mobile_final/provider/listing_page_provider.dart";
 import "package:farm_swap_mobile_final/provider/login_usertype_provider.dart";
 import 'package:farm_swap_mobile_final/provider/farmer_accountstatus_provider.dart';
+import "package:farm_swap_mobile_final/provider/sell_listing_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/user_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/user_type_provider.dart";
 import "package:farm_swap_mobile_final/routes/routes.dart";
@@ -32,16 +33,14 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           /*Registering all the providers being used */
           providers: [
-            ChangeNotifierProvider(
-                create: (context) => FarmerAccounStatusProvider()),
+            ChangeNotifierProvider(create: (context) => FarmerAccounStatusProvider()),
             ChangeNotifierProvider(create: (context) => UserTypeProvider()),
             ChangeNotifierProvider(create: (context) => UserDetailsProvider()),
-            ChangeNotifierProvider(
-                create: (context) => LoginUserTypeProvider()),
-            ChangeNotifierProvider(
-                create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
             ChangeNotifierProvider(create: (context) => ListingPageProvider()),
             ChangeNotifierProvider(create: (contex) => AddListingCategoryProvider()),
+            ChangeNotifierProvider(create: (context) => SellListingDetailsProvider()),
           ],
           builder: (context, child) {
             return const MaterialApp(

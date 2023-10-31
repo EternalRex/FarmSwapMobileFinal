@@ -18,7 +18,7 @@ class SellListingSaving {
   Future<void> saveSellingListing(
     String prodName,
     String prodDisc,
-    String prodQuan,
+    double prodQuan,
     double prodPrice,
     String prodCateg,
     String prodPicUrl,
@@ -36,6 +36,7 @@ class SellListingSaving {
     variable para ma usa natog pansak sa database */
     final saveDate = SellListingModels(
       listingName: prodName,
+      listingStatus: "ACTIVE",
       listingDiscription: prodDisc,
       listingQuantityKg: prodQuan,
       listingPircePerKilo: prodPrice,
@@ -48,6 +49,7 @@ class SellListingSaving {
       farmerMuncipality: munisipyoFarmer,
       farmerBaranggay: barangayFarmer,
       farmerUserName: farmerUname,
+      promoted: false,
     );
 
     /*Construkon nato ang id sa atong listing*/
