@@ -5,6 +5,7 @@ class AddBarterListingTextEditingControllers {
   TextEditingController discriptionBController = TextEditingController();
   TextEditingController quantityBController = TextEditingController();
   TextEditingController priceBController = TextEditingController();
+  TextEditingController prefferedController = TextEditingController();
 }
 
 class AddSellListingTextEditingControllers {

@@ -1,4 +1,5 @@
 import "package:farm_swap_mobile_final/firebase_initializations_options.dart";
+import "package:farm_swap_mobile_final/provider/barter_listing_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_addcategory_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_page_provider.dart";
 import "package:farm_swap_mobile_final/provider/login_usertype_provider.dart";
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider(create: (context) => ListingPageProvider()),
             ChangeNotifierProvider(create: (contex) => AddListingCategoryProvider()),
             ChangeNotifierProvider(create: (context) => SellListingDetailsProvider()),
+            ChangeNotifierProvider(create: (context) => BarterListingDetailsProvider()),
           ],
           builder: (context, child) {
             return const MaterialApp(

@@ -1,6 +1,9 @@
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/pending_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_management_mainpage.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_barter/add_barter_listing_page2.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_barter/add_barter_listing_page3.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_barter/add_barter_listing_page4.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_listingintro_page2.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_selling/add_selling_listing_page3.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_selling/add_selling_listing_page2.dart';
@@ -47,6 +50,9 @@ class RouteManager {
   static const addselllistingdetails2 = "/addselllistingdetails2";
   static const addselllistingdetails3 = "/addselllistingdetails3";
   static const addselllistingdetails4 = "/addselllistingdetails4";
+  static const addbarterlisttingdetails2 = "addbarterlisttingdetails2";
+  static const addbarterlisttingdetails3 = "addbarterlisttingdetails3";
+  static const addbarterlisttingdetails4 = "addbarterlisttingdetails4";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -116,6 +122,15 @@ class RouteManager {
 
       case addselllistingdetails4:
         return MaterialPageRoute(builder: (context) => const AddActualSellingListingDetails4());
+
+      case addbarterlisttingdetails2:
+        return MaterialPageRoute(builder: (context) => const AddActualBarterListingDetails2());
+
+      case addbarterlisttingdetails3:
+        return MaterialPageRoute(builder: (context) => const AddActualBarterListingDetails3());
+
+      case addbarterlisttingdetails4:
+        return MaterialPageRoute(builder: (context) => const AddActualBarterListingDetails4());
 
       default:
         throw const FormatException("Warning!!! Page Routing Problem");
