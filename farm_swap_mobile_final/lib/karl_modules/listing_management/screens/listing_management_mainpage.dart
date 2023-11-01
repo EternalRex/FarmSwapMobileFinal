@@ -7,6 +7,7 @@ import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/l
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
 import 'package:farm_swap_mobile_final/provider/listing_page_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 /*So mao ni siya ang class nga mo display sa ug unsa e select sa bottom nav, ang default
@@ -45,6 +46,17 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: farmSwapTitlegreen,
+        flexibleSpace: Container(
+          height: 300,
+          width: 300,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/karl_assets/images/appbar_background.png"),
+              fit: BoxFit.fitWidth,
+              scale: 100.0,
+            ),
+          ),
+        ),
         /*So mao nani ang condition nga mag depende sa value nga e hatag sa atong provider ang mo display
         nga label sa appbar */
         title: (page == "MYLISTINGS")

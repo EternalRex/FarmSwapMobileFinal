@@ -17,6 +17,43 @@ class AddListingPage extends StatefulWidget {
 class _AddListingPageState extends State<AddListingPage> {
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              GestureDetector(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: 330.w,
+                  height: 50.h,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Row(
+          children: [
+            GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: 360.w,
+                height: 50.h,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
+    /*
     return Stack(
       children: [
         Positioned.fill(
@@ -118,6 +155,6 @@ class _AddListingPageState extends State<AddListingPage> {
           ],
         ),
       ],
-    );
+    );*/
   }
 }
