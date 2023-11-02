@@ -19,10 +19,12 @@ class UserSignUpScreen extends StatefulWidget {
 class _UserSignUpScreenState extends State<UserSignUpScreen> {
 /*Creating object of the screen util sizes class*/
   SPScreenUtilSizes sizes = SPScreenUtilSizes();
+  final GlobalKey _formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _formKey,
       body: SafeArea(
           child: SizedBox(
         /*Stacked so that i can put a content ontop of a background picture */

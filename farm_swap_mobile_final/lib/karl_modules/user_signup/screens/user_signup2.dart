@@ -20,14 +20,7 @@ class UserPersonalDetailsRegistration extends StatefulWidget {
 
 class _UserPersonalDetailsRegistrationState extends State<UserPersonalDetailsRegistration> {
 /*Instance of the controller class*/
-  TextEditingControllers controllers = TextEditingControllers();
-
-  @override
-  void dispose() {
-    controllers.emailController.dispose();
-    controllers.passwordController.dispose();
-    super.dispose();
-  }
+  static TextEditingControllers controllers = TextEditingControllers();
 
   @override
   Widget build(BuildContext context) {

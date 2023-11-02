@@ -48,6 +48,9 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
 
+          final profileImage =
+              CachedNetworkImageProvider("${data["profilePhoto"]}");
+
           Timestamp datatimestamp = data["birthdate"];
           DateTime birthdate = datatimestamp.toDate();
           String finalBirthdate = DateFormat('yyy-MM-dd').format(birthdate);
@@ -816,12 +819,10 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                             "documentProof"], // The URL of the image
                                         fit: BoxFit.fill,
                                         placeholder: (context, url) =>
-                                            const CircularProgressIndicator(), // Display a loading indicator while the image is loading
+                                            CircularProgressIndicator(), // Display a loading indicator while the image is loading
                                         errorWidget: (context, url, error) =>
-                                            const Icon(
-                                          Icons.error,
-                                          color: Colors.green,
-                                        ), // Display an error icon if the image fails to load
+                                            Icon(Icons
+                                                .error), // Display an error icon if the image fails to load
                                       ),
                                     )
                                   ],
@@ -872,12 +873,10 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                             "idProof"], // The URL of the image
                                         fit: BoxFit.fill,
                                         placeholder: (context, url) =>
-                                            const CircularProgressIndicator(), // Display a loading indicator while the image is loading
+                                            CircularProgressIndicator(), // Display a loading indicator while the image is loading
                                         errorWidget: (context, url, error) =>
-                                            const Icon(
-                                          Icons.error,
-                                          color: Colors.green,
-                                        ), // Display an error icon if the image fails to load
+                                            Icon(Icons
+                                                .error), // Display an error icon if the image fails to load
                                       ),
                                     )
                                   ],

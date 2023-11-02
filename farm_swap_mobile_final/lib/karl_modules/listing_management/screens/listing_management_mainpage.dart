@@ -1,12 +1,13 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_page.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_listingintro_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/archived_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
 import 'package:farm_swap_mobile_final/provider/listing_page_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 /*So mao ni siya ang class nga mo display sa ug unsa e select sa bottom nav, ang default
@@ -45,6 +46,17 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: farmSwapTitlegreen,
+        flexibleSpace: Container(
+          height: 300,
+          width: 300,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/karl_assets/images/appbar_background.png"),
+              fit: BoxFit.fitWidth,
+              scale: 100.0,
+            ),
+          ),
+        ),
         /*So mao nani ang condition nga mag depende sa value nga e hatag sa atong provider ang mo display
         nga label sa appbar */
         title: (page == "MYLISTINGS")
@@ -88,15 +100,6 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
               decoration: BoxDecoration(
                 color: farmSwapTitlegreen,
                 border: Border.all(color: farmSwapTitlegreen),
-                /*PUTTING BOX SHADOW ON THE CONTAINER */
-                boxShadow: [
-                  BoxShadow(
-                    color: farmSwapSmoothGreen,
-                    blurRadius: 2,
-                    blurStyle: BlurStyle.normal,
-                    offset: const Offset(0.0, -5.0),
-                  ),
-                ],
               ),
               child: const ListingManagementBottomNav(),
             ),

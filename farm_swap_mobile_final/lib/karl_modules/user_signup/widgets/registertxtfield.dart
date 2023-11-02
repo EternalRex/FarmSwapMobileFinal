@@ -35,6 +35,7 @@ class FarmSwapTextField extends StatelessWidget {
           controller: controller,
           obscureText: isPassword,
           cursorColor: normalGreen,
+          keyboardType: TextInputType.text,
           selectionHeightStyle: BoxHeightStyle.includeLineSpacingBottom,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
