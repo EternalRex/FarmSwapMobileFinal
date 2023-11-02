@@ -10,6 +10,8 @@ import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:provider/provider.dart";
 
+import "karl_modules/dashboard/screens/account_management_farmer/provider/update_dropdown.dart";
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -40,6 +42,10 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider(
                 create: (context) => LoginUserTypeProvider()),
             ChangeNotifierProvider(create: (context) => ListingPageProvider()),
+            /*Registering povider for update farmer details account dropdown hint */
+            ChangeNotifierProvider(
+              create: (context) => UpdateDropDownHint(),
+            ),
           ],
           builder: (context, child) {
             return const MaterialApp(

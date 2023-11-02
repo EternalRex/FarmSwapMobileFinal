@@ -3,7 +3,8 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/account_ma
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../../../common/get_specific_user_docid.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../common/get_specific_user_docid.dart';
 
 class FarmerProfileDashboard extends StatelessWidget {
   FarmerProfileDashboard({super.key});
@@ -24,8 +25,19 @@ class FarmerProfileDashboard extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        backgroundColor: greenNormal,
         title: const Text("Account Management"),
-        backgroundColor: farmSwapTitlegreen,
+        flexibleSpace: Container(
+          height: 300.sp,
+          width: 300.sp,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage("assets/karl_assets/images/pattern.png"),
+              fit: BoxFit.cover,
+              scale: 100.0.sp,
+            ),
+          ),
+        ),
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
@@ -53,6 +65,7 @@ class FarmerProfileDashboard extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+                //this will display the farmer profile information
                 FutureBuilder<String>(
                   future: id.getFarmerDocumentId(
                       FirebaseAuth.instance.currentUser!.uid),

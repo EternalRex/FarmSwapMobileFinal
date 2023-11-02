@@ -33,7 +33,8 @@ class DashBoardDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String userRole = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String userRole =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     return Drawer(
       child: (userRole == "FARMER")
           ? ListView(
@@ -42,11 +43,12 @@ class DashBoardDrawer extends StatelessWidget {
                 /*Akong gi pull out ang profile picture, ang pangalan og ang category sa naka
                 login na user gamit ang future builder */
                 DrawerHeader(
-                  child: Column(
+                  child: Row(
                     children: [
                       FutureBuilder(
                         /*Kwaon nato ang document id sa atong current login user */
-                        future: id.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid),
+                        future: id.getFarmerDocumentId(
+                            FirebaseAuth.instance.currentUser!.uid),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             String data = snapshot.data!;
@@ -97,7 +99,8 @@ class DashBoardDrawer extends StatelessWidget {
                     children: [
                       FutureBuilder(
                         /*Kwaon nato ang document id sa atong current login user */
-                        future: id.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid),
+                        future: id.getConsumerDocumentId(
+                            FirebaseAuth.instance.currentUser!.uid),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             String data = snapshot.data!;
