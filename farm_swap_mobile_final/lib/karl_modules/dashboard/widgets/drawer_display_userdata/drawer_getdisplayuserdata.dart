@@ -35,7 +35,7 @@ class _DrawerDisplayUserDataState extends State<DrawerDisplayUserData> {
                   CircleAvatar(
                     backgroundImage:
                         CachedNetworkImageProvider("${data["profilePhoto"]}"),
-                    radius: 70.w,
+                    radius: 60.w,
                   ),
                   SizedBox(
                     width: 15.sp,

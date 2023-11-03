@@ -13,6 +13,8 @@ import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:provider/provider.dart";
 
+import "karl_modules/dashboard/screens/account_management_farmer/provider/update_dropdown.dart";
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -34,15 +36,25 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           /*Registering all the providers being used */
           providers: [
-            ChangeNotifierProvider(create: (context) => FarmerAccounStatusProvider()),
+            ChangeNotifierProvider(
+                create: (context) => FarmerAccounStatusProvider()),
             ChangeNotifierProvider(create: (context) => UserTypeProvider()),
             ChangeNotifierProvider(create: (context) => UserDetailsProvider()),
-            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
-            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(
+                create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(
+                create: (context) => LoginUserTypeProvider()),
             ChangeNotifierProvider(create: (context) => ListingPageProvider()),
-            ChangeNotifierProvider(create: (contex) => AddListingCategoryProvider()),
-            ChangeNotifierProvider(create: (context) => SellListingDetailsProvider()),
-            ChangeNotifierProvider(create: (context) => BarterListingDetailsProvider()),
+            /*Registering povider for update farmer details account dropdown hint */
+            ChangeNotifierProvider(
+              create: (context) => UpdateDropDownHint(),
+            ),
+            ChangeNotifierProvider(
+                create: (contex) => AddListingCategoryProvider()),
+            ChangeNotifierProvider(
+                create: (context) => SellListingDetailsProvider()),
+            ChangeNotifierProvider(
+                create: (context) => BarterListingDetailsProvider()),
           ],
           builder: (context, child) {
             return const MaterialApp(

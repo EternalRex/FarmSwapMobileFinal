@@ -24,7 +24,7 @@ import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_sig
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup9.dart';
 import 'package:flutter/material.dart';
 
-import '../karl_modules/dashboard/screens/account_management_farmer/account_management_farmer.dart';
+import '../karl_modules/dashboard/screens/account_management_farmer/screen/account_management_farmer.dart';
 
 class RouteManager {
 /*Properties of the route*/

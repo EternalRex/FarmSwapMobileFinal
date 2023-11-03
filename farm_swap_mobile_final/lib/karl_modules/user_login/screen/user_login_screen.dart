@@ -12,6 +12,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../database/get_loginuser_docid.dart';
+
 class UserLoginScreen extends StatefulWidget {
   const UserLoginScreen({super.key});
 
@@ -47,8 +49,9 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
 /*Akon gi pull out ang value nga naa sa login usertype na provider kay akong e pasa didto sa login
 na function */
 
-    String userRole =
-        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType.toUpperCase();
+    String userRole = Provider.of<LoginUserTypeProvider>(context, listen: false)
+        .getUserType
+        .toUpperCase();
     setState(() {
       userType = userRole;
     });
@@ -73,7 +76,8 @@ na function */
                   children: [
                     /*Logo */
                     Image(
-                      image: const AssetImage("assets/karl_assets/images/logo3.png"),
+                      image: const AssetImage(
+                          "assets/karl_assets/images/logo3.png"),
                       height: 120.h,
                     ),
                     /*FarmSwap Title */
@@ -153,7 +157,9 @@ na function */
                             ),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                                _isPasswordVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
                                 color: const Color.fromARGB(255, 46, 184, 76),
                               ),
                               onPressed: _togglePasswordVisibility,
@@ -191,10 +197,12 @@ na function */
                                       style: ElevatedButton.styleFrom(
                                         padding: const EdgeInsets.all(10),
                                         fixedSize: Size(250.sp, 60.sp),
-                                        textStyle:
-                                            TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w900),
+                                        textStyle: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w900),
                                         backgroundColor: Colors.white,
-                                        foregroundColor: const Color.fromARGB(255, 85, 84, 84),
+                                        foregroundColor: const Color.fromARGB(
+                                            255, 85, 84, 84),
                                         elevation: 15.sp,
                                         shadowColor: shadow,
                                         shape: const RoundedRectangleBorder(
@@ -208,20 +216,25 @@ na function */
                                     Row(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 20),
+                                          padding:
+                                              const EdgeInsets.only(top: 20),
                                           child: TextButton(
                                             onPressed: () {
-                                              Navigator.of(context)
-                                                  .pushNamed(RouteManager.usersignup);
+                                              Navigator.of(context).pushNamed(
+                                                  RouteManager.usersignup);
                                             },
                                             child: Text(
                                               "Sign Up",
                                               style: TextStyle(
                                                 fontSize: 15.sp,
-                                                fontFamily: GoogleFonts.poppins().fontFamily,
-                                                color: FarmSwapGreen.darkGreenActive,
+                                                fontFamily:
+                                                    GoogleFonts.poppins()
+                                                        .fontFamily,
+                                                color: FarmSwapGreen
+                                                    .darkGreenActive,
                                                 fontWeight: FontWeight.w700,
-                                                decoration: TextDecoration.underline,
+                                                decoration:
+                                                    TextDecoration.underline,
                                               ),
                                             ),
                                           ),
@@ -230,19 +243,25 @@ na function */
                                           width: 15.sp,
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 20),
+                                          padding:
+                                              const EdgeInsets.only(top: 20),
                                           child: TextButton(
                                             onPressed: () {
-                                              Navigator.of(context).pushNamed("");
+                                              Navigator.of(context)
+                                                  .pushNamed("");
                                             },
                                             child: Text(
                                               "Forgot Password",
                                               style: TextStyle(
                                                 fontSize: 15.sp,
-                                                fontFamily: GoogleFonts.poppins().fontFamily,
-                                                color: FarmSwapGreen.darkGreenActive,
+                                                fontFamily:
+                                                    GoogleFonts.poppins()
+                                                        .fontFamily,
+                                                color: FarmSwapGreen
+                                                    .darkGreenActive,
                                                 fontWeight: FontWeight.w700,
-                                                decoration: TextDecoration.underline,
+                                                decoration:
+                                                    TextDecoration.underline,
                                               ),
                                             ),
                                           ),
@@ -270,7 +289,10 @@ na function */
                               width: 141,
                               decoration: BoxDecoration(
                                 gradient: const LinearGradient(
-                                  colors: [Color(0xFF53E78B), Color(0xFF14BE77)],
+                                  colors: [
+                                    Color(0xFF53E78B),
+                                    Color(0xFF14BE77)
+                                  ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                 ),
@@ -294,7 +316,8 @@ na function */
                                   child: Text(
                                     "Login",
                                     style: TextStyle(
-                                      fontFamily: GoogleFonts.poppins().fontFamily,
+                                      fontFamily:
+                                          GoogleFonts.poppins().fontFamily,
                                       fontSize: 18.sp,
                                       fontWeight: FontWeight.w900,
                                       color: Colors.white,
@@ -323,16 +346,153 @@ na function */
   /*Instance sa class na mo update sa database field */
   UpdateOnlineStatus onlineStatus = UpdateOnlineStatus();
 
+  /*Instance sa class na mo retrieve sa GetLoginUserDocumentId */
+  GetLoginUserDocumentId retrieve = GetLoginUserDocumentId();
+
   void login() async {
     String email = controllers.emailController.text;
     String password = controllers.passwordController.text;
     User? user = await auth.signInUser(email, password);
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    // Get the document ID
+    String documentID =
+        await GetLoginUserDocumentId().getFarmerDocumentId(userId);
+
     if (user != null) {
-      /*Passing the necessary value ngadto sa class na mo update sa user online status */
-      onlineStatus.updateOnlineStatus(
-          FirebaseAuth.instance.currentUser!.uid, true, userType.toString());
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+      // Check the userRole in the "sample_FarmerUsers" collection
+      String userRoleFarmer = await retrieve.checkAccountRoleFarmer(documentID);
+
+      // Check the userRole in the "sample_ConsumerUsers" collection
+      String userRoleConsumer =
+          await retrieve.checkAccountRoleConsumer(documentID);
+
+      //if the userRole if equal to FARMER then kani na ang mo perform
+      if (userRoleFarmer == "FARMER") {
+        // Check the account status in the "sample_FarmerUsers" collection
+        String accountStatus = await retrieve.checkAccountStatus(documentID);
+
+        if (accountStatus == "PENDING") {
+          // ignore: use_build_context_synchronously
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Note!"),
+                content: const Text(
+                    "Account is pending for approval\nPlease await the administrator's approval of your registration."),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text("Ok"),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog box
+                      //it will navigate to log in page
+                      Navigator.of(context).pushNamed(RouteManager.userlogin);
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+        //if the accountStatus is "Deactivate" then a dialog will show
+        else if (accountStatus == "Deactivate") {
+          //if and user kay mo choose ug proceed then ang account status kay ma change into requesting
+          // ignore: use_build_context_synchronously
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Note!"),
+                content: const Text(
+                    "Account is deactivated!\nDo you want to reactivate your account?"),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text("Proceed"),
+                    onPressed: () async {
+                      // Create an instance of RetrieveDocId
+                      GetLoginUserDocumentId retriever =
+                          GetLoginUserDocumentId();
+
+                      // Call the updateFieldReactivateRequest method to update
+                      //the account status and create admin logs
+                      await retriever.updateFieldReactivateRequest(
+                          "Requesting", userId);
+
+                      // ignore: use_build_context_synchronously
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Success!"),
+                            content: const Text(
+                                "You successfully request reactivation!\n"
+                                "Please await the administrator's approval of your reactivation request."),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text("Ok"),
+                                onPressed: () async {
+                                  Navigator.of(context)
+                                      .pop(); // this will close the dialog box
+                                  //it will navigate to log in page
+                                  Navigator.of(context)
+                                      .pushNamed(RouteManager.userlogin);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  TextButton(
+                    child: const Text("Close"),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog box
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+        //if ang account sad kay "Requesting" it will show a dialog box na wait for admins approval
+        else if (accountStatus == "Requesting") {
+          // ignore: use_build_context_synchronously
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Note!"),
+                content: const Text(
+                    "Account is requesting for reactivation!\nPlease await the administrator's approval of your reactivation request."),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text("Ok"),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog box
+                      //it will navigate to log in page
+                      Navigator.of(context).pushNamed(RouteManager.userlogin);
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+        /**else ang account is active ra mo dretso ra siya sa activedashboard page
+       *  */
+        else {
+          /*Passing the necessary value ngadto sa class na mo update sa user online status */
+          onlineStatus.updateOnlineStatus(
+              FirebaseAuth.instance.currentUser!.uid,
+              true,
+              userType.toString());
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+        }
+      }
+      //if consumer ang role kani sad ang mo perform
+      else if (userRoleConsumer == "CONSUMER") {}
     }
   }
 }
