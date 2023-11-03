@@ -1,12 +1,13 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_listingintro_page.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page/all_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/archived_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
 import 'package:farm_swap_mobile_final/provider/listing_page_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -45,15 +46,15 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: farmSwapTitlegreen,
+        backgroundColor: greenNormal,
         flexibleSpace: Container(
-          height: 300,
-          width: 300,
+          height: 300.sp,
+          width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/karl_assets/images/appbar_background.png"),
-              fit: BoxFit.fitWidth,
-              scale: 100.0,
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              fit: BoxFit.cover,
+              scale: 100.0.sp,
             ),
           ),
         ),
@@ -98,7 +99,11 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: farmSwapTitlegreen,
+                color: greenNormal,
+                image: const DecorationImage(
+                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  fit: BoxFit.cover,
+                ),
                 border: Border.all(color: farmSwapTitlegreen),
               ),
               child: const ListingManagementBottomNav(),

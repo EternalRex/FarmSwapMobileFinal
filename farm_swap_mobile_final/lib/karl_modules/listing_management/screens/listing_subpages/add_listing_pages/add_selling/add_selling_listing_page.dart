@@ -16,16 +16,20 @@ class AddActualSellingListingDetails extends StatefulWidget {
   const AddActualSellingListingDetails({super.key});
 
   @override
-  State<AddActualSellingListingDetails> createState() => _AddActualSellingListingDetailsState();
+  State<AddActualSellingListingDetails> createState() =>
+      _AddActualSellingListingDetailsState();
 }
 
-class _AddActualSellingListingDetailsState extends State<AddActualSellingListingDetails> {
-  AddSellListingTextEditingControllers controllers = AddSellListingTextEditingControllers();
+class _AddActualSellingListingDetailsState
+    extends State<AddActualSellingListingDetails> {
+  AddSellListingTextEditingControllers controllers =
+      AddSellListingTextEditingControllers();
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        /*Background design */
         Positioned.fill(
           top: -400.sp,
           bottom: 0.sp,
@@ -43,6 +47,7 @@ class _AddActualSellingListingDetailsState extends State<AddActualSellingListing
               children: [
                 Column(
                   children: [
+                    /*First text field for adding listing name */
                     SizedBox(
                       height: 80.sp,
                       width: 300.sp,
@@ -132,22 +137,29 @@ class _AddActualSellingListingDetailsState extends State<AddActualSellingListing
                     /*Saving to the provider the data we got here*/
                     GestureDetector(
                       onTap: () {
-                        Provider.of<SellListingDetailsProvider>(context, listen: false)
+                        Provider.of<SellListingDetailsProvider>(context,
+                                listen: false)
                             .setListingName(controllers.nameSController.text);
 
-                        Provider.of<SellListingDetailsProvider>(context, listen: false)
-                            .setListingDisc(controllers.discriptionSController.text);
+                        Provider.of<SellListingDetailsProvider>(context,
+                                listen: false)
+                            .setListingDisc(
+                                controllers.discriptionSController.text);
 
-                        Provider.of<SellListingDetailsProvider>(context, listen: false)
+                        Provider.of<SellListingDetailsProvider>(context,
+                                listen: false)
                             .setquantitiy(
                           double.parse(controllers.quantitySController.text),
                         );
 
-                        Provider.of<SellListingDetailsProvider>(context, listen: false).setPrice(
+                        Provider.of<SellListingDetailsProvider>(context,
+                                listen: false)
+                            .setPrice(
                           double.parse(controllers.priceSController.text),
                         );
 
-                        Navigator.of(context).pushNamed(RouteManager.addselllistingdetails2);
+                        Navigator.of(context)
+                            .pushNamed(RouteManager.addselllistingdetails2);
                       },
                       child: const FarmSwapGreenBtn(text: "Next"),
                     ),

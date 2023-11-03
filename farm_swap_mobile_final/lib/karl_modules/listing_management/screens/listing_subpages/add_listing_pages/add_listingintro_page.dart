@@ -17,35 +17,122 @@ class AddListingPage extends StatefulWidget {
 class _AddListingPageState extends State<AddListingPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              GestureDetector(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  width: 330.w,
-                  height: 50.h,
-                ),
-              ),
-            ],
+        Positioned.fill(
+          top: -450.sp,
+          bottom: 0.sp,
+          child: SvgPicture.asset(
+            "assets/karl_assets/icons/Pattern.svg",
+            height: 200,
+            width: 400,
           ),
         ),
-        Row(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                width: 360.w,
-                height: 50.h,
+            Padding(
+              padding: const EdgeInsets.only(top: 10, left: 15),
+              /*The row that contains the barter options */
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      /*Setting the value of our provider as barter so that this page
+                            will be redirected to add selling  listing */
+                      Provider.of<AddListingCategoryProvider>(context,
+                              listen: false)
+                          .setListingCategory("BARTER");
+                      Navigator.of(context)
+                          .pushNamed(RouteManager.addlistingpage1);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: shadow,
+                            blurRadius: 5,
+                            offset: const Offset(1, 5),
+                          ),
+                        ],
+                      ),
+                      width: 330.w,
+                      height: 70.h,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            "assets/karl_assets/images/barterLogo.png",
+                            height: 100,
+                            width: 100,
+                          ),
+                          SizedBox(
+                            width: 15.w,
+                          ),
+                          poppinsText(
+                            "For Bartering",
+                            Colors.black,
+                            20.sp,
+                            FontWeight.w500,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            /*The row that contains the selling option */
+            Padding(
+              padding: const EdgeInsets.only(top: 10, left: 15),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      /*Setting the value of our provider as barter so that this page
+                            will be redirected to add selling  listing */
+                      Provider.of<AddListingCategoryProvider>(context,
+                              listen: false)
+                          .setListingCategory("SELL");
+                      Navigator.of(context)
+                          .pushNamed(RouteManager.addlistingpage1);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: shadow,
+                            blurRadius: 5,
+                            offset: const Offset(1, 5),
+                          ),
+                        ],
+                      ),
+                      width: 330.w,
+                      height: 70.h,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            "assets/karl_assets/images/sellingLogo.png",
+                            height: 100,
+                            width: 100,
+                          ),
+                          SizedBox(
+                            width: 15.w,
+                          ),
+                          poppinsText(
+                            "For Selling",
+                            Colors.black,
+                            20.sp,
+                            FontWeight.w500,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
