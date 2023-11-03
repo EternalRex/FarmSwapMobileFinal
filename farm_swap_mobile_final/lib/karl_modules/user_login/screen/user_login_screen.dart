@@ -354,23 +354,19 @@ na function */
     String password = controllers.passwordController.text;
     User? user = await auth.signInUser(email, password);
     String userId = FirebaseAuth.instance.currentUser!.uid;
-    // Get the document ID
-    String documentID =
-        await GetLoginUserDocumentId().getFarmerDocumentId(userId);
 
     if (user != null) {
-      // Check the userRole in the "sample_FarmerUsers" collection
-      String userRoleFarmer = await retrieve.checkAccountRoleFarmer(documentID);
-
-      // Check the userRole in the "sample_ConsumerUsers" collection
-      String userRoleConsumer =
-          await retrieve.checkAccountRoleConsumer(documentID);
-
-      //if the userRole if equal to FARMER then kani na ang mo perform
-      if (userRoleFarmer == "FARMER") {
+      /**ang userType is gikan sa provider, then if ang userType kay FARMER 
+       * kani na if ang mo perform*/
+      if (userType == "FARMER") {
+        // Get the document ID of the FARMER
+        String documentIDFarmer =
+            await GetLoginUserDocumentId().getFarmerDocumentId(userId);
         // Check the account status in the "sample_FarmerUsers" collection
-        String accountStatus = await retrieve.checkAccountStatus(documentID);
+        String accountStatus =
+            await retrieve.checkAccountStatus(documentIDFarmer);
 
+        //if pending ang status sa farmer account then ang alert dialog kay mo show
         if (accountStatus == "PENDING") {
           // ignore: use_build_context_synchronously
           showDialog(
@@ -479,7 +475,7 @@ na function */
             },
           );
         }
-        /**else ang account is active ra mo dretso ra siya sa activedashboard page
+        /**else ang account is ACTIVE ra mo dretso ra siya sa activedashboard page
        *  */
         else {
           /*Passing the necessary value ngadto sa class na mo update sa user online status */
@@ -492,7 +488,135 @@ na function */
         }
       }
       //if consumer ang role kani sad ang mo perform
-      else if (userRoleConsumer == "CONSUMER") {}
+      else if (userType == "CONSUMER") {
+        // Get the document ID of the Consumer
+        String documentIDConsumer =
+            await GetLoginUserDocumentId().getConsumerDocumentId(userId);
+        // Check the account status in the "sample_ConsumerUsers" collection
+        String accountStatusConsumer =
+            await retrieve.checkConsumerStatus(documentIDConsumer);
+
+        //if pending ang status sa farmer account then ang alert dialog kay mo show
+        if (accountStatusConsumer == "PENDING") {
+          // ignore: use_build_context_synchronously
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Note!"),
+                content: const Text(
+                    "Account is PENDING for approval!\nPlease wait for the Administrator's approval of your registration."),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text("Ok"),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog box
+                      //it will navigate to log in page
+                      Navigator.of(context).pushNamed(RouteManager.userlogin);
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+        //if the accountStatus is "Deactivate" then a dialog will show
+        else if (accountStatusConsumer == "DEACTIVATED") {
+          //if and user kay mo choose ug proceed then ang account status kay ma change into requesting
+          // ignore: use_build_context_synchronously
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Note!"),
+                content: const Text(
+                    "Account is DEACTIVATED!\nDo you want to reactivate your account?"),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text("Proceed"),
+                    onPressed: () async {
+                      // Create an instance of RetrieveDocId
+                      GetLoginUserDocumentId retriever =
+                          GetLoginUserDocumentId();
+
+                      // Call the updateFieldReactivateRequest method to update
+                      //the account status and create admin logs
+                      await retriever.updateReactivateRequest(
+                          "REQUESTING", userId);
+
+                      // ignore: use_build_context_synchronously
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Success!"),
+                            content: const Text(
+                                "You have successfully request a REACTIVATION!\n"
+                                "Please wait for the Administrator's approval of your reactivation request."),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text("Ok"),
+                                onPressed: () async {
+                                  Navigator.of(context)
+                                      .pop(); // this will close the dialog box
+                                  //it will navigate to log in page
+                                  Navigator.of(context)
+                                      .pushNamed(RouteManager.userlogin);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  TextButton(
+                    child: const Text("Close"),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog box
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+        //if ang account sad kay "Requesting" it will show a dialog box na wait for admins approval
+        else if (accountStatusConsumer == "REQUESTING") {
+          // ignore: use_build_context_synchronously
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Note!"),
+                content: const Text(
+                    "Account is requesting for REACTIVATION!\nPlease wait for the Administrator's approval of your reactivation request."),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text("Ok"),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog box
+                      //it will navigate to log in page
+                      Navigator.of(context).pushNamed(RouteManager.userlogin);
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+        /**else ang account is ACTIVE ra mo dretso ra siya sa activedashboard page
+       *  */
+        else {
+          /*Passing the necessary value ngadto sa class na mo update sa user online status */
+          onlineStatus.updateOnlineStatus(
+              FirebaseAuth.instance.currentUser!.uid,
+              true,
+              userType.toString());
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+        }
+      }
     }
   }
 }

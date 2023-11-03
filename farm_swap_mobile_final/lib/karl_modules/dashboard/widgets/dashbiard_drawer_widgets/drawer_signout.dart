@@ -1,4 +1,3 @@
-import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_login/database/update_onlinestatus.dart';
 import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
@@ -28,10 +27,7 @@ class Signout extends StatelessWidget {
             SizedBox(
               width: 3.w,
             ),
-            Icon(
-              Icons.logout,
-              color: farmSwapTitlegreen,
-            ),
+            const OutGreen(),
             SizedBox(
               width: 10.w,
             ),
@@ -63,6 +59,29 @@ class Signout extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class OutGreen extends StatelessWidget {
+  const OutGreen({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      shaderCallback: (Rect bounds) {
+        return const LinearGradient(
+          colors: [Color(0xFF53E78B), Color(0xFF14BE77)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ).createShader(bounds);
+      },
+      child: const Icon(
+        Icons.logout_rounded,
+        color: Colors.white,
       ),
     );
   }

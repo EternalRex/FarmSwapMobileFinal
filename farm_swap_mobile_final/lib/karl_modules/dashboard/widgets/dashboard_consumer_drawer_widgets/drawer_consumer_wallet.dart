@@ -1,4 +1,3 @@
-import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_options_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,10 +19,7 @@ class ConsumerWalletManagementBtn extends StatelessWidget {
             SizedBox(
               width: 3.w,
             ),
-            Icon(
-              Icons.wallet,
-              color: farmSwapTitlegreen,
-            ),
+            const WalletGreen(),
             SizedBox(
               width: 10.w,
             ),
@@ -39,6 +35,29 @@ class ConsumerWalletManagementBtn extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class WalletGreen extends StatelessWidget {
+  const WalletGreen({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      shaderCallback: (Rect bounds) {
+        return const LinearGradient(
+          colors: [Color(0xFF53E78B), Color(0xFF14BE77)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ).createShader(bounds);
+      },
+      child: const Icon(
+        Icons.wallet_rounded,
+        color: Colors.white,
       ),
     );
   }
