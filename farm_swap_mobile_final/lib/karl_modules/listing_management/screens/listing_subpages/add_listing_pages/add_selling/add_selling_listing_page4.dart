@@ -18,12 +18,10 @@ class AddActualSellingListingDetails4 extends StatefulWidget {
   const AddActualSellingListingDetails4({super.key});
 
   @override
-  State<AddActualSellingListingDetails4> createState() =>
-      _AddActualSellingListingDetails4State();
+  State<AddActualSellingListingDetails4> createState() => _AddActualSellingListingDetails4State();
 }
 
-class _AddActualSellingListingDetails4State
-    extends State<AddActualSellingListingDetails4> {
+class _AddActualSellingListingDetails4State extends State<AddActualSellingListingDetails4> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -66,8 +64,7 @@ class _AddActualSellingListingDetails4State
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -138,15 +135,6 @@ class _AddActualSellingListingDetails4State
                                     ),
                                   ),
                                   Positioned(
-                                    top: 170.sp,
-                                    child: poppinsText(
-                                      "(Tap icon to select date)",
-                                      Colors.black,
-                                      9.sp,
-                                      FontWeight.normal,
-                                    ),
-                                  ),
-                                  Positioned(
                                     top: 190.sp,
                                     child: Padding(
                                       padding: const EdgeInsets.only(top: 10),
@@ -155,8 +143,7 @@ class _AddActualSellingListingDetails4State
                                         height: 50.sp,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                          borderRadius: BorderRadius.circular(20),
                                           boxShadow: [
                                             BoxShadow(
                                               color: shadow,
@@ -167,8 +154,7 @@ class _AddActualSellingListingDetails4State
                                         ),
                                         child: Center(
                                           child: poppinsText(
-                                            //    endDateString,
-                                            "Hi",
+                                            endDateString,
                                             Colors.black,
                                             10.sp,
                                             FontWeight.normal,
@@ -193,9 +179,7 @@ class _AddActualSellingListingDetails4State
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Provider.of<SellListingDetailsProvider>(
-                                          context,
-                                          listen: false)
+                                  Provider.of<SellListingDetailsProvider>(context, listen: false)
                                       .setEndDate(endListingDate);
                                   showFinalData();
                                 },
@@ -218,8 +202,7 @@ class _AddActualSellingListingDetails4State
               decoration: BoxDecoration(
                 color: greenNormal,
                 image: const DecorationImage(
-                  image:
-                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: farmSwapTitlegreen),
@@ -258,9 +241,7 @@ class _AddActualSellingListingDetails4State
   void showFinalData() {
 /*Converting the time*/
 
-    DateTime date =
-        Provider.of<SellListingDetailsProvider>(context, listen: false)
-            .getEndDate;
+    DateTime date = Provider.of<SellListingDetailsProvider>(context, listen: false).getEndDate;
     String finalDate = DateFormat('yyyy-MM-dd').format(date);
 
     showDialog(
@@ -406,34 +387,23 @@ farmer that data is saved */
                   onTap: () {
                     /*Saving the data */
                     sellSave.saveSellingListing(
-                      Provider.of<SellListingDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<SellListingDetailsProvider>(context, listen: false)
                           .getListingName,
-                      Provider.of<SellListingDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<SellListingDetailsProvider>(context, listen: false)
                           .getListingDisc,
-                      Provider.of<SellListingDetailsProvider>(context,
-                              listen: false)
-                          .getquantity,
-                      Provider.of<SellListingDetailsProvider>(context,
-                              listen: false)
-                          .getPrice,
+                      Provider.of<SellListingDetailsProvider>(context, listen: false).getquantity,
+                      Provider.of<SellListingDetailsProvider>(context, listen: false).getPrice,
                       "SELL",
-                      Provider.of<SellListingDetailsProvider>(context,
-                              listen: false)
-                          .getPhoto,
+                      Provider.of<SellListingDetailsProvider>(context, listen: false).getPhoto,
                       firstname,
                       lastname,
                       municipality,
                       baranggay,
                       uname,
                       DateTime.now(),
-                      Provider.of<SellListingDetailsProvider>(context,
-                              listen: false)
-                          .getEndDate,
+                      Provider.of<SellListingDetailsProvider>(context, listen: false).getEndDate,
                     );
-                    Navigator.of(context)
-                        .pushNamed(RouteManager.listingmainpage);
+                    Navigator.of(context).pushNamed(RouteManager.listingmainpage);
                   },
                   child: const FarmSwapGreenBtn(text: "Listings"),
                 ),

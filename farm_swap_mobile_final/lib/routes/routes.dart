@@ -23,6 +23,7 @@ import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_sig
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup7.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup8.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup9.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/consumer_page/consumer_account.dart';
 import 'package:flutter/material.dart';
 
 import '../karl_modules/dashboard/screens/account_management_farmer/screen/account_management_farmer.dart';
@@ -55,6 +56,8 @@ class RouteManager {
   static const addbarterlisttingdetails3 = "addbarterlisttingdetails3";
   static const addbarterlisttingdetails4 = "addbarterlisttingdetails4";
   static const walletpage = "/walletpage";
+  static const allBarterListingsDetails = "allListingsDetails";
+  static const consumerpage = "/consumerpage";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -157,9 +160,11 @@ class RouteManager {
         return MaterialPageRoute(
             builder: (context) => const AddActualBarterListingDetails4());
 
+      case consumerpage:
+        return MaterialPageRoute(builder: (context) => const ConsumerPage());
+
       case walletpage:
         return MaterialPageRoute(builder: (context) => WalletPage());
-
       default:
         throw const FormatException("Warning!!! Page Routing Problem");
     }

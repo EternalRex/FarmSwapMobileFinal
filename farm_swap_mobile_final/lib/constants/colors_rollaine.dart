@@ -1,19 +1,4 @@
-import "package:flutter/material.dart";
-
-Color farmSwapTitlegreen = const Color(0xFF53E88B);
-Color buttonOrange = const Color(0xFFFFD07D);
-Color buttonWhite = const Color(0xFFFFFFFF);
-Color farmSwapSmoothGreen = const Color(0xFFB6EBD5);
-Color lightGreen = const Color(0xFFe8f9f1);
-Color lightGreenHover = const Color(0xFFdcf5eb);
-Color lightGreenActive = const Color(0xFFb6ebd5);
-Color normalGreen = const Color(0xFF15be77);
-Color normalGreenHover = const Color(0xFF13ab6b);
-Color normalGreenActive = const Color(0xFF11985f);
-Color darkGreen = const Color(0xFF108f59);
-Color darkGreenHover = const Color(0xFF0d7247);
-Color darkGreenActive = const Color(0xFF095536);
-Color darkGreenDarker = const Color(0xFF07432a);
+import 'package:flutter/material.dart';
 
 Color greenLight = const Color(0xFFe8f9f1);
 Color greenLightHover = const Color(0xFFdcf5eb);
@@ -69,30 +54,5 @@ Color yellowDark = const Color(0xFFb77d15);
 Color yellowDarkHover = const Color(0xFF926411);
 Color yellowDarkActive = const Color(0xFF6e4b0d);
 Color yellowDarker = const Color(0xFF553a0a);
+
 Color shadow = const Color.fromARGB(48, 0, 0, 0);
-
-//GRADIENT COLORS
-LinearGradient buttonGradient = const LinearGradient(
-  colors: [Color(0xFFFFD07D), Color(0xFFFFFFFF)],
-  begin: Alignment.topLeft,
-  end: Alignment.bottomRight,
-);
-
-LinearGradient greenGradient = const LinearGradient(
-  colors: [Color(0xFF15be77), Color(0xFF108f59)],
-  begin: Alignment.bottomRight,
-  end: Alignment.topLeft,
-);
-
-class FarmSwapGreen {
-  static Color lightGreen = const Color(0xFFe8f9f1);
-  static Color lightGreenHover = const Color(0xFFdcf5eb);
-  static Color lightGreenActive = const Color(0xFFb6ebd5);
-  static Color normalGreen = const Color(0xFF15be77);
-  static Color normalGreenHover = const Color(0xFF13ab6b);
-  static Color normalGreenActive = const Color(0xFF11985f);
-  static Color darkGreen = const Color(0xFF108f59);
-  static Color darkGreenHover = const Color(0xFF0d7247);
-  static Color darkGreenActive = const Color(0xFF095536);
-  static Color darkGreenDarker = const Color(0xFF07432a);
-}

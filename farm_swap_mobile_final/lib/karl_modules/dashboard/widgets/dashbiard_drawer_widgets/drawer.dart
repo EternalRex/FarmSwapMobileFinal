@@ -138,6 +138,7 @@ class DashBoardDrawer extends StatelessWidget {
                 const ListTile(
                   title: ConsumerCartManagementBtn(),
                 ),
+                const Spacer(),
                 ListTile(
                   title: Signout(),
                 ),
