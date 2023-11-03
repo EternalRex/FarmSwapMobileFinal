@@ -108,6 +108,7 @@ class _AllListingsListState extends State<AllListingsList> {
               (listingType == "BARTER")
                   ?
                   /*This is the center container that will contain the listings of the farmer */
+                  /*Expanded for  */
                   Expanded(
                       child: SingleChildScrollView(
                         child: SizedBox(

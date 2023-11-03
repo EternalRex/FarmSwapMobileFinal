@@ -174,15 +174,15 @@ class _GetSellListingsState extends State<GetSellListings> {
           ),
         ],
       ),
-      width: 180,
-      height: 230,
+      width: 190.w,
+      height: 240.h,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             padding: EdgeInsets.all(10.sp),
-            height: 150.sp,
-            width: 200.sp,
+            height: 150.h,
+            width: 200.w,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: const BorderRadius.all(

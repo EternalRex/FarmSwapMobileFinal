@@ -27,7 +27,7 @@ class AddNewConsumerUserDb {
     String contactNumber = contact;
     String cityMunicipality = munisipyo;
     String cityBaranggay = baranggay.toUpperCase();
-    String accountStatus = "ACTIVE";
+    String accountStatus = "PENDING";
     String userRole = "CONSUMER";
     String userName = userNames;
     String idPictureProof = idUrl;

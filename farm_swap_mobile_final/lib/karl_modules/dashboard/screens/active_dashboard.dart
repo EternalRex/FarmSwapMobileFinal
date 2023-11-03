@@ -1,3 +1,4 @@
+import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class ActiveDashboard extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text("Active Dashboard"),
+        title: const Text("Dashboard"),
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
@@ -28,6 +29,7 @@ class ActiveDashboard extends StatelessWidget {
           },
           icon: const Icon(Icons.menu),
         ),
+        backgroundColor: farmSwapTitlegreen,
       ),
       /*Displaying the drawer */
       drawer: DashBoardDrawer(),
