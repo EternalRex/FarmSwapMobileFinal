@@ -1,7 +1,7 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_listingintro_page.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page/all_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/archived_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
@@ -18,8 +18,7 @@ class ListingManagementMainPage extends StatefulWidget {
   const ListingManagementMainPage({super.key});
 
   @override
-  State<ListingManagementMainPage> createState() =>
-      _ListingManagementMainPageState();
+  State<ListingManagementMainPage> createState() => _ListingManagementMainPageState();
 }
 
 class _ListingManagementMainPageState extends State<ListingManagementMainPage> {
@@ -39,8 +38,7 @@ class _ListingManagementMainPageState extends State<ListingManagementMainPage> {
 /*Ato e pull out ang value naa naa sa provider nato para ma switch2 nato ang body og appbar ani na page 
 nya ato dayn e set ang state sa page na variable para ma ilisan iyang default value sa value na naa ni provider*/
 
-    String newpage =
-        Provider.of<ListingPageProvider>(context, listen: false).getListingPage;
+    String newpage = Provider.of<ListingPageProvider>(context, listen: false).getListingPage;
     setState(() {
       page = newpage;
     });
@@ -54,8 +52,7 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -104,8 +101,7 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
               decoration: BoxDecoration(
                 color: greenNormal,
                 image: const DecorationImage(
-                  image:
-                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: farmSwapTitlegreen),

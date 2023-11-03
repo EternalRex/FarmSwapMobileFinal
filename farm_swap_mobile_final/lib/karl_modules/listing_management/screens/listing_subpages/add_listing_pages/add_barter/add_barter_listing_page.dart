@@ -26,7 +26,6 @@ class _AddActualBarterListingDetilsState extends State<AddActualBarterListingDet
     controllers.discriptionBController.dispose();
     controllers.priceBController.dispose();
     controllers.quantityBController.dispose();
-    controllers.priceBController.dispose();
     super.dispose();
   }
 

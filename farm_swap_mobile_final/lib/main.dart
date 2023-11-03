@@ -1,4 +1,5 @@
 import "package:farm_swap_mobile_final/firebase_initializations_options.dart";
+import "package:farm_swap_mobile_final/provider/all_listing_type_provder.dart";
 import "package:farm_swap_mobile_final/provider/barter_listing_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_addcategory_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_page_provider.dart";
@@ -36,25 +37,48 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           /*Registering all the providers being used */
           providers: [
+            /*Provider para malaman nato unsay  status sa account ni farmer */
             ChangeNotifierProvider(
-                create: (context) => FarmerAccounStatusProvider()),
-            ChangeNotifierProvider(create: (context) => UserTypeProvider()),
-            ChangeNotifierProvider(create: (context) => UserDetailsProvider()),
+              create: (context) => FarmerAccounStatusProvider(),
+            ),
+            /*Provider para malaman nato unsa na klase na user ang ni register */
             ChangeNotifierProvider(
-                create: (context) => LoginUserTypeProvider()),
+              create: (context) => UserTypeProvider(),
+            ),
+            /*Provider para ma isa natog save sa last part sa user registration ang iyang
+            mga gi input na data */
             ChangeNotifierProvider(
-                create: (context) => LoginUserTypeProvider()),
-            ChangeNotifierProvider(create: (context) => ListingPageProvider()),
+              create: (context) => UserDetailsProvider(),
+            ),
+            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
+            /*provdier para malaman nato og what time of user ang ni login */
+            ChangeNotifierProvider(
+              create: (context) => LoginUserTypeProvider(),
+            ),
+            /*Provider ni para sa pag switch og pages*/
+            ChangeNotifierProvider(
+              create: (context) => ListingPageProvider(),
+            ),
             /*Registering povider for update farmer details account dropdown hint */
             ChangeNotifierProvider(
               create: (context) => UpdateDropDownHint(),
             ),
+            ChangeNotifierProvider(create: (contex) => AddListingCategoryProvider()),
+            /*Provider na mag carry sa details sa listing nga for sale aron ma isa ra 
+            og save sa last part sa creating a listing */
             ChangeNotifierProvider(
-                create: (contex) => AddListingCategoryProvider()),
+              create: (context) => SellListingDetailsProvider(),
+            ),
+            /*Provider na mag carry sa details sa listing nga for barter aron ma isa ra 
+            og save sa last part sa creating a listing */
             ChangeNotifierProvider(
-                create: (context) => SellListingDetailsProvider()),
+              create: (context) => BarterListingDetailsProvider(),
+            ),
+            /*Provider nga mag determine unsa na listing ang e display sa all listing
+            display ni farmer */
             ChangeNotifierProvider(
-                create: (context) => BarterListingDetailsProvider()),
+              create: (context) => AllListingTypeProvider(),
+            ),
           ],
           builder: (context, child) {
             return const MaterialApp(

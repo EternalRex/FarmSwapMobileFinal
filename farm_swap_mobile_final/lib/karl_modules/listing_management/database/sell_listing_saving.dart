@@ -53,10 +53,10 @@ class SellListingSaving {
     );
 
     /*Construkon nato ang id sa atong listing*/
-    List<String> semiId = [farmerUname, prodCateg, userid];
-    semiId.sort();
-    String finalId = semiId.join("_");
-
+    //List<String> semiId = [farmerUname, prodCateg, userid];
+    //semiId.sort();
+    //String finalId = semiId.join("_");
+    String finalId = '$farmerUname$prodCateg$userid';
     await _firestore
         .collection("sample_SellListings")
         .doc(finalId)
@@ -70,15 +70,16 @@ class SellListingSaving {
     String category = "SELL";
 
     /*Construct the id to be pulled out*/
-    List<String> semiId = [farmerUName, category, userid];
-    semiId.sort();
-    String finalId = semiId.join("_");
+    // List<String> semiId = [farmerUName, category, userid];
+    //semiId.sort();
+    //String finalId = semiId.join("_");
+    String finalId = '$farmerUName$category$userid';
 
     return _firestore
         .collection("sample_SellListings")
         .doc(finalId)
         .collection('sell')
-        .orderBy('listingStartTime', descending: false)
+        .orderBy('listingStartTime', descending: true)
         .snapshots();
   }
 }

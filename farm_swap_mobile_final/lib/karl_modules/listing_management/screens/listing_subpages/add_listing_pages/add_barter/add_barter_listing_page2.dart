@@ -38,7 +38,18 @@ class _AddActualBarterListingDetails2State extends State<AddActualBarterListingD
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: farmSwapTitlegreen,
+        backgroundColor: greenNormal,
+        flexibleSpace: Container(
+          height: 300.sp,
+          width: 300.sp,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              fit: BoxFit.cover,
+              scale: 100.0.sp,
+            ),
+          ),
+        ),
         /*So mao nani ang condition nga mag depende sa value nga e hatag sa atong provider ang mo display
         nga label sa appbar */
         title: const Text("Add Barter Listing"),
@@ -142,7 +153,11 @@ class _AddActualBarterListingDetails2State extends State<AddActualBarterListingD
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: farmSwapTitlegreen,
+                color: greenNormal,
+                image: const DecorationImage(
+                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  fit: BoxFit.cover,
+                ),
                 border: Border.all(color: farmSwapTitlegreen),
               ),
               child: const ListingManagementBottomNav(),
