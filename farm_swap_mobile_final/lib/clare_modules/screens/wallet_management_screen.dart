@@ -1,13 +1,15 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/account_management_farmer/widgets/getdisplayfarmerdata.dart';
-import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../common/get_specific_user_docid.dart';
+import 'package:provider/provider.dart';
+import '../../common/get_specific_user_docid.dart';
+import '../../karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import '../../provider/login_usertype_provider.dart';
+import '../wrapper/getdisplayuserdata.dart';
 
-class FarmerProfileDashboard extends StatelessWidget {
-  FarmerProfileDashboard({super.key});
+class WalletPage extends StatelessWidget {
+  WalletPage({super.key});
 
 /*Instance of the class that will get a specific document id*/
   final GetSpecificUserDocumentId id = GetSpecificUserDocumentId();
@@ -22,11 +24,15 @@ class FarmerProfileDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String userRole = Provider.of<LoginUserTypeProvider>(context, listen: false)
+        .getUserType
+        .toUpperCase();
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: greenNormal,
-        title: const Text("Account Management"),
+        title: const Text("Wallet"),
         flexibleSpace: Container(
           height: 300.sp,
           width: 300.sp,
@@ -56,7 +62,8 @@ class FarmerProfileDashboard extends StatelessWidget {
               width: 780.w,
               height: 165.h,
               child: const Image(
-                image: AssetImage('assets/karl_assets/images/background.png'),
+                image: AssetImage(
+                    'assets/karl_assets/images/walletbackground.png'),
                 fit: BoxFit.fill,
               ),
             ),
@@ -72,7 +79,7 @@ class FarmerProfileDashboard extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       String data = snapshot.data!;
-                      return DisplayFarmerProfileData(documentId: data);
+                      return DisplayWalletData(documentId: data);
                     } else if (snapshot.hasError) {
                       return Text("Error: ${snapshot.error}");
                     } else {

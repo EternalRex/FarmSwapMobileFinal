@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:google_fonts/google_fonts.dart";
 
 class UpdateTextfield extends StatelessWidget {
@@ -23,7 +24,7 @@ class UpdateTextfield extends StatelessWidget {
         label: label,
         labelStyle: TextStyle(
           fontFamily: GoogleFonts.poppins().fontFamily,
-          fontSize: 14,
+          fontSize: 14.sp,
           letterSpacing: 0.5,
         ),
         border: const OutlineInputBorder(

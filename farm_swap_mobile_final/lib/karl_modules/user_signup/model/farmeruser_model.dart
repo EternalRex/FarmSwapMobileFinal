@@ -18,6 +18,8 @@ class FarmerUserModel {
     required this.registrationDate,
     required this.swapCoins,
     required this.isOnline,
+    required this.balance,
+    required this.rating,
   });
 
   String userId;
@@ -38,6 +40,8 @@ class FarmerUserModel {
   DateTime registrationDate;
   int swapCoins;
   bool isOnline;
+  double balance;
+  int rating;
 
   Map<String, dynamic> toMap() {
     return {
@@ -59,6 +63,8 @@ class FarmerUserModel {
       'userRole': userRole,
       'swapcoins': swapCoins,
       'isOnline': isOnline,
+      'balance': balance,
+      'rating': rating,
     };
   }
 }

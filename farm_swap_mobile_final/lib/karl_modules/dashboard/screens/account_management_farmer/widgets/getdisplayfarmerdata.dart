@@ -48,9 +48,6 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
 
-          final profileImage =
-              CachedNetworkImageProvider("${data["profilePhoto"]}");
-
           Timestamp datatimestamp = data["birthdate"];
           DateTime birthdate = datatimestamp.toDate();
           String finalBirthdate = DateFormat('yyy-MM-dd').format(birthdate);
@@ -68,7 +65,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
               Stack(
                 children: [
                   CircleAvatar(
-                    radius: 40,
+                    radius: 40.sp,
                     backgroundImage:
                         CachedNetworkImageProvider("${data["profilePhoto"]}"),
                   ),
@@ -89,7 +86,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                 child: Text("Choose Profile Picture!"),
                               ),
                               content: SizedBox(
-                                height: 280,
+                                height: 280.h,
                                 child: Column(
                                   children: [
                                     /*This is for picking image in the gallery */
@@ -156,7 +153,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                 ],
               ),
               SizedBox(
-                height: 5.sp,
+                height: 5.h,
               ),
               //dire kay ang full name, id and the user role
               Center(
@@ -200,15 +197,15 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 10.h,
               ),
               //this align is para sa account status of the current user
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  width: 180,
-                  height: 50,
+                  width: 180.h,
+                  height: 50.w,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: const BorderRadius.all(
@@ -244,14 +241,14 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 5,
+              SizedBox(
+                height: 5.h,
               ),
               /*this container is for the current user personal information 
               this include email, full name, contact num, bdate, bplace and reg date
               */
               Container(
-                height: 240,
+                height: 240.h,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: const BorderRadius.all(
@@ -267,21 +264,21 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                 ),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
-                          const SizedBox(
-                            width: 13,
+                          SizedBox(
+                            width: 13.w,
                           ),
                           Text(
                             "Profile Information",
                             style: GoogleFonts.viga(
-                              textStyle: const TextStyle(
-                                fontSize: 15,
+                              textStyle: TextStyle(
+                                fontSize: 15.sp,
                                 color: Colors.green,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: 1,
@@ -293,8 +290,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                     ),
                     Row(
                       children: [
-                        const SizedBox(
-                          width: 15,
+                        SizedBox(
+                          width: 15.w,
                         ),
                         Expanded(
                           flex: 2,
@@ -303,8 +300,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   //email address
                                   poppinsText(
@@ -314,8 +311,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     FontWeight.w700,
                                   ),
                                   Container(
-                                    height: 35,
-                                    width: 160,
+                                    height: 35.h,
+                                    width: 160.w,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
@@ -330,8 +327,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        const SizedBox(
-                                          width: 5,
+                                        SizedBox(
+                                          width: 5.w,
                                         ),
                                         poppinsText(
                                           " ${data["email"]}",
@@ -342,8 +339,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   //full name combination of first name and last name
                                   poppinsText(
@@ -353,8 +350,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     FontWeight.w700,
                                   ),
                                   Container(
-                                    height: 35,
-                                    width: 160,
+                                    height: 35.h,
+                                    width: 160.w,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
@@ -369,8 +366,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        const SizedBox(
-                                          width: 5,
+                                        SizedBox(
+                                          width: 5.w,
                                         ),
                                         poppinsText(
                                           " ${data["firstname"]}",
@@ -388,8 +385,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     ),
                                   ),
 
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   //contact number
                                   poppinsText(
@@ -399,8 +396,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     FontWeight.w700,
                                   ),
                                   Container(
-                                    height: 35,
-                                    width: 160,
+                                    height: 35.h,
+                                    width: 160.w,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
@@ -415,8 +412,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        const SizedBox(
-                                          width: 5,
+                                        SizedBox(
+                                          width: 5.w,
                                         ),
                                         poppinsText(
                                           " ${data["contactnum"]}",
@@ -439,8 +436,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   //birth place
                                   poppinsText(
@@ -450,8 +447,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     FontWeight.w700,
                                   ),
                                   Container(
-                                    height: 35,
-                                    width: 160,
+                                    height: 35.h,
+                                    width: 160.w,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
@@ -466,8 +463,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        const SizedBox(
-                                          width: 5,
+                                        SizedBox(
+                                          width: 5.w,
                                         ),
                                         poppinsText(
                                           " ${data["birthplace"]}",
@@ -478,8 +475,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   //birth date
                                   poppinsText(
@@ -489,8 +486,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     FontWeight.w700,
                                   ),
                                   Container(
-                                    height: 35,
-                                    width: 160,
+                                    height: 35.h,
+                                    width: 160.w,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
@@ -505,8 +502,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        const SizedBox(
-                                          width: 5,
+                                        SizedBox(
+                                          width: 5.w,
                                         ),
                                         poppinsText(
                                           finalBirthdate,
@@ -518,8 +515,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     ),
                                   ),
 
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   //register date
                                   poppinsText(
@@ -529,8 +526,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     FontWeight.w700,
                                   ),
                                   Container(
-                                    height: 35,
-                                    width: 160,
+                                    height: 35.h,
+                                    width: 160.w,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
@@ -545,8 +542,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        const SizedBox(
-                                          width: 5,
+                                        SizedBox(
+                                          width: 5.w,
                                         ),
                                         poppinsText(
                                           finalRegisterDate,
@@ -567,13 +564,13 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 5,
+              SizedBox(
+                height: 5.h,
               ),
 
               //this container is for the current user address specified into baranggay and municipality
               Container(
-                height: 110,
+                height: 110.h,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: const BorderRadius.all(
@@ -589,21 +586,21 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                 ),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Row(
                         children: [
-                          const SizedBox(
-                            width: 13,
+                          SizedBox(
+                            width: 13.w,
                           ),
                           Text(
                             "Address",
                             style: GoogleFonts.viga(
-                              textStyle: const TextStyle(
-                                fontSize: 15,
+                              textStyle: TextStyle(
+                                fontSize: 15.sp,
                                 color: Colors.green,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: 1,
@@ -615,8 +612,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                     ),
                     Row(
                       children: [
-                        const SizedBox(
-                          width: 15,
+                        SizedBox(
+                          width: 15.w,
                         ),
                         Expanded(
                           flex: 2,
@@ -625,8 +622,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   //email address
                                   poppinsText(
@@ -636,8 +633,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     FontWeight.w700,
                                   ),
                                   Container(
-                                    height: 35,
-                                    width: 160,
+                                    height: 35.h,
+                                    width: 160.w,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
@@ -652,8 +649,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        const SizedBox(
-                                          width: 5,
+                                        SizedBox(
+                                          width: 5.w,
                                         ),
                                         poppinsText(
                                           " ${data["city_baranggay"]}",
@@ -676,8 +673,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(
-                                    height: 10,
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   //email address
                                   poppinsText(
@@ -687,8 +684,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     FontWeight.w700,
                                   ),
                                   Container(
-                                    height: 35,
-                                    width: 160,
+                                    height: 35.h,
+                                    width: 160.w,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(5),
@@ -703,8 +700,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        const SizedBox(
-                                          width: 5,
+                                        SizedBox(
+                                          width: 5.w,
                                         ),
                                         poppinsText(
                                           " ${data["city_municipality"]}",
@@ -725,12 +722,12 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 5,
+              SizedBox(
+                height: 5.h,
               ),
               //this container is for the attachments picture
               Container(
-                height: 260,
+                height: 260.h,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: const BorderRadius.all(
@@ -746,25 +743,25 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                 ),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 5,
+                    SizedBox(
+                      height: 5.h,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 5,
+                        SizedBox(
+                          height: 5.h,
                         ),
                         Row(
                           children: [
-                            const SizedBox(
-                              width: 10,
+                            SizedBox(
+                              width: 10.w,
                             ),
                             Text(
                               "Attachment/s",
                               style: GoogleFonts.viga(
-                                textStyle: const TextStyle(
-                                  fontSize: 15,
+                                textStyle: TextStyle(
+                                  fontSize: 15.sp,
                                   color: Colors.green,
                                   fontWeight: FontWeight.w700,
                                   letterSpacing: 1,
@@ -773,8 +770,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 10,
+                        SizedBox(
+                          height: 10.h,
                         ),
                         Row(
                           children: [
@@ -794,17 +791,17 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     ),
                                   ],
                                 ),
-                                height: 200,
+                                height: 200.h,
                                 child: Column(
                                   children: [
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     Text(
                                       "Document Picture",
                                       style: GoogleFonts.viga(
-                                        textStyle: const TextStyle(
-                                          fontSize: 12,
+                                        textStyle: TextStyle(
+                                          fontSize: 12.sp,
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700,
                                           letterSpacing: 1,
@@ -812,25 +809,27 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ),
                                     ),
                                     SizedBox(
-                                      width: 150,
-                                      height: 150,
+                                      width: 150.w,
+                                      height: 150.h,
                                       child: CachedNetworkImage(
                                         imageUrl: data[
                                             "documentProof"], // The URL of the image
                                         fit: BoxFit.fill,
                                         placeholder: (context, url) =>
-                                            CircularProgressIndicator(), // Display a loading indicator while the image is loading
+                                            const CircularProgressIndicator(), // Display a loading indicator while the image is loading
                                         errorWidget: (context, url, error) =>
-                                            Icon(Icons
-                                                .error), // Display an error icon if the image fails to load
+                                            const Icon(
+                                          Icons.error,
+                                          color: Colors.green,
+                                        ), // Display an error icon if the image fails to load
                                       ),
                                     )
                                   ],
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 5,
+                            SizedBox(
+                              width: 5.w,
                             ),
                             Expanded(
                               flex: 2,
@@ -848,17 +847,17 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     ),
                                   ],
                                 ),
-                                height: 200,
+                                height: 200.h,
                                 child: Column(
                                   children: [
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     Text(
                                       "ID Picture",
                                       style: GoogleFonts.viga(
-                                        textStyle: const TextStyle(
-                                          fontSize: 12,
+                                        textStyle: TextStyle(
+                                          fontSize: 12.sp,
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700,
                                           letterSpacing: 1,
@@ -866,17 +865,18 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                       ),
                                     ),
                                     SizedBox(
-                                      width: 150,
-                                      height: 150,
+                                      width: 150.w,
+                                      height: 150.h,
                                       child: CachedNetworkImage(
                                         imageUrl: data[
                                             "idProof"], // The URL of the image
                                         fit: BoxFit.fill,
                                         placeholder: (context, url) =>
-                                            CircularProgressIndicator(), // Display a loading indicator while the image is loading
+                                            const CircularProgressIndicator(), // Display a loading indicator while the image is loading
                                         errorWidget: (context, url, error) =>
-                                            Icon(Icons
-                                                .error), // Display an error icon if the image fails to load
+                                            const Icon(Icons.error,
+                                                color: Colors
+                                                    .green), // Display an error icon if the image fails to load
                                       ),
                                     )
                                   ],
@@ -890,8 +890,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 5,
+              SizedBox(
+                height: 5.h,
               ),
               //para sa update, deeactivate and archive account button for the current user
               Center(
@@ -904,34 +904,34 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.lightBlue,
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Icon(Icons.update_rounded),
+                          const Icon(Icons.update_rounded),
                           SizedBox(
-                            width: 2,
+                            width: 2.w,
                           ),
-                          Text("Update"),
+                          const Text("Update"),
                         ],
                       ),
                       onPressed: () {
                         selectfieldUpdate(context, "${data["userId"]}");
                       },
                     ),
-                    const SizedBox(
-                      width: 5,
+                    SizedBox(
+                      width: 5.w,
                     ),
                     //deactivate account button
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.redAccent,
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Icon(Icons.do_not_disturb),
+                          const Icon(Icons.do_not_disturb),
                           SizedBox(
-                            width: 2,
+                            width: 2.w,
                           ),
-                          Text("Deactivate"),
+                          const Text("Deactivate"),
                         ],
                       ),
                       onPressed: () {
@@ -993,21 +993,21 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                         );
                       },
                     ),
-                    const SizedBox(
-                      width: 5,
+                    SizedBox(
+                      width: 5.w,
                     ),
                     //archived account button
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orangeAccent,
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Icon(Icons.delete),
+                          const Icon(Icons.delete),
                           SizedBox(
-                            width: 2,
+                            width: 2.w,
                           ),
-                          Text("Archive"),
+                          const Text("Archive"),
                         ],
                       ),
                       onPressed: () async {
@@ -1076,8 +1076,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 5,
+              SizedBox(
+                height: 5.h,
               ),
             ],
           );
@@ -1187,7 +1187,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1280,7 +1280,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1373,7 +1373,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1466,7 +1466,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1559,7 +1559,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1652,7 +1652,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1682,33 +1682,33 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                             return AlertDialog(
                               title: const Text("Select Birthdate"),
                               content: SizedBox(
-                                height: 40,
+                                height: 40.h,
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 30,
+                                      height: 30.h,
                                       child: GestureDetector(
                                         child: ElevatedButton.icon(
                                           onPressed: () {
                                             selectDateBirth(context, passeduid);
                                           },
-                                          icon: const Icon(
+                                          icon: Icon(
                                             Icons.calendar_month,
-                                            size: 20,
+                                            size: 20.sp,
                                           ),
-                                          label: const Text(
+                                          label: Text(
                                             'Select Date',
                                             style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize: 12.sp,
                                             ),
                                           ),
                                           style: ElevatedButton.styleFrom(
-                                            fixedSize: const Size(
-                                              150,
-                                              20,
+                                            fixedSize: Size(
+                                              150.sp,
+                                              20.sp,
                                             ),
-                                            textStyle: const TextStyle(
-                                              fontSize: 15,
+                                            textStyle: TextStyle(
+                                              fontSize: 15.sp,
                                               fontWeight: FontWeight.w900,
                                             ),
                                             backgroundColor: Colors.lightBlue,
@@ -1730,7 +1730,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                               ),
                               actions: [
                                 SizedBox(
-                                  height: 30,
+                                  height: 30.h,
                                   child: Padding(
                                     padding: const EdgeInsets.all(0),
                                     child: Row(
@@ -1776,7 +1776,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                                 'Update Field',
                                                 style: GoogleFonts.poppins(
                                                   color: Colors.black,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.w700,
                                                   letterSpacing: 0.50,
                                                 ),
@@ -1807,33 +1807,33 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                             return AlertDialog(
                               title: const Text("Select Registration Date"),
                               content: SizedBox(
-                                height: 40,
+                                height: 40.h,
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 30,
+                                      height: 30.h,
                                       child: GestureDetector(
                                         child: ElevatedButton.icon(
                                           onPressed: () {
                                             selectRegDate(context, passeduid);
                                           },
-                                          icon: const Icon(
+                                          icon: Icon(
                                             Icons.calendar_month,
-                                            size: 20,
+                                            size: 20.sp,
                                           ),
-                                          label: const Text(
+                                          label: Text(
                                             'Select Date',
                                             style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize: 12.sp,
                                             ),
                                           ),
                                           style: ElevatedButton.styleFrom(
-                                            fixedSize: const Size(
-                                              150,
-                                              20,
+                                            fixedSize: Size(
+                                              150.sp,
+                                              20.sp,
                                             ),
-                                            textStyle: const TextStyle(
-                                              fontSize: 15,
+                                            textStyle: TextStyle(
+                                              fontSize: 15.sp,
                                               fontWeight: FontWeight.w900,
                                             ),
                                             backgroundColor: Colors.lightBlue,
@@ -1855,7 +1855,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                               ),
                               actions: [
                                 SizedBox(
-                                  height: 30,
+                                  height: 30.h,
                                   child: Padding(
                                     padding: const EdgeInsets.all(0),
                                     child: Row(
@@ -1901,7 +1901,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                                 'Update Field',
                                                 style: GoogleFonts.poppins(
                                                   color: Colors.black,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.w700,
                                                   letterSpacing: 0.50,
                                                 ),
@@ -1995,7 +1995,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -2089,7 +2089,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,

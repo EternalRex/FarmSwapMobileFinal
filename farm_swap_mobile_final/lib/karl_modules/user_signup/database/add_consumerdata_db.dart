@@ -18,6 +18,8 @@ class AddNewConsumerUserDb {
     String profileUrl,
     DateTime bday,
     DateTime rday,
+    double balance,
+    int rating,
   ) async {
     String userid = FirebaseAuth.instance.currentUser!.uid;
     String? email = FirebaseAuth.instance.currentUser!.email;
@@ -35,6 +37,8 @@ class AddNewConsumerUserDb {
     DateTime birthdate = bday;
     DateTime registrationDate = rday;
     int swapCoins = 5000;
+    double balance = 0;
+    int rating = 0;
 
     final addData = ConsumerUserModel(
       userId: userid,
@@ -54,6 +58,8 @@ class AddNewConsumerUserDb {
       swapCoins: swapCoins,
       isOnline: true,
       profilePhoto: profilePhoto,
+      balance: balance,
+      rating: rating,
     );
 
     await consumerQuery.createUser(addData);

@@ -19,6 +19,8 @@ class AddNewFarmerUserDb {
     String profileUrl,
     DateTime bday,
     DateTime rday,
+    double balance,
+    int rating,
   ) async {
     String userid = FirebaseAuth.instance.currentUser!.uid;
     String? email = FirebaseAuth.instance.currentUser!.email;
@@ -37,6 +39,8 @@ class AddNewFarmerUserDb {
     DateTime birthdate = bday;
     DateTime registrationDate = rday;
     int swapCoins = 5000;
+    double balance = 0;
+    int rating = 0;
 
     final addData = FarmerUserModel(
       userId: userid,
@@ -57,6 +61,8 @@ class AddNewFarmerUserDb {
       swapCoins: swapCoins,
       isOnline: true,
       profilePhoto: profilePhoto,
+      balance: balance,
+      rating: rating,
     );
 
     await farmerQuery.createUser(addData);

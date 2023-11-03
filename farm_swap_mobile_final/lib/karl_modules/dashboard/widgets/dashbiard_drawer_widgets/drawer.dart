@@ -43,7 +43,7 @@ class DashBoardDrawer extends StatelessWidget {
                 /*Akong gi pull out ang profile picture, ang pangalan og ang category sa naka
                 login na user gamit ang future builder */
                 DrawerHeader(
-                  child: Row(
+                  child: Column(
                     children: [
                       FutureBuilder(
                         /*Kwaon nato ang document id sa atong current login user */

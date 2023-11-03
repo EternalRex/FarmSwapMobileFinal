@@ -23,6 +23,8 @@ class UserDetailsProvider extends ChangeNotifier {
   DateTime birthdate = DateTime.now();
   DateTime registrationDate = DateTime.now();
   int swapCoins = 0;
+  double balance = 0;
+  int rating = 0;
 
   /*Setter and getter methods for userid*/
   void setUserId(String id) {
@@ -193,5 +195,25 @@ class UserDetailsProvider extends ChangeNotifier {
 
   int get getSwapCoins {
     return swapCoins;
+  }
+
+  /*Setter and getter for swapcoins*/
+  void setBalance(double bal) {
+    balance = bal;
+    notifyListeners();
+  }
+
+  double get getBalance {
+    return balance;
+  }
+
+  /*Setter and getter for swapcoins*/
+  void setRatings(int ratings) {
+    rating = ratings;
+    notifyListeners();
+  }
+
+  int get getRatings {
+    return rating;
   }
 }

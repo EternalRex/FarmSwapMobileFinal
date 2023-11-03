@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
@@ -15,10 +17,12 @@ class UserPersonalDetailsRegistration8 extends StatefulWidget {
   const UserPersonalDetailsRegistration8({super.key});
 
   @override
-  State<UserPersonalDetailsRegistration8> createState() => _UserPersonalDetailsRegistration8State();
+  State<UserPersonalDetailsRegistration8> createState() =>
+      _UserPersonalDetailsRegistration8State();
 }
 
-class _UserPersonalDetailsRegistration8State extends State<UserPersonalDetailsRegistration8> {
+class _UserPersonalDetailsRegistration8State
+    extends State<UserPersonalDetailsRegistration8> {
   String registrationdates = "select registration date";
   String birthdates = "select birthdate";
 
@@ -28,23 +32,39 @@ class _UserPersonalDetailsRegistration8State extends State<UserPersonalDetailsRe
 
   @override
   Widget build(BuildContext context) {
-    String userRole = Provider.of<UserTypeProvider>(context, listen: false).getUserType;
+    String userRole =
+        Provider.of<UserTypeProvider>(context, listen: false).getUserType;
 
 /*getting all the values that we put in the provider to pass to the function
  that adds data to the database, we are doing it here, becasue we cannot call provider outside
  of the build method*/
 
-    String fname = Provider.of<UserDetailsProvider>(context, listen: false).getFirstname;
-    String lname = Provider.of<UserDetailsProvider>(context, listen: false).getLastName;
-    String birthplaces = Provider.of<UserDetailsProvider>(context, listen: false).getBirthplace;
-    String contactNum = Provider.of<UserDetailsProvider>(context, listen: false).getContactNum;
+    String fname =
+        Provider.of<UserDetailsProvider>(context, listen: false).getFirstname;
+    String lname =
+        Provider.of<UserDetailsProvider>(context, listen: false).getLastName;
+    String birthplaces =
+        Provider.of<UserDetailsProvider>(context, listen: false).getBirthplace;
+    String contactNum =
+        Provider.of<UserDetailsProvider>(context, listen: false).getContactNum;
     String municipalitys =
-        Provider.of<UserDetailsProvider>(context, listen: false).getCityMunicipality;
-    String baranggays = Provider.of<UserDetailsProvider>(context, listen: false).getBaranggy;
-    String userNames = Provider.of<UserDetailsProvider>(context, listen: false).getUsername;
-    String docUrls = Provider.of<UserDetailsProvider>(context, listen: false).getDocUrl;
-    String idUrls = Provider.of<UserDetailsProvider>(context, listen: false).getPictureUrl;
-    String profilePhoto = Provider.of<UserDetailsProvider>(context, listen: false).getProfilePhoto;
+        Provider.of<UserDetailsProvider>(context, listen: false)
+            .getCityMunicipality;
+    String baranggays =
+        Provider.of<UserDetailsProvider>(context, listen: false).getBaranggy;
+    String userNames =
+        Provider.of<UserDetailsProvider>(context, listen: false).getUsername;
+    String docUrls =
+        Provider.of<UserDetailsProvider>(context, listen: false).getDocUrl;
+    String idUrls =
+        Provider.of<UserDetailsProvider>(context, listen: false).getPictureUrl;
+    String profilePhoto =
+        Provider.of<UserDetailsProvider>(context, listen: false)
+            .getProfilePhoto;
+    double walletbalance =
+        Provider.of<UserDetailsProvider>(context, listen: false).getBalance;
+    int userrating =
+        Provider.of<UserDetailsProvider>(context, listen: false).getRatings;
 
     return Scaffold(
       body: SafeArea(
@@ -190,8 +210,11 @@ class _UserPersonalDetailsRegistration8State extends State<UserPersonalDetailsRe
                                 profilePhoto,
                                 registerdate,
                                 registerdate2,
+                                walletbalance,
+                                userrating,
                               );
-                              Navigator.of(context).pushNamed(RouteManager.userDetailsRegisterEnd);
+                              Navigator.of(context).pushNamed(
+                                  RouteManager.userDetailsRegisterEnd);
                             },
                             child: const FarmSwapGreenBtn(text: "Next"),
                           ),
@@ -328,8 +351,11 @@ class _UserPersonalDetailsRegistration8State extends State<UserPersonalDetailsRe
                                 profilePhoto,
                                 registerdate,
                                 registerdate2,
+                                walletbalance,
+                                userrating,
                               );
-                              Navigator.of(context).pushNamed(RouteManager.userDetailsRegisterEnd);
+                              Navigator.of(context).pushNamed(
+                                  RouteManager.userDetailsRegisterEnd);
                             },
                             child: const FarmSwapGreenBtn(text: "Next"),
                           ),
