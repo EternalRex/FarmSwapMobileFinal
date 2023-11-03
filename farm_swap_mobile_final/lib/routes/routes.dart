@@ -8,6 +8,7 @@ import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/l
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_selling/add_selling_listing_page3.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_selling/add_selling_listing_page2.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_selling/add_selling_listing_page4.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page/all_listing_details.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_login/screen/user_login_screen.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_login/screen/user_login_selection.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_displayProfilePhoto.dart';
@@ -53,6 +54,7 @@ class RouteManager {
   static const addbarterlisttingdetails2 = "addbarterlisttingdetails2";
   static const addbarterlisttingdetails3 = "addbarterlisttingdetails3";
   static const addbarterlisttingdetails4 = "addbarterlisttingdetails4";
+  static const allBarterListingsDetails = "allListingsDetails";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -131,6 +133,9 @@ class RouteManager {
 
       case addbarterlisttingdetails4:
         return MaterialPageRoute(builder: (context) => const AddActualBarterListingDetails4());
+
+      case allBarterListingsDetails:
+        return MaterialPageRoute(builder: (context) => const BarterAllListingDetails());
 
       default:
         throw const FormatException("Warning!!! Page Routing Problem");

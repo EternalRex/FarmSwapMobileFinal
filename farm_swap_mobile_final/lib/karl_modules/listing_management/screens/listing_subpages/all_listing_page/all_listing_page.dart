@@ -28,9 +28,6 @@ class _AllListingsListState extends State<AllListingsList> {
 /*Instance of the class that gets the individual details of a farmer */
   ListinGetFarmerDetails details = ListinGetFarmerDetails();
 
-  GetBarterListings getBarterListings = GetBarterListings();
-  GetSellListings getSellListings = GetSellListings();
-
 /*Initializing the function that will get the farmers username */
   @override
   void initState() {
@@ -116,7 +113,7 @@ class _AllListingsListState extends State<AllListingsList> {
                         child: SizedBox(
                           height: MediaQuery.of(context).size.height,
                           width: 360.w,
-                          child: getBarterListings.accessBarterListing(farmerUname),
+                          child: GetBarterListings(farmerUname: farmerUname),
                         ),
                       ),
                     )
@@ -125,7 +122,7 @@ class _AllListingsListState extends State<AllListingsList> {
                         child: SizedBox(
                           height: MediaQuery.of(context).size.height,
                           width: 360.w,
-                          child: getSellListings.accessSellListings(farmerUname),
+                          child: GetSellListings(farmerUname: farmerUname),
                         ),
                       ),
                     ),
