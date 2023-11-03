@@ -7,6 +7,7 @@ import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/l
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
 import 'package:farm_swap_mobile_final/provider/listing_page_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,8 @@ class ListingManagementMainPage extends StatefulWidget {
   const ListingManagementMainPage({super.key});
 
   @override
-  State<ListingManagementMainPage> createState() => _ListingManagementMainPageState();
+  State<ListingManagementMainPage> createState() =>
+      _ListingManagementMainPageState();
 }
 
 class _ListingManagementMainPageState extends State<ListingManagementMainPage> {
@@ -37,7 +39,8 @@ class _ListingManagementMainPageState extends State<ListingManagementMainPage> {
 /*Ato e pull out ang value naa naa sa provider nato para ma switch2 nato ang body og appbar ani na page 
 nya ato dayn e set ang state sa page na variable para ma ilisan iyang default value sa value na naa ni provider*/
 
-    String newpage = Provider.of<ListingPageProvider>(context, listen: false).getListingPage;
+    String newpage =
+        Provider.of<ListingPageProvider>(context, listen: false).getListingPage;
     setState(() {
       page = newpage;
     });
@@ -45,15 +48,16 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: farmSwapTitlegreen,
+        backgroundColor: greenNormal,
         flexibleSpace: Container(
-          height: 300,
-          width: 300,
+          height: 300.sp,
+          width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/karl_assets/images/appbar_background.png"),
-              fit: BoxFit.fitWidth,
-              scale: 100.0,
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
+              fit: BoxFit.cover,
+              scale: 100.0.sp,
             ),
           ),
         ),
@@ -98,7 +102,12 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: farmSwapTitlegreen,
+                color: greenNormal,
+                image: const DecorationImage(
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  fit: BoxFit.cover,
+                ),
                 border: Border.all(color: farmSwapTitlegreen),
               ),
               child: const ListingManagementBottomNav(),

@@ -18,10 +18,12 @@ class AddActualSellingListingDetails2 extends StatefulWidget {
   const AddActualSellingListingDetails2({super.key});
 
   @override
-  State<AddActualSellingListingDetails2> createState() => _AddActualSellingListingDetails2State();
+  State<AddActualSellingListingDetails2> createState() =>
+      _AddActualSellingListingDetails2State();
 }
 
-class _AddActualSellingListingDetails2State extends State<AddActualSellingListingDetails2> {
+class _AddActualSellingListingDetails2State
+    extends State<AddActualSellingListingDetails2> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -38,7 +40,20 @@ class _AddActualSellingListingDetails2State extends State<AddActualSellingListin
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: farmSwapTitlegreen,
+        backgroundColor: greenNormal,
+        /*Aappbar background imag design */
+        flexibleSpace: Container(
+          height: 300.sp,
+          width: 300.sp,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
+              fit: BoxFit.cover,
+              scale: 100.0.sp,
+            ),
+          ),
+        ),
         /*So mao nani ang condition nga mag depende sa value nga e hatag sa atong provider ang mo display
         nga label sa appbar */
         title: const Text("Add Sell Listing"),
@@ -81,7 +96,7 @@ class _AddActualSellingListingDetails2State extends State<AddActualSellingListin
                             "Upload Listing Picture",
                             Colors.black,
                             20.sp,
-                            FontWeight.w500,
+                            FontWeight.bold,
                           ),
                           SizedBox(
                             height: 30.sp,
@@ -90,16 +105,20 @@ class _AddActualSellingListingDetails2State extends State<AddActualSellingListin
                           GestureDetector(
                             onTap: () async {
                               /*Calling the function that will select an image from gallery and assign its download url to a variable */
-                              String? url = await upload.uploadImageToFirebaseGallery();
+                              String? url =
+                                  await upload.uploadImageToFirebaseGallery();
                               /*Putting the value of url inside our provider */
-                              Provider.of<SellListingDetailsProvider>(context, listen: false)
+                              Provider.of<SellListingDetailsProvider>(context,
+                                      listen: false)
                                   .setPhotoUrl(url.toString());
-                              Navigator.of(context).pushNamed(RouteManager.addselllistingdetails3);
+                              Navigator.of(context).pushNamed(
+                                  RouteManager.addselllistingdetails3);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
                               width: 200.sp,
-                              imagePath: "assets/karl_assets/images/Gallery.svg",
+                              imagePath:
+                                  "assets/karl_assets/images/Gallery.svg",
                               title: "From Gallery",
                             ),
                           ),
@@ -110,11 +129,14 @@ class _AddActualSellingListingDetails2State extends State<AddActualSellingListin
                           GestureDetector(
                             onTap: () async {
                               /*Calling the function that will select an image from camera and assign its download url to a variable */
-                              String? url = await upload.uploadImageToFirebaseCamera();
+                              String? url =
+                                  await upload.uploadImageToFirebaseCamera();
                               /*Putting the value of url inside our provider */
-                              Provider.of<SellListingDetailsProvider>(context, listen: false)
+                              Provider.of<SellListingDetailsProvider>(context,
+                                      listen: false)
                                   .setPhotoUrl(url.toString());
-                              Navigator.of(context).pushNamed(RouteManager.addselllistingdetails3);
+                              Navigator.of(context).pushNamed(
+                                  RouteManager.addselllistingdetails3);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
@@ -136,7 +158,12 @@ class _AddActualSellingListingDetails2State extends State<AddActualSellingListin
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: farmSwapTitlegreen,
+                color: greenNormal,
+                image: const DecorationImage(
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  fit: BoxFit.cover,
+                ),
                 border: Border.all(color: farmSwapTitlegreen),
               ),
               child: const ListingManagementBottomNav(),

@@ -14,10 +14,12 @@ class AddActualSellingListingDetails3 extends StatefulWidget {
   const AddActualSellingListingDetails3({super.key});
 
   @override
-  State<AddActualSellingListingDetails3> createState() => _AddActualSellingListingDetails3State();
+  State<AddActualSellingListingDetails3> createState() =>
+      _AddActualSellingListingDetails3State();
 }
 
-class _AddActualSellingListingDetails3State extends State<AddActualSellingListingDetails3> {
+class _AddActualSellingListingDetails3State
+    extends State<AddActualSellingListingDetails3> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -31,7 +33,19 @@ class _AddActualSellingListingDetails3State extends State<AddActualSellingListin
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: farmSwapTitlegreen,
+        backgroundColor: greenNormal,
+        flexibleSpace: Container(
+          height: 300.sp,
+          width: 300.sp,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
+              fit: BoxFit.cover,
+              scale: 100.0.sp,
+            ),
+          ),
+        ),
         /*So mao nani ang condition nga mag depende sa value nga e hatag sa atong provider ang mo display
         nga label sa appbar */
         title: const Text("Add Sell Listing"),
@@ -102,8 +116,8 @@ class _AddActualSellingListingDetails3State extends State<AddActualSellingListin
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context)
-                                    .pushNamed(RouteManager.addselllistingdetails4);
+                                Navigator.of(context).pushNamed(
+                                    RouteManager.addselllistingdetails4);
                               },
                               child: const FarmSwapGreenBtn(text: "Next"),
                             ),
@@ -121,7 +135,12 @@ class _AddActualSellingListingDetails3State extends State<AddActualSellingListin
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: farmSwapTitlegreen,
+                color: greenNormal,
+                image: const DecorationImage(
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  fit: BoxFit.cover,
+                ),
                 border: Border.all(color: farmSwapTitlegreen),
               ),
               child: const ListingManagementBottomNav(),

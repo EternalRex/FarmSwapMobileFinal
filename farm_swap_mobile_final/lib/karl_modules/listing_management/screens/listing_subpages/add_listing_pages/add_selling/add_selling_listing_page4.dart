@@ -18,10 +18,12 @@ class AddActualSellingListingDetails4 extends StatefulWidget {
   const AddActualSellingListingDetails4({super.key});
 
   @override
-  State<AddActualSellingListingDetails4> createState() => _AddActualSellingListingDetails4State();
+  State<AddActualSellingListingDetails4> createState() =>
+      _AddActualSellingListingDetails4State();
 }
 
-class _AddActualSellingListingDetails4State extends State<AddActualSellingListingDetails4> {
+class _AddActualSellingListingDetails4State
+    extends State<AddActualSellingListingDetails4> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -58,7 +60,19 @@ class _AddActualSellingListingDetails4State extends State<AddActualSellingListin
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: farmSwapTitlegreen,
+        backgroundColor: greenNormal,
+        flexibleSpace: Container(
+          height: 300.sp,
+          width: 300.sp,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
+              fit: BoxFit.cover,
+              scale: 100.0.sp,
+            ),
+          ),
+        ),
         /*So mao nani ang condition nga mag depende sa value nga e hatag sa atong provider ang mo display
         nga label sa appbar */
         title: const Text("Add Sell Listing"),
@@ -97,75 +111,91 @@ class _AddActualSellingListingDetails4State extends State<AddActualSellingListin
                       children: [
                         /*Column na nag pa vertically align og sequence sa contents */
                         Padding(
-                          padding: EdgeInsets.only(top: 150.sp),
+                          padding: EdgeInsets.only(top: 90.sp),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               poppinsText(
-                                "Select Listing Expiration Date",
+                                "Listing Expiration Date",
                                 Colors.black,
                                 20.sp,
-                                FontWeight.w300,
+                                FontWeight.bold,
                               ),
                               SizedBox(
-                                height: 20.sp,
+                                height: 5.sp,
                               ),
-                              Row(
+                              Stack(
+                                alignment: Alignment.center,
                                 children: [
-                                  IconButton(
-                                    onPressed: () {
+                                  GestureDetector(
+                                    onTap: () {
                                       _selectDate();
                                     },
-                                    icon: Icon(
-                                      Icons.calendar_month,
-                                      size: 90.sp,
-                                      color: farmSwapTitlegreen,
-                                      shadows: [
-                                        BoxShadow(
-                                          color: shadow,
-                                          blurRadius: 2,
-                                          offset: const Offset(1, 5),
-                                        )
-                                      ],
+                                    child: Image.asset(
+                                      "assets/karl_assets/images/calendar_image.png",
+                                      height: 250.h,
+                                      width: 300.w,
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 50.sp,
+                                  Positioned(
+                                    top: 170.sp,
+                                    child: poppinsText(
+                                      "(Tap icon to select date)",
+                                      Colors.black,
+                                      9.sp,
+                                      FontWeight.normal,
+                                    ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 30),
-                                    child: Container(
-                                      width: 200.sp,
-                                      height: 80.sp,
-                                      decoration: BoxDecoration(
-                                        color: farmSwapTitlegreen,
-                                        borderRadius: BorderRadius.circular(20),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: shadow,
-                                            blurRadius: 2,
-                                            offset: const Offset(1, 5),
-                                          )
-                                        ],
-                                      ),
-                                      child: Center(
-                                        child: poppinsText(
-                                          endDateString,
-                                          Colors.black,
-                                          10.sp,
-                                          FontWeight.normal,
+                                  Positioned(
+                                    top: 190.sp,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Container(
+                                        width: 200.sp,
+                                        height: 50.sp,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: shadow,
+                                              blurRadius: 2,
+                                              offset: const Offset(1, 5),
+                                            )
+                                          ],
+                                        ),
+                                        child: Center(
+                                          child: poppinsText(
+                                            //    endDateString,
+                                            "Hi",
+                                            Colors.black,
+                                            10.sp,
+                                            FontWeight.normal,
+                                          ),
                                         ),
                                       ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 250.sp,
+                                    child: poppinsText(
+                                      "(Selected expiration date)",
+                                      Colors.black,
+                                      9.sp,
+                                      FontWeight.normal,
                                     ),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height: 50.sp,
+                                height: 30.sp,
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Provider.of<SellListingDetailsProvider>(context, listen: false)
+                                  Provider.of<SellListingDetailsProvider>(
+                                          context,
+                                          listen: false)
                                       .setEndDate(endListingDate);
                                   showFinalData();
                                 },
@@ -186,7 +216,12 @@ class _AddActualSellingListingDetails4State extends State<AddActualSellingListin
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: farmSwapTitlegreen,
+                color: greenNormal,
+                image: const DecorationImage(
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  fit: BoxFit.cover,
+                ),
                 border: Border.all(color: farmSwapTitlegreen),
               ),
               child: const ListingManagementBottomNav(),
@@ -223,7 +258,9 @@ class _AddActualSellingListingDetails4State extends State<AddActualSellingListin
   void showFinalData() {
 /*Converting the time*/
 
-    DateTime date = Provider.of<SellListingDetailsProvider>(context, listen: false).getEndDate;
+    DateTime date =
+        Provider.of<SellListingDetailsProvider>(context, listen: false)
+            .getEndDate;
     String finalDate = DateFormat('yyyy-MM-dd').format(date);
 
     showDialog(
@@ -369,23 +406,34 @@ farmer that data is saved */
                   onTap: () {
                     /*Saving the data */
                     sellSave.saveSellingListing(
-                      Provider.of<SellListingDetailsProvider>(context, listen: false)
+                      Provider.of<SellListingDetailsProvider>(context,
+                              listen: false)
                           .getListingName,
-                      Provider.of<SellListingDetailsProvider>(context, listen: false)
+                      Provider.of<SellListingDetailsProvider>(context,
+                              listen: false)
                           .getListingDisc,
-                      Provider.of<SellListingDetailsProvider>(context, listen: false).getquantity,
-                      Provider.of<SellListingDetailsProvider>(context, listen: false).getPrice,
+                      Provider.of<SellListingDetailsProvider>(context,
+                              listen: false)
+                          .getquantity,
+                      Provider.of<SellListingDetailsProvider>(context,
+                              listen: false)
+                          .getPrice,
                       "SELL",
-                      Provider.of<SellListingDetailsProvider>(context, listen: false).getPhoto,
+                      Provider.of<SellListingDetailsProvider>(context,
+                              listen: false)
+                          .getPhoto,
                       firstname,
                       lastname,
                       municipality,
                       baranggay,
                       uname,
                       DateTime.now(),
-                      Provider.of<SellListingDetailsProvider>(context, listen: false).getEndDate,
+                      Provider.of<SellListingDetailsProvider>(context,
+                              listen: false)
+                          .getEndDate,
                     );
-                    Navigator.of(context).pushNamed(RouteManager.listingmainpage);
+                    Navigator.of(context)
+                        .pushNamed(RouteManager.listingmainpage);
                   },
                   child: const FarmSwapGreenBtn(text: "Listings"),
                 ),

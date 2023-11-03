@@ -2,6 +2,7 @@ import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/l
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_selling/add_selling_listing_page.dart';
 import 'package:farm_swap_mobile_final/provider/listing_addcategory_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../common/colors.dart';
@@ -12,10 +13,12 @@ class AddListingPageInputDetails extends StatefulWidget {
   const AddListingPageInputDetails({super.key});
 
   @override
-  State<AddListingPageInputDetails> createState() => _AddListingPageInputDetailsState();
+  State<AddListingPageInputDetails> createState() =>
+      _AddListingPageInputDetailsState();
 }
 
-class _AddListingPageInputDetailsState extends State<AddListingPageInputDetails> {
+class _AddListingPageInputDetailsState
+    extends State<AddListingPageInputDetails> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -27,11 +30,24 @@ class _AddListingPageInputDetailsState extends State<AddListingPageInputDetails>
   @override
   Widget build(BuildContext context) {
     String listingType =
-        Provider.of<AddListingCategoryProvider>(context, listen: false).getListingCategory;
+        Provider.of<AddListingCategoryProvider>(context, listen: false)
+            .getListingCategory;
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: farmSwapTitlegreen,
+        backgroundColor: greenNormal,
+        flexibleSpace: Container(
+          height: 300.sp,
+          width: 300.sp,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
+              fit: BoxFit.cover,
+              scale: 100.0.sp,
+            ),
+          ),
+        ),
         /*So mao nani ang condition nga mag depende sa value nga e hatag sa atong provider ang mo display
         nga label sa appbar */
         title: (listingType == "BARTER")
@@ -65,7 +81,12 @@ class _AddListingPageInputDetailsState extends State<AddListingPageInputDetails>
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: farmSwapTitlegreen,
+                color: greenNormal,
+                image: const DecorationImage(
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  fit: BoxFit.cover,
+                ),
                 border: Border.all(color: farmSwapTitlegreen),
               ),
               child: const ListingManagementBottomNav(),
