@@ -1,16 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/update_listing_dropdown/update_barter_dropdown.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/update_listing_dropdown/update_sell_barter_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../widgets/listing_management_bottomnav.dart';
 
-class BarterAllListingDetails extends StatefulWidget {
-  const BarterAllListingDetails({
+import '../../../../../common/colors.dart';
+import '../../../../../common/green_btn.dart';
+
+class SellingAllListingDetails extends StatefulWidget {
+  const SellingAllListingDetails({
     super.key,
     required this.url,
     required this.name,
@@ -18,7 +19,6 @@ class BarterAllListingDetails extends StatefulWidget {
     required this.price,
     required this.quantity,
     required this.status,
-    required this.prefItem,
     required this.promoted,
     required this.category,
     required this.start,
@@ -29,13 +29,13 @@ class BarterAllListingDetails extends StatefulWidget {
     required this.fmunicipal,
     required this.fbarangay,
   });
+
   final String url;
   final String name;
   final String disc;
   final String price;
   final String quantity;
   final String status;
-  final String prefItem;
   final bool promoted;
   final String category;
   final String start;
@@ -47,11 +47,11 @@ class BarterAllListingDetails extends StatefulWidget {
   final String fbarangay;
 
   @override
-  State<BarterAllListingDetails> createState() => _BarterAllListingDetailsState();
+  State<SellingAllListingDetails> createState() => _SellingAllListingDetailsState();
 }
 
-class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
-/*Creating a scafoold key so that we can open a drawer that is built from another class */
+class _SellingAllListingDetailsState extends State<SellingAllListingDetails> {
+  /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -88,7 +88,7 @@ class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
           icon: const Icon(Icons.menu),
         ),
       ),
-      drawer: DashBoardDrawer(),
+      drawer: const DashBoardDrawer(),
       /*Body og ang iyang style */
       body: Column(
         children: [
@@ -242,28 +242,6 @@ class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
                                       ),
                                       poppinsText(
                                         "${widget.price} " " pesos",
-                                        Colors.black,
-                                        15.sp,
-                                        FontWeight.normal,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                /*Preffered Item */
-                                SizedBox(
-                                  child: Row(
-                                    children: [
-                                      poppinsText(
-                                        "Preffered Item:",
-                                        farmSwapTitlegreen,
-                                        20.sp,
-                                        FontWeight.w600,
-                                      ),
-                                      SizedBox(
-                                        width: 13.sp,
-                                      ),
-                                      poppinsText(
-                                        widget.prefItem,
                                         Colors.black,
                                         15.sp,
                                         FontWeight.normal,
@@ -517,8 +495,6 @@ class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
     );
   }
 
-/*Function that will give an advisory*/
-
   void advisory() {
     showDialog(
       context: context,
@@ -566,7 +542,7 @@ class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
           content: Padding(
             padding: const EdgeInsets.all(10),
             /*Akog gi pasa sa atong drop down botton class ang value ni url */
-            child: UpdateListingDropDownBtn(profileUrl: widget.url),
+            child: UpdateSellListingDropdownBtn(profileurl: widget.url),
           ),
           actions: [
             Padding(

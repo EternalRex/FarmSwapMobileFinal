@@ -190,7 +190,7 @@ class _GetBarterListingsState extends State<GetBarterListings> {
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
 
-    if (listingStatus == "ACTIVE") {
+    if (listingStatus == "ACTIVE" && promoted != true) {
       return Container(
         decoration: BoxDecoration(
           color: Colors.white,

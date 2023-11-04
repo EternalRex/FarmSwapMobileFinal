@@ -1,14 +1,14 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_listingintro_page.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page/all_listing_page.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page/all_tmainpage_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/archived_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
 import 'package:farm_swap_mobile_final/provider/listing_page_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 /*So mao ni siya ang class nga mo display sa ug unsa e select sa bottom nav, ang default
@@ -32,6 +32,12 @@ class _ListingManagementMainPageState extends State<ListingManagementMainPage> {
 
 /*Create tag variable nya e initialize nato sa value nga MYLISTINGS para mao ni una mo display */
   String page = "MYLISTINGS";
+  String farmerUname = "";
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
