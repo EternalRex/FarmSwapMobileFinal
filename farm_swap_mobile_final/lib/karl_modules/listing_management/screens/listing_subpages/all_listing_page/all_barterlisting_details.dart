@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/promoted_update.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings/promoted_listings_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/update_listing_dropdown/update_barter_dropdown.dart';
+import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -51,12 +55,30 @@ class BarterAllListingDetails extends StatefulWidget {
 }
 
 class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
+/*Instance of the class that gets individual farmer details so ako e pull out diri ang swapcoins
+ni farmer, kay para ako e check kung naa bay swap coins si farmer para e bayad sa promotion before the
+actual promotion will happen, niya mag deduct napd ko here hehe */
+  ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+  double swapCoins = 0;
+  double constantDeductibleSwapCoins = 100;
+
+/*Mao ni class na mo update sa promotion field and swap coins field sa database whenever a promotion is made*/
+  PromotedListings promotionUpdate = PromotedListings();
+
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    /*Ako gi call diri ang function para ma execute siya ig ari nato na class
+    og ma set ang state sa swapCoins na variable */
+    getFarmerSwapCoins();
   }
 
   @override
@@ -88,7 +110,7 @@ class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
           icon: const Icon(Icons.menu),
         ),
       ),
-      drawer: DashBoardDrawer(),
+      drawer: const DashBoardDrawer(),
       /*Body og ang iyang style */
       body: Column(
         children: [
@@ -463,7 +485,15 @@ class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
                               ),
                               /*Promote Button */
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  /*A condition that will check if the farmer has
+                                  enough swap coins */
+                                  if (swapCoins >= 100) {
+                                    confirmPromotion();
+                                  } else {
+                                    notEnoughSwapCoins();
+                                  }
+                                },
                                 child: poppinsText(
                                   "Promote",
                                   farmSwapTitlegreen,
@@ -551,7 +581,7 @@ class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
     );
   }
 
-  /*Function for the dropdown */
+  /*Function for the update dropdown */
   void selectFieldToUpdate() {
     showDialog(
       context: context,
@@ -581,5 +611,133 @@ class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
         );
       },
     );
+  }
+
+  /*Function that will give an advisory to the user that he cannot proceed with
+  the promotion because he has no enough swap coins */
+  void notEnoughSwapCoins() {
+    //determines pila ang kulang na coins ni farmer para maka promote
+    double neededCoins = constantDeductibleSwapCoins - swapCoins;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText(
+            "Low SwapCoins",
+            Colors.red,
+            20.sp,
+            FontWeight.w500,
+          ),
+          content: poppinsText(
+            "Sorry, You dont have enough swap coins to promote this product, You only have ${swapCoins.toString()} coins left, you need ${neededCoins.toString()} more",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  //adto nya tani e redirect sa swap coins page
+                  Navigator.of(context).pushNamed(RouteManager.listingmainpage);
+                },
+                child: poppinsText("Ok", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /*Function na mo inform ni farmer na mag deduct tag swap coins */
+  void confirmPromotion() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText(
+            "Confirm Promotion",
+            Colors.blue,
+            20.sp,
+            FontWeight.w500,
+          ),
+          content: poppinsText(
+            "100 swap coins will deducted as promotion payment",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                updatePromotion();
+                promotionSuccess();
+              },
+              child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /*A function that will update the promoted field in database to true when promoted 
+  button is clicked and will deduct swap coins and update the swap coins field in the database
+  to reflect the remaining swap coins*/
+  Future<void> updatePromotion() async {
+    double newSwapCoins = swapCoins - constantDeductibleSwapCoins;
+
+    /*Gi call nato ang function sa class na mag update sa atong database niya giapasa nato
+    ang mga needed na values */
+    await promotionUpdate.updateListingPromotedField(
+      widget.fUname,
+      widget.url,
+      newSwapCoins,
+    );
+  }
+
+  /*Function that notifies that user that promotion was sucessfull*/
+  void promotionSuccess() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText(
+            "Promotion Notice",
+            Colors.blue,
+            20.sp,
+            FontWeight.w500,
+          ),
+          content: poppinsText(
+            "Listing Promoted Successfull!",
+            Colors.black,
+            15.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(RouteManager.listingmainpage);
+              },
+              child: poppinsText(
+                "Continue",
+                farmSwapTitlegreen,
+                20.sp,
+                FontWeight.w500,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /*Function ni siya na mag pull out sa pila ang swap coins ni farmer */
+  Future<void> getFarmerSwapCoins() async {
+    int coins = await farmerDetails.getSwapCoins();
+    setState(() {
+      swapCoins = coins.toDouble();
+    });
   }
 }
