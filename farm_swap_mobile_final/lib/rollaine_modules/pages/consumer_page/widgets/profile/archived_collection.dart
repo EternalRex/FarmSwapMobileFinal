@@ -24,7 +24,7 @@ class ArchivedCollection {
       String accountStatus = userDoc.get('accountStatus');
 
       if (accountStatus == 'ARCHIVED') {
-        // Move the document to the FarmerArchived collection
+        // Move the document to the ConsumerArchived collection
         await archivedUsersCollection.doc(userDoc.id).set(userDoc.data());
 
         // Delete the document from the sample_FarmerUsers collection

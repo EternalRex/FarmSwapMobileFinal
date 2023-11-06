@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const String poppins = 'Poppins';
 
@@ -18,10 +19,10 @@ class Poppins {
     fontWeight: FontWeight.w700,
     fontSize: 40,
   );
-  static TextStyle commuTitle = const TextStyle(
+  static TextStyle commuTitle = TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w800,
-    fontSize: 30,
+    fontSize: 30.sp,
   );
   static TextStyle commuText = const TextStyle(
     fontFamily: poppins,
@@ -48,10 +49,10 @@ class Poppins {
     fontWeight: FontWeight.w600,
     fontSize: 16,
   );
-  static TextStyle adminName = const TextStyle(
+  static TextStyle adminName = TextStyle(
     fontFamily: poppins,
-    fontWeight: FontWeight.w600,
-    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    fontSize: 16.sp,
   );
   static TextStyle userName = const TextStyle(
     fontFamily: poppins,

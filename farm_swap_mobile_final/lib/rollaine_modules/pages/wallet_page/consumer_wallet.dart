@@ -1,21 +1,24 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/get_specific_user_docid.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/consumer_page/screens/consumer_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ConsumerPage extends StatefulWidget {
-  const ConsumerPage({super.key});
+class ConsumerWallet extends StatefulWidget {
+  const ConsumerWallet({super.key, required this.userId});
+
+  final String userId;
 
   @override
-  State<ConsumerPage> createState() => _ConsumerPageState();
+  State<ConsumerWallet> createState() => _ConsumerWalletState();
 }
 
-class _ConsumerPageState extends State<ConsumerPage> {
+class _ConsumerWalletState extends State<ConsumerWallet> {
   final GetSpecificUserDocumentId id = GetSpecificUserDocumentId();
 
   /*Creating a scafoold key so that we can open a drawer that is built from another class */
@@ -28,16 +31,20 @@ class _ConsumerPageState extends State<ConsumerPage> {
 
   @override
   Widget build(BuildContext context) {
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        elevation: 0,
         title: Text(
-          'Profile',
+          'Wallet',
           style: Poppins.pageTitle.copyWith(
-            color: Colors.white,
+            color: greenNormal,
           ),
         ),
-        backgroundColor: farmSwapTitlegreen,
+        backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
@@ -46,17 +53,35 @@ class _ConsumerPageState extends State<ConsumerPage> {
           },
           icon: const Icon(Icons.menu),
         ),
+        actions: [
+          FutureBuilder(
+            future: reference.doc(widget.userId).get(),
+            builder: (context, snapshot) {
+              Map<String, dynamic> data =
+                  snapshot.data!.data() as Map<String, dynamic>;
+              return CircleAvatar(
+                backgroundImage:
+                    CachedNetworkImageProvider("${data["profilePhoto"]}"),
+                radius: 30,
+              );
+            },
+          ),
+        ],
       ),
-      drawer: DashBoardDrawer(),
+      drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(
         child: Stack(
           children: [
             SizedBox(
-              width: 780.w,
-              height: 280.h,
-              child: SvgPicture.asset(
-                'assets/karl_assets/images/profilebg.svg',
-                fit: BoxFit.fill,
+              width: 750.w,
+              height: 250.h,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                    15), // Adjust the radius value as needed
+                child: SvgPicture.asset(
+                  'assets/karl_assets/images/profilebg.svg',
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             Column(
