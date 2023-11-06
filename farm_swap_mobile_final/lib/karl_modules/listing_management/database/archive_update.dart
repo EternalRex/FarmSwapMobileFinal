@@ -6,7 +6,6 @@ class ArchiveUpdateListing {
   final _firestore = FirebaseFirestore.instance;
 
   Future<void> archiveBarterListing(String farmerUname, String pcitureUrl) async {
-    print("updating1");
     String userid = _firebaseAuth.currentUser!.uid;
     String category = "BARTER";
     String farmerUsername = farmerUname;
