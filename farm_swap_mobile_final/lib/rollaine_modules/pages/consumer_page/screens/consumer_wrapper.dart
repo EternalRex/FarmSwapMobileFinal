@@ -53,12 +53,12 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
 
           Timestamp birthdaytimestamp = data['birthdate'];
           DateTime birthDate = birthdaytimestamp.toDate();
-          String bdayBirthDate = DateFormat('MM-dd-yyy').format(birthDate);
+          String bdayBirthDate = DateFormat('MM/dd/yyy').format(birthDate);
 
           Timestamp registertimestamp = data['registrationDate'];
           DateTime registerDate = registertimestamp.toDate();
           String registrationDate =
-              DateFormat('MM-dd-yyy').format(registerDate);
+              DateFormat('MM/dd/yyy').format(registerDate);
 
           return Column(
             children: [

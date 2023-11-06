@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 const String poppins = 'Poppins';
 
 class Poppins {
-  static TextStyle number = const TextStyle(
+  static TextStyle number = TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w800,
-    fontSize: 80,
+    fontSize: 80.sp,
   );
   static TextStyle pageTitle = const TextStyle(
     fontFamily: poppins,
@@ -54,20 +54,20 @@ class Poppins {
     fontWeight: FontWeight.w400,
     fontSize: 16.sp,
   );
-  static TextStyle userName = const TextStyle(
+  static TextStyle userName = TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w500,
-    fontSize: 15,
+    fontSize: 15.sp,
   );
   static TextStyle contentText = const TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w700,
     fontSize: 14,
   );
-  static TextStyle detailsText = const TextStyle(
+  static TextStyle detailsText = TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w400,
-    fontSize: 13,
+    fontSize: 13.sp,
   );
   static TextStyle buttonText = const TextStyle(
     fontFamily: poppins,

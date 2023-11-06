@@ -31,6 +31,7 @@ class _ConsumerPageState extends State<ConsumerPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'Profile',
           style: Poppins.pageTitle.copyWith(

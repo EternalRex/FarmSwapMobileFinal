@@ -4,15 +4,16 @@ import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/get_specific_user_docid.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/screens/wallet_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ConsumerWallet extends StatefulWidget {
-  const ConsumerWallet({super.key, required this.userId});
+  const ConsumerWallet({super.key});
 
-  final String userId;
+  final String userId = '';
 
   @override
   State<ConsumerWallet> createState() => _ConsumerWalletState();
@@ -41,10 +42,10 @@ class _ConsumerWalletState extends State<ConsumerWallet> {
         title: Text(
           'Wallet',
           style: Poppins.pageTitle.copyWith(
-            color: greenNormal,
+            color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: farmSwapTitlegreen,
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
@@ -53,7 +54,7 @@ class _ConsumerWalletState extends State<ConsumerWallet> {
           },
           icon: const Icon(Icons.menu),
         ),
-        actions: [
+        /*actions: [
           FutureBuilder(
             future: reference.doc(widget.userId).get(),
             builder: (context, snapshot) {
@@ -61,27 +62,23 @@ class _ConsumerWalletState extends State<ConsumerWallet> {
                   snapshot.data!.data() as Map<String, dynamic>;
               return CircleAvatar(
                 backgroundImage:
-                    CachedNetworkImageProvider("${data["profilePhoto"]}"),
+                    CachedNetworkImageProvider(data['profilePhoto']),
                 radius: 30,
               );
             },
           ),
-        ],
+        ],*/
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(
         child: Stack(
           children: [
             SizedBox(
-              width: 750.w,
+              width: 780.w,
               height: 250.h,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(
-                    15), // Adjust the radius value as needed
-                child: SvgPicture.asset(
-                  'assets/karl_assets/images/profilebg.svg',
-                  fit: BoxFit.fill,
-                ),
+              child: SvgPicture.asset(
+                'assets/karl_assets/images/profilebg.svg',
+                fit: BoxFit.fill,
               ),
             ),
             Column(
@@ -95,7 +92,7 @@ class _ConsumerWalletState extends State<ConsumerWallet> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       String data = snapshot.data!;
-                      return ReadConsumerProfile(userId: data);
+                      return ReadConsumerWallet(documentId: data);
                     } else if (snapshot.hasError) {
                       return Text("Error: ${snapshot.error}");
                     } else {
@@ -107,7 +104,7 @@ class _ConsumerWalletState extends State<ConsumerWallet> {
                             color: Color(0xFF14BE77),
                           ),
                         ),
-                      ); // You can use a loading indicator here.
+                      );
                     }
                   },
                 ),
