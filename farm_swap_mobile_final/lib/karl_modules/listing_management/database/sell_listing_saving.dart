@@ -50,6 +50,7 @@ class SellListingSaving {
       farmerBaranggay: barangayFarmer,
       farmerUserName: farmerUname,
       promoted: false,
+      promotionDate: DateTime.now(),
     );
 
     /*Construkon nato ang id sa atong listing*/

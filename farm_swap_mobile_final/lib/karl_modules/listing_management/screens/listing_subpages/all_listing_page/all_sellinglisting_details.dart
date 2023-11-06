@@ -1,20 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
-import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/promoted_update.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings/promoted_listings_page.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/update_listing_dropdown/update_barter_dropdown.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/update_listing_dropdown/update_sell_barter_dropdown.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../widgets/listing_management_bottomnav.dart';
 
-class BarterAllListingDetails extends StatefulWidget {
-  const BarterAllListingDetails({
+import '../../../../../common/colors.dart';
+import '../../../../../common/green_btn.dart';
+
+class SellingAllListingDetails extends StatefulWidget {
+  const SellingAllListingDetails({
     super.key,
     required this.url,
     required this.name,
@@ -22,7 +22,6 @@ class BarterAllListingDetails extends StatefulWidget {
     required this.price,
     required this.quantity,
     required this.status,
-    required this.prefItem,
     required this.promoted,
     required this.category,
     required this.start,
@@ -33,13 +32,13 @@ class BarterAllListingDetails extends StatefulWidget {
     required this.fmunicipal,
     required this.fbarangay,
   });
+
   final String url;
   final String name;
   final String disc;
   final String price;
   final String quantity;
   final String status;
-  final String prefItem;
   final bool promoted;
   final String category;
   final String start;
@@ -51,10 +50,10 @@ class BarterAllListingDetails extends StatefulWidget {
   final String fbarangay;
 
   @override
-  State<BarterAllListingDetails> createState() => _BarterAllListingDetailsState();
+  State<SellingAllListingDetails> createState() => _SellingAllListingDetailsState();
 }
 
-class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
+class _SellingAllListingDetailsState extends State<SellingAllListingDetails> {
 /*Instance of the class that gets individual farmer details so ako e pull out diri ang swapcoins
 ni farmer, kay para ako e check kung naa bay swap coins si farmer para e bayad sa promotion before the
 actual promotion will happen, niya mag deduct napd ko here hehe */
@@ -65,7 +64,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
 /*Mao ni class na mo update sa promotion field and swap coins field sa database whenever a promotion is made*/
   PromotedListings promotionUpdate = PromotedListings();
 
-/*Creating a scafoold key so that we can open a drawer that is built from another class */
+  /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -101,7 +100,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
         ),
         /*So mao nani ang condition nga mag depende sa value nga e hatag sa atong provider ang mo display
         nga label sa appbar */
-        title: const Text("Barter Listing Details"),
+        title: const Text("Selling Listing Details"),
         leading: IconButton(
           onPressed: () {
             /*Opening the drawer */
@@ -264,28 +263,6 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                                       ),
                                       poppinsText(
                                         "${widget.price} " " pesos",
-                                        Colors.black,
-                                        15.sp,
-                                        FontWeight.normal,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                /*Preffered Item */
-                                SizedBox(
-                                  child: Row(
-                                    children: [
-                                      poppinsText(
-                                        "Preffered Item:",
-                                        farmSwapTitlegreen,
-                                        20.sp,
-                                        FontWeight.w600,
-                                      ),
-                                      SizedBox(
-                                        width: 13.sp,
-                                      ),
-                                      poppinsText(
-                                        widget.prefItem,
                                         Colors.black,
                                         15.sp,
                                         FontWeight.normal,
@@ -547,8 +524,6 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
     );
   }
 
-/*Function that will give an advisory*/
-
   void advisory() {
     showDialog(
       context: context,
@@ -581,7 +556,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
     );
   }
 
-  /*Function for the update dropdown */
+  /*Function for the dropdown */
   void selectFieldToUpdate() {
     showDialog(
       context: context,
@@ -596,7 +571,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
           content: Padding(
             padding: const EdgeInsets.all(10),
             /*Akog gi pasa sa atong drop down botton class ang value ni url */
-            child: UpdateListingDropDownBtn(profileUrl: widget.url),
+            child: UpdateSellListingDropdownBtn(profileurl: widget.url),
           ),
           actions: [
             Padding(
@@ -613,7 +588,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
     );
   }
 
-  /*Function that will give an advisory to the user that he cannot proceed with
+/*Function that will give an advisory to the user that he cannot proceed with
   the promotion because he has no enough swap coins */
   void notEnoughSwapCoins() {
     //determines pila ang kulang na coins ni farmer para maka promote
@@ -690,7 +665,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
 
     /*Gi call nato ang function sa class na mag update sa atong database niya giapasa nato
     ang mga needed na values */
-    await promotionUpdate.updateListingPromotedField(
+    await promotionUpdate.updateSellingListingPromotedField(
       widget.fUname,
       widget.url,
       newSwapCoins,

@@ -2,32 +2,30 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/archive_update.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/sell_listing_saving.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/unpromote_update.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings/promoted_barterlistings_details.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings/promoted_sellinglistings_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import '../database/barter_listing_saving.dart';
-import '../screens/listing_subpages/all_listing_page/all_barterlisting_details.dart';
 
-class GetBarterListings extends StatefulWidget {
-  const GetBarterListings({super.key, required this.farmerUname});
+class GetSellListingsPromoted extends StatefulWidget {
+  const GetSellListingsPromoted({super.key, required this.farmerUname});
   final String farmerUname;
 
   @override
-  State<GetBarterListings> createState() => _GetBarterListingsState();
+  State<GetSellListingsPromoted> createState() => _GetSellListingsPromotedState();
 }
 
-class _GetBarterListingsState extends State<GetBarterListings> {
-  /*Instance of other classess */
-  BarterListingSaving barter = BarterListingSaving();
-  ArchiveUpdateListing archive = ArchiveUpdateListing();
+class _GetSellListingsPromotedState extends State<GetSellListingsPromoted> {
+  SellListingSaving sell = SellListingSaving();
   UnpromoteProduct unpromote = UnpromoteProduct();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: barter.getBarteringListing(widget.farmerUname),
+      stream: sell.getSellingListing(widget.farmerUname),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final List<DocumentSnapshot> documents = snapshot.data!.docs;
@@ -44,7 +42,7 @@ class _GetBarterListingsState extends State<GetBarterListings> {
               return Column(
                 children: List.generate(end - start, (index) {
                   return Padding(
-                    padding: EdgeInsets.only(left: 13.sp, bottom: 13.sp, right: 10.sp),
+                    padding: EdgeInsets.only(left: 3.sp, bottom: 13.sp, right: 10.sp),
                     child: accessDocumentContents(documents[start + index]),
                   );
                 }),
@@ -71,36 +69,12 @@ class _GetBarterListingsState extends State<GetBarterListings> {
     DateTime dateTime2 = timestamp2.toDate();
     String finalEndDate = DateFormat('yyyy-MM-dd').format(dateTime2);
 
-    /*This Date conversion is for the promotion date */
-    Timestamp timestamp3 = data["promotionDate"];
-    DateTime promotedTime = timestamp3.toDate();
-
-    /*Archiving time check, if the current time today is  after the expiration date, then the
-    listing status will be archived*/
-    DateTime now = DateTime.now();
-    if (now.isAfter(dateTime2)) {
-      archive.archiveBarterListing(data["farmerUserName"], data["listingpictureUrl"]);
-    }
-
-    /*This is a condition that states nga if the current time exceeds 7 days from the promotion date
-    then the promotion status will be changed to false / for testing purposes during defense we can
-    change the duration to days to just 1*/
-
-    /*Aton kwa on ang difference sa number of days between sa karon og sa promoted time sa listing 
-    then butang tag condition nga if difference gani sa both time is 7 greater than 7 days so ato e
-    update ang promotion status sa listing into false.*/
-    Duration differenceTime = now.difference(promotedTime);
-    if (differenceTime > const Duration(days: 7) && data["promoted"] == true) {
-      unpromote.unpromoteBarterUpdate(data["farmerUserName"], data["listingpictureUrl"]);
-    }
-
     /*Firebase data assigned to variables for easy use */
     String imageUrl = data["listingpictureUrl"];
     String listingname = data["listingName"];
     String listingPrice = data["listingprice"].toString();
     String listingQuan = data["listingQuantity"].toString();
     String listingStatus = data["listingstatus"];
-    String prefItem = data["prefferedItem"];
     bool promoted = data["promoted"];
     String listingCategory = data["listingcategory"];
     String listingDisc = data["listingdiscription"];
@@ -110,7 +84,9 @@ class _GetBarterListingsState extends State<GetBarterListings> {
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
 
-    if (listingStatus == "ACTIVE" && promoted != true) {
+/*A condition that states that only display the listings that have both an active
+status and a promoted field that is equal to true */
+    if (listingStatus == "ACTIVE" && promoted == true) {
       return Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -130,32 +106,27 @@ class _GetBarterListingsState extends State<GetBarterListings> {
         height: 240.h,
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  /*Passing the values to the constructor of our next page
-                  so that we can use this values in that page */
-                  return BarterAllListingDetails(
-                    url: imageUrl,
-                    name: listingname,
-                    disc: listingDisc,
-                    price: listingPrice,
-                    quantity: listingQuan,
-                    status: listingStatus,
-                    prefItem: prefItem,
-                    promoted: promoted,
-                    category: listingCategory,
-                    start: finalStartDate,
-                    end: finalEndDate,
-                    fname: farmerName,
-                    fLname: farmerLname,
-                    fUname: farmerUsername,
-                    fmunicipal: farmerMunicipality,
-                    fbarangay: farmerBarangay,
-                  );
-                },
-              ),
-            );
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) {
+                return PromotedSellingListingsDetails(
+                  url: imageUrl,
+                  name: listingname,
+                  disc: listingDisc,
+                  price: listingPrice,
+                  quantity: listingQuan,
+                  status: listingStatus,
+                  promoted: promoted,
+                  category: listingCategory,
+                  start: finalStartDate,
+                  end: finalEndDate,
+                  fname: farmerName,
+                  fLname: farmerLname,
+                  fUname: farmerUsername,
+                  fmunicipal: farmerMunicipality,
+                  fbarangay: farmerBarangay,
+                );
+              },
+            ));
           },
           /*A column that contains the details being displayed */
           child: Column(

@@ -25,16 +25,20 @@ import "package:provider/provider.dart";
 
 /*Mao ni ang main class jud para sa drawers */
 
-class DashBoardDrawer extends StatelessWidget {
-  DashBoardDrawer({super.key});
+class DashBoardDrawer extends StatefulWidget {
+  const DashBoardDrawer({super.key});
 
+  @override
+  State<DashBoardDrawer> createState() => _DashBoardDrawerState();
+}
+
+class _DashBoardDrawerState extends State<DashBoardDrawer> {
 /*Instance of the class that will get a specific document id*/
   final GetSpecificUserDocumentId id = GetSpecificUserDocumentId();
 
   @override
   Widget build(BuildContext context) {
-    String userRole =
-        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String userRole = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     return Drawer(
       child: (userRole == "FARMER")
           ? ListView(
@@ -47,8 +51,7 @@ class DashBoardDrawer extends StatelessWidget {
                     children: [
                       FutureBuilder(
                         /*Kwaon nato ang document id sa atong current login user */
-                        future: id.getFarmerDocumentId(
-                            FirebaseAuth.instance.currentUser!.uid),
+                        future: id.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             String data = snapshot.data!;
@@ -99,8 +102,7 @@ class DashBoardDrawer extends StatelessWidget {
                     children: [
                       FutureBuilder(
                         /*Kwaon nato ang document id sa atong current login user */
-                        future: id.getConsumerDocumentId(
-                            FirebaseAuth.instance.currentUser!.uid),
+                        future: id.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             String data = snapshot.data!;

@@ -36,25 +36,28 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           /*Registering all the providers being used */
           providers: [
-            ChangeNotifierProvider(
-                create: (context) => FarmerAccounStatusProvider()),
+            ChangeNotifierProvider(create: (context) => FarmerAccounStatusProvider()),
             ChangeNotifierProvider(create: (context) => UserTypeProvider()),
             ChangeNotifierProvider(create: (context) => UserDetailsProvider()),
-            ChangeNotifierProvider(
-                create: (context) => LoginUserTypeProvider()),
-            ChangeNotifierProvider(
-                create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
             ChangeNotifierProvider(create: (context) => ListingPageProvider()),
             /*Registering povider for update farmer details account dropdown hint */
             ChangeNotifierProvider(
               create: (context) => UpdateDropDownHint(),
             ),
+            /*Provider that will carry the category of the listing to be addedd */
             ChangeNotifierProvider(
-                create: (contex) => AddListingCategoryProvider()),
+              create: (contex) => AddListingCategoryProvider(),
+            ),
+            /*Provider that carries the data of during selling listing creating to be saved at the end if the process */
             ChangeNotifierProvider(
-                create: (context) => SellListingDetailsProvider()),
+              create: (context) => SellListingDetailsProvider(),
+            ),
+            /*Provider that carries the data of during barter listing creating to be saved at the end if the process */
             ChangeNotifierProvider(
-                create: (context) => BarterListingDetailsProvider()),
+              create: (context) => BarterListingDetailsProvider(),
+            ),
           ],
           builder: (context, child) {
             return const MaterialApp(
