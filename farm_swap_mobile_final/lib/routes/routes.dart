@@ -1,4 +1,6 @@
-import 'package:farm_swap_mobile_final/clare_modules/screens/wallet_management_screen.dart';
+import 'package:farm_swap_mobile_final/clare_modules/screens/farmer_wallet_management_screen.dart';
+import 'package:farm_swap_mobile_final/clare_modules/widgets/cashIn_Gesture_ShowDialog.dart';
+import 'package:farm_swap_mobile_final/clare_modules/widgets/cashOut_Gesture_ShowDialog.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/pending_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_management_mainpage.dart';
@@ -56,6 +58,8 @@ class RouteManager {
   static const addbarterlisttingdetails3 = "addbarterlisttingdetails3";
   static const addbarterlisttingdetails4 = "addbarterlisttingdetails4";
   static const walletpage = "/walletpage";
+  static const cashinpage = "/cashinpage";
+  static const cashoutpage = "/cashoutpage";
   static const allBarterListingsDetails = "allListingsDetails";
   static const consumerpage = "/consumerpage";
 
@@ -165,6 +169,11 @@ class RouteManager {
 
       case walletpage:
         return MaterialPageRoute(builder: (context) => WalletPage());
+
+      case cashinpage:
+        return MaterialPageRoute(builder: (context) => CashInPage());
+      case cashoutpage:
+        return MaterialPageRoute(builder: (context) => CashOutGestureDialog());
       default:
         throw const FormatException("Warning!!! Page Routing Problem");
     }
