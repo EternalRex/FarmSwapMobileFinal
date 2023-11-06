@@ -4,7 +4,6 @@ import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/functions/get_sell_promoted_listings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../functions/get_barter_promoted_listings.dart';
 
 class PromotedListingPage extends StatefulWidget {

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/archive_update.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/sell_listing_saving.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/unpromote_update.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page/all_sellinglisting_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -117,7 +119,10 @@ class GetSellListings extends StatefulWidget {
 }
 
 class _GetSellListingsState extends State<GetSellListings> {
+  /*Instance of the other classes */
   SellListingSaving sell = SellListingSaving();
+  ArchiveUpdateListing archive = ArchiveUpdateListing();
+  UnpromoteProduct unpromote = UnpromoteProduct();
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +170,29 @@ class _GetSellListingsState extends State<GetSellListings> {
     Timestamp timestamp2 = data["listingEndTime"];
     DateTime dateTime2 = timestamp2.toDate();
     String finalEndDate = DateFormat('yyyy-MM-dd').format(dateTime2);
+
+    /*This Date conversion is for the promotion date */
+    Timestamp timestamp3 = data["promotionDate"];
+    DateTime promotedTime = timestamp3.toDate();
+
+    /*Archiving time check, if the current time today is  after the expiration date, then the
+    listing status will be archived*/
+    DateTime now = DateTime.now();
+    if (now.isAfter(dateTime2)) {
+      archive.archiveSellingListing(data["farmerUserName"], data["listingpictureUrl"]);
+    }
+
+    /*This is a condition that states nga if the current time exceeds 7 days from the promotion date
+    then the promotion status will be changed to false / for testing purposes during defense we can
+    change the duration to days to just 1*/
+
+    /*Aton kwa on ang difference sa number of days between sa karon og sa promoted time sa listing 
+    then butang tag condition nga if difference gani sa both time is 7 greater than 7 days so ato e
+    update ang promotion status sa listing into false.*/
+    Duration differenceTime = now.difference(promotedTime);
+    if (differenceTime > const Duration(days: 7) && data["promoted"] == true) {
+      unpromote.unpromoteSellingUpdate(data["farmerUserName"], data["listingpictureUrl"]);
+    }
 
     /*Firebase data assigned to variables for easy use */
     String imageUrl = data["listingpictureUrl"];
@@ -261,11 +289,7 @@ class _GetSellListingsState extends State<GetSellListings> {
         ),
       );
     } else {
-      return Container(
-        child: const Center(
-          child: Text("Yoohoo! No Active Listings!"),
-        ),
-      );
+      return Container();
     }
   }
 }
