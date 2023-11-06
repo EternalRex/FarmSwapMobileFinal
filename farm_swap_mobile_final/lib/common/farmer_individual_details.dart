@@ -10,11 +10,24 @@ class ListinGetFarmerDetails {
   /*Gamiton taning class na naa sa atong commons folder para mag pull out sa document id
   sa current user */
   GetSpecificUserDocumentId docId = GetSpecificUserDocumentId();
+  Future<String> getFarmerUserId() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId =
+        await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    /*E return nato ang value sa doument */
+    return snapshot["userId"];
+  }
 
   Future<String> getFarmerFirstname() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    String documentId =
+        await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_FarmerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     /*E return nato ang value sa doument */
@@ -23,18 +36,58 @@ class ListinGetFarmerDetails {
 
   Future<String> getLastName() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    String documentId =
+        await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_FarmerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     /*E return nato ang value sa doument */
     return snapshot["lastname"];
   }
 
+  Future<String> getFarmerContactNum() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId =
+        await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    /*E return nato ang value sa doument */
+    return snapshot["contactnum"];
+  }
+
+  Future<String> getFarmerUserRole() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId =
+        await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    /*E return nato ang value sa doument */
+    return snapshot["userRole"];
+  }
+
+  Future<String> getFarmerUserProfilePhoto() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId =
+        await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    /*E return nato ang value sa doument */
+    return snapshot["profilePhoto"];
+  }
+
 /*Municipality na value */
   Future<String> getMunicipalityFirstname() async {
-    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    String documentId =
+        await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_FarmerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     return snapshot["city_municipality"];
@@ -42,8 +95,10 @@ class ListinGetFarmerDetails {
 
 /*Barangay na Value */
   Future<String> getBaranggay() async {
-    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    String documentId =
+        await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_FarmerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     return snapshot["city_baranggay"];
@@ -51,8 +106,10 @@ class ListinGetFarmerDetails {
 
   Future<String> getUname() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    String documentId =
+        await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference =
+        FirebaseFirestore.instance.collection("sample_FarmerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     /*E return nato ang value sa doument */

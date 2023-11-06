@@ -6,6 +6,7 @@ import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings/promoted_barterlistings_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class GetBarterPromotedListings extends StatefulWidget {
@@ -25,8 +26,15 @@ class _GetBarterPromotedListingsState extends State<GetBarterPromotedListings> {
       stream: barter.getBarteringListing(widget.farmerUname),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
-          final List<DocumentSnapshot> documents = snapshot.data!.docs;
           return ListView(
+            scrollDirection: Axis.vertical,
+            children: snapshot.data!.docs
+                .map<Widget>((document) => accessDocumentContents(document))
+                .toList(),
+          );
+
+          //final List<DocumentSnapshot> documents = snapshot.data!.docs;
+          /*return ListView(
             /*A condition that allows data to be displayed in listview in a horizontal
             direction */
             scrollDirection: Axis.horizontal,
@@ -45,7 +53,7 @@ class _GetBarterPromotedListingsState extends State<GetBarterPromotedListings> {
                 }),
               );
             }),
-          );
+          );*/
         } else {
           return const Text("Loading...");
         }
@@ -101,7 +109,7 @@ status and a promoted field that is equal to true */
           ],
         ),
         width: 190.w,
-        height: 240.h,
+        height: 100.h,
         child: GestureDetector(
           onTap: () {
             Navigator.of(context).push(
@@ -130,13 +138,13 @@ status and a promoted field that is equal to true */
             );
           },
           /*A column that contains the details being displayed */
-          child: Column(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 padding: EdgeInsets.all(10.sp),
-                height: 150.h,
-                width: 200.w,
+                height: 100.h,
+                width: 100.w,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: const BorderRadius.all(
@@ -150,17 +158,70 @@ status and a promoted field that is equal to true */
                 ),
               ),
               SizedBox(
-                height: 12.sp,
+                width: 12.sp,
               ),
-              poppinsText(listingname, farmSwapTitlegreen, 15.sp, FontWeight.w500),
-              SizedBox(
-                height: 10.sp,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  poppinsText(
+                    listingname,
+                    farmSwapTitlegreen,
+                    15.sp,
+                    FontWeight.w500,
+                  ),
+                  poppinsText(
+                    "$listingQuan kg",
+                    Colors.black,
+                    13.sp,
+                    FontWeight.w300,
+                  ),
+                  poppinsText(
+                    finalStartDate,
+                    Colors.black,
+                    13.sp,
+                    FontWeight.w300,
+                  ),
+                ],
               ),
-              poppinsText("$listingPrice " " pesos", Colors.black, 12.sp, FontWeight.normal),
-              SizedBox(
-                height: 7.sp,
+              const Spacer(
+                flex: 1,
               ),
-              poppinsText("$listingQuan " " kg ", Colors.black, 12.sp, FontWeight.normal),
+              Padding(
+                padding: EdgeInsets.only(right: 15.sp),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return PromotedBarterListingsDetails(
+                            url: imageUrl,
+                            name: listingname,
+                            disc: listingDisc,
+                            price: listingPrice,
+                            quantity: listingQuan,
+                            status: listingStatus,
+                            prefItem: prefItem,
+                            promoted: promoted,
+                            category: listingCategory,
+                            start: finalStartDate,
+                            end: finalEndDate,
+                            fname: farmerName,
+                            fLname: farmerLname,
+                            fUname: farmerUsername,
+                            fmunicipal: farmerMunicipality,
+                            fbarangay: farmerBarangay,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  icon: Icon(
+                    FontAwesomeIcons.eye,
+                    color: farmSwapTitlegreen,
+                  ),
+                  iconSize: 25.sp,
+                ),
+              ),
             ],
           ),
         ),

@@ -38,7 +38,7 @@ class _DrawerDisplayUserDataState extends State<DrawerDisplayUserData> {
                     radius: 60.w,
                   ),
                   SizedBox(
-                    width: 15.sp,
+                    width: 10.sp,
                   ),
                   Column(
                     children: [
@@ -69,7 +69,7 @@ class _DrawerDisplayUserDataState extends State<DrawerDisplayUserData> {
                     ],
                   ),
                 ],
-              )
+              ),
             ],
           );
         } else {

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/archive_update.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/promoted_update.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/update_listing_dropdown/update_sell_barter_dropdown.dart';
@@ -63,6 +64,9 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
 
 /*Mao ni class na mo update sa promotion field and swap coins field sa database whenever a promotion is made*/
   PromotedListings promotionUpdate = PromotedListings();
+
+  /*Instance of the archiving class*/
+  ArchiveUpdateListing archive = ArchiveUpdateListing();
 
   /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -483,7 +487,9 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                               ),
                               /*Archive Button */
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  confirmArchive();
+                                },
                                 child: poppinsText(
                                   "Archive",
                                   Colors.orange,
@@ -714,5 +720,73 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
     setState(() {
       swapCoins = coins.toDouble();
     });
+  }
+
+/*Function for archiving warning message*/
+  void confirmArchive() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText(
+            "Warning",
+            Colors.red,
+            20.sp,
+            FontWeight.w500,
+          ),
+          content: poppinsText(
+            "Your Listing will be archived and will not be accessible again!",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                archiveListing();
+                successArchive();
+              },
+              child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /*Function for achiving success message*/
+  void successArchive() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText(
+            "Archive Complete",
+            Colors.red,
+            20.sp,
+            FontWeight.w500,
+          ),
+          content: poppinsText(
+            "Your Archived your listing successfully",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(RouteManager.listingmainpage);
+              },
+              child: poppinsText("Finish", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /*Actual function for archiving */
+  Future<void> archiveListing() async {
+    await archive.archiveSellingListing(widget.fUname, widget.url);
   }
 }

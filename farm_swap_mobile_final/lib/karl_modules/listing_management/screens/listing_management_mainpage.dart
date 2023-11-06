@@ -1,9 +1,8 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_listingintro_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/all_listing_page/all_tmainpage_listing_page.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/archived_listing_page.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/archive_pistings_page/archived_listing_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings/promoted_listings_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
 import 'package:farm_swap_mobile_final/provider/listing_page_provider.dart';

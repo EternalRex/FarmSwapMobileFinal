@@ -23,7 +23,11 @@ class PromotedListings {
     if (querySnapshot.docs.isNotEmpty) {
       DocumentReference docRef = querySnapshot.docs.first.reference;
       try {
-        await docRef.update({'promoted': true, 'swapcoins': newSwapCoins});
+        await docRef.update({
+          'promoted': true,
+          'swapcoins': newSwapCoins,
+          'promotionDate': DateTime.now(),
+        });
       } catch (e) {
         throw ('Wa makit e ang docs', e);
       }
@@ -47,7 +51,11 @@ class PromotedListings {
     if (querySnapshot.docs.isNotEmpty) {
       DocumentReference docRef = querySnapshot.docs.first.reference;
       try {
-        await docRef.update({'promoted': true, 'swapcoins': newSwapCoins});
+        await docRef.update({
+          'promoted': true,
+          'swapcoins': newSwapCoins,
+          'promotionDate': DateTime.now(),
+        });
       } catch (e) {
         throw ('Wa makit e ang docs', e);
       }

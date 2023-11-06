@@ -4,7 +4,6 @@ import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/functions/get_sell_promoted_listings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../functions/get_barter_promoted_listings.dart';
 
 class PromotedListingPage extends StatefulWidget {
@@ -35,97 +34,91 @@ class _PromotedListingPageState extends State<PromotedListingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(top: 13.sp),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  /*Container for barter option */
-                  Container(
-                    height: 50.h,
-                    width: 140.w,
-                    decoration: BoxDecoration(
-                      color: container1,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        bottomLeft: Radius.circular(30),
+    return SingleChildScrollView(
+      child: Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 13.sp),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    /*Container for barter option */
+                    Container(
+                      height: 50.h,
+                      width: 140.w,
+                      decoration: BoxDecoration(
+                        color: container1,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          bottomLeft: Radius.circular(30),
+                        ),
+                        border: Border.all(color: greenDark),
                       ),
-                      border: Border.all(color: greenDark),
-                    ),
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          containerColor(1);
-                        },
-                        child: poppinsText(
-                          "Barter",
-                          farmSwapTitlegreen,
-                          20.sp,
-                          FontWeight.w500,
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            containerColor(1);
+                          },
+                          child: poppinsText(
+                            "Barter",
+                            farmSwapTitlegreen,
+                            20.sp,
+                            FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  /*Container for sell option */
-                  Container(
-                    height: 50.h,
-                    width: 140.w,
-                    decoration: BoxDecoration(
-                      color: container2,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
+                    /*Container for sell option */
+                    Container(
+                      height: 50.h,
+                      width: 140.w,
+                      decoration: BoxDecoration(
+                        color: container2,
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(30),
+                          bottomRight: Radius.circular(30),
+                        ),
+                        border: Border.all(color: greenDark),
                       ),
-                      border: Border.all(color: greenDark),
-                    ),
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          containerColor(2);
-                        },
-                        child: poppinsText(
-                          "Sell",
-                          farmSwapTitlegreen,
-                          20.sp,
-                          FontWeight.w500,
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            containerColor(2);
+                          },
+                          child: poppinsText(
+                            "Sell",
+                            farmSwapTitlegreen,
+                            20.sp,
+                            FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15.sp,
-              ),
-              (listingType == "BARTER")
-                  ?
-                  /*This is the center container that will contain the listings of the farmer */
-                  /*Expanded for  */
-                  Expanded(
-                      child: SingleChildScrollView(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          width: 360.w,
-                          child: GetBarterPromotedListings(farmerUname: farmerUname),
-                        ),
+                  ],
+                ),
+                SizedBox(
+                  height: 15.sp,
+                ),
+                (listingType == "BARTER")
+                    ?
+                    /*This is the center container that will contain the listings of the farmer */
+                    /*Expanded for  */
+                    SizedBox(
+                        height: 450.h,
+                        width: 360.w,
+                        child: GetBarterPromotedListings(farmerUname: farmerUname),
+                      )
+                    : SizedBox(
+                        height: 450.h,
+                        width: 360.w,
+                        child: GetSellListingsPromoted(farmerUname: farmerUname),
                       ),
-                    )
-                  : Expanded(
-                      child: SingleChildScrollView(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          width: 360.w,
-                          child: GetSellListingsPromoted(farmerUname: farmerUname),
-                        ),
-                      ),
-                    ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

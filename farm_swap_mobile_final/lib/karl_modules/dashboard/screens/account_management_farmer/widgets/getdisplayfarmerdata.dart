@@ -198,7 +198,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                 ),
               ),
               SizedBox(
-                height: 10.h,
+                height: 25.h,
               ),
               //this align is para sa account status of the current user
               Align(

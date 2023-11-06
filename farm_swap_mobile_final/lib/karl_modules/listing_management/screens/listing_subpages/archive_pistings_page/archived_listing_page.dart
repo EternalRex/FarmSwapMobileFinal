@@ -1,34 +1,31 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/barter_listing_saving.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/functions/get_barter_listings.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/functions/get_sell_listings.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/functions/get_barter_archive_listings.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/functions/get_sell_archive_listings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AllListingsList extends StatefulWidget {
-  const AllListingsList({super.key});
+class ArchiveListingPage extends StatefulWidget {
+  const ArchiveListingPage({super.key});
 
   @override
-  State<AllListingsList> createState() => _AllListingsListState();
+  State<ArchiveListingPage> createState() => _ArchiveListingPageState();
 }
 
-class _AllListingsListState extends State<AllListingsList> {
-  /*Properties for the choice switch color */
+class _ArchiveListingPageState extends State<ArchiveListingPage> {
+/*Properties for the choice switch color */
   Color container1 = Colors.white;
   Color container2 = Colors.white;
   int containerSelector = 1;
   String listingType = "";
 
-  /*Instance of the class for barter database */
-  BarterListingSaving barter = BarterListingSaving();
   String farmerUname = "";
 
 /*Instance of the class that gets the individual details of a farmer */
   ListinGetFarmerDetails details = ListinGetFarmerDetails();
 
-/*Initializing the function that will get the farmers username */
+  /*Initializing the function that will get the farmers username */
   @override
   void initState() {
     getFarmerUname();
@@ -39,15 +36,12 @@ class _AllListingsListState extends State<AllListingsList> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          /*This row is para ni sa katong choices asa iya e select, for barter or for
-        selling na listings */
-          Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 10.sp),
-                child: Row(
+          Padding(
+            padding: EdgeInsets.only(top: 13.sp),
+            child: Column(
+              children: [
+                Row(
                   children: [
                     /*Container for barter option */
                     Container(
@@ -103,34 +97,31 @@ class _AllListingsListState extends State<AllListingsList> {
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 15.sp,
-              ),
-              (listingType == "BARTER")
-                  ?
-                  /*This is the center container that will contain the listings of the farmer */
-                  /*Expanded for  */
-                  Container(
-                      color: Colors.white,
-                      height: 450.h,
-                      width: 360.w,
-                      child: GetBarterListings(farmerUname: farmerUname),
-                    )
-                  : Container(
-                      color: Colors.white,
-                      height: 450.h,
-                      width: 360.w,
-                      child: GetSellListings(farmerUname: farmerUname),
-                    ),
-            ],
+                SizedBox(
+                  height: 15.sp,
+                ),
+                (listingType == "BARTER")
+                    ?
+                    /*This is the center container that will contain the listings of the farmer */
+                    /*Expanded for  */
+                    SizedBox(
+                        height: 450.h,
+                        width: 360.w,
+                        child: GetBarterArchiveListings(farmerUname: farmerUname),
+                      )
+                    : SizedBox(
+                        height: 450.h,
+                        width: 360.w,
+                        child: GetSellArchiveListings(farmerUname: farmerUname),
+                      ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  /*A function that will change the color of the container when it is tapped */
   void containerColor(int index) {
     setState(() {
       if (index == 1) {

@@ -2,30 +2,28 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/sell_listing_saving.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/unpromote_update.dart';
-import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings/promoted_sellinglistings_details.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/barter_listing_saving.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/archive_pistings_page/archived_barterlistingsdetails_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
-class GetSellListingsPromoted extends StatefulWidget {
-  const GetSellListingsPromoted({super.key, required this.farmerUname});
+class GetBarterArchiveListings extends StatefulWidget {
+  const GetBarterArchiveListings({super.key, required this.farmerUname});
   final String farmerUname;
 
   @override
-  State<GetSellListingsPromoted> createState() => _GetSellListingsPromotedState();
+  State<GetBarterArchiveListings> createState() => _GetBarterArchiveListingsState();
 }
 
-class _GetSellListingsPromotedState extends State<GetSellListingsPromoted> {
-  SellListingSaving sell = SellListingSaving();
-  UnpromoteProduct unpromote = UnpromoteProduct();
+class _GetBarterArchiveListingsState extends State<GetBarterArchiveListings> {
+  BarterListingSaving barter = BarterListingSaving();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: sell.getSellingListing(widget.farmerUname),
+      stream: barter.getBarteringListing(widget.farmerUname),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           return ListView(
@@ -34,7 +32,6 @@ class _GetSellListingsPromotedState extends State<GetSellListingsPromoted> {
                 .map<Widget>((document) => accessDocumentContents(document))
                 .toList(),
           );
-
           /*final List<DocumentSnapshot> documents = snapshot.data!.docs;
           return ListView(
             /*A condition that allows data to be displayed in listview in a horizontal
@@ -82,6 +79,7 @@ class _GetSellListingsPromotedState extends State<GetSellListingsPromoted> {
     String listingPrice = data["listingprice"].toString();
     String listingQuan = data["listingQuantity"].toString();
     String listingStatus = data["listingstatus"];
+    String prefItem = data["prefferedItem"];
     bool promoted = data["promoted"];
     String listingCategory = data["listingcategory"];
     String listingDisc = data["listingdiscription"];
@@ -93,7 +91,7 @@ class _GetSellListingsPromotedState extends State<GetSellListingsPromoted> {
 
 /*A condition that states that only display the listings that have both an active
 status and a promoted field that is equal to true */
-    if (listingStatus == "ACTIVE" && promoted == true) {
+    if (listingStatus == "ARCHIVE") {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -115,27 +113,30 @@ status and a promoted field that is equal to true */
           height: 100.h,
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) {
-                  return PromotedSellingListingsDetails(
-                    url: imageUrl,
-                    name: listingname,
-                    disc: listingDisc,
-                    price: listingPrice,
-                    quantity: listingQuan,
-                    status: listingStatus,
-                    promoted: promoted,
-                    category: listingCategory,
-                    start: finalStartDate,
-                    end: finalEndDate,
-                    fname: farmerName,
-                    fLname: farmerLname,
-                    fUname: farmerUsername,
-                    fmunicipal: farmerMunicipality,
-                    fbarangay: farmerBarangay,
-                  );
-                },
-              ));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ArchivedBarterListingDetails(
+                      url: imageUrl,
+                      name: listingname,
+                      disc: listingDisc,
+                      price: listingPrice,
+                      quantity: listingQuan,
+                      status: listingStatus,
+                      prefItem: prefItem,
+                      promoted: promoted,
+                      category: listingCategory,
+                      start: finalStartDate,
+                      end: finalEndDate,
+                      fname: farmerName,
+                      fLname: farmerLname,
+                      fUname: farmerUsername,
+                      fmunicipal: farmerMunicipality,
+                      fbarangay: farmerBarangay,
+                    );
+                  },
+                ),
+              );
             },
             /*A column that contains the details being displayed */
             child: Row(
@@ -158,7 +159,7 @@ status and a promoted field that is equal to true */
                   ),
                 ),
                 SizedBox(
-                  width: 13.sp,
+                  width: 12.sp,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -189,7 +190,32 @@ status and a promoted field that is equal to true */
                 Padding(
                   padding: EdgeInsets.only(right: 15.sp),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ArchivedBarterListingDetails(
+                              url: imageUrl,
+                              name: listingname,
+                              disc: listingDisc,
+                              price: listingPrice,
+                              quantity: listingQuan,
+                              status: listingStatus,
+                              prefItem: prefItem,
+                              promoted: promoted,
+                              category: listingCategory,
+                              start: finalStartDate,
+                              end: finalEndDate,
+                              fname: farmerName,
+                              fLname: farmerLname,
+                              fUname: farmerUsername,
+                              fmunicipal: farmerMunicipality,
+                              fbarangay: farmerBarangay,
+                            );
+                          },
+                        ),
+                      );
+                    },
                     icon: Icon(
                       FontAwesomeIcons.eye,
                       color: farmSwapTitlegreen,

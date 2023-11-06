@@ -8,10 +8,9 @@ class SubHeaderPendingTransaction extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: 5.w,
+            width: 20.w,
           ),
           Text(
             'Type',
@@ -24,7 +23,7 @@ class SubHeaderPendingTransaction extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 40.w,
+            width: 45.w,
           ),
           Text(
             'Amount',
@@ -37,10 +36,10 @@ class SubHeaderPendingTransaction extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 40.w,
+            width: 35.w,
           ),
           Text(
-            'Date and Time',
+            'Date',
             style: TextStyle(
               color: Colors.black,
               fontSize: 15.sp,
@@ -50,7 +49,7 @@ class SubHeaderPendingTransaction extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 30.w,
+            width: 40.w,
           ),
           Text(
             'Status',
