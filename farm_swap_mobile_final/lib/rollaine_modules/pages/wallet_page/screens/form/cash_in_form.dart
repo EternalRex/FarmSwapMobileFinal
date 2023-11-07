@@ -33,12 +33,12 @@ class _CashInFormState extends State<CashInForm> {
   @override
   void initState() {
     super.initState();
-    // Initialize the controllers here
+    // Initialize the controllers
     controllers.contactNumberController = TextEditingController();
     controllers.addressController = TextEditingController();
     controllers.dateController = TextEditingController();
     controllers.amountController = TextEditingController();
-    // Load your data when the widget is initialized
+    // Load data when the widget is initialized
     loadData();
   }
 

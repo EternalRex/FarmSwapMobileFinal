@@ -51,7 +51,7 @@ class _CashOutFormState extends State<CashOutForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: greenNormal,
+        backgroundColor: farmSwapTitlegreen,
         title: const Text("Transaction : Cash Out"),
         flexibleSpace: Container(
           height: 300.sp,
