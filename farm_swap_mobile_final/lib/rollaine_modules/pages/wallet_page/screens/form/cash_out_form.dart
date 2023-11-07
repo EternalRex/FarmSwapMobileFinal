@@ -147,7 +147,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          'First Name :',
+                          'First Name:',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 13.sp,
@@ -182,7 +182,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          'Last Name :',
+                          'Last Name:',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 13.sp,
@@ -217,7 +217,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          'Mobile Number :',
+                          'Mobile Number:',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 13.sp,
@@ -252,7 +252,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          'Address :',
+                          'Address:',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 13.sp,
@@ -287,7 +287,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          'Date :',
+                          'Date:',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 13.sp,
@@ -317,7 +317,7 @@ class _CashOutFormState extends State<CashOutForm> {
 
                                     if (pickedDate != null) {
                                       String formattedDate =
-                                          DateFormat('MM/dd/yyyy HH:mm:ss')
+                                          DateFormat('yyyy-MM-dd HH:mm:ss')
                                               .format(pickedDate);
 
                                       setState(() {
@@ -374,7 +374,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 1,
                         child: Text(
-                          'Amount :',
+                          'Amount:',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 13.sp,

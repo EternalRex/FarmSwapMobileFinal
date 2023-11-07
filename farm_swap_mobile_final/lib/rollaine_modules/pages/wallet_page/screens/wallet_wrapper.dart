@@ -346,6 +346,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
           data['status'] == searchValue) {
         return ListTile(
           title: Container(
+            width: 750.w,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: const BorderRadius.all(
@@ -399,7 +400,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                     flex: 1,
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(top: 8, left: 30, bottom: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -474,6 +475,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
     } else {
       return ListTile(
         title: Container(
+          width: 750.w,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: const BorderRadius.all(
@@ -527,7 +529,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                   flex: 1,
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(top: 8, left: 30, bottom: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

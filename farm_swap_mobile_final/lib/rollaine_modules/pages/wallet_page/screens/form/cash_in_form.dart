@@ -54,7 +54,8 @@ class _CashInFormState extends State<CashInForm> {
   }
 
   /*Instance of the controller class*/
-  static ConsumerTextEditingControllers controllers = ConsumerTextEditingControllers();
+  static ConsumerTextEditingControllers controllers =
+      ConsumerTextEditingControllers();
 
   // Create an instance of WalletTextFieldLabel ang ga gamit ani kay sa first name and last name ra
   CWalletTextFieldLabel cWalletTextFieldLabel = CWalletTextFieldLabel();
@@ -175,7 +176,7 @@ class _CashInFormState extends State<CashInForm> {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                'First Name :',
+                                'First Name:',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 13.sp,
@@ -209,7 +210,7 @@ class _CashInFormState extends State<CashInForm> {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                'Last Name :',
+                                'Last Name:',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 13.sp,
@@ -243,7 +244,7 @@ class _CashInFormState extends State<CashInForm> {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                'Mobile Number :',
+                                'Mobile Number:',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 13.sp,
@@ -279,7 +280,7 @@ class _CashInFormState extends State<CashInForm> {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                'Address :',
+                                'Address:',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 13.sp,
@@ -315,7 +316,7 @@ class _CashInFormState extends State<CashInForm> {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                'Date :',
+                                'Date:',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 13.sp,
@@ -346,7 +347,7 @@ class _CashInFormState extends State<CashInForm> {
 
                                           if (pickedDate != null) {
                                             String formattedDate = DateFormat(
-                                                    'MM/dd/yyyy HH:mm:ss')
+                                                    'yyyy-MM-dd HH:mm:ss')
                                                 .format(pickedDate);
 
                                             setState(() {
@@ -406,7 +407,7 @@ class _CashInFormState extends State<CashInForm> {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                'Amount :',
+                                'Amount:',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 13.sp,
@@ -440,7 +441,7 @@ class _CashInFormState extends State<CashInForm> {
                             ),
                             Expanded(
                               child: Text(
-                                'Proof of Payment :',
+                                'Proof of Payment:',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 13.sp,
@@ -800,8 +801,8 @@ class _CashInFormState extends State<CashInForm> {
                                       onPressed: () {
                                         Navigator.of(context)
                                             .pop(); // Close the AlertDialog
-                                        Navigator.of(context)
-                                            .pushNamed(RouteManager.consumerwallet);
+                                        Navigator.of(context).pushNamed(
+                                            RouteManager.consumerwallet);
                                       },
                                     ),
                                     TextButton(
@@ -854,56 +855,61 @@ class _CashInFormState extends State<CashInForm> {
 
 // Function to save the data to Firestore including the selected image
   Future<void> saveDataIncludingImage() async {
-    if (_selectedImage == null) {
-      // Display an error message or return, as an image is required
-      return;
+    try {
+      if (_selectedImage == null) {
+        // Display an error message or return, as an image is required
+        return;
+      }
+
+      final userRole = controllers.userRoleController.text;
+      final userId = FirebaseAuth.instance.currentUser!.uid;
+      final firstName = controllers.firstNameController.text;
+      final lastName = controllers.lastNameController.text;
+      final contactNumber = controllers.contactNumberController.text;
+      String address = controllers.addressController.text;
+      String cashindate = controllers.dateController.text;
+      DateTime date = DateTime.parse(cashindate);
+      final amount = double.parse(controllers.amountController.text);
+      final status = controllers.statusController.text;
+      String request = "Cash In";
+      final profilePhoto = controllers.profileController.text;
+
+      // Upload the selected image to Firebase Storage
+      final Reference storageReference =
+          FirebaseStorage.instance.ref().child("images/${DateTime.now()}.jpg");
+      UploadTask uploadTask =
+          storageReference.putFile(File(_selectedImage!.path));
+
+      await uploadTask.whenComplete(() async {
+        String downloadURL = await storageReference.getDownloadURL();
+
+        // Use the downloadURL as the proofPayment
+        final proofPayment = downloadURL;
+
+        // Create an instance of the FarmerWalletDb
+        ConsumerWalletDB consumerWalletDB = ConsumerWalletDB();
+
+        AddWalletConsumerDataQuery walletConsumer =
+            AddWalletConsumerDataQuery();
+        final consumerwallet = await consumerWalletDB.insertConsumerWalletData(
+          userRole,
+          userId,
+          firstName,
+          lastName,
+          contactNumber,
+          address,
+          date,
+          amount,
+          proofPayment,
+          status,
+          request,
+          profilePhoto,
+        );
+
+        await walletConsumer.createUser(consumerwallet);
+      });
+    } catch (e) {
+      print('Error: $e');
     }
-
-    final userRole = controllers.userRoleController.text;
-    final userId = FirebaseAuth.instance.currentUser!.uid;
-    final firstName = controllers.firstNameController.text;
-    final lastName = controllers.lastNameController.text;
-    final contactNumber = controllers.contactNumberController.text;
-    String address = controllers.addressController.text;
-    String cashindate = controllers.dateController.text;
-    DateTime date = DateTime.parse(cashindate);
-    final amount = double.parse(controllers.amountController.text);
-    final status = controllers.statusController.text;
-    String request = "Cash In";
-    final profilePhoto = controllers.profileController.text;
-
-    // Upload the selected image to Firebase Storage
-    final Reference storageReference =
-        FirebaseStorage.instance.ref().child("images/${DateTime.now()}.jpg");
-    UploadTask uploadTask =
-        storageReference.putFile(File(_selectedImage!.path));
-
-    await uploadTask.whenComplete(() async {
-      String downloadURL = await storageReference.getDownloadURL();
-
-      // Use the downloadURL as the proofPayment
-      final proofPayment = downloadURL;
-
-      // Create an instance of the FarmerWalletDb
-      ConsumerWalletDB consumerWalletDB = ConsumerWalletDB();
-
-      AddWalletConsumerDataQuery walletConsumer = AddWalletConsumerDataQuery();
-      final consumerwallet = await consumerWalletDB.insertConsumerWalletData(
-        userRole,
-        userId,
-        firstName,
-        lastName,
-        contactNumber,
-        address,
-        date,
-        amount,
-        proofPayment,
-        status,
-        request,
-        profilePhoto,
-      );
-
-      await walletConsumer.createUser(consumerwallet);
-    });
   }
 }
