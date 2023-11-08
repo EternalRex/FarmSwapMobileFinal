@@ -93,136 +93,139 @@ class _GetBarterPromotedListingsState extends State<GetBarterPromotedListings> {
 /*A condition that states that only display the listings that have both an active
 status and a promoted field that is equal to true */
     if (listingStatus == "ACTIVE" && promoted == true) {
-      return Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(30),
-          ),
-          /*PUTTING BOX SHADOW ON THE CONTAINER */
-          boxShadow: [
-            BoxShadow(
-              color: shadow,
-              blurRadius: 2,
-              offset: const Offset(1, 5),
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(30),
             ),
-          ],
-        ),
-        width: 190.w,
-        height: 100.h,
-        child: GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return PromotedBarterListingsDetails(
-                    url: imageUrl,
-                    name: listingname,
-                    disc: listingDisc,
-                    price: listingPrice,
-                    quantity: listingQuan,
-                    status: listingStatus,
-                    prefItem: prefItem,
-                    promoted: promoted,
-                    category: listingCategory,
-                    start: finalStartDate,
-                    end: finalEndDate,
-                    fname: farmerName,
-                    fLname: farmerLname,
-                    fUname: farmerUsername,
-                    fmunicipal: farmerMunicipality,
-                    fbarangay: farmerBarangay,
-                  );
-                },
-              ),
-            );
-          },
-          /*A column that contains the details being displayed */
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.all(10.sp),
-                height: 100.h,
-                width: 100.w,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(30),
-                  ),
-                  /*PUTTING BOX SHADOW ON THE CONTAINER */
-                  image: DecorationImage(
-                    image: CachedNetworkImageProvider(imageUrl),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 12.sp,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  poppinsText(
-                    listingname,
-                    farmSwapTitlegreen,
-                    15.sp,
-                    FontWeight.w500,
-                  ),
-                  poppinsText(
-                    "$listingQuan kg",
-                    Colors.black,
-                    13.sp,
-                    FontWeight.w300,
-                  ),
-                  poppinsText(
-                    finalStartDate,
-                    Colors.black,
-                    13.sp,
-                    FontWeight.w300,
-                  ),
-                ],
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 15.sp),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return PromotedBarterListingsDetails(
-                            url: imageUrl,
-                            name: listingname,
-                            disc: listingDisc,
-                            price: listingPrice,
-                            quantity: listingQuan,
-                            status: listingStatus,
-                            prefItem: prefItem,
-                            promoted: promoted,
-                            category: listingCategory,
-                            start: finalStartDate,
-                            end: finalEndDate,
-                            fname: farmerName,
-                            fLname: farmerLname,
-                            fUname: farmerUsername,
-                            fmunicipal: farmerMunicipality,
-                            fbarangay: farmerBarangay,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  icon: Icon(
-                    FontAwesomeIcons.eye,
-                    color: farmSwapTitlegreen,
-                  ),
-                  iconSize: 25.sp,
-                ),
+            /*PUTTING BOX SHADOW ON THE CONTAINER */
+            boxShadow: [
+              BoxShadow(
+                color: shadow,
+                blurRadius: 2,
+                offset: const Offset(1, 5),
               ),
             ],
+          ),
+          width: 190.w,
+          height: 100.h,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return PromotedBarterListingsDetails(
+                      url: imageUrl,
+                      name: listingname,
+                      disc: listingDisc,
+                      price: listingPrice,
+                      quantity: listingQuan,
+                      status: listingStatus,
+                      prefItem: prefItem,
+                      promoted: promoted,
+                      category: listingCategory,
+                      start: finalStartDate,
+                      end: finalEndDate,
+                      fname: farmerName,
+                      fLname: farmerLname,
+                      fUname: farmerUsername,
+                      fmunicipal: farmerMunicipality,
+                      fbarangay: farmerBarangay,
+                    );
+                  },
+                ),
+              );
+            },
+            /*A column that contains the details being displayed */
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10.sp),
+                  height: 100.h,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                    /*PUTTING BOX SHADOW ON THE CONTAINER */
+                    image: DecorationImage(
+                      image: CachedNetworkImageProvider(imageUrl),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 12.sp,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    poppinsText(
+                      listingname,
+                      farmSwapTitlegreen,
+                      15.sp,
+                      FontWeight.w500,
+                    ),
+                    poppinsText(
+                      "$listingQuan kg",
+                      Colors.black,
+                      13.sp,
+                      FontWeight.w300,
+                    ),
+                    poppinsText(
+                      finalStartDate,
+                      Colors.black,
+                      13.sp,
+                      FontWeight.w300,
+                    ),
+                  ],
+                ),
+                const Spacer(
+                  flex: 1,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 15.sp),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return PromotedBarterListingsDetails(
+                              url: imageUrl,
+                              name: listingname,
+                              disc: listingDisc,
+                              price: listingPrice,
+                              quantity: listingQuan,
+                              status: listingStatus,
+                              prefItem: prefItem,
+                              promoted: promoted,
+                              category: listingCategory,
+                              start: finalStartDate,
+                              end: finalEndDate,
+                              fname: farmerName,
+                              fLname: farmerLname,
+                              fUname: farmerUsername,
+                              fmunicipal: farmerMunicipality,
+                              fbarangay: farmerBarangay,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.eye,
+                      color: farmSwapTitlegreen,
+                    ),
+                    iconSize: 25.sp,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );
