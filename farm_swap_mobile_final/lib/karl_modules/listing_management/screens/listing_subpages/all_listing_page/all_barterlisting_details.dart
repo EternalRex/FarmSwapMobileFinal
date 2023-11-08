@@ -698,8 +698,9 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
     await promotionUpdate.updateListingPromotedField(
       widget.fUname,
       widget.url,
-      newSwapCoins,
     );
+
+    await promotionUpdate.updateFarmerSwapCoins(newSwapCoins.toInt());
   }
 
   /*Function that notifies that user that promotion was sucessfull*/

@@ -1,63 +1,61 @@
-/*This class will update the promoted field and set it to true*/
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/get_specific_user_docid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class PromotedListings {
-  /*Gamiton taning class na naa sa atong commons folder para mag pull out sa document id
-  sa current user */
-  GetSpecificUserDocumentId docId = GetSpecificUserDocumentId();
+class RenewUpdateListing {
   final _firebaseAuth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
 
-  Future<void> updateListingPromotedField(String farmerUname, String pictureUrl) async {
+  /*Gamiton taning class na naa sa atong commons folder para mag pull out sa document id
+  sa current user */
+  GetSpecificUserDocumentId docId = GetSpecificUserDocumentId();
+
+  Future<void> renewBarterListing(String farmerUname, String pcitureUrl, Timestamp endTime) async {
     String userid = _firebaseAuth.currentUser!.uid;
-    String farmerUsername = farmerUname;
     String category = "BARTER";
-    String finalDocId = '$farmerUsername$category$userid';
+    String farmerUsername = farmerUname;
+    String docId = '$farmerUsername$category$userid';
+    String newStatus = "REACTIVATED";
 
     QuerySnapshot querySnapshot = await _firestore
         .collection("sample_BarterListings")
-        .doc(finalDocId)
-        .collection('barter')
-        .where('listingpictureUrl', isEqualTo: pictureUrl)
+        .doc(docId)
+        .collection("barter")
+        .where('listingpictureUrl', isEqualTo: pcitureUrl)
         .get();
 
     if (querySnapshot.docs.isNotEmpty) {
-      DocumentReference docRef = querySnapshot.docs.first.reference;
+      DocumentReference docref = querySnapshot.docs.first.reference;
       try {
-        await docRef.update({
-          'promoted': true,
-          'promotionDate': DateTime.now(),
-        });
+        await docref.update(
+            {'listingstatus': newStatus, 'renewaldate': DateTime.now(), 'listingEndTime': endTime});
       } catch (e) {
-        throw ('Wa makit e ang docs', e);
+        throw ('Way docs makit an', e);
       }
     }
   }
 
-  Future<void> updateSellingListingPromotedField(String farmerUname, String pictureUrl) async {
+  Future<void> renewSellingListing(String farmerUname, String pcitureUrl, Timestamp endTime) async {
     String userid = _firebaseAuth.currentUser!.uid;
-    String farmerUsername = farmerUname;
     String category = "SELL";
-    String finalDocId = '$farmerUsername$category$userid';
+    String farmerUsername = farmerUname;
+    String docId = '$farmerUsername$category$userid';
+    String newStatus = "REACTIVATED";
 
     QuerySnapshot querySnapshot = await _firestore
         .collection("sample_SellListings")
-        .doc(finalDocId)
-        .collection('sell')
-        .where('listingpictureUrl', isEqualTo: pictureUrl)
+        .doc(docId)
+        .collection("sell")
+        .where('listingpictureUrl', isEqualTo: pcitureUrl)
         .get();
 
     if (querySnapshot.docs.isNotEmpty) {
-      DocumentReference docRef = querySnapshot.docs.first.reference;
+      DocumentReference docref = querySnapshot.docs.first.reference;
       try {
-        await docRef.update({
-          'promoted': true,
-          'promotionDate': DateTime.now(),
-        });
+        await docref.update(
+            {'listingstatus': newStatus, 'renewaldate': DateTime.now(), 'listingEndTime': endTime});
       } catch (e) {
-        throw ('Wa makit e ang docs', e);
+        throw ('Way docs makit an', e);
       }
     }
   }

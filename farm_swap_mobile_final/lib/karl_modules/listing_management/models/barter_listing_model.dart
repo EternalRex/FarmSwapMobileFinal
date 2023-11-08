@@ -17,6 +17,7 @@ class BarterListingModel {
     required this.listingStatus,
     required this.preferredItem,
     required this.promotionDate,
+    required this.renewalDate,
   });
 
 /*Properties*/
@@ -37,6 +38,7 @@ class BarterListingModel {
   String farmerUserName;
   bool promoted;
   DateTime promotionDate;
+  DateTime renewalDate;
 
   Map<String, dynamic> toMap() {
     return {
@@ -57,6 +59,7 @@ class BarterListingModel {
       'farmerUserName': farmerUserName,
       'promoted': promoted,
       'promotionDate': promotionDate,
+      'renewaldate': renewalDate,
     };
   }
 }

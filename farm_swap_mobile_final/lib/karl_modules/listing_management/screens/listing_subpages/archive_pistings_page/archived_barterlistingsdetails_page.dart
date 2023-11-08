@@ -1,11 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/renew_update.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
+import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 class ArchivedBarterListingDetails extends StatefulWidget {
   const ArchivedBarterListingDetails({
@@ -50,12 +55,27 @@ class ArchivedBarterListingDetails extends StatefulWidget {
 }
 
 class _ArchivedBarterListingDetailsState extends State<ArchivedBarterListingDetails> {
+/*Instance of the other classes used in this class */
+  final ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+  RenewUpdateListing renew = RenewUpdateListing();
+
+/*Variables used in this class */
+  double swapCoins = 0;
+  DateTime endListingDate = DateTime.now();
+  String endListingDateString = "";
+
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getFarmerSwapCoins();
   }
 
   @override
@@ -78,7 +98,7 @@ class _ArchivedBarterListingDetailsState extends State<ArchivedBarterListingDeta
         ),
         /*So mao nani ang condition nga mag depende sa value nga e hatag sa atong provider ang mo display
         nga label sa appbar */
-        title: const Text("Promoted Barter Listing"),
+        title: const Text("Archived Barter Listing"),
         leading: IconButton(
           onPressed: () {
             /*Opening the drawer */
@@ -459,7 +479,11 @@ class _ArchivedBarterListingDetailsState extends State<ArchivedBarterListingDeta
                           ),
                           child: IconButton(
                               onPressed: () {
-                                information();
+                                if (swapCoins >= 10) {
+                                  information();
+                                } else {
+                                  notEnoughSwapCoins();
+                                }
                               },
                               icon: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -468,7 +492,8 @@ class _ArchivedBarterListingDetailsState extends State<ArchivedBarterListingDeta
                                     Icons.question_mark,
                                     color: Colors.white,
                                   ),
-                                  poppinsText("Information", Colors.white, 15.sp, FontWeight.w500),
+                                  poppinsText(
+                                      "Renew Listing", Colors.white, 15.sp, FontWeight.w500),
                                 ],
                               )),
                         ),
@@ -479,7 +504,7 @@ class _ArchivedBarterListingDetailsState extends State<ArchivedBarterListingDeta
               ),
             ),
           ),
-          /*Expanded for the bottom navbar */
+          /*Expanded for the bottom navbar*/
           Expanded(
             flex: 1,
             child: Container(
@@ -506,19 +531,191 @@ class _ArchivedBarterListingDetailsState extends State<ArchivedBarterListingDeta
       builder: (context) {
         return AlertDialog(
           title: poppinsText(
-            "Information",
+            "Listing Renew",
             Colors.blue,
             20.sp,
             FontWeight.w300,
           ),
           content: poppinsText(
-            "For Developers: Suppose to be mag renew ta, but since apiki mans time, later part nana kay na over ta sa kadaghag transactions",
+            "10 swap coins will be deducted for each renewal",
             Colors.black,
             15.sp,
-            FontWeight.normal,
+            FontWeight.w500,
           ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                /*Calling the function that will update our database and actually
+                reactivate our listing */
+                selectFinalDateBox();
+              },
+              child: poppinsText(
+                "Continue",
+                farmSwapTitlegreen,
+                20.sp,
+                FontWeight.w500,
+              ),
+            )
+          ],
         );
       },
     );
+  }
+
+  /*Function ni siya na mag pull out sa pila ang swap coins ni farmer */
+  Future<void> getFarmerSwapCoins() async {
+    int coins = await farmerDetails.getSwapCoins();
+    setState(() {
+      swapCoins = coins.toDouble();
+    });
+  }
+
+  /*Function that will give an advisory to the user that he cannot proceed with
+  the promotion because he has no enough swap coins */
+  void notEnoughSwapCoins() {
+    double constantDeductibleSwapCoins = 10;
+    //determines pila ang kulang na coins ni farmer para maka promote
+    double neededCoins = constantDeductibleSwapCoins - swapCoins;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText(
+            "Low SwapCoins",
+            Colors.red,
+            20.sp,
+            FontWeight.w500,
+          ),
+          content: poppinsText(
+            "Sorry, You dont have enough swap coins to promote this product, You only have ${swapCoins.toString()} coins left, you need ${neededCoins.toString()} more",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  //adto nya tani e redirect sa swap coins page
+                  Navigator.of(context).pushNamed(RouteManager.listingmainpage);
+                },
+                child: poppinsText("Ok", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+/*Function that picks date*/
+  Future<void> _selectDate() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: endListingDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2050),
+    );
+
+    if (pickedDate != null && pickedDate != endListingDate) {
+      setState(() {
+        endListingDate = pickedDate;
+        endListingDateString = DateFormat('dd-MM-yyyy').format(endListingDate);
+      });
+    }
+  }
+
+/*A show dialog box function for selecting a date */
+  void selectFinalDateBox() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText(
+            "Select Expiration",
+            Colors.blue,
+            20.sp,
+            FontWeight.w500,
+          ),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {
+                  _selectDate();
+                },
+                icon: const Icon(Icons.calendar_month),
+                iconSize: 60.sp,
+              ),
+            ],
+          ),
+          actions: [
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  selectFinalDateBox2();
+                },
+                child: poppinsText("See Date", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void selectFinalDateBox2() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText(
+            "Expiration Date",
+            Colors.blue,
+            20.sp,
+            FontWeight.w500,
+          ),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(
+                child: poppinsText(endListingDateString, Colors.black, 15.sp, FontWeight.w200),
+              ),
+            ],
+          ),
+          actions: [
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  updatePromotion();
+                  Navigator.of(context).pushNamed(RouteManager.listingmainpage);
+                },
+                child: poppinsText("Finish", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /*A function that will update the promoted field in database to true when promoted 
+  button is clicked and will deduct swap coins and update the swap coins field in the database
+  to reflect the remaining swap coins*/
+  Future<void> updatePromotion() async {
+    double constantDeductibleSwapCoins = 10;
+    double newSwapCoins = swapCoins - constantDeductibleSwapCoins;
+
+    /*Gi call nato ang function sa class na mag update sa atong database niya giapasa nato
+    ang mga needed na values */
+    await renew.renewBarterListing(
+      widget.fUname,
+      widget.url,
+      Timestamp.fromDate(endListingDate),
+    );
+
+    await renew.updateFarmerSwapCoins(newSwapCoins.toInt());
   }
 }

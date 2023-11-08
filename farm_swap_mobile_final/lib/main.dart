@@ -1,5 +1,6 @@
 import "package:farm_swap_mobile_final/firebase_initializations_options.dart";
 import "package:farm_swap_mobile_final/provider/barter_listing_details_provider.dart";
+import "package:farm_swap_mobile_final/provider/dashboard_type_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_addcategory_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_page_provider.dart";
 import "package:farm_swap_mobile_final/provider/login_usertype_provider.dart";
@@ -57,6 +58,10 @@ class MyApp extends StatelessWidget {
             /*Provider that carries the data of during barter listing creating to be saved at the end if the process */
             ChangeNotifierProvider(
               create: (context) => BarterListingDetailsProvider(),
+            ),
+            /*This provider is about the type of dashboard to display, either for barter, for selling or for best deals */
+            ChangeNotifierProvider(
+              create: (context) => DashboardTypeProvider(),
             ),
           ],
           builder: (context, child) {

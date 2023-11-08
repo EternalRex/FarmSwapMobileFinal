@@ -52,6 +52,7 @@ class BarterListingSaving {
       farmerUserName: farmerUname,
       promoted: false,
       promotionDate: DateTime.now(),
+      renewalDate: DateTime.now(),
     );
 
     /*Construkon nato ang id sa atong listing*/

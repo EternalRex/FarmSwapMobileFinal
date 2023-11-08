@@ -16,6 +16,7 @@ class SellListingModels {
     required this.promoted,
     required this.listingStatus,
     required this.promotionDate,
+    required this.renewalDate,
   });
 
 /*Properties*/
@@ -35,6 +36,7 @@ class SellListingModels {
   String farmerUserName;
   bool promoted;
   DateTime promotionDate;
+  DateTime renewalDate;
 
   Map<String, dynamic> toMap() {
     return {
@@ -54,6 +56,7 @@ class SellListingModels {
       'farmerUserName': farmerUserName,
       'promoted': promoted,
       'promotionDate': promotionDate,
+      'renewaldate': renewalDate,
     };
   }
 }
