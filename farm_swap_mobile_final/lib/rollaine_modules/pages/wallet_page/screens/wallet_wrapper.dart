@@ -63,7 +63,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                             height: 5.h,
                           ),
                           Text(
-                            '₱ ${data['swapcoins']}',
+                            '₱ ${data['balance']}',
                             style: Poppins.number.copyWith(
                               color: const Color(0xFFFFFFFF),
                             ),
@@ -407,7 +407,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                             //status
                             SizedBox(
                               height: 25.h,
-                              width: 40.w,
+                              width: 50.w,
                               child: DecoratedBox(
                                 decoration: const BoxDecoration(
                                   gradient: LinearGradient(
@@ -536,7 +536,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                           //Details button
                           SizedBox(
                             height: 25.h,
-                            width: 40.w,
+                            width: 50.w,
                             child: DecoratedBox(
                               decoration: const BoxDecoration(
                                 gradient: LinearGradient(
