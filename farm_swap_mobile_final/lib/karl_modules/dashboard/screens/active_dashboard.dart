@@ -1,5 +1,6 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_barter_promotions.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_sell_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/barter_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/best_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/sell_dashboard.dart';
@@ -29,90 +30,109 @@ class ActiveDashboard extends StatelessWidget {
     //accessing the value of our provider that provides what dashboard type to display
     String dashboardType =
         Provider.of<DashboardTypeProvider>(context, listen: false).getDashboardType;
-    print(dashboardType);
 
     return Scaffold(
-        key: _scaffoldKey,
-        /*Start of appbar */
-        appBar: AppBar(
-          title: Row(
-            children: [
-              const Text("Dashboard"),
-              SizedBox(
-                width: 80.w,
-              ),
-              /*Shoppping cart button */
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(FontAwesomeIcons.cartShopping),
-                iconSize: 30.sp,
-              ),
-            ],
-          ),
-          automaticallyImplyLeading: false,
-          backgroundColor: greenNormal,
-          flexibleSpace: Container(
-            height: 300.sp,
-            width: 300.sp,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
-                fit: BoxFit.cover,
-                scale: 100.0.sp,
-              ),
-            ),
-          ),
-          leading: IconButton(
-            onPressed: () {
-              /*Opening the drawer */
-              openDrawer();
-            },
-            icon: const Icon(Icons.menu),
-          ),
-        ),
-        /*End of appbar */
-        /*Displaying the drawer */
-        drawer: const DashBoardDrawer(),
-        /*Start of body */
-        body: Column(
+      key: _scaffoldKey,
+      /*Start of appbar */
+      appBar: AppBar(
+        title: Row(
           children: [
-            /*Expanded that will contain the flashing of best deals */
-            Expanded(
-                flex: 3,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.green,
-                  child: const GetAllBarterPromotions(),
-                )),
-            /*Expanded that will contain the products in the middle*/
-            Expanded(
-              flex: 13,
-              child: Container(
-                color: Colors.white,
-                /*Condition that will switch the display of the child depending upon the value that we 
-                get from our dashboard type provider */
-                child: (dashboardType == "SALE")
-                    ? const SellDashboard()
-                    : (dashboardType == "BEST")
-                        ? const BestDealsDashboard()
-                        : const BarterDashboard(),
-              ),
+            const Text("Dashboard"),
+            SizedBox(
+              width: 80.w,
             ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: greenNormal,
-                  image: const DecorationImage(
-                    image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
-                    fit: BoxFit.cover,
-                  ),
-                  border: Border.all(color: farmSwapTitlegreen),
-                ),
-                child: const DashboardButtomNavBar(),
-              ),
+            /*Shoppping cart button */
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(FontAwesomeIcons.cartShopping),
+              iconSize: 30.sp,
             ),
           ],
-        ));
+        ),
+        automaticallyImplyLeading: false,
+        backgroundColor: greenNormal,
+        flexibleSpace: Container(
+          height: 300.sp,
+          width: 300.sp,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              fit: BoxFit.cover,
+              scale: 100.0.sp,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            /*Opening the drawer */
+            openDrawer();
+          },
+          icon: const Icon(Icons.menu),
+        ),
+      ),
+      /*End of appbar */
+      /*Displaying the drawer */
+      drawer: const DashBoardDrawer(),
+      /*Start of body */
+      body: Column(
+        children: [
+          /*Expanded that will contain the flashing of best deals */
+          Expanded(
+              flex: 4,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 10.sp),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    /* borderRadius: const BorderRadius.all(
+                        Radius.circular(30),
+                      ),*/
+                    /*PUTTING BOX SHADOW ON THE CONTAINER */
+                    boxShadow: [
+                      BoxShadow(
+                        color: shadow,
+                        blurRadius: 2,
+                        offset: const Offset(1, 5),
+                      ),
+                    ],
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  height: 500.h,
+                  child: (dashboardType == "SALE")
+                      ? const GetAllSellPromotions()
+                      : const GetAllBarterPromotions(),
+                ),
+              )),
+          /*Expanded that will contain the products in the middle*/
+          Expanded(
+            flex: 13,
+            child: Container(
+              color: Colors.white,
+              /*Condition that will switch the display of the child depending upon the value that we 
+                get from our dashboard type provider */
+              child: (dashboardType == "SALE")
+                  ? const SellDashboard()
+                  : (dashboardType == "BEST")
+                      ? const BestDealsDashboard()
+                      : const BarterDashboard(),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              decoration: BoxDecoration(
+                color: greenNormal,
+                image: const DecorationImage(
+                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  fit: BoxFit.cover,
+                ),
+                border: Border.all(color: farmSwapTitlegreen),
+              ),
+              child: const DashboardButtomNavBar(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,44 +1,36 @@
-import "package:cached_network_image/cached_network_image.dart";
-import "package:carousel_slider/carousel_slider.dart";
-import "package:cloud_firestore/cloud_firestore.dart";
-import "package:farm_swap_mobile_final/common/poppins_text.dart";
-import "package:farm_swap_mobile_final/karl_modules/dashboard/database/get_all_promotions_querry.dart";
-import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_promoted_prod_details.dart";
-import "package:flutter/material.dart";
-import "package:flutter_screenutil/flutter_screenutil.dart";
-import "package:intl/intl.dart";
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
-class GetAllBarterPromotions extends StatefulWidget {
-  const GetAllBarterPromotions({super.key});
+import '../../../common/poppins_text.dart';
+
+class GetAllSellPromotions extends StatefulWidget {
+  const GetAllSellPromotions({super.key});
 
   @override
-  State<GetAllBarterPromotions> createState() => _GetAllBarterPromotionsState();
+  State<GetAllSellPromotions> createState() => _GetAllSellPromotionsState();
 }
 
-class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
-/*Instance of other class used here*/
-  GetAllPromotionsQuerry promotion = GetAllPromotionsQuerry();
+class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
   final _firestore = FirebaseFirestore.instance;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collectionGroup('barter').snapshots(),
+      stream: _firestore.collectionGroup('sell').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
-            final barterListing = snapshot.data!.docs;
+            final sellListing = snapshot.data!.docs;
 
             return CarouselSlider.builder(
-              itemCount: barterListing.length,
+              itemCount: sellListing.length,
               itemBuilder: (context, index, realIndex) {
-                final barterListings = barterListing[index];
-                return accesspromotionDoc(barterListings);
+                final sellListings = sellListing[index];
+                return accesspromotionDoc(sellListings);
               },
               options: CarouselOptions(
                 aspectRatio: 16 / 9,
@@ -88,7 +80,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
 
     /*This Date conversion is for the promotion date */
     Timestamp timestamp3 = data["promotionDate"];
-    DateTime promotedTime = timestamp3.toDate();
+    DateTime promotedDate = timestamp3.toDate();
 
     /*Firebase data assigned to variables for easy use */
     /*Firebase data assigned to variables for easy use */
@@ -97,7 +89,6 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
     String listingPrice = data["listingprice"].toString();
     String listingQuan = data["listingQuantity"].toString();
     String listingStatus = data["listingstatus"];
-    String prefItem = data["prefferedItem"];
     bool promoted = data["promoted"];
     String listingCategory = data["listingcategory"];
     String listingDisc = data["listingdiscription"];
@@ -111,28 +102,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
       padding: EdgeInsets.all(8.0.sp),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
-              return DashboardPromotedProductDetails(
-                imageUrl: imageUrl,
-                listingname: listingname,
-                listingPrice: listingPrice,
-                prefItem: prefItem,
-                promoted: promoted,
-                listingCategory: listingCategory,
-                listingDisc: listingDisc,
-                farmerName: farmerName,
-                farmerLname: farmerLname,
-                farmerMunicipality: farmerMunicipality,
-                farmerBarangay: farmerBarangay,
-                farmerUsername: farmerUsername,
-                startTime: finalStartDate,
-                endTime: finalEndDate,
-                listingQuan: listingQuan,
-                listingStatus: listingStatus,
-              );
-            },
-          ));
+          print("Hi");
         },
         child: Row(
           children: [
@@ -159,7 +129,8 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 poppinsText(listingname, Colors.black, 20.sp, FontWeight.w500),
-                poppinsText("Barter With: $prefItem", Colors.black, 10.sp, FontWeight.normal),
+                poppinsText(
+                    "$listingPrice only  per kilogrm", Colors.black, 10.sp, FontWeight.normal),
                 poppinsText(
                     "Available Until: $finalEndDate", Colors.black, 10.sp, FontWeight.normal),
               ],
