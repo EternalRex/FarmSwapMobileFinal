@@ -1,5 +1,6 @@
-import 'package:farm_swap_mobile_final/clare_modules/controllers/farmer_wallet_controller.dart';
-import 'package:farm_swap_mobile_final/clare_modules/widgets/text/title_header.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/controllers/farmer_wallet_controller.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/checkBalance_Class.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/text/title_header.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -475,15 +476,17 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
                                 child: const Text("Proceed"),
                                 onPressed: () async {
                                   /**if i click ang proceed diri pa mo save ang mga data
-                                         * nga gi input sa farmer para cash out
-                                         */
+                                  * nga gi input sa farmer para cash out pero if ang amount 
+                                   kay mas dako pa sa balance then naay dialog mogawas lain
+                                  */
                                   cashout();
+
                                   Navigator.of(context)
                                       .pop(); // Close the first AlertDialog
 
                                   // Create a new context for the second AlertDialog
                                   BuildContext secondDialogContext;
-
+                                  //this will only show if the balance is sufficient
                                   showDialog(
                                     context: context,
                                     builder: (context) {
@@ -623,22 +626,53 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
     // Create an instance of the FarmerWalletDb
     FarmerWalletDB farmerWalletDB = FarmerWalletDB();
 
-    AddWalletFarmerDataQuery walletfarmer = AddWalletFarmerDataQuery();
-    final farmerwallet = await farmerWalletDB.insertFarmerWalletData(
-      userRole,
-      userId,
-      firstName,
-      lastName,
-      contactNumber,
-      address,
-      date,
-      amount,
-      proofPayment,
-      status,
-      request,
-      profilePhoto,
-    );
+    //creating an instance for the class checkbalance
+    CheckBalance checkBalance = CheckBalance();
 
-    await walletfarmer.createUser(farmerwallet);
+    // Retrieve the balance from Firestore by calling the function getBalanceFromFirestore
+    final balance = await checkBalance.getBalanceFromFirestore();
+
+    //if the balance kay mas dako pa or equal sa amount then ma create ang farmerwallet
+    if (balance >= amount) {
+      AddWalletFarmerDataQuery walletfarmer = AddWalletFarmerDataQuery();
+      final farmerwallet = await farmerWalletDB.insertFarmerWalletData(
+        userRole,
+        userId,
+        firstName,
+        lastName,
+        contactNumber,
+        address,
+        date,
+        amount,
+        proofPayment,
+        status,
+        request,
+        profilePhoto,
+      );
+
+      await walletfarmer.createUser(farmerwallet);
+    }
+    //else ang amount kay dako pa sa balance then dialog will show
+    else if (amount > balance) {
+      // Display an error message because the balance is insufficient
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Insufficient Balance'),
+            content: const Text(
+                'You do not have enough balance to cash out this amount. Please try again!'),
+            actions: [
+              TextButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(RouteManager.cashoutpage),
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

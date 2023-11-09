@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:farm_swap_mobile_final/clare_modules/model/farmer_wallet_model.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/model/farmer_wallet_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 /*CREATED A CLASS THAT CONTAINS AN ASYNC METHOD THAT WILL SAVE OUR PROPERTIES
@@ -30,6 +30,21 @@ class RetrieveDocID {
     //where the 'User Id' field is equal to the current user's UID (userId).
     await firestoreDatabase
         .collection('sample_FarmerWallet')
+        .where('userId', isEqualTo: userId)
+        .get()
+        //It iterates through the documents in the result using .docs.forEach
+        .then((value) => value.docs.forEach((element) {
+              docID = element.reference.id;
+            }));
+    return docID;
+  }
+
+  //this function kay pagkuha sa doc id sa famrer users ne collection
+  Future<String> getDocsIdUsers() async {
+    //This line queries the 'Users' collection in Firestore and retrieves documents
+    //where the 'User Id' field is equal to the current user's UID (userId).
+    await firestoreDatabase
+        .collection('sample_FarmerUsers')
         .where('userId', isEqualTo: userId)
         .get()
         //It iterates through the documents in the result using .docs.forEach

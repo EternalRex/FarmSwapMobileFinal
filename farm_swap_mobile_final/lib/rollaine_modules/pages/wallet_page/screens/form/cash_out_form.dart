@@ -1,4 +1,4 @@
-import 'package:farm_swap_mobile_final/clare_modules/widgets/text/title_header.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/text/title_header.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/controllers/consumer_wallet_controller.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/database/consumer_wallet_database.dart';
@@ -19,7 +19,8 @@ class CashOutForm extends StatefulWidget {
 
 class _CashOutFormState extends State<CashOutForm> {
   //we only reuse the TextEditingControllers from the cash in for the userID
-  static ConsumerTextEditingControllers controllers = ConsumerTextEditingControllers();
+  static ConsumerTextEditingControllers controllers =
+      ConsumerTextEditingControllers();
 
   //TextEditingControllers for the cash out diri nalang nako gibutang
   TextEditingController userRoleController = TextEditingController();
