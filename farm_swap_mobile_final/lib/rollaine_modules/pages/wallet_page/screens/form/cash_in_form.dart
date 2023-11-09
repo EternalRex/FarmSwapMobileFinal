@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/widgets/custom_image_picker.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/controllers/consumer_wallet_controller.dart';
-import 'package:farm_swap_mobile_final/clare_modules/widgets/textfield/wallet_textfield.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/textfield/wallet_textfield.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/database/consumer_wallet_database.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/database/consumer_wallet_query.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/widgets/label/consumer_txtfield_label.dart';

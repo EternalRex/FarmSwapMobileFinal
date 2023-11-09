@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../common/colors.dart';
+import '../../../../../common/colors.dart';
 
 // ignore: must_be_immutable
-class WalletTextField extends StatelessWidget {
-  WalletTextField({
+class SwapCoinsTextField extends StatelessWidget {
+  SwapCoinsTextField({
     Key? key,
     required this.controller,
     required this.enabled,
@@ -26,7 +26,7 @@ class WalletTextField extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        width: 150.w, // Set the desired width
+        width: 80.w, // Set the desired width
         child: SizedBox(
           height: 35.h, // Set the desired height
           child: TextField(

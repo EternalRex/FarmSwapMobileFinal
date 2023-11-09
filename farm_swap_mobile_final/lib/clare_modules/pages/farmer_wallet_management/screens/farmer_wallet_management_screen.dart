@@ -2,8 +2,8 @@ import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../common/get_specific_user_docid.dart';
-import '../../karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import '../../../../common/get_specific_user_docid.dart';
+import '../../../../karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import '../wrapper/getdisplayuserdata.dart';
 
 class WalletPage extends StatelessWidget {
