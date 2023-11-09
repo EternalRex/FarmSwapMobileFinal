@@ -53,12 +53,12 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
 
           Timestamp birthdaytimestamp = data['birthdate'];
           DateTime birthDate = birthdaytimestamp.toDate();
-          String bdayBirthDate = DateFormat('MM-dd-yyy').format(birthDate);
+          String bdayBirthDate = DateFormat('MM/dd/yyy').format(birthDate);
 
           Timestamp registertimestamp = data['registrationDate'];
           DateTime registerDate = registertimestamp.toDate();
           String registrationDate =
-              DateFormat('MM-dd-yyy').format(registerDate);
+              DateFormat('MM/dd/yyy').format(registerDate);
 
           return Column(
             children: [
@@ -855,277 +855,298 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                 height: 15.h,
               ),
               Center(
-                child: Row(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //update details button
-                    DecoratedBox(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color.fromARGB(255, 83, 219, 231),
-                            Color.fromARGB(255, 20, 125, 190),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          disabledForegroundColor:
-                              Colors.transparent.withOpacity(0.38),
-                          disabledBackgroundColor:
-                              Colors.transparent.withOpacity(0.12),
-                          shadowColor: Colors.transparent,
-                        ),
-                        onPressed: () {
-                          selectfieldUpdate(context, "${data["userId"]}");
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 3, bottom: 3),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.update_rounded),
-                              const SizedBox(
-                                width: 2,
+                    SizedBox(
+                      height: 50.h,
+                      width: 340.w,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: shadow,
+                                blurRadius: 2,
+                                offset: const Offset(2, 5),
                               ),
-                              Text(
-                                'Update',
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 0.50,
+                            ]),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            disabledForegroundColor:
+                                Colors.transparent.withOpacity(0.38),
+                            disabledBackgroundColor:
+                                Colors.transparent.withOpacity(0.12),
+                            shadowColor: Colors.transparent,
+                          ),
+                          onPressed: () {
+                            selectfieldUpdate(context, "${data["userId"]}");
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 3, bottom: 3),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.update_rounded,
+                                  color: Colors.blue,
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                Text(
+                                  'Update',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.blue,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 0.50,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: 10.w,
+                      height: 10.h,
                     ),
 
                     //deactivate account button
-                    DecoratedBox(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color.fromARGB(255, 231, 83, 83),
-                            Color.fromARGB(255, 190, 40, 20),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          disabledForegroundColor:
-                              Colors.transparent.withOpacity(0.38),
-                          disabledBackgroundColor:
-                              Colors.transparent.withOpacity(0.12),
-                          shadowColor: Colors.transparent,
-                        ),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text("Confirmation!"),
-                                content: const Text(
-                                    "Are you sure you want to DEACTIVATE your account?\n"
-                                    "Click proceed to deactivate account."),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: const Text("Proceed"),
-                                    onPressed: () async {
-                                      // Create an instance of RetrieveDeactivateDocId
-                                      RetrieveDeactivate retriever =
-                                          RetrieveDeactivate();
-
-                                      // Call the updateFieldDeactivate method to update
-                                      //the account status and create admin logs
-                                      await retriever.updateFieldDeactivate();
-
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: const Text("Successful!"),
-                                            content: const Text(
-                                                "Account has been successfuly DEACTIVATED!"),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                child: const Text("Ok"),
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(); // Close the dialog box
-
-                                                  //this will navigate to log in page
-                                                  Navigator.of(context)
-                                                      .pushNamed(RouteManager
-                                                          .userlogin);
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: const Text("Cancel"),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(); // Close the dialog box
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 3, bottom: 3),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.do_not_disturb_alt_rounded),
-                              const SizedBox(
-                                width: 2,
+                    SizedBox(
+                      height: 50.h,
+                      width: 340.w,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: shadow,
+                                blurRadius: 2,
+                                offset: const Offset(2, 5),
                               ),
-                              Text(
-                                'Deactivate',
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 0.50,
+                            ]),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            disabledForegroundColor:
+                                Colors.transparent.withOpacity(0.38),
+                            disabledBackgroundColor:
+                                Colors.transparent.withOpacity(0.12),
+                            shadowColor: Colors.transparent,
+                          ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Confirmation!"),
+                                  content: const Text(
+                                      "Are you sure you want to DEACTIVATE your account?\n"
+                                      "Click proceed to deactivate account."),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text("Proceed"),
+                                      onPressed: () async {
+                                        // Create an instance of RetrieveDeactivateDocId
+                                        RetrieveDeactivate retriever =
+                                            RetrieveDeactivate();
+
+                                        // Call the updateFieldDeactivate method to update
+                                        //the account status and create admin logs
+                                        await retriever.updateFieldDeactivate();
+
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text("Successful!"),
+                                              content: const Text(
+                                                  "Account has been successfuly DEACTIVATED!"),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text("Ok"),
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(); // Close the dialog box
+
+                                                    //this will navigate to log in page
+                                                    Navigator.of(context)
+                                                        .pushNamed(RouteManager
+                                                            .userlogin);
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text("Cancel"),
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(); // Close the dialog box
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 3, bottom: 3),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.do_not_disturb_alt_rounded,
+                                  color: Colors.red,
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                Text(
+                                  'Deactivate',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.red,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 0.50,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: 10.w,
+                      height: 10.h,
                     ),
 
                     //archived account button
-                    DecoratedBox(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color.fromARGB(255, 231, 194, 83),
-                            Color.fromARGB(255, 220, 134, 23),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          disabledForegroundColor:
-                              Colors.transparent.withOpacity(0.38),
-                          disabledBackgroundColor:
-                              Colors.transparent.withOpacity(0.12),
-                          shadowColor: Colors.transparent,
-                        ),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text("Confirmation!"),
-                                content: const Text(
-                                    "Are you sure you want to ARCHIVE your account permanently?\n"
-                                    "This won't undo the process.\nClick proceed to archive account."),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: const Text("Proceed"),
-                                    onPressed: () async {
-                                      // Create an instance of RetrieveArchivedDocId
-                                      RetrieveArchive retriever =
-                                          RetrieveArchive();
-
-                                      // Call the updateFieldAndNavigate method to update
-                                      //the account status and create admin logs
-                                      await retriever.updateFieldArchive();
-
-                                      //this will move to other collection called sample_FarmerArchived
-                                      await movetoarchivedcollecion
-                                          .moveConsumerToArchivedCollection();
-
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: const Text("Successful!"),
-                                            content: const Text(
-                                                "Account successfuly archived!"),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                child: const Text("Ok"),
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(); // Close the dialog box
-
-                                                  //this will navigate to log in page
-                                                  Navigator.of(context)
-                                                      .pushNamed(RouteManager
-                                                          .userlogin);
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: const Text("Cancel"),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(); // Close the dialog box
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 3, bottom: 3),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.delete_outline_rounded),
-                              const SizedBox(
-                                width: 2,
+                    SizedBox(
+                      height: 50.h,
+                      width: 340.w,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: shadow,
+                                blurRadius: 2,
+                                offset: const Offset(2, 5),
                               ),
-                              Text(
-                                'Archive',
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 0.50,
+                            ]),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            disabledForegroundColor:
+                                Colors.transparent.withOpacity(0.38),
+                            disabledBackgroundColor:
+                                Colors.transparent.withOpacity(0.12),
+                            shadowColor: Colors.transparent,
+                          ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Confirmation!"),
+                                  content: const Text(
+                                      "Are you sure you want to ARCHIVE your account permanently?\n"
+                                      "This won't undo the process.\nClick proceed to archive account."),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text("Proceed"),
+                                      onPressed: () async {
+                                        // Create an instance of RetrieveArchivedDocId
+                                        RetrieveArchive retriever =
+                                            RetrieveArchive();
+
+                                        // Call the updateFieldAndNavigate method to update
+                                        //the account status and create admin logs
+                                        await retriever.updateFieldArchive();
+
+                                        //this will move to other collection called sample_FarmerArchived
+                                        await movetoarchivedcollecion
+                                            .moveConsumerToArchivedCollection();
+
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text("Successful!"),
+                                              content: const Text(
+                                                  "Account successfuly archived!"),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text("Ok"),
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(); // Close the dialog box
+
+                                                    //this will navigate to log in page
+                                                    Navigator.of(context)
+                                                        .pushNamed(RouteManager
+                                                            .userlogin);
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text("Cancel"),
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(); // Close the dialog box
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 3, bottom: 3),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.delete_outline_rounded,
+                                  color: Colors.orange,
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                Text(
+                                  'Archive',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.orange,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 0.50,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -1245,7 +1266,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1431,7 +1452,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1524,7 +1545,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1617,7 +1638,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1710,7 +1731,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -1740,11 +1761,11 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                             return AlertDialog(
                               title: const Text("Select Birthdate"),
                               content: SizedBox(
-                                height: 40,
+                                height: 40.h,
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 30,
+                                      height: 30.h,
                                       child: GestureDetector(
                                         child: ElevatedButton.icon(
                                           onPressed: () {
@@ -1754,19 +1775,19 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                             Icons.calendar_month,
                                             size: 20,
                                           ),
-                                          label: const Text(
+                                          label: Text(
                                             'Select Date',
                                             style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize: 12.sp,
                                             ),
                                           ),
                                           style: ElevatedButton.styleFrom(
-                                            fixedSize: const Size(
-                                              150,
-                                              20,
+                                            fixedSize: Size(
+                                              150.w,
+                                              20.h,
                                             ),
-                                            textStyle: const TextStyle(
-                                              fontSize: 15,
+                                            textStyle: TextStyle(
+                                              fontSize: 15.sp,
                                               fontWeight: FontWeight.w900,
                                             ),
                                             backgroundColor: Colors.lightBlue,
@@ -1788,7 +1809,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                               ),
                               actions: [
                                 SizedBox(
-                                  height: 30,
+                                  height: 30.h,
                                   child: Padding(
                                     padding: const EdgeInsets.all(0),
                                     child: Row(
@@ -1834,7 +1855,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                                 'Update Field',
                                                 style: GoogleFonts.poppins(
                                                   color: Colors.black,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.w700,
                                                   letterSpacing: 0.50,
                                                 ),
@@ -1865,11 +1886,11 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                             return AlertDialog(
                               title: const Text("Select Registration Date"),
                               content: SizedBox(
-                                height: 40,
+                                height: 40.h,
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 30,
+                                      height: 30.h,
                                       child: GestureDetector(
                                         child: ElevatedButton.icon(
                                           onPressed: () {
@@ -1879,19 +1900,19 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                             Icons.calendar_month,
                                             size: 20,
                                           ),
-                                          label: const Text(
+                                          label: Text(
                                             'Select Date',
                                             style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize: 12.sp,
                                             ),
                                           ),
                                           style: ElevatedButton.styleFrom(
-                                            fixedSize: const Size(
-                                              150,
-                                              20,
+                                            fixedSize: Size(
+                                              150.w,
+                                              20.h,
                                             ),
-                                            textStyle: const TextStyle(
-                                              fontSize: 15,
+                                            textStyle: TextStyle(
+                                              fontSize: 15.sp,
                                               fontWeight: FontWeight.w900,
                                             ),
                                             backgroundColor: Colors.lightBlue,
@@ -1913,7 +1934,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                               ),
                               actions: [
                                 SizedBox(
-                                  height: 30,
+                                  height: 30.h,
                                   child: Padding(
                                     padding: const EdgeInsets.all(0),
                                     child: Row(
@@ -1959,7 +1980,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                                 'Update Field',
                                                 style: GoogleFonts.poppins(
                                                   color: Colors.black,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                   fontWeight: FontWeight.w700,
                                                   letterSpacing: 0.50,
                                                 ),
@@ -2053,7 +2074,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,
@@ -2147,7 +2168,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                                     'Update Field',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.black,
-                                                      fontSize: 12,
+                                                      fontSize: 12.sp,
                                                       fontWeight:
                                                           FontWeight.w700,
                                                       letterSpacing: 0.50,

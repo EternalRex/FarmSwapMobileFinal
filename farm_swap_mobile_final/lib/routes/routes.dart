@@ -25,6 +25,9 @@ import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_sig
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup8.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup9.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/consumer_page/consumer_account.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/consumer_wallet.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/screens/form/cash_in_form.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/screens/form/cash_out_form.dart';
 import 'package:flutter/material.dart';
 
 import '../karl_modules/dashboard/screens/account_management_farmer/screen/account_management_farmer.dart';
@@ -61,6 +64,9 @@ class RouteManager {
   static const cashoutpage = "/cashoutpage";
   static const allBarterListingsDetails = "allListingsDetails";
   static const consumerpage = "/consumerpage";
+  static const consumerwallet = "/consumerwallet";
+  static const consumercashin = "/consumercashin";
+  static const consumercashout = "/consumercashout";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -140,13 +146,22 @@ class RouteManager {
       case consumerpage:
         return MaterialPageRoute(builder: (context) => const ConsumerPage());
 
+      case consumerwallet:
+        return MaterialPageRoute(builder: (context) => const ConsumerWallet());
+
+      case consumercashin:
+        return MaterialPageRoute(builder: (context) => const CashInForm());
+
+      case consumercashout:
+        return MaterialPageRoute(builder: (context) => const CashOutForm());
+
       case walletpage:
         return MaterialPageRoute(builder: (context) => WalletPage());
 
       case cashinpage:
-        return MaterialPageRoute(builder: (context) => CashInPage());
+        return MaterialPageRoute(builder: (context) => const CashInPage());
       case cashoutpage:
-        return MaterialPageRoute(builder: (context) => CashOutGestureDialog());
+        return MaterialPageRoute(builder: (context) => const CashOutGestureDialog());
       default:
         throw const FormatException("Warning!!! Page Routing Problem");
     }

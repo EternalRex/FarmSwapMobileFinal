@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const String poppins = 'Poppins';
 
 class Poppins {
-  static TextStyle number = const TextStyle(
+  static TextStyle number = TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w800,
-    fontSize: 80,
+    fontSize: 80.sp,
   );
   static TextStyle pageTitle = const TextStyle(
     fontFamily: poppins,
@@ -18,10 +19,10 @@ class Poppins {
     fontWeight: FontWeight.w700,
     fontSize: 40,
   );
-  static TextStyle commuTitle = const TextStyle(
+  static TextStyle commuTitle = TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w800,
-    fontSize: 30,
+    fontSize: 30.sp,
   );
   static TextStyle commuText = const TextStyle(
     fontFamily: poppins,
@@ -48,25 +49,25 @@ class Poppins {
     fontWeight: FontWeight.w600,
     fontSize: 16,
   );
-  static TextStyle adminName = const TextStyle(
+  static TextStyle adminName = TextStyle(
     fontFamily: poppins,
-    fontWeight: FontWeight.w600,
-    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    fontSize: 16.sp,
   );
-  static TextStyle userName = const TextStyle(
+  static TextStyle userName = TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w500,
-    fontSize: 15,
+    fontSize: 15.sp,
   );
   static TextStyle contentText = const TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w700,
     fontSize: 14,
   );
-  static TextStyle detailsText = const TextStyle(
+  static TextStyle detailsText = TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w400,
-    fontSize: 13,
+    fontSize: 13.sp,
   );
   static TextStyle buttonText = const TextStyle(
     fontFamily: poppins,
