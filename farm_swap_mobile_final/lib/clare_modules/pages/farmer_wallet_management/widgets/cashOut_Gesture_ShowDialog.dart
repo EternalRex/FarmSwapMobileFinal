@@ -318,7 +318,7 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
 
                                     if (pickedDate != null) {
                                       String formattedDate =
-                                          DateFormat('yyyy-MM-dd HH:mm:ss')
+                                          DateFormat('yyyy-MM-dd')
                                               .format(pickedDate);
 
                                       setState(() {
@@ -617,6 +617,11 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
     String address = addressController.text;
     String cashoutdate = dateController.text;
     DateTime date = DateTime.parse(cashoutdate);
+    date = date.add(Duration(
+        hours: DateTime.now().hour,
+        minutes: DateTime.now().minute,
+        seconds: DateTime.now().second));
+
     final amount = double.parse(amountController.text);
     final status = controllers.statusController.text;
     String request = "cash out";

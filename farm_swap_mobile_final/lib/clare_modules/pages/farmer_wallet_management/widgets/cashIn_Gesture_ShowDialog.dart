@@ -62,6 +62,9 @@ class _CashInPageState extends State<CashInPage> {
   // Dispose of the controller when the widget is removed
   @override
   void dispose() {
+    controllers.userIdController.dispose();
+    controllers.lastNameController.dispose();
+    controllers.firstNameController.dispose();
     controllers.contactNumberController.dispose();
     controllers.addressController.dispose();
     controllers.amountController.dispose();
@@ -345,9 +348,9 @@ class _CashInPageState extends State<CashInPage> {
                                           );
 
                                           if (pickedDate != null) {
-                                            String formattedDate = DateFormat(
-                                                    'yyyy-MM-dd HH:mm:ss')
-                                                .format(pickedDate);
+                                            String formattedDate =
+                                                DateFormat('yyyy-MM-dd')
+                                                    .format(pickedDate);
 
                                             setState(() {
                                               controllers.dateController.text =

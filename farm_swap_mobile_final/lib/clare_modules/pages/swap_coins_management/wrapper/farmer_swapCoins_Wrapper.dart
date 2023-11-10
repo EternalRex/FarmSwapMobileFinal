@@ -286,7 +286,7 @@ class _DisplayFarmerSwapCoinsWrapperState
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
     Timestamp dateTimestamp = document["dateTime"];
     DateTime dateTime = dateTimestamp.toDate();
-    String dateFinal = DateFormat('yyyy-MM-dd').format(dateTime);
+    String dateFinal = DateFormat('MM-dd-yyyy HH:mm:ss').format(dateTime);
 
     //the searched transaction will display here
     if (searchValue.isNotEmpty) {
@@ -390,7 +390,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                         ),
                       ),
                       content: SizedBox(
-                        height: 90.h,
+                        height: 100.h,
                         child: Column(
                           children: [
                             //row for transaction date
@@ -628,7 +628,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                       ),
                     ),
                     content: SizedBox(
-                      height: 90.h,
+                      height: 100.h,
                       child: Column(
                         children: [
                           //row for transaction date
