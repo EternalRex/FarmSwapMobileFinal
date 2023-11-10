@@ -93,13 +93,20 @@ class TopUpButton extends StatelessWidget {
 
                       //if balance is lesser than the topup swap coins then the dialog for insufficient will show
                       else {
+                        // Create an createSwapcoinsLogs for the swapcoins history
+                        swapcoinsLogs.createSwapcoinsLogs(
+                            FirebaseAuth.instance.currentUser!.uid,
+                            "FARMER",
+                            DateTime.now(),
+                            "FAILED",
+                            topupSwapCoins);
                         showDialog(
                           context: currentContext,
                           builder: (context) {
                             return AlertDialog(
                               title: const Text('Insufficient Balance'),
                               content: const Text(
-                                  'You do not have enough balance to cash out this amount. Please try again!'),
+                                  'You do not have enough balance to top up your swapcoins. Please try again!'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.of(context).pop(),
@@ -110,6 +117,13 @@ class TopUpButton extends StatelessWidget {
                           },
                         );
                       }
+                    },
+                  ),
+                  TextButton(
+                    child: const Text("Close"),
+                    onPressed: () async {
+                      Navigator.of(context)
+                          .pop(); // Close the second AlertDialog
                     },
                   ),
                 ],
