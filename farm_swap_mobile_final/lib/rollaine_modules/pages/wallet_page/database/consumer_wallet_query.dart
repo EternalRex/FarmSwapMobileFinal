@@ -21,7 +21,7 @@ MODEL TYPE OF PARAMETER  IS THE ONE WE CREATED IN A SEPARATE CLASS,  */
   }
 }
 
-class RetrieveDocID {
+class RetrieveConsumerId {
   String docID = "";
   FirebaseFirestore firestoreDatabase = FirebaseFirestore.instance;
   String userId = FirebaseAuth.instance.currentUser!.uid;
@@ -30,6 +30,21 @@ class RetrieveDocID {
     //where the 'User Id' field is equal to the current user's UID (userId).
     await firestoreDatabase
         .collection('sample_ConsumerWallet')
+        .where('userId', isEqualTo: userId)
+        .get()
+        //It iterates through the documents in the result using .docs.forEach
+        .then((value) => value.docs.forEach((element) {
+              docID = element.reference.id;
+            }));
+    return docID;
+  }
+
+  //this function kay pagkuha sa doc id sa famrer users ne collection
+  Future<String> getDocsIdConsumer() async {
+    //This line queries the 'Users' collection in Firestore and retrieves documents
+    //where the 'User Id' field is equal to the current user's UID (userId).
+    await firestoreDatabase
+        .collection('sample_ConsumerUsers')
         .where('userId', isEqualTo: userId)
         .get()
         //It iterates through the documents in the result using .docs.forEach

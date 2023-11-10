@@ -38,14 +38,14 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
                 child: Stack(
                   children: [
                     SizedBox(
-                      height: 10,
+                      height: 10.h,
                     ),
                     SizedBox(
-                      height: 200.h,
+                      height: 180.h,
                       width: 700.w,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -81,7 +81,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                   GestureDetector(
                     child: Container(
                       width: 100.w,
-                      height: 50.h,
+                      height: 40.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -134,7 +134,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                   GestureDetector(
                     child: Container(
                       width: 100.w,
-                      height: 50.h,
+                      height: 40.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -345,22 +345,22 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
           data['dateTime'] == searchValue ||
           data['status'] == searchValue) {
         return ListTile(
-          title: Container(
-            width: 750.w,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: shadow,
-                  blurRadius: 2,
-                  offset: const Offset(0, 1),
+          title: GestureDetector(
+            child: Container(
+              width: 750.w,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
                 ),
-              ],
-            ),
-            child: GestureDetector(
+                boxShadow: [
+                  BoxShadow(
+                    color: shadow,
+                    blurRadius: 2,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
+              ),
               child: Row(
                 children: [
                   Expanded(
@@ -400,7 +400,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                     flex: 1,
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 8, left: 30, bottom: 8),
+                        padding: const EdgeInsets.only(top: 8, left: 25, bottom: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -446,28 +446,6 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                   ),
                 ],
               ),
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text("Details"),
-                      content: Text(
-                        " ${document["amount"]}",
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text("Ok"),
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pop(); // Close the second AlertDialog
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
             ),
           ),
         );
@@ -529,7 +507,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                   flex: 1,
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 8, left: 30, bottom: 8),
+                      padding: const EdgeInsets.only(top: 8, left: 25, bottom: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
