@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_promoted_prod_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
