@@ -26,6 +26,7 @@ import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_sig
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup8.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup9.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/consumer_page/consumer_account.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/swapcoins_page/consumer_swapcoins.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/consumer_wallet.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/screens/form/cash_in_form.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/screens/form/cash_out_form.dart';
@@ -69,6 +70,7 @@ class RouteManager {
   static const consumercashin = "/consumercashin";
   static const consumercashout = "/consumercashout";
   static const farmerswapcoins = "/farmerswapcoins";
+  static const consumerswapcoins = "/consumerswapcoins";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -181,6 +183,9 @@ class RouteManager {
 
       case walletpage:
         return MaterialPageRoute(builder: (context) => WalletPage());
+
+      case consumerswapcoins:
+        return MaterialPageRoute(builder: (context) => const ConsumerSwapCoinsPage());
 
       case cashinpage:
         return MaterialPageRoute(builder: (context) => const CashInPage());
