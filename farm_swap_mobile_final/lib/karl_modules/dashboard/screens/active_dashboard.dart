@@ -105,7 +105,7 @@ class ActiveDashboard extends StatelessWidget {
               )),
           /*Expanded that will contain the products in the middle*/
           Expanded(
-            flex: 13,
+            flex: 20,
             child: Container(
               color: Colors.white,
               /*Condition that will switch the display of the child depending upon the value that we 

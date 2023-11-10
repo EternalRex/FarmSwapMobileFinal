@@ -2,25 +2,26 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_all_barter_details.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_all_selling_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class DashBoardGetAllBarterListings extends StatefulWidget {
-  const DashBoardGetAllBarterListings({super.key});
+class DashBoardGetAllSellListings extends StatefulWidget {
+  const DashBoardGetAllSellListings({super.key});
 
   @override
-  State<DashBoardGetAllBarterListings> createState() => _DashBoardGetAllBarterListingsState();
+  State<DashBoardGetAllSellListings> createState() => _DashBoardGetAllSellListingsState();
 }
 
-class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterListings> {
+class _DashBoardGetAllSellListingsState extends State<DashBoardGetAllSellListings> {
   final _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collectionGroup('barter').snapshots(),
+      stream: _firestore.collectionGroup('sell').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
@@ -63,7 +64,6 @@ class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterLis
     String listingPrice = data["listingprice"].toString();
     String listingQuan = data["listingQuantity"].toString();
     String listingStatus = data["listingstatus"];
-    String prefItem = data["prefferedItem"];
     bool promoted = data["promoted"];
     String listingCategory = data["listingcategory"];
     String listingDisc = data["listingdiscription"];
@@ -77,28 +77,29 @@ class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterLis
       padding: EdgeInsets.all(8.0.sp),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
-              return DashBoardAllBarterDetails(
-                imageUrl: imageUrl,
-                listingname: listingname,
-                listingPrice: listingPrice,
-                prefItem: prefItem,
-                promoted: promoted,
-                listingCategory: listingCategory,
-                listingDisc: listingDisc,
-                farmerName: farmerName,
-                farmerLname: farmerLname,
-                farmerMunicipality: farmerMunicipality,
-                farmerBarangay: farmerBarangay,
-                farmerUsername: farmerUsername,
-                startTime: finalStartDate,
-                endTime: finalEndDate,
-                listingQuan: listingQuan,
-                listingStatus: listingStatus,
-              );
-            },
-          ));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return DashBoardAllSellDetails(
+                  imageUrl: imageUrl,
+                  listingname: listingname,
+                  listingPrice: listingPrice,
+                  promoted: promoted,
+                  listingCategory: listingCategory,
+                  listingDisc: listingDisc,
+                  farmerName: farmerName,
+                  farmerLname: farmerLname,
+                  farmerMunicipality: farmerMunicipality,
+                  farmerBarangay: farmerBarangay,
+                  farmerUsername: farmerUsername,
+                  startTime: finalStartDate,
+                  endTime: finalEndDate,
+                  listingQuan: listingQuan,
+                  listingStatus: listingStatus,
+                );
+              },
+            ),
+          );
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
