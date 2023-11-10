@@ -99,7 +99,7 @@ class ConsumerTopUpPage extends StatelessWidget {
                             return AlertDialog(
                               title: const Text('Insufficient Balance'),
                               content: const Text(
-                                  'You do not have enough balance to cash out this amount. Please try again!'),
+                                  'You do not have enough balance to top up this amount. Please try again!'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.of(context).pop(),
