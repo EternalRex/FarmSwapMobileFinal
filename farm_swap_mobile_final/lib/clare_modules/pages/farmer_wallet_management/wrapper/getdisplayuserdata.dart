@@ -367,7 +367,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
     Timestamp dateTimestamp = document["dateTime"];
     DateTime dateTime = dateTimestamp.toDate();
-    String dateFinal = DateFormat('yyyy-MM-dd').format(dateTime);
+    String dateFinal = DateFormat('MM-dd-yyyy HH:mm:ss').format(dateTime);
 
     //the searched transaction will display here
     if (searchValue.isNotEmpty) {
