@@ -1,3 +1,4 @@
+import "package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_barter_listings.dart";
 import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 
@@ -19,8 +20,8 @@ class _BarterDashboardState extends State<BarterDashboard> {
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
-              height: 480.h,
-              child: TwoItemsListView(),
+              height: 395.h,
+              child: const DashBoardGetAllBarterListings(),
             ),
           ),
         ),
@@ -29,6 +30,7 @@ class _BarterDashboardState extends State<BarterDashboard> {
   }
 }
 
+/*
 class TwoItemsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -62,4 +64,4 @@ class TwoItemsListView extends StatelessWidget {
   }
 
   List<String> yourDataList = List.generate(20, (index) => 'Item $index');
-}
+}*/
