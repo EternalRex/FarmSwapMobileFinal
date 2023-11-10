@@ -28,7 +28,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collectionGroup('barter').snapshots(),
+      stream: _firestore.collectionGroup('barter').where('promoted', isEqualTo: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
@@ -87,8 +87,8 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
     String finalEndDate = DateFormat('yyyy-MM-dd').format(dateTime2);
 
     /*This Date conversion is for the promotion date */
-    Timestamp timestamp3 = data["promotionDate"];
-    DateTime promotedTime = timestamp3.toDate();
+    //Timestamp timestamp3 = data["promotionDate"];
+    // DateTime promotedTime = timestamp3.toDate();
 
     /*Firebase data assigned to variables for easy use */
     /*Firebase data assigned to variables for easy use */
@@ -106,6 +106,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
     String farmerMunicipality = data["farmerMunicipality"];
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
+
     /*Actual design of widget to be returned */
     return Padding(
       padding: EdgeInsets.all(8.0.sp),

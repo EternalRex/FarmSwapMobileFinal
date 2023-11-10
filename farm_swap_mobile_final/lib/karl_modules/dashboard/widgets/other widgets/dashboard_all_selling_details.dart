@@ -1,20 +1,20 @@
-import "package:farm_swap_mobile_final/common/colors.dart";
-import "package:farm_swap_mobile_final/common/green_btn.dart";
-import "package:farm_swap_mobile_final/common/poppins_text.dart";
-import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart";
-import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart";
-import "package:flutter/material.dart";
-import "package:flutter_screenutil/flutter_screenutil.dart";
-import "package:font_awesome_flutter/font_awesome_flutter.dart";
-import "package:google_fonts/google_fonts.dart";
+import 'package:farm_swap_mobile_final/common/green_btn.dart';
+import 'package:farm_swap_mobile_final/common/poppins_text.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class DashBoardAllBarterDetails extends StatefulWidget {
-  const DashBoardAllBarterDetails({
+import '../../../../common/colors.dart';
+
+class DashBoardAllSellDetails extends StatefulWidget {
+  const DashBoardAllSellDetails({
     super.key,
     required this.imageUrl,
     required this.listingname,
     required this.listingPrice,
-    required this.prefItem,
     required this.promoted,
     required this.listingCategory,
     required this.listingDisc,
@@ -34,7 +34,6 @@ class DashBoardAllBarterDetails extends StatefulWidget {
   final String listingPrice;
   final String listingQuan;
   final String listingStatus;
-  final String prefItem;
   final bool promoted;
   final String listingCategory;
   final String listingDisc;
@@ -47,10 +46,10 @@ class DashBoardAllBarterDetails extends StatefulWidget {
   final String endTime;
 
   @override
-  State<DashBoardAllBarterDetails> createState() => _DashBoardAllBarterDetailsState();
+  State<DashBoardAllSellDetails> createState() => _DashBoardAllSellDetailsState();
 }
 
-class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
+class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -321,32 +320,10 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                               SizedBox(
                                 height: 13.h,
                               ),
-                              /*For for preffered Item */
-                              Padding(
-                                padding: EdgeInsets.only(left: 30.sp),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.stackExchange,
-                                      color: farmSwapTitlegreen,
-                                      size: 20.sp,
-                                    ),
-                                    SizedBox(
-                                      width: 15.w,
-                                    ),
-                                    poppinsText(
-                                      "Preffered Item is ${widget.prefItem}",
-                                      Colors.black54,
-                                      13.sp,
-                                      FontWeight.normal,
-                                    ),
-                                  ],
-                                ),
-                              ),
                               SizedBox(
                                 height: 15.h,
                               ),
-                              GestureDetector(child: const FarmSwapGreenBtn(text: "Barter")),
+                              GestureDetector(child: const FarmSwapGreenBtn(text: "Buy")),
                             ],
                           )
                         ],
