@@ -2,23 +2,25 @@ import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/get_specific_user_docid.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/consumer_page/screens/consumer_wrapper.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/swapcoins_page/screens/consumer_swapcoins_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ConsumerPage extends StatefulWidget {
-  const ConsumerPage({super.key});
+class ConsumerSwapCoinsPage extends StatefulWidget {
+  const ConsumerSwapCoinsPage({super.key});
 
   @override
-  State<ConsumerPage> createState() => _ConsumerPageState();
+  State<ConsumerSwapCoinsPage> createState() => _ConsumerSwapCoinsPageState();
 }
 
-class _ConsumerPageState extends State<ConsumerPage> {
+class _ConsumerSwapCoinsPageState extends State<ConsumerSwapCoinsPage> {
+
+  /*Instance of the class that will get a specific document id*/
   final GetSpecificUserDocumentId id = GetSpecificUserDocumentId();
 
-  /*Creating a scafoold key so that we can open a drawer that is built from another class */
+/*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -33,7 +35,7 @@ class _ConsumerPageState extends State<ConsumerPage> {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'Profile',
+          'Swap Coins',
           style: Poppins.pageTitle.copyWith(
             color: Colors.white,
           ),
@@ -47,14 +49,28 @@ class _ConsumerPageState extends State<ConsumerPage> {
           },
           icon: const Icon(Icons.menu),
         ),
+        /*actions: [
+          FutureBuilder(
+            future: reference.doc(widget.userId).get(),
+            builder: (context, snapshot) {
+              Map<String, dynamic> data =
+                  snapshot.data!.data() as Map<String, dynamic>;
+              return CircleAvatar(
+                backgroundImage:
+                    CachedNetworkImageProvider(data['profilePhoto']),
+                radius: 30,
+              );
+            },
+          ),
+        ],*/
       ),
-      drawer: DashBoardDrawer(),
+      drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(
         child: Stack(
           children: [
             SizedBox(
               width: 780.w,
-              height: 210.h,
+              height: 180.h,
               child: SvgPicture.asset(
                 'assets/karl_assets/images/profilebg.svg',
                 fit: BoxFit.fill,
@@ -71,7 +87,7 @@ class _ConsumerPageState extends State<ConsumerPage> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       String data = snapshot.data!;
-                      return ReadConsumerProfile(userId: data);
+                      return ReadConsumerSwapCoins(documentId: data);
                     } else if (snapshot.hasError) {
                       return Text("Error: ${snapshot.error}");
                     } else {
@@ -83,7 +99,7 @@ class _ConsumerPageState extends State<ConsumerPage> {
                             color: Color(0xFF14BE77),
                           ),
                         ),
-                      ); // You can use a loading indicator here.
+                      );
                     }
                   },
                 ),

@@ -75,7 +75,7 @@ class _ConsumerWalletState extends State<ConsumerWallet> {
           children: [
             SizedBox(
               width: 780.w,
-              height: 250.h,
+              height: 180.h,
               child: SvgPicture.asset(
                 'assets/karl_assets/images/profilebg.svg',
                 fit: BoxFit.fill,
