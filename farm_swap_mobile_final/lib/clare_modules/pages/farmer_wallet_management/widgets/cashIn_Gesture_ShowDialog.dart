@@ -348,9 +348,9 @@ class _CashInPageState extends State<CashInPage> {
                                           );
 
                                           if (pickedDate != null) {
-                                            String formattedDate =
-                                                DateFormat('yyyy-MM-dd')
-                                                    .format(pickedDate);
+                                            String formattedDate = DateFormat(
+                                                    'yyyy-MM-dd HH:mm:ss')
+                                                .format(pickedDate);
 
                                             setState(() {
                                               controllers.dateController.text =
@@ -857,56 +857,66 @@ class _CashInPageState extends State<CashInPage> {
 
 // Function to save the data to Firestore including the selected image
   Future<void> saveDataIncludingImage() async {
-    if (_selectedImage == null) {
-      // Display an error message or return, as an image is required
-      return;
+    try {
+      if (_selectedImage == null) {
+        // Display an error message or return, as an image is required
+        return;
+      }
+
+      final userRole = controllers.userRoleController.text;
+      final userId = FirebaseAuth.instance.currentUser!.uid;
+      final firstName = controllers.firstNameController.text;
+      final lastName = controllers.lastNameController.text;
+      final contactNumber = controllers.contactNumberController.text;
+      String address = controllers.addressController.text;
+      String cashindate = controllers.dateController.text;
+      DateTime date = DateTime.parse(cashindate);
+      final amount = double.parse(controllers.amountController.text);
+      final status = controllers.statusController.text;
+      String request = "cash in";
+      final profilePhoto = controllers.profileController.text;
+
+      // Upload the selected image to Firebase Storage
+      final Reference storageReference =
+          FirebaseStorage.instance.ref().child("images/${DateTime.now()}.jpg");
+      UploadTask uploadTask =
+          storageReference.putFile(File(_selectedImage!.path));
+
+      await uploadTask.whenComplete(() async {
+        String downloadURL = await storageReference.getDownloadURL();
+
+        // Use the downloadURL as the proofPayment
+        final proofPayment = downloadURL;
+
+        // Create an instance of the FarmerWalletDb
+        FarmerWalletDB farmerWalletDB = FarmerWalletDB();
+
+        AddWalletFarmerDataQuery walletfarmer = AddWalletFarmerDataQuery();
+        final farmerwallet = await farmerWalletDB.insertFarmerWalletData(
+          userRole,
+          userId,
+          firstName,
+          lastName,
+          contactNumber,
+          address,
+          date,
+          amount,
+          proofPayment,
+          status,
+          request,
+          profilePhoto,
+        );
+
+        if (farmerwallet != null) {
+          await walletfarmer.createUser(farmerwallet);
+        } else {
+          // Handle the case where farmerwallet is null
+          print(
+              "Error: farmerwallet is null : $userId, $userRole, $firstName, $lastName, $contactNumber, $address, $date, $amount, proof $proofPayment, $status, $request, $profilePhoto");
+        }
+      });
+    } catch (e) {
+      print("Error in saving the data $e");
     }
-
-    final userRole = controllers.userRoleController.text;
-    final userId = FirebaseAuth.instance.currentUser!.uid;
-    final firstName = controllers.firstNameController.text;
-    final lastName = controllers.lastNameController.text;
-    final contactNumber = controllers.contactNumberController.text;
-    String address = controllers.addressController.text;
-    String cashindate = controllers.dateController.text;
-    DateTime date = DateTime.parse(cashindate);
-    final amount = double.parse(controllers.amountController.text);
-    final status = controllers.statusController.text;
-    String request = "cash in";
-    final profilePhoto = controllers.profileController.text;
-
-    // Upload the selected image to Firebase Storage
-    final Reference storageReference =
-        FirebaseStorage.instance.ref().child("images/${DateTime.now()}.jpg");
-    UploadTask uploadTask =
-        storageReference.putFile(File(_selectedImage!.path));
-
-    await uploadTask.whenComplete(() async {
-      String downloadURL = await storageReference.getDownloadURL();
-
-      // Use the downloadURL as the proofPayment
-      final proofPayment = downloadURL;
-
-      // Create an instance of the FarmerWalletDb
-      FarmerWalletDB farmerWalletDB = FarmerWalletDB();
-
-      AddWalletFarmerDataQuery walletfarmer = AddWalletFarmerDataQuery();
-      final farmerwallet = await farmerWalletDB.insertFarmerWalletData(
-        userRole,
-        userId,
-        firstName,
-        lastName,
-        contactNumber,
-        address,
-        date,
-        amount,
-        proofPayment,
-        status,
-        request,
-        profilePhoto,
-      );
-
-      await walletfarmer.createUser(farmerwallet);
-    });
   }
 }
