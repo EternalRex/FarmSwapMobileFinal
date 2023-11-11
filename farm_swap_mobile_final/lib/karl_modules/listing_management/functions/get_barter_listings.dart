@@ -13,6 +13,7 @@ import '../screens/listing_subpages/all_listing_page/all_barterlisting_details.d
 
 class GetBarterListings extends StatefulWidget {
   const GetBarterListings({super.key, required this.farmerUname});
+
   final String farmerUname;
 
   @override
