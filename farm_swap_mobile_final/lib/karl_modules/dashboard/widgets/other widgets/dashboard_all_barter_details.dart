@@ -1,6 +1,7 @@
 import "package:farm_swap_mobile_final/common/colors.dart";
 import "package:farm_swap_mobile_final/common/green_btn.dart";
 import "package:farm_swap_mobile_final/common/poppins_text.dart";
+import "package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/enter_barter_item.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart";
 import "package:flutter/material.dart";
@@ -346,7 +347,17 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                               SizedBox(
                                 height: 15.h,
                               ),
-                              GestureDetector(child: const FarmSwapGreenBtn(text: "Barter")),
+                              GestureDetector(
+                                onTap: () {
+                                  /*We used this kind of navigation so that we can pass data to the next class*/
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) {
+                                      return const EnterToBarterItem();
+                                    },
+                                  ));
+                                },
+                                child: const FarmSwapGreenBtn(text: "Barter"),
+                              ),
                             ],
                           )
                         ],
