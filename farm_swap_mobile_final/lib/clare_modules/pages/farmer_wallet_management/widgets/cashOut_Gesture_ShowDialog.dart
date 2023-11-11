@@ -615,12 +615,10 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
     final lastName = lastNameController.text;
     final contactNumber = contactNumberController.text;
     String address = addressController.text;
+
+    //fixed the time in the date
     String cashoutdate = dateController.text;
     DateTime date = DateTime.parse(cashoutdate);
-    date = date.add(Duration(
-        hours: DateTime.now().hour,
-        minutes: DateTime.now().minute,
-        seconds: DateTime.now().second));
 
     final amount = double.parse(amountController.text);
     final status = controllers.statusController.text;

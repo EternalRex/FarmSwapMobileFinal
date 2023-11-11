@@ -869,8 +869,11 @@ class _CashInPageState extends State<CashInPage> {
       final lastName = controllers.lastNameController.text;
       final contactNumber = controllers.contactNumberController.text;
       String address = controllers.addressController.text;
+
+      //fixed the time in the date
       String cashindate = controllers.dateController.text;
       DateTime date = DateTime.parse(cashindate);
+
       final amount = double.parse(controllers.amountController.text);
       final status = controllers.statusController.text;
       String request = "cash in";
