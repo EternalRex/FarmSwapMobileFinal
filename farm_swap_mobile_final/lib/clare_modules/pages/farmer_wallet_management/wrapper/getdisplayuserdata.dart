@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import '../widgets/text/sub_header_pendingtransaction.dart';
+import '../../../../common/colors.dart';
 
 class DisplayWalletData extends StatefulWidget {
   const DisplayWalletData({super.key, required this.documentId});
@@ -36,94 +36,93 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
 
           //creating a variable for the current user uid to pass sa builderlist
           final userId = FirebaseAuth.instance.currentUser!.uid;
-
           return Column(
             children: [
-              SizedBox(
-                height: 40.h,
-              ),
-              /*naay duha ka column sa sizedbox then gi center
-              inside sa column naay align para sa text na BALANCE
-              second column kay para sa data nga balance sa farmer              
-              */
-              Center(
-                child: SizedBox(
-                  width: 325.w,
-                  height: 120.h,
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'BALANCE : ',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17.sp,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w700,
-                            height: 0.08,
+              Padding(
+                padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    SizedBox(
+                      height: 180.h,
+                      width: 700.w,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Balance:',
+                              style: Poppins.commuTitle.copyWith(
+                                color: const Color(0xFFFFFFFF),
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          SizedBox(
+                            child: Text(
+                              '₱${data['balance']}',
+                              style: Poppins.number.copyWith(
+                                color: const Color(0xFFFFFFFF),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 55.h,
-                      ),
-                      //this will display sa balance ni farmer
-                      Text(
-                        "P ${data["balance"]}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 50.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w700,
-                          height: 0.03,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 15.h,
-              ),
-              /**
-               * this row kay naay container sa cash in and cash out
-               * if iclicked and cash in then naay dialog box mogawas
-               * then if ang cash out naa say dialog box mogawas
-               */
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //the first gesture detector kay para sa cash in button
                   GestureDetector(
                     child: Container(
-                      width: 144.w,
-                      height: 50.h,
+                      width: 100.w,
+                      height: 40.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        shadows: const [
+                            borderRadius: BorderRadius.circular(5)),
+                        shadows: [
                           BoxShadow(
-                            color: Color(0x21000000),
-                            blurRadius: 20,
-                            offset: Offset(6, 4),
+                            color: shadow,
+                            blurRadius: 2,
+                            offset: const Offset(0, 4),
                             spreadRadius: 0,
                           )
                         ],
                       ),
                       child: Align(
                         alignment: Alignment.center,
-                        child: Text(
-                          'Cash In',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w900,
-                            height: 0,
-                            letterSpacing: 0.50,
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.control_point_rounded,
+                              color: Color(0xFF15be77),
+                            ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            Text(
+                              'Cash In',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w900,
+                                height: 0,
+                                letterSpacing: 0.50,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -131,40 +130,51 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                       Navigator.of(context).pushNamed(RouteManager.cashinpage);
                     },
                   ),
-
                   SizedBox(
-                    width: 15.h,
+                    width: 20.w,
                   ),
                   //the second gesture detector kay para sa cash out button
                   GestureDetector(
                     child: Container(
-                      width: 144.w,
-                      height: 50.h,
+                      width: 100.w,
+                      height: 40.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6)),
-                        shadows: const [
+                        shadows: [
                           BoxShadow(
-                            color: Color(0x21000000),
-                            blurRadius: 20,
-                            offset: Offset(6, 4),
+                            color: shadow,
+                            blurRadius: 2,
+                            offset: const Offset(0, 4),
                             spreadRadius: 0,
                           )
                         ],
                       ),
                       child: Align(
                         alignment: Alignment.center,
-                        child: Text(
-                          'Cash Out',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w900,
-                            height: 0,
-                            letterSpacing: 0.50,
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.ios_share_rounded,
+                              color: Color(0xFF15be77),
+                            ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            Text(
+                              'Cash Out',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w900,
+                                height: 0,
+                                letterSpacing: 0.50,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -177,56 +187,37 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
               SizedBox(
                 height: 20.h,
               ),
-              /**
-               * this center kay nag consist sa header para sa transactions
-               * then diri makita ang transactions if pending or completed na
-               * then maka search sa lists of transaction and if i click
-               * ang specific list tile naay mugawas dialog box para sa transaction details
-               */
               Center(
                 child: Column(
                   children: [
                     Container(
-                      width: 350.w,
+                      width: 750.w,
                       height: 45.h,
-                      decoration: ShapeDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        shadows: const [
-                          BoxShadow(
-                            color: Color(0x21000000),
-                            blurRadius: 10,
-                            offset: Offset(3, 2),
-                            spreadRadius: 0,
-                          )
-                        ],
                       ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Text(
                                 'Transactions',
-                                style: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 20.sp,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w900,
-                                  letterSpacing: 0.50,
+                                style: GoogleFonts.viga(
+                                  textStyle: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: const Color(0xFF09041B),
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 1,
+                                  ),
                                 ),
                               ),
-                              SizedBox(
-                                width: 55.w,
-                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
                               //sizedbox for search textfield
-                              SizedBox(
+                              child: SizedBox(
                                 width: 160.w,
                                 height: 25.h,
                                 child: TextField(
@@ -248,11 +239,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                                     ),
                                     hintText: 'Search here',
                                     prefixIcon: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          searchValue = searchController.text;
-                                        });
-                                      },
+                                      onPressed: () {},
                                       icon: Icon(
                                         Icons.search,
                                         color: const Color(0xFFDA6317),
@@ -261,65 +248,98 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                                     ),
                                     prefixIconColor: const Color(0xFFDA6317),
                                   ),
+                                  onSubmitted: (value) {
+                                    setState(() {
+                                      searchValue = searchController.text;
+                                    });
+                                  },
                                 ),
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    //lists of pending transactions here
-                    Container(
-                      width: 350.w,
-                      height: 300.h,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        shadows: const [
-                          BoxShadow(
-                            color: Color(0x21000000),
-                            blurRadius: 10,
-                            offset: Offset(3, 2),
-                            spreadRadius: 0,
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          //header sa information na i display
-                          const SubHeaderPendingTransaction(),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-
-                          Container(
-                            width: 350.w,
-                            height: 250.h,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
                             ),
-                            /**
-                            * the streambuilder will listen the changes
-                            * of sample_farmerwallet collection in the firebase 
-                            */
-                            child: _buildUserList(userId),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
+                    Container(
+                      width: 750.w,
+                      height: 45.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(width: 2.w, color: greenNormal),
+                          bottom: BorderSide(width: 2.w, color: greenNormal),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Center(
+                                  child: Text(
+                                    'Type',
+                                    style: Poppins.userName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Center(
+                                  child: Text(
+                                    'Amount',
+                                    style: Poppins.userName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Center(
+                                  child: Text(
+                                    'Date',
+                                    style: Poppins.userName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Center(
+                                  child: Text(
+                                    'Status',
+                                    style: Poppins.userName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      child: SizedBox(
+                        height: 500.h,
+                        child: _buildUserList(userId),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -339,7 +359,15 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return Center(
+            child: SizedBox(
+              width: 50.w,
+              height: 50.h,
+              child: CircularProgressIndicator(
+                color: greenNormalHover,
+              ),
+            ),
+          );
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -350,6 +378,24 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
               child: Text('No transaction history available for this user.'),
             );
           }
+
+          // This will sort the documents based on the 'dateTime' field
+          logs.sort((a, b) {
+            var dateTimeA = a['dateTime'];
+            var dateTimeB = b['dateTime'];
+
+            //This will check if the dateTime field is a Timestamp and convert to DateTime
+            if (dateTimeA is Timestamp) {
+              dateTimeA = dateTimeA.toDate();
+            }
+
+            if (dateTimeB is Timestamp) {
+              dateTimeB = dateTimeB.toDate();
+            }
+
+            // this will perform the descending order base on the date and its time
+            return (dateTimeB as DateTime).compareTo(dateTimeA as DateTime);
+          });
 
           return ListView(
             children: logs.map<Widget>((document) {
@@ -367,69 +413,64 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
     Timestamp dateTimestamp = document["dateTime"];
     DateTime dateTime = dateTimestamp.toDate();
-    String dateFinal = DateFormat('MM-dd-yyyy HH:mm:ss').format(dateTime);
+    String dateFinal = DateFormat('MMMM d, y').format(dateTime);
+    String dateListTile = DateFormat('MMMM d, y').format(dateTime);
+    String timeListTile = DateFormat('hh:mm a').format(dateTime);
 
     //the searched transaction will display here
     if (searchValue.isNotEmpty) {
-      if (data["amount"] == searchValue ||
-          data["request"] == searchValue ||
-          data["dateTime"] == searchValue ||
-          data["status"] == searchValue) {
-        return Container(
-          decoration: ShapeDecoration(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-              30,
-            )),
-            shadows: const [
-              BoxShadow(
-                color: Color(0x21000000),
-                blurRadius: 10,
-                offset: Offset(3, 2),
-                spreadRadius: 0,
-              )
-            ],
-          ),
-          child: ListTile(
-            title: GestureDetector(
+      // Convert search value to lowercase
+      String searchValueLowerCase = searchValue.toLowerCase();
+
+      if (data["amount"].toString().toLowerCase() == searchValueLowerCase ||
+          data["request"].toString().toLowerCase() == searchValueLowerCase ||
+          data["dateTime"].toString().toLowerCase() == searchValueLowerCase ||
+          data["status"].toString().toLowerCase() == searchValueLowerCase) {
+        return ListTile(
+          title: Container(
+            width: 750.w,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: shadow,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+            ),
+            child: GestureDetector(
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  SizedBox(
-                    width: 50.w,
-                    child: Text(
-                      "${document["request"]} ",
-                      style: Poppins.adminName.copyWith(
-                        color: const Color(0xFF09041B),
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.normal,
+                  Expanded(
+                    flex: 1,
+                    child: Center(
+                      child: Text(
+                        "${document["request"]}",
+                        style: Poppins.detailsText.copyWith(
+                          color: const Color(0xFF09041B),
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 35.w,
-                  ),
-                  SizedBox(
-                    width: 50.w,
-                    child: Text(
-                      "${document["amount"]} ",
-                      style: Poppins.adminName.copyWith(
-                        color: const Color(0xFF09041B),
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.normal,
+                  Expanded(
+                    flex: 1,
+                    child: Center(
+                      child: Text(
+                        "${document["amount"]}",
+                        style: Poppins.detailsText.copyWith(
+                          color: const Color(0xFF09041B),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 20.w,
                   ),
                   SizedBox(
                     width: 70.w,
                     child: Text(
-                      "$dateFinal ",
+                      dateFinal,
                       style: Poppins.adminName.copyWith(
                         color: const Color(0xFF09041B),
                         fontSize: 13.sp,
@@ -437,17 +478,52 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 20.w,
-                  ),
-                  SizedBox(
-                    width: 65.w,
-                    child: Text(
-                      "${document["status"]} ",
-                      style: Poppins.adminName.copyWith(
-                        color: const Color(0xFF09041B),
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.normal,
+                  Expanded(
+                    flex: 1,
+                    child: Center(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 8, left: 25, bottom: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            //Details button
+                            SizedBox(
+                              height: 25.h,
+                              width: 50.w,
+                              child: DecoratedBox(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Color.fromARGB(255, 159, 206, 18),
+                                      Color.fromARGB(255, 159, 206, 18),
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  child: Center(
+                                    child: Text(
+                                      "${document["status"]}",
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: 8,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 0.50,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -461,7 +537,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                   builder: (context) {
                     return AlertDialog(
                       title: Container(
-                        height: 20.h,
+                        height: 50.h,
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -472,7 +548,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                             BoxShadow(
                               color: Color(0x21000000),
                               blurRadius: 10,
-                              offset: Offset(3, 2),
+                              offset: Offset(6, 2),
                               spreadRadius: 0,
                             )
                           ],
@@ -491,7 +567,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                         ),
                       ),
                       content: SizedBox(
-                        height: 180.h,
+                        height: 200.h,
                         child: Column(
                           children: [
                             //row for transaction date
@@ -508,8 +584,40 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                                const SizedBox(
+                                  width: 2,
+                                ),
                                 Text(
-                                  dateFinal,
+                                  dateListTile,
+                                  style: Poppins.adminName.copyWith(
+                                    color: const Color(0xFF09041B),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Text(
+                                  "Time : ",
+                                  style: Poppins.adminName.copyWith(
+                                    color: const Color(0xFF09041B),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  timeListTile,
                                   style: Poppins.adminName.copyWith(
                                     color: const Color(0xFF09041B),
                                     fontSize: 15.sp,
@@ -534,6 +642,9 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                                     fontSize: 15.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
+                                ),
+                                const SizedBox(
+                                  width: 2,
                                 ),
                                 Text(
                                   "${document["request"]} ",
@@ -761,61 +872,51 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
 
     //if search bar is empty this one will display
     else {
-      return Container(
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-            30,
-          )),
-          shadows: const [
-            BoxShadow(
-              color: Color(0x21000000),
-              blurRadius: 10,
-              offset: Offset(3, 2),
-              spreadRadius: 0,
-            )
-          ],
-        ),
-        child: ListTile(
-          title: GestureDetector(
+      return ListTile(
+        title: Container(
+          width: 750.w,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: shadow,
+                blurRadius: 2,
+                offset: const Offset(0, 1),
+              ),
+            ],
+          ),
+          child: GestureDetector(
             child: Row(
               children: [
-                SizedBox(
-                  width: 5.w,
-                ),
-                SizedBox(
-                  width: 50.w,
-                  child: Text(
-                    "${document["request"]} ",
-                    style: Poppins.adminName.copyWith(
-                      color: const Color(0xFF09041B),
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.normal,
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Text(
+                      "${document["request"]}",
+                      style: Poppins.detailsText.copyWith(
+                        color: const Color(0xFF09041B),
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 35.w,
-                ),
-                SizedBox(
-                  width: 50.w,
-                  child: Text(
-                    "${document["amount"]} ",
-                    style: Poppins.adminName.copyWith(
-                      color: const Color(0xFF09041B),
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.normal,
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Text(
+                      "${document["amount"]}",
+                      style: Poppins.detailsText.copyWith(
+                        color: const Color(0xFF09041B),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 20.w,
                 ),
                 SizedBox(
                   width: 70.w,
                   child: Text(
-                    "$dateFinal ",
+                    dateFinal,
                     style: Poppins.adminName.copyWith(
                       color: const Color(0xFF09041B),
                       fontSize: 13.sp,
@@ -823,17 +924,52 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 20.w,
-                ),
-                SizedBox(
-                  width: 65.w,
-                  child: Text(
-                    "${document["status"]} ",
-                    style: Poppins.adminName.copyWith(
-                      color: const Color(0xFF09041B),
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.normal,
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 8, left: 25, bottom: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          //Details button
+                          SizedBox(
+                            height: 25.h,
+                            width: 50.w,
+                            child: DecoratedBox(
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Color.fromARGB(255, 159, 206, 18),
+                                    Color.fromARGB(255, 159, 206, 18),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, bottom: 5),
+                                child: Center(
+                                  child: Text(
+                                    "${document["status"]}",
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontSize: 8,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: 0.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -847,7 +983,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                 builder: (context) {
                   return AlertDialog(
                     title: Container(
-                      height: 20.h,
+                      height: 50.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -858,7 +994,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                           BoxShadow(
                             color: Color(0x21000000),
                             blurRadius: 10,
-                            offset: Offset(3, 2),
+                            offset: Offset(6, 2),
                             spreadRadius: 0,
                           )
                         ],
@@ -877,7 +1013,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                       ),
                     ),
                     content: SizedBox(
-                      height: 180.h,
+                      height: 200.h,
                       child: Column(
                         children: [
                           //row for transaction date
@@ -894,8 +1030,40 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              const SizedBox(
+                                width: 2,
+                              ),
                               Text(
-                                dateFinal,
+                                dateListTile,
+                                style: Poppins.adminName.copyWith(
+                                  color: const Color(0xFF09041B),
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Text(
+                                "Time : ",
+                                style: Poppins.adminName.copyWith(
+                                  color: const Color(0xFF09041B),
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                timeListTile,
                                 style: Poppins.adminName.copyWith(
                                   color: const Color(0xFF09041B),
                                   fontSize: 15.sp,
@@ -920,6 +1088,9 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
+                              ),
+                              const SizedBox(
+                                width: 2,
                               ),
                               Text(
                                 "${document["request"]} ",

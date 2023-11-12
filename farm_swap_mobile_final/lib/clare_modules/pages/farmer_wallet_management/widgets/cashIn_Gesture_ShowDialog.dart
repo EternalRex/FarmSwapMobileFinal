@@ -25,6 +25,28 @@ class CashInPage extends StatefulWidget {
 }
 
 class _CashInPageState extends State<CashInPage> {
+  /*Instance of the controller class*/
+  TextEditingControllers controllers = TextEditingControllers();
+
+  //date controller
+  TextEditingController dateController = TextEditingController();
+
+  // Create an instance of WalletTextFieldLabel ang ga gamit ani kay sa first name and last name ra
+  WalletTextFieldLabel walletTextFieldLabel = WalletTextFieldLabel();
+
+  // Dispose of the controller when the widget is removed
+  @override
+  void dispose() {
+    controllers.userIdController.dispose();
+    controllers.lastNameController.dispose();
+    controllers.firstNameController.dispose();
+    controllers.contactNumberController.dispose();
+    controllers.addressController.dispose();
+    controllers.amountController.dispose();
+    dateController.dispose();
+    super.dispose();
+  }
+
   /* Add a loading indicator state para makita ang mga data kay if wala ni 
   dili man mo show ang data nga gikan sa label na class 
   */
@@ -33,10 +55,11 @@ class _CashInPageState extends State<CashInPage> {
   @override
   void initState() {
     super.initState();
+
+    dateController.text = "";
     // Initialize the controllers here
     controllers.contactNumberController = TextEditingController();
     controllers.addressController = TextEditingController();
-    controllers.dateController = TextEditingController();
     controllers.amountController = TextEditingController();
     // Load your data when the widget is initialized
     loadData();
@@ -51,25 +74,6 @@ class _CashInPageState extends State<CashInPage> {
     setState(() {
       isLoading = false;
     });
-  }
-
-  /*Instance of the controller class*/
-  static TextEditingControllers controllers = TextEditingControllers();
-
-  // Create an instance of WalletTextFieldLabel ang ga gamit ani kay sa first name and last name ra
-  WalletTextFieldLabel walletTextFieldLabel = WalletTextFieldLabel();
-
-  // Dispose of the controller when the widget is removed
-  @override
-  void dispose() {
-    controllers.userIdController.dispose();
-    controllers.lastNameController.dispose();
-    controllers.firstNameController.dispose();
-    controllers.contactNumberController.dispose();
-    controllers.addressController.dispose();
-    controllers.amountController.dispose();
-    controllers.dateController.dispose();
-    super.dispose();
   }
 
   @override
@@ -135,40 +139,7 @@ class _CashInPageState extends State<CashInPage> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        //this row is for the userid of farmer naka set nani ang userId daan
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'User ID:',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 13.sp,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w700,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: WalletTextField(
-                                controller: controllers.userIdController,
-                                enabled: false,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 15.w,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
+
                         //this row is for the first name of farmer naka set nasad ni gikan sa label na class
                         Row(
                           children: [
@@ -335,7 +306,7 @@ class _CashInPageState extends State<CashInPage> {
                                 child: SizedBox(
                                   height: 35.h, // Set the desired height
                                   child: TextField(
-                                    controller: controllers.dateController,
+                                    controller: dateController,
                                     decoration: InputDecoration(
                                       prefixIcon: IconButton(
                                         onPressed: () async {
@@ -348,12 +319,21 @@ class _CashInPageState extends State<CashInPage> {
                                           );
 
                                           if (pickedDate != null) {
+                                            // Append the current time to the picked date
+                                            DateTime pickedDateTime = DateTime(
+                                              pickedDate.year,
+                                              pickedDate.month,
+                                              pickedDate.day,
+                                              DateTime.now().hour,
+                                              DateTime.now().minute,
+                                              DateTime.now().second,
+                                            );
                                             String formattedDate =
-                                                DateFormat('yyyy-MM-dd')
-                                                    .format(pickedDate);
+                                                DateFormat('MMMM d, y hh:mm a')
+                                                    .format(pickedDateTime);
 
                                             setState(() {
-                                              controllers.dateController.text =
+                                              dateController.text =
                                                   formattedDate; // Update the text in the controller
                                             });
                                           } else {
@@ -383,6 +363,7 @@ class _CashInPageState extends State<CashInPage> {
                                             color: farmSwapSmoothGreen),
                                       ),
                                     ),
+                                    readOnly: true,
                                     cursorColor: FarmSwapGreen.normalGreen,
                                     style: TextStyle(
                                       fontSize: 15.sp,
@@ -858,56 +839,69 @@ class _CashInPageState extends State<CashInPage> {
 
 // Function to save the data to Firestore including the selected image
   Future<void> saveDataIncludingImage() async {
-    if (_selectedImage == null) {
-      // Display an error message or return, as an image is required
-      return;
+    try {
+      if (_selectedImage == null) {
+        // Display an error message or return, as an image is required
+        return;
+      }
+
+      final userRole = controllers.userRoleController.text;
+      final userId = FirebaseAuth.instance.currentUser!.uid;
+      final firstName = controllers.firstNameController.text;
+      final lastName = controllers.lastNameController.text;
+      final contactNumber = controllers.contactNumberController.text;
+      String address = controllers.addressController.text;
+
+      //assign the date controller to a string then parse the date into DateTime
+      String date = dateController.text;
+      DateTime cashindate = DateFormat('MMMM d, y hh:mm a').parse(date);
+
+      final amount = double.parse(controllers.amountController.text);
+      final status = controllers.statusController.text;
+      String request = "cash in";
+      final profilePhoto = controllers.profileController.text;
+
+      // Upload the selected image to Firebase Storage
+      final Reference storageReference =
+          FirebaseStorage.instance.ref().child("images/${DateTime.now()}.jpg");
+      UploadTask uploadTask =
+          storageReference.putFile(File(_selectedImage!.path));
+
+      await uploadTask.whenComplete(() async {
+        String downloadURL = await storageReference.getDownloadURL();
+
+        // Use the downloadURL as the proofPayment
+        final proofPayment = downloadURL;
+
+        // Create an instance of the FarmerWalletDb
+        FarmerWalletDB farmerWalletDB = FarmerWalletDB();
+
+        AddWalletFarmerDataQuery walletfarmer = AddWalletFarmerDataQuery();
+        final farmerwallet = await farmerWalletDB.insertFarmerWalletData(
+          userRole,
+          userId,
+          firstName,
+          lastName,
+          contactNumber,
+          address,
+          cashindate,
+          amount,
+          proofPayment,
+          status,
+          request,
+          profilePhoto,
+        );
+
+        if (farmerwallet != null) {
+          await walletfarmer.createUser(farmerwallet);
+        } else {
+          // Handle the case where farmerwallet is null
+          print(
+              "Farmerwallet cash in details : $userId, $userRole, $firstName, $lastName, $contactNumber, $address, $date, $amount, proof $proofPayment, $status, $request, $profilePhoto");
+        }
+      });
+    } catch (e) {
+      print("Error in saving the data $e");
     }
-
-    final userRole = controllers.userRoleController.text;
-    final userId = FirebaseAuth.instance.currentUser!.uid;
-    final firstName = controllers.firstNameController.text;
-    final lastName = controllers.lastNameController.text;
-    final contactNumber = controllers.contactNumberController.text;
-    String address = controllers.addressController.text;
-    String cashindate = controllers.dateController.text;
-    DateTime date = DateTime.parse(cashindate);
-    final amount = double.parse(controllers.amountController.text);
-    final status = controllers.statusController.text;
-    String request = "cash in";
-    final profilePhoto = controllers.profileController.text;
-
-    // Upload the selected image to Firebase Storage
-    final Reference storageReference =
-        FirebaseStorage.instance.ref().child("images/${DateTime.now()}.jpg");
-    UploadTask uploadTask =
-        storageReference.putFile(File(_selectedImage!.path));
-
-    await uploadTask.whenComplete(() async {
-      String downloadURL = await storageReference.getDownloadURL();
-
-      // Use the downloadURL as the proofPayment
-      final proofPayment = downloadURL;
-
-      // Create an instance of the FarmerWalletDb
-      FarmerWalletDB farmerWalletDB = FarmerWalletDB();
-
-      AddWalletFarmerDataQuery walletfarmer = AddWalletFarmerDataQuery();
-      final farmerwallet = await farmerWalletDB.insertFarmerWalletData(
-        userRole,
-        userId,
-        firstName,
-        lastName,
-        contactNumber,
-        address,
-        date,
-        amount,
-        proofPayment,
-        status,
-        request,
-        profilePhoto,
-      );
-
-      await walletfarmer.createUser(farmerwallet);
-    });
   }
 }

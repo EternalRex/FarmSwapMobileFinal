@@ -30,13 +30,17 @@ class _CashInFormState extends State<CashInForm> {
   */
   bool isLoading = true;
 
+  //date controller
+  TextEditingController dateController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
+
+    dateController.text = "";
     // Initialize the controllers
     controllers.contactNumberController = TextEditingController();
     controllers.addressController = TextEditingController();
-    controllers.dateController = TextEditingController();
     controllers.amountController = TextEditingController();
     // Load data when the widget is initialized
     loadData();
@@ -66,7 +70,7 @@ class _CashInFormState extends State<CashInForm> {
     controllers.contactNumberController.dispose();
     controllers.addressController.dispose();
     controllers.amountController.dispose();
-    controllers.dateController.dispose();
+    dateController.dispose();
     super.dispose();
   }
 
@@ -134,36 +138,7 @@ class _CashInFormState extends State<CashInForm> {
                           height: 20.h,
                         ),
                         //this row is for the userid of farmer naka set nani ang userId daan
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'User ID:',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 13.sp,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w700,
-                                  height: 0,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: WalletTextField(
-                                controller: controllers.userIdController,
-                                enabled: false,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 15.w,
-                            ),
-                          ],
-                        ),
+
                         SizedBox(
                           height: 20.h,
                         ),
@@ -333,7 +308,7 @@ class _CashInFormState extends State<CashInForm> {
                                 child: SizedBox(
                                   height: 35.h, // Set the desired height
                                   child: TextField(
-                                    controller: controllers.dateController,
+                                    controller: dateController,
                                     decoration: InputDecoration(
                                       prefixIcon: IconButton(
                                         onPressed: () async {
@@ -346,12 +321,21 @@ class _CashInFormState extends State<CashInForm> {
                                           );
 
                                           if (pickedDate != null) {
-                                            String formattedDate = DateFormat(
-                                                    'yyyy-MM-dd HH:mm:ss')
-                                                .format(pickedDate);
+                                            // Append the current time to the picked date
+                                            DateTime pickedDateTime = DateTime(
+                                              pickedDate.year,
+                                              pickedDate.month,
+                                              pickedDate.day,
+                                              DateTime.now().hour,
+                                              DateTime.now().minute,
+                                              DateTime.now().second,
+                                            );
+                                            String formattedDate =
+                                                DateFormat('MMMM d, y hh:mm a')
+                                                    .format(pickedDateTime);
 
                                             setState(() {
-                                              controllers.dateController.text =
+                                              dateController.text =
                                                   formattedDate; // Update the text in the controller
                                             });
                                           } else {
@@ -380,6 +364,7 @@ class _CashInFormState extends State<CashInForm> {
                                             color: farmSwapSmoothGreen),
                                       ),
                                     ),
+                                    readOnly: true,
                                     cursorColor: FarmSwapGreen.normalGreen,
                                     style: TextStyle(
                                       fontSize: 15.sp,
@@ -867,8 +852,10 @@ class _CashInFormState extends State<CashInForm> {
       final lastName = controllers.lastNameController.text;
       final contactNumber = controllers.contactNumberController.text;
       String address = controllers.addressController.text;
-      String cashindate = controllers.dateController.text;
-      DateTime date = DateTime.parse(cashindate);
+      //assign the date controller to a string then parse the date into DateTime
+      String date = dateController.text;
+      DateTime cashindate = DateFormat('MMMM d, y hh:mm a').parse(date);
+
       final amount = double.parse(controllers.amountController.text);
       final status = controllers.statusController.text;
       String request = "Cash In";
@@ -898,7 +885,7 @@ class _CashInFormState extends State<CashInForm> {
           lastName,
           contactNumber,
           address,
-          date,
+          cashindate,
           amount,
           proofPayment,
           status,
@@ -906,7 +893,13 @@ class _CashInFormState extends State<CashInForm> {
           profilePhoto,
         );
 
-        await walletConsumer.createUser(consumerwallet);
+        if (consumerwallet != null) {
+          await walletConsumer.createUser(consumerwallet);
+        } else {
+          // Handle the case where consumer wallet is null
+          print(
+              "Consumer wallet cash in details : $userId, $userRole, $firstName, $lastName, $contactNumber, $address, $date, $amount, proof $proofPayment, $status, $request, $profilePhoto");
+        }
       });
     } catch (e) {
       print('Error: $e');
