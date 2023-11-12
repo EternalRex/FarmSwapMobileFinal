@@ -357,6 +357,7 @@ class _CashInPageState extends State<CashInPage> {
                                                   formattedDate; // Update the text in the controller
                                             });
                                           } else {
+                                            // ignore: avoid_print
                                             print("Date is not selected");
                                           }
                                         },
