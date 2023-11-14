@@ -1,17 +1,27 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/get_barterting_listofbids.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class EnterToBarterItem extends StatefulWidget {
-  const EnterToBarterItem({super.key});
+class FarmerListOfBids extends StatefulWidget {
+  const FarmerListOfBids({
+    super.key,
+    required this.farmerUname,
+    required this.farmerId,
+    required this.listingId,
+  });
+
+  final String farmerUname;
+  final String farmerId;
+  final String listingId;
 
   @override
-  State<EnterToBarterItem> createState() => _EnterToBarterItemState();
+  State<FarmerListOfBids> createState() => _FarmerListOfBidsState();
 }
 
-class _EnterToBarterItemState extends State<EnterToBarterItem> {
+class _FarmerListOfBidsState extends State<FarmerListOfBids> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -24,13 +34,15 @@ class _EnterToBarterItemState extends State<EnterToBarterItem> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      /*Start of appbar */
       appBar: AppBar(
         title: Row(
           children: [
-            const Text("Dashboard"),
+            Text(
+              "Barter Bids",
+              style: TextStyle(fontSize: 25.sp),
+            ),
             SizedBox(
-              width: 80.w,
+              width: 50.w,
             ),
             /*Shoppping cart button */
             IconButton(
@@ -61,34 +73,24 @@ class _EnterToBarterItemState extends State<EnterToBarterItem> {
           icon: const Icon(Icons.menu),
         ),
       ),
-      /*End of appbar */
-      /*Displaying the drawer */
       drawer: const DashBoardDrawer(),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Container(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 600.h,
               decoration: const BoxDecoration(
-                color: Colors.black,
+                color: Colors.white,
               ),
-            ),
-          ),
-          Expanded(
-            flex: 15,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.red,
+              child: GetBarteringListOfBids(
+                farmerId: widget.farmerId,
+                farmerUname: widget.farmerUname,
+                farmerListingId: widget.listingId,
               ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              decoration: const BoxDecoration(color: Colors.blue),
-            ),
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

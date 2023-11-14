@@ -1,16 +1,21 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
+import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class DashboardPromotedProductDetails extends StatefulWidget {
   const DashboardPromotedProductDetails({
     super.key,
+    required this.listingId,
     required this.imageUrl,
     required this.listingname,
     required this.listingPrice,
@@ -27,8 +32,10 @@ class DashboardPromotedProductDetails extends StatefulWidget {
     required this.endTime,
     required this.listingQuan,
     required this.listingStatus,
+    required this.farmerId,
   });
 
+  final String listingId;
   final String imageUrl;
   final String listingname;
   final String listingPrice;
@@ -45,6 +52,7 @@ class DashboardPromotedProductDetails extends StatefulWidget {
   final String farmerUsername;
   final String startTime;
   final String endTime;
+  final String farmerId;
 
   @override
   State<DashboardPromotedProductDetails> createState() => _DashboardPromotedProductDetailsState();
@@ -61,6 +69,8 @@ class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProdu
 
   @override
   Widget build(BuildContext context) {
+    String loginUserType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -346,7 +356,35 @@ class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProdu
                               SizedBox(
                                 height: 15.h,
                               ),
-                              GestureDetector(child: const FarmSwapGreenBtn(text: "Barter")),
+                              GestureDetector(
+                                onTap: () {
+                                  (loginUserType == "CONSUMER")
+                                      ?
+                                      /*We used this kind of navigation so that we can pass data to the next class*/
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) {
+                                            /*So ato e pasa ang mga data ni listing ni farmer og item
+                                      kay para magamit sa next class */
+                                            return EnterToBarterItem(
+                                              listingIdNeed: widget.listingId,
+                                              listingNameNeed: widget.listingname,
+                                              listingDiscNeed: widget.listingDisc,
+                                              listingEquivalentPriceNeed: widget.listingPrice,
+                                              listingQuantityNeed: widget.listingQuan,
+                                              listingStatusNeed: widget.listingStatus,
+                                              farmerFNameNeed: widget.farmerName,
+                                              farmerUnameNeed: widget.farmerUsername,
+                                              farmerLnameNeed: widget.farmerLname,
+                                              farmerBaranggayNeed: widget.farmerBarangay,
+                                              farmerMunicaplityNeed: widget.farmerMunicipality,
+                                              farmerId: widget.farmerId,
+                                            );
+                                          },
+                                        ))
+                                      : showInvalidMessage();
+                                },
+                                child: const FarmSwapGreenBtn(text: "Barter"),
+                              ),
                             ],
                           )
                         ],
@@ -374,6 +412,40 @@ class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProdu
           ),
         ],
       ),
+    );
+  }
+
+  void showInvalidMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText(
+            "Invalid Operation",
+            Colors.red,
+            17.sp,
+            FontWeight.w500,
+          ),
+          content: poppinsText(
+            "You need to use a consumer account to barter other farmers products",
+            Colors.black,
+            13.sp,
+            FontWeight.w100,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ActiveDashboard(),
+                  ),
+                );
+              },
+              child: poppinsText("Back", farmSwapTitlegreen, 13.sp, FontWeight.w500),
+            ),
+          ],
+        );
+      },
     );
   }
 }

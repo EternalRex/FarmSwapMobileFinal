@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../../../common/colors.dart';
 import '../../../../../dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import '../../../../widgets/listing_management_bottomnav.dart';
@@ -54,7 +53,7 @@ class _AddActualBarterListingDetails3State extends State<AddActualBarterListingD
         ),
       ),
       /*The drawer class */
-      drawer: DashBoardDrawer(),
+      drawer: const DashBoardDrawer(),
       body: Column(
         children: [
           /*Expanded for the contents */
