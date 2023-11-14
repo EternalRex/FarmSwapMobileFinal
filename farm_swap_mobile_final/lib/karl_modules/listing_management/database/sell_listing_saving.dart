@@ -52,6 +52,7 @@ class SellListingSaving {
       promoted: false,
       promotionDate: DateTime.now(),
       renewalDate: DateTime.now(),
+      farmerId: userid,
     );
 
     /*Construkon nato ang id sa atong listing*/

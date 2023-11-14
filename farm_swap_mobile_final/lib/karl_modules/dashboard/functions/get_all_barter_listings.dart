@@ -58,6 +58,7 @@ class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterLis
 
     /*Firebase data assigned to variables for easy use */
     /*Firebase data assigned to variables for easy use */
+    String id = document.id;
     String imageUrl = data["listingpictureUrl"];
     String listingname = data["listingName"];
     String listingPrice = data["listingprice"].toString();
@@ -72,6 +73,8 @@ class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterLis
     String farmerMunicipality = data["farmerMunicipality"];
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
+    String farmerid = data["farmerId"];
+
     /*Actual design of widget to be returned */
     return Padding(
       padding: EdgeInsets.all(8.0.sp),
@@ -80,6 +83,7 @@ class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterLis
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) {
               return DashBoardAllBarterDetails(
+                itemId: id,
                 imageUrl: imageUrl,
                 listingname: listingname,
                 listingPrice: listingPrice,
@@ -96,6 +100,7 @@ class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterLis
                 endTime: finalEndDate,
                 listingQuan: listingQuan,
                 listingStatus: listingStatus,
+                farmerId: farmerid,
               );
             },
           ));

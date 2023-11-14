@@ -2,6 +2,9 @@ import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_managem
 import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/cashIn_Gesture_ShowDialog.dart';
 import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/cashOut_Gesture_ShowDialog.dart';
 import 'package:farm_swap_mobile_final/clare_modules/pages/swap_coins_management/screens/farmer_swapCoins_management_screen.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item2.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item3.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/farmer_barter_transactions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_management_mainpage.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_barter/add_barter_listing_page2.dart';
@@ -71,103 +74,84 @@ class RouteManager {
   static const consumercashout = "/consumercashout";
   static const farmerswapcoins = "/farmerswapcoins";
   static const consumerswapcoins = "/consumerswapcoins";
+  static const uploadItemPictureToBarter = "/uploadItemPictureToBarter";
+  static const entertobarteritem3 = "/entertobarteritem3";
+  static const farmerbartertransactionmainpage = "/farmerbartertransactionmainpage";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case usersignup:
-        return MaterialPageRoute(
-            builder: (context) => const UserSignUpScreen());
+        return MaterialPageRoute(builder: (context) => const UserSignUpScreen());
 
       case userlogin:
         return MaterialPageRoute(builder: (context) => const UserLoginScreen());
 
       case userDetailsRegister:
-        return MaterialPageRoute(
-            builder: (context) => const UserPersonalDetailsRegistration());
+        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration());
 
       case userDetailsRegister2:
-        return MaterialPageRoute(
-            builder: (context) => const UserPersonalDetailsRegistration2());
+        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration2());
 
       case userDetailsRegister3:
-        return MaterialPageRoute(
-            builder: (context) => const UserPersonalDetailsRegistration3());
+        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration3());
 
       case userDetailsRegister4:
-        return MaterialPageRoute(
-            builder: (context) => const UserPersonalDetailsRegistration4());
+        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration4());
 
       case userDetailsRegister5:
-        return MaterialPageRoute(
-            builder: (context) => const UserPersonalDetailsRegistration5());
+        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration5());
 
       case userDetailsRegister6:
-        return MaterialPageRoute(
-            builder: (context) => const UserPersonalDetailsRegistration6());
+        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration6());
 
       case userDetailsRegister7:
-        return MaterialPageRoute(
-            builder: (context) => const UserPersonalDetailsRegistration7());
+        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration7());
 
       case userDetailsRegister8:
-        return MaterialPageRoute(
-            builder: (context) => const UserPersonalDetailsRegistration8());
+        return MaterialPageRoute(builder: (context) => const UserPersonalDetailsRegistration8());
 
       case userDetailsRegisterEnd:
-        return MaterialPageRoute(
-            builder: (context) => const UserRegisterEndPage());
+        return MaterialPageRoute(builder: (context) => const UserRegisterEndPage());
 
       case activeDashboard:
         return MaterialPageRoute(builder: (context) => ActiveDashboard());
 
       case farmeraccountmanagement:
-        return MaterialPageRoute(
-            builder: (context) => FarmerProfileDashboard());
+        return MaterialPageRoute(builder: (context) => FarmerProfileDashboard());
 
       case userloginselection:
-        return MaterialPageRoute(
-            builder: (context) => const UserTypeLoginSelection());
+        return MaterialPageRoute(builder: (context) => const UserTypeLoginSelection());
 
       case userprofilephoto:
-        return MaterialPageRoute(
-            builder: (context) => const UserProfilePhotoRegistration());
+        return MaterialPageRoute(builder: (context) => const UserProfilePhotoRegistration());
 
       case displayuserprofilePhoto:
-        return MaterialPageRoute(
-            builder: (context) => const UserProfilePhotoDisplay());
+        return MaterialPageRoute(builder: (context) => const UserProfilePhotoDisplay());
 
       case listingmainpage:
-        return MaterialPageRoute(
-            builder: (context) => const ListingManagementMainPage());
+        return MaterialPageRoute(builder: (context) => const ListingManagementMainPage());
 
       case addlistingpage1:
-        return MaterialPageRoute(
-            builder: (context) => const AddListingPageInputDetails());
+        return MaterialPageRoute(builder: (context) => const AddListingPageInputDetails());
 
       case addselllistingdetails2:
-        return MaterialPageRoute(
-            builder: (context) => const AddActualSellingListingDetails2());
+        return MaterialPageRoute(builder: (context) => const AddActualSellingListingDetails2());
 
       case addselllistingdetails3:
-        return MaterialPageRoute(
-            builder: (context) => const AddActualSellingListingDetails3());
+        return MaterialPageRoute(builder: (context) => const AddActualSellingListingDetails3());
 
       case addselllistingdetails4:
-        return MaterialPageRoute(
-            builder: (context) => const AddActualSellingListingDetails4());
+        return MaterialPageRoute(builder: (context) => const AddActualSellingListingDetails4());
 
       case addbarterlisttingdetails2:
-        return MaterialPageRoute(
-            builder: (context) => const AddActualBarterListingDetails2());
+        return MaterialPageRoute(builder: (context) => const AddActualBarterListingDetails2());
 
       case addbarterlisttingdetails3:
-        return MaterialPageRoute(
-            builder: (context) => const AddActualBarterListingDetails3());
+        return MaterialPageRoute(builder: (context) => const AddActualBarterListingDetails3());
 
       case addbarterlisttingdetails4:
-        return MaterialPageRoute(
-            builder: (context) => const AddActualBarterListingDetails4());
+        return MaterialPageRoute(builder: (context) => const AddActualBarterListingDetails4());
 
       case consumerpage:
         return MaterialPageRoute(builder: (context) => const ConsumerPage());
@@ -189,12 +173,22 @@ class RouteManager {
 
       case cashinpage:
         return MaterialPageRoute(builder: (context) => const CashInPage());
+
       case cashoutpage:
-        return MaterialPageRoute(
-            builder: (context) => const CashOutGestureDialog());
+        return MaterialPageRoute(builder: (context) => const CashOutGestureDialog());
 
       case farmerswapcoins:
         return MaterialPageRoute(builder: (context) => FarmerSwapCoinsPage());
+
+      case uploadItemPictureToBarter:
+        return MaterialPageRoute(builder: (context) => const UploadBarterItemPicture());
+
+      case entertobarteritem3:
+        return MaterialPageRoute(builder: (context) => const EnterToBarterItem3());
+
+      case farmerbartertransactionmainpage:
+        return MaterialPageRoute(builder: (context) => const FarmerBarterTransactionMainPage());
+
       default:
         throw const FormatException("Warning!!! Page Routing Problem");
     }
