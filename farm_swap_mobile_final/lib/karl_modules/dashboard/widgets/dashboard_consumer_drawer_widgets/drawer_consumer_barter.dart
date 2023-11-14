@@ -1,4 +1,5 @@
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_options_text.dart';
+import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +25,9 @@ class ConsumerBarterTransactionBtn extends StatelessWidget {
               width: 10.w,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(RouteManager.consumerbidListings);
+              },
               child: DashBoardTxt(
                 myText: "Barter Transactions",
                 myColor: const Color(0xFF09041B),
