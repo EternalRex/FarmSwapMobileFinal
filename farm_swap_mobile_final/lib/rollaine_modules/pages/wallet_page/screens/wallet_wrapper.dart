@@ -124,7 +124,8 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamed(RouteManager.consumercashin);
+                      Navigator.of(context)
+                          .pushNamed(RouteManager.consumercashin);
                     },
                   ),
                   SizedBox(
@@ -176,7 +177,8 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamed(RouteManager.consumercashout);
+                      Navigator.of(context)
+                          .pushNamed(RouteManager.consumercashout);
                     },
                   ),
                 ],
@@ -197,14 +199,59 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
                           children: [
-                            Text(
-                              'Transactions',
-                              style: GoogleFonts.viga(
-                                textStyle: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: const Color(0xFF09041B),
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 1,
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                'Transactions',
+                                style: GoogleFonts.viga(
+                                  textStyle: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: const Color(0xFF09041B),
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 1,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              //sizedbox for search textfield
+                              child: SizedBox(
+                                width: 160.w,
+                                height: 25.h,
+                                child: TextField(
+                                  controller: searchController,
+                                  style: GoogleFonts.poppins(
+                                    color: const Color(0xFFDA6317),
+                                    height: 1.5.h,
+                                  ),
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.all(5),
+                                    filled: true,
+                                    fillColor: const Color(0xFFF9A84D)
+                                        .withOpacity(0.10),
+                                    border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    hintText: 'Search here',
+                                    prefixIcon: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.search,
+                                        color: const Color(0xFFDA6317),
+                                        size: 18.sp,
+                                      ),
+                                    ),
+                                    prefixIconColor: const Color(0xFFDA6317),
+                                  ),
+                                  onSubmitted: (value) {
+                                    setState(() {
+                                      searchValue = searchController.text;
+                                    });
+                                  },
                                 ),
                               ),
                             ),
@@ -260,7 +307,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                                 padding: const EdgeInsets.all(5.0),
                                 child: Center(
                                   child: Text(
-                                    'Date/Time',
+                                    'Date',
                                     style: Poppins.userName.copyWith(
                                       color: const Color(0xFF09041B),
                                     ),
@@ -311,7 +358,15 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return Center(
+            child: SizedBox(
+              width: 50.w,
+              height: 50.h,
+              child: CircularProgressIndicator(
+                color: greenNormalHover,
+              ),
+            ),
+          );
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -322,6 +377,22 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
               child: Text('No transaction history available for this user.'),
             );
           }
+          // This will sort the documents based on the 'dateTime' field
+          logs.sort((a, b) {
+            var dateTimeA = a['dateTime'];
+            var dateTimeB = b['dateTime'];
+
+            //This will check if the dateTime field is a Timestamp and convert to DateTime
+            if (dateTimeA is Timestamp) {
+              dateTimeA = dateTimeA.toDate();
+            }
+
+            if (dateTimeB is Timestamp) {
+              dateTimeB = dateTimeB.toDate();
+            }
+            // this will perform the descending order base on the date and its time
+            return (dateTimeB as DateTime).compareTo(dateTimeA as DateTime);
+          });
 
           return ListView(
             children: logs.map<Widget>((document) {
@@ -338,29 +409,32 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
     Timestamp dateTimestamp = document["dateTime"];
     DateTime dateTime = dateTimestamp.toDate();
     String dateFinal = DateFormat('MM/dd/yyyy').format(dateTime);
+    String timeListTile = DateFormat('hh:mm a').format(dateTime);
 
     if (searchValue.isNotEmpty) {
-      if (data['amount'] == searchValue ||
-          data['request'] == searchValue ||
-          data['dateTime'] == searchValue ||
-          data['status'] == searchValue) {
+      // Convert search value to lowercase
+      String searchValueLowerCase = searchValue.toLowerCase();
+      if (data["amount"].toString().toLowerCase() == searchValueLowerCase ||
+          data["request"].toString().toLowerCase() == searchValueLowerCase ||
+          data["dateTime"].toString().toLowerCase() == searchValueLowerCase ||
+          data["status"].toString().toLowerCase() == searchValueLowerCase) {
         return ListTile(
-          title: GestureDetector(
-            child: Container(
-              width: 750.w,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: shadow,
-                    blurRadius: 2,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
+          title: Container(
+            width: 750.w,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: shadow,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+            ),
+            child: GestureDetector(
               child: Row(
                 children: [
                   Expanded(
@@ -400,11 +474,12 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                     flex: 1,
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 8, left: 25, bottom: 8),
+                        padding:
+                            const EdgeInsets.only(top: 8, left: 25, bottom: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            //status
+                            //Details button
                             SizedBox(
                               height: 25.h,
                               width: 50.w,
@@ -430,7 +505,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                                       "${document["status"]}",
                                       style: GoogleFonts.poppins(
                                         color: Colors.white,
-                                        fontSize: 8.sp,
+                                        fontSize: 8,
                                         fontWeight: FontWeight.w700,
                                         letterSpacing: 0.50,
                                       ),
@@ -446,6 +521,343 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                   ),
                 ],
               ),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Container(
+                        height: 20.h,
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                            5,
+                          )),
+                          shadows: [
+                            BoxShadow(
+                              color: shadow,
+                              blurRadius: 10,
+                              offset: const Offset(6, 4),
+                              spreadRadius: 0,
+                            )
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Transaction Details',
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 20.sp,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 0.50,
+                            ),
+                          ),
+                        ),
+                      ),
+                      content: SizedBox(
+                        height: 200.h,
+                        child: Column(
+                          children: [
+                            //row for transaction date
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Text(
+                                  "Date : ",
+                                  style: Poppins.adminName.copyWith(
+                                    color: const Color(0xFF09041B),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  dateFinal,
+                                  style: Poppins.adminName.copyWith(
+                                    color: const Color(0xFF09041B),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Text(
+                                  "Time : ",
+                                  style: Poppins.adminName.copyWith(
+                                    color: const Color(0xFF09041B),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  timeListTile,
+                                  style: Poppins.adminName.copyWith(
+                                    color: const Color(0xFF09041B),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            //row for type of transaction just calling the request from the db
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Text(
+                                  "Type of transaction : ",
+                                  style: Poppins.adminName.copyWith(
+                                    color: const Color(0xFF09041B),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  "${document["request"]} ",
+                                  style: Poppins.adminName.copyWith(
+                                    color: const Color(0xFF09041B),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+
+                            //row for user uid
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Text(
+                                  "User ID: ",
+                                  style: Poppins.adminName.copyWith(
+                                    color: const Color(0xFF09041B),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  "${document["userId"]} ",
+                                  style: Poppins.adminName.copyWith(
+                                    color: const Color(0xFF09041B),
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            //row for first and last name
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "Name : ",
+                                    style: Poppins.adminName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "${document["firstname"]} " +
+                                        "${document["lastname"]} ",
+                                    style: Poppins.adminName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            //row for mobile number
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "Mobile Number : ",
+                                    style: Poppins.adminName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "${document["contactnum"]} ",
+                                    style: Poppins.adminName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            //row for address
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "Address : ",
+                                    style: Poppins.adminName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "${document["address"]} ",
+                                    style: Poppins.adminName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            //row for amount
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "Amount : ",
+                                    style: Poppins.adminName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "${document["amount"]} ",
+                                    style: Poppins.adminName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            //row for the transaction status
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "Status : ",
+                                    style: Poppins.adminName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "${document["status"]} ",
+                                    style: Poppins.adminName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text("Close"),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pop(); // Close the second AlertDialog
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
             ),
           ),
         );
@@ -507,7 +919,8 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                   flex: 1,
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 8, left: 25, bottom: 8),
+                      padding:
+                          const EdgeInsets.only(top: 8, left: 25, bottom: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -530,7 +943,8 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                                 ),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                                padding:
+                                    const EdgeInsets.only(top: 5, bottom: 5),
                                 child: Center(
                                   child: Text(
                                     "${document["status"]}",
@@ -588,7 +1002,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                       ),
                     ),
                     content: SizedBox(
-                      height: 180.h,
+                      height: 200.h,
                       child: Column(
                         children: [
                           //row for transaction date
@@ -610,6 +1024,36 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                               ),
                               Text(
                                 dateFinal,
+                                style: Poppins.adminName.copyWith(
+                                  color: const Color(0xFF09041B),
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Text(
+                                "Time : ",
+                                style: Poppins.adminName.copyWith(
+                                  color: const Color(0xFF09041B),
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                timeListTile,
                                 style: Poppins.adminName.copyWith(
                                   color: const Color(0xFF09041B),
                                   fontSize: 15.sp,

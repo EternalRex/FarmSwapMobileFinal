@@ -6,6 +6,10 @@ class SwapCoinsLogsInsertDataDb {
   Future<void> createSwapcoinsLogs(
     String? userId,
     String? userRole,
+    String userFirstname,
+    String userLastname,
+    String address,
+    String profilePhoto,
     DateTime activitydate,
     String status,
     double swapcoins,
@@ -13,6 +17,10 @@ class SwapCoinsLogsInsertDataDb {
     final swapcoinsLogs = SwapCoinsLogsModel(
       userId: userId,
       userRole: userRole,
+      userFirstname: userFirstname,
+      userLastname: userLastname,
+      address: address,
+      profilePhoto: profilePhoto,
       activitydate: activitydate,
       status: status,
       swapcoins: swapcoins,
@@ -35,6 +43,10 @@ class SwapCoinsLogsModel {
   SwapCoinsLogsModel({
     required this.userId,
     required this.userRole,
+    required this.userFirstname,
+    required this.userLastname,
+    required this.address,
+    required this.profilePhoto,
     required this.activitydate,
     required this.status,
     required this.swapcoins,
@@ -42,6 +54,10 @@ class SwapCoinsLogsModel {
 
   String? userId;
   String? userRole;
+  String userFirstname;
+  String userLastname;
+  String address;
+  String profilePhoto;
   DateTime activitydate;
   String status;
   double swapcoins;
@@ -50,6 +66,10 @@ class SwapCoinsLogsModel {
     return {
       "userId": userId,
       "userRole": userRole,
+      "firstname": userFirstname,
+      "lastname": userLastname,
+      "address": address,
+      "profile": profilePhoto,
       "dateTime": activitydate,
       "status": status,
       "swapcoins": swapcoins,

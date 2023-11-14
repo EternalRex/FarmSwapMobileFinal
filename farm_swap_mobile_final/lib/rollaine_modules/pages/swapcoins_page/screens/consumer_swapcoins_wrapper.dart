@@ -94,17 +94,62 @@ class _ReadConsumerSwapCoinsState extends State<ReadConsumerSwapCoins> {
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
                           children: [
-                            Text(
-                              'Transactions',
-                              style: GoogleFonts.viga(
-                                textStyle: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: const Color(0xFF09041B),
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 1,
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                'Transactions',
+                                style: GoogleFonts.viga(
+                                  textStyle: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: const Color(0xFF09041B),
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 1,
+                                  ),
                                 ),
                               ),
-                            )
+                            ),
+                            Expanded(
+                              flex: 2,
+                              //sizedbox for search textfield
+                              child: SizedBox(
+                                width: 160.w,
+                                height: 25.h,
+                                child: TextField(
+                                  controller: searchController,
+                                  style: GoogleFonts.poppins(
+                                    color: const Color(0xFFDA6317),
+                                    height: 1.5.h,
+                                  ),
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.all(5),
+                                    filled: true,
+                                    fillColor: const Color(0xFFF9A84D)
+                                        .withOpacity(0.10),
+                                    border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    hintText: 'Search here',
+                                    prefixIcon: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.search,
+                                        color: const Color(0xFFDA6317),
+                                        size: 18.sp,
+                                      ),
+                                    ),
+                                    prefixIconColor: const Color(0xFFDA6317),
+                                  ),
+                                  onSubmitted: (value) {
+                                    setState(() {
+                                      searchValue = searchController.text;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -212,6 +257,22 @@ class _ReadConsumerSwapCoinsState extends State<ReadConsumerSwapCoins> {
               child: Text('No transaction history available for this user.'),
             );
           }
+          // This will sort the documents based on the 'dateTime' field
+          logs.sort((a, b) {
+            var dateTimeA = a['dateTime'];
+            var dateTimeB = b['dateTime'];
+
+            //This will check if the dateTime field is a Timestamp and convert to DateTime
+            if (dateTimeA is Timestamp) {
+              dateTimeA = dateTimeA.toDate();
+            }
+
+            if (dateTimeB is Timestamp) {
+              dateTimeB = dateTimeB.toDate();
+            }
+            // this will perform the descending order base on the date and its time
+            return (dateTimeB as DateTime).compareTo(dateTimeA as DateTime);
+          });
           return ListView(
             children: logs.map<Widget>((document) {
               return _buildSwapCoinsListItems(document);
@@ -230,11 +291,15 @@ class _ReadConsumerSwapCoinsState extends State<ReadConsumerSwapCoins> {
     Timestamp dateTimestamp = document["dateTime"];
     DateTime dateTime = dateTimestamp.toDate();
     String dateFinal = DateFormat('MM/dd/yyyy').format(dateTime);
+    String timeListTile = DateFormat('hh:mm a').format(dateTime);
 
     if (searchValue.isNotEmpty) {
-      if (data['swapcoins'] == searchValue ||
-          data['status'] == searchValue ||
-          data['dateTime'] == searchValue) {
+      // Convert search value to lowercase
+      String searchValueLowerCase = searchValue.toLowerCase();
+
+      if (data["swapcoins"].toString().toLowerCase() == searchValueLowerCase ||
+          data["status"].toString().toLowerCase() == searchValueLowerCase ||
+          data["dateTime"].toString().toLowerCase() == searchValueLowerCase) {
         return ListTile(
           title: GestureDetector(
             child: Container(
@@ -365,7 +430,7 @@ class _ReadConsumerSwapCoinsState extends State<ReadConsumerSwapCoins> {
                     ),
                   ),
                   content: SizedBox(
-                    height: 90.h,
+                    height: 120.h,
                     child: Column(
                       children: [
                         //row for transaction data
@@ -384,6 +449,32 @@ class _ReadConsumerSwapCoinsState extends State<ReadConsumerSwapCoins> {
                             ),
                             Text(
                               dateFinal,
+                              style: Poppins.adminName.copyWith(
+                                color: const Color(0xFF09041B),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              "Time : ",
+                              style: Poppins.adminName.copyWith(
+                                color: const Color(0xFF09041B),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              timeListTile,
                               style: Poppins.adminName.copyWith(
                                 color: const Color(0xFF09041B),
                                 fontSize: 15.sp,
@@ -633,7 +724,7 @@ class _ReadConsumerSwapCoinsState extends State<ReadConsumerSwapCoins> {
                   ),
                 ),
                 content: SizedBox(
-                  height: 90.h,
+                  height: 120.h,
                   child: Column(
                     children: [
                       //row for transaction data
@@ -652,6 +743,32 @@ class _ReadConsumerSwapCoinsState extends State<ReadConsumerSwapCoins> {
                           ),
                           Text(
                             dateFinal,
+                            style: Poppins.adminName.copyWith(
+                              color: const Color(0xFF09041B),
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Text(
+                            "Time : ",
+                            style: Poppins.adminName.copyWith(
+                              color: const Color(0xFF09041B),
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            timeListTile,
                             style: Poppins.adminName.copyWith(
                               color: const Color(0xFF09041B),
                               fontSize: 15.sp,

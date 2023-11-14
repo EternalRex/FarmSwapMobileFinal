@@ -21,6 +21,14 @@ class _CashOutFormState extends State<CashOutForm> {
   //we only reuse the TextEditingControllers from the cash in for the userID
   static ConsumerTextEditingControllers controllers =
       ConsumerTextEditingControllers();
+  @override
+  void initState() {
+    super.initState();
+    dateController.text = "";
+  }
+
+  //date controller
+  TextEditingController dateController = TextEditingController();
 
   //TextEditingControllers for the cash out diri nalang nako gibutang
   TextEditingController userRoleController = TextEditingController();
@@ -29,7 +37,6 @@ class _CashOutFormState extends State<CashOutForm> {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController contactNumberController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
   TextEditingController proofController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController requestController = TextEditingController();
@@ -104,41 +111,7 @@ class _CashOutFormState extends State<CashOutForm> {
                   SizedBox(
                     height: 20.h,
                   ),
-                  /*this row is for the userid of farmer which is naka disabled ang textfield 
-                  kay gi set na daan ang cash out user id*/
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          'User ID:',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 13.sp,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: CWalletTextField(
-                          controller: controllers.userIdController,
-                          enabled: false,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 15.w,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
+
                   //this row is for the first name of farmer
                   Row(
                     children: [
@@ -317,9 +290,18 @@ class _CashOutFormState extends State<CashOutForm> {
                                     );
 
                                     if (pickedDate != null) {
+                                      // Append the current time to the picked date
+                                      DateTime pickedDateTime = DateTime(
+                                        pickedDate.year,
+                                        pickedDate.month,
+                                        pickedDate.day,
+                                        DateTime.now().hour,
+                                        DateTime.now().minute,
+                                        DateTime.now().second,
+                                      );
                                       String formattedDate =
-                                          DateFormat('yyyy-MM-dd HH:mm:ss')
-                                              .format(pickedDate);
+                                          DateFormat('MMMM d, y hh:mm a')
+                                              .format(pickedDateTime);
 
                                       setState(() {
                                         dateController.text =
@@ -348,6 +330,7 @@ class _CashOutFormState extends State<CashOutForm> {
                                       BorderSide(color: farmSwapSmoothGreen),
                                 ),
                               ),
+                              readOnly: true,
                               cursorColor: FarmSwapGreen.normalGreen,
                               style: TextStyle(
                                 fontSize: 15.sp,
@@ -613,8 +596,8 @@ class _CashOutFormState extends State<CashOutForm> {
     final lastName = lastNameController.text;
     final contactNumber = contactNumberController.text;
     String address = addressController.text;
-    String cashoutdate = dateController.text;
-    DateTime date = DateTime.parse(cashoutdate);
+    String date = dateController.text;
+    DateTime cashoutdate = DateFormat('MMMM d, y hh:mm a').parse(date);
     final amount = double.parse(amountController.text);
     final status = controllers.statusController.text;
     String request = "Cash Out";
@@ -632,7 +615,7 @@ class _CashOutFormState extends State<CashOutForm> {
       lastName,
       contactNumber,
       address,
-      date,
+      cashoutdate,
       amount,
       proofPayment,
       status,
@@ -640,6 +623,12 @@ class _CashOutFormState extends State<CashOutForm> {
       profilePhoto,
     );
 
-    await walletconsumer.createUser(consumerwallet);
+    if (consumerwallet != null) {
+      await walletconsumer.createUser(consumerwallet);
+    } else {
+      // Handle the case where farmerwallet is null
+      print(
+          "Consumer wallet cashout details : $userId, $userRole, $firstName, $lastName, $contactNumber, $address, $date, $amount, proof $proofPayment, $status, $request, $profilePhoto");
+    }
   }
 }

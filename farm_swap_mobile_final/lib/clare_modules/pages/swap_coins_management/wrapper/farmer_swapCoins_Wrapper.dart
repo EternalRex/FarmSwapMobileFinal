@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import '../../farmer_wallet_management/widgets/text/sub_header_pendingtransaction.dart';
+import '../../../../common/colors.dart';
 
 class DisplayFarmerSwapCoinsWrapper extends StatefulWidget {
   const DisplayFarmerSwapCoinsWrapper({super.key, required this.documentId});
@@ -41,110 +41,82 @@ class _DisplayFarmerSwapCoinsWrapperState
 
           return Column(
             children: [
-              SizedBox(
-                height: 40.h,
-              ),
-              /*naay duha ka column sa sizedbox then gi center
-              inside sa column naay align para sa text na SWAPCOINS
-              second column kay para sa data nga swampcoins sa farmer              
-              */
-              Center(
-                child: SizedBox(
-                  width: 325.w,
-                  height: 120.h,
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Swap Coins : ',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17.sp,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w700,
-                            height: 0.08,
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    SizedBox(
+                      height: 180.h,
+                      width: 700.w,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Swap Coins:',
+                              style: Poppins.commuTitle.copyWith(
+                                color: const Color(0xFFFFFFFF),
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          SizedBox(
+                            child: Text(
+                              '₱${data['swapcoins']}',
+                              style: Poppins.number.copyWith(
+                                color: const Color(0xFFFFFFFF),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 55.h,
-                      ),
-                      //this will display sa balance ni farmer
-                      Text(
-                        "P ${data["swapcoins"]}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 50.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w700,
-                          height: 0.03,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 15.h,
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Center(
+                  child: TopUpButton(),
+                ),
               ),
-              //calling the top up button
-              const Center(
-                child: TopUpButton(),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              /**
-               * this center kay nag consist sa header para sa transactions
-               * then diri makita ang transactions if pending or completed na
-               * then maka search sa lists of transaction and if i click
-               * ang specific list tile naay mugawas dialog box para sa transaction details
-               */
               Center(
                 child: Column(
                   children: [
                     Container(
-                      width: 350.w,
+                      width: 750.w,
                       height: 45.h,
-                      decoration: ShapeDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        shadows: const [
-                          BoxShadow(
-                            color: Color(0x21000000),
-                            blurRadius: 10,
-                            offset: Offset(3, 2),
-                            spreadRadius: 0,
-                          )
-                        ],
                       ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Text(
                                 'Transactions',
-                                style: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 20.sp,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w900,
-                                  letterSpacing: 0.50,
+                                style: GoogleFonts.viga(
+                                  textStyle: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: const Color(0xFF09041B),
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 1,
+                                  ),
                                 ),
                               ),
-                              SizedBox(
-                                width: 55.w,
-                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
                               //sizedbox for search textfield
-                              SizedBox(
+                              child: SizedBox(
                                 width: 160.w,
                                 height: 25.h,
                                 child: TextField(
@@ -166,11 +138,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                                     ),
                                     hintText: 'Search here',
                                     prefixIcon: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          searchValue = searchController.text;
-                                        });
-                                      },
+                                      onPressed: () {},
                                       icon: Icon(
                                         Icons.search,
                                         color: const Color(0xFFDA6317),
@@ -179,63 +147,82 @@ class _DisplayFarmerSwapCoinsWrapperState
                                     ),
                                     prefixIconColor: const Color(0xFFDA6317),
                                   ),
+                                  onSubmitted: (value) {
+                                    setState(() {
+                                      searchValue = searchController.text;
+                                    });
+                                  },
                                 ),
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    //lists of pending transactions here
-                    Container(
-                      width: 350.w,
-                      height: 300.h,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        shadows: const [
-                          BoxShadow(
-                            color: Color(0x21000000),
-                            blurRadius: 10,
-                            offset: Offset(3, 2),
-                            spreadRadius: 0,
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          //header sa information na i display
-                          const SubHeaderPendingTransaction1(),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-
-                          Container(
-                            width: 350.w,
-                            height: 250.h,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
                             ),
-                            /**
-                            * the streambuilder will listen the changes
-                            * of SwapCoinsLogs collection in the firebase 
-                            */
-                            child: _buildUserList(userId),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                        ],
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 750.w,
+                      height: 45.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(width: 2.w, color: greenNormal),
+                          bottom: BorderSide(width: 2.w, color: greenNormal),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Center(
+                                  child: Text(
+                                    'Date',
+                                    style: Poppins.userName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Center(
+                                  child: Text(
+                                    'Amount',
+                                    style: Poppins.userName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Center(
+                                  child: Text(
+                                    'Status',
+                                    style: Poppins.userName.copyWith(
+                                      color: const Color(0xFF09041B),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      child: SizedBox(
+                        height: 500.h,
+                        child: _buildUserList(userId),
                       ),
                     ),
                   ],
@@ -258,7 +245,15 @@ class _DisplayFarmerSwapCoinsWrapperState
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return Center(
+            child: SizedBox(
+              width: 50.w,
+              height: 50.h,
+              child: CircularProgressIndicator(
+                color: greenNormalHover,
+              ),
+            ),
+          );
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -269,6 +264,23 @@ class _DisplayFarmerSwapCoinsWrapperState
               child: Text('No transaction history available for this user.'),
             );
           }
+
+          // This will sort the documents based on the 'dateTime' field
+          logs.sort((a, b) {
+            var dateTimeA = a['dateTime'];
+            var dateTimeB = b['dateTime'];
+
+            //This will check if the dateTime field is a Timestamp and convert to DateTime
+            if (dateTimeA is Timestamp) {
+              dateTimeA = dateTimeA.toDate();
+            }
+
+            if (dateTimeB is Timestamp) {
+              dateTimeB = dateTimeB.toDate();
+            }
+            // this will perform the descending order base on the date and its time
+            return (dateTimeB as DateTime).compareTo(dateTimeA as DateTime);
+          });
 
           return ListView(
             children: logs.map<Widget>((document) {
@@ -286,114 +298,156 @@ class _DisplayFarmerSwapCoinsWrapperState
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
     Timestamp dateTimestamp = document["dateTime"];
     DateTime dateTime = dateTimestamp.toDate();
-    String dateFinal = DateFormat('MM-dd-yyyy HH:mm:ss').format(dateTime);
+    String dateFinal = DateFormat('MMMM d, y').format(dateTime);
+    String timeListTile = DateFormat('hh:mm a').format(dateTime);
 
     //the searched transaction will display here
     if (searchValue.isNotEmpty) {
-      if (data["swapcoins"] == searchValue ||
-          data["status"] == searchValue ||
-          data["dateTime"] == searchValue) {
-        return Container(
-          decoration: ShapeDecoration(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-              30,
-            )),
-            shadows: const [
-              BoxShadow(
-                color: Color(0x21000000),
-                blurRadius: 10,
-                offset: Offset(3, 2),
-                spreadRadius: 0,
-              )
-            ],
-          ),
-          child: ListTile(
-            title: GestureDetector(
-              child: Align(
-                alignment: Alignment.center,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 5.w,
-                    ),
-                    SizedBox(
-                      width: 130.w,
+      // Convert search value to lowercase
+      String searchValueLowerCase = searchValue.toLowerCase();
+
+      if (data["swapcoins"].toString().toLowerCase() == searchValueLowerCase ||
+          data["status"].toString().toLowerCase() == searchValueLowerCase ||
+          data["dateTime"].toString().toLowerCase() == searchValueLowerCase) {
+        return ListTile(
+          title: Container(
+            width: 750.w,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: shadow,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+            ),
+            child: GestureDetector(
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Center(
                       child: Text(
                         dateFinal,
-                        style: Poppins.adminName.copyWith(
+                        style: Poppins.detailsText.copyWith(
                           color: const Color(0xFF09041B),
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Center(
                       child: Text(
-                        "${document["swapcoins"]} ",
-                        style: Poppins.adminName.copyWith(
+                        "${data["swapcoins"]}",
+                        style: Poppins.detailsText.copyWith(
                           color: const Color(0xFF09041B),
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        "${document["status"]} ",
-                        style: Poppins.adminName.copyWith(
-                          color: const Color(0xFF09041B),
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Container(
-                        height: 20.h,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                            5,
-                          )),
-                          shadows: const [
-                            BoxShadow(
-                              color: Color(0x21000000),
-                              blurRadius: 10,
-                              offset: Offset(3, 2),
-                              spreadRadius: 0,
-                            )
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Center(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 8, left: 35, bottom: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            //status
+                            SizedBox(
+                              height: 25.h,
+                              width: 55.w,
+                              child: DecoratedBox(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Color.fromARGB(255, 159, 206, 18),
+                                      Color.fromARGB(255, 159, 206, 18),
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  child: Center(
+                                    child: Text(
+                                      "${data["status"]}",
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: 8.sp,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 0.50,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
-                        child: Center(
-                          child: Text(
-                            'Transaction Details',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 20.sp,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 0.50,
-                            ),
-                          ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Container(
+                    height: 50.h,
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                        5,
+                      )),
+                      shadows: const [
+                        BoxShadow(
+                          color: Color(0x21000000),
+                          blurRadius: 10,
+                          offset: Offset(3, 2),
+                          spreadRadius: 0,
+                        )
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Transaction Details',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 20.sp,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 0.50,
                         ),
                       ),
-                      content: SizedBox(
-                        height: 100.h,
-                        child: Column(
+                    ),
+                  ),
+                  content: SizedBox(
+                    height: 120.h,
+                    child: Column(
+                      children: [
+                        //row for transaction data
+                        Column(
                           children: [
-                            //row for transaction date
                             Row(
                               children: [
                                 SizedBox(
@@ -417,17 +471,13 @@ class _DisplayFarmerSwapCoinsWrapperState
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            //row for user uid
                             Row(
                               children: [
                                 SizedBox(
                                   width: 10.w,
                                 ),
                                 Text(
-                                  "User ID: ",
+                                  "Time : ",
                                   style: Poppins.adminName.copyWith(
                                     color: const Color(0xFF09041B),
                                     fontSize: 15.sp,
@@ -435,34 +485,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                                   ),
                                 ),
                                 Text(
-                                  "${document["userId"]} ",
-                                  style: Poppins.adminName.copyWith(
-                                    color: const Color(0xFF09041B),
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            //row for type of transaction just calling the request from the db
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Text(
-                                  "Top Up Swap Coins : ",
-                                  style: Poppins.adminName.copyWith(
-                                    color: const Color(0xFF09041B),
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "${document["swapcoins"]} ",
+                                  timeListTile,
                                   style: Poppins.adminName.copyWith(
                                     color: const Color(0xFF09041B),
                                     fontSize: 15.sp,
@@ -470,168 +493,259 @@ class _DisplayFarmerSwapCoinsWrapperState
                                   ),
                                 ),
                               ],
-                            ),
-
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            //row for the transaction status
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "Status: ",
-                                    style: Poppins.adminName.copyWith(
-                                      color: const Color(0xFF09041B),
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "${document["status"]} ",
-                                    style: Poppins.adminName.copyWith(
-                                      color: const Color(0xFF09041B),
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5.h,
                             ),
                           ],
                         ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text("Close"),
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pop(); // Close the second AlertDialog
-                          },
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        //row for user uid
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              "User ID: ",
+                              style: Poppins.adminName.copyWith(
+                                color: const Color(0xFF09041B),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              "${data["userId"]} ",
+                              style: Poppins.adminName.copyWith(
+                                color: const Color(0xFF09041B),
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        //row for type of transaction just calling the request from the db
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              "Top Up Swap Coins : ",
+                              style: Poppins.adminName.copyWith(
+                                color: const Color(0xFF09041B),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              "${data["swapcoins"]} ",
+                              style: Poppins.adminName.copyWith(
+                                color: const Color(0xFF09041B),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        //row for the transaction status
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "Status: ",
+                                style: Poppins.adminName.copyWith(
+                                  color: const Color(0xFF09041B),
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                "${data["status"]} ",
+                                style: Poppins.adminName.copyWith(
+                                  color: const Color(0xFF09041B),
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.h,
                         ),
                       ],
-                    );
-                  },
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text("Close"),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pop(); // Close the second AlertDialog
+                      },
+                    ),
+                  ],
                 );
               },
-            ),
-          ),
+            );
+          },
         );
       }
     }
 
     //if search bar is empty this one will display
     else {
-      return Container(
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-            30,
-          )),
-          shadows: const [
-            BoxShadow(
-              color: Color(0x21000000),
-              blurRadius: 10,
-              offset: Offset(3, 2),
-              spreadRadius: 0,
-            )
-          ],
-        ),
-        child: ListTile(
-          title: GestureDetector(
-            child: Align(
-              alignment: Alignment.center,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  SizedBox(
-                    width: 130.w,
+      return ListTile(
+        title: Container(
+          width: 750.w,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: shadow,
+                blurRadius: 2,
+                offset: const Offset(0, 1),
+              ),
+            ],
+          ),
+          child: GestureDetector(
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 20.w,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Center(
                     child: Text(
                       dateFinal,
-                      style: Poppins.adminName.copyWith(
+                      style: Poppins.detailsText.copyWith(
                         color: const Color(0xFF09041B),
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Center(
                     child: Text(
-                      "${document["swapcoins"]} ",
-                      style: Poppins.adminName.copyWith(
+                      "${data["swapcoins"]}",
+                      style: Poppins.detailsText.copyWith(
                         color: const Color(0xFF09041B),
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      "${document["status"]} ",
-                      style: Poppins.adminName.copyWith(
-                        color: const Color(0xFF09041B),
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Container(
-                      height: 20.h,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                          5,
-                        )),
-                        shadows: const [
-                          BoxShadow(
-                            color: Color(0x21000000),
-                            blurRadius: 10,
-                            offset: Offset(3, 2),
-                            spreadRadius: 0,
-                          )
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 8, left: 35, bottom: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          //status
+                          SizedBox(
+                            height: 25.h,
+                            width: 55.w,
+                            child: DecoratedBox(
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Color.fromARGB(255, 159, 206, 18),
+                                    Color.fromARGB(255, 159, 206, 18),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, bottom: 5),
+                                child: Center(
+                                  child: Text(
+                                    "${data["status"]}",
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontSize: 8.sp,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: 0.50,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                      child: Center(
-                        child: Text(
-                          'Transaction Details',
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 20.sp,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 0.50,
-                          ),
-                        ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Container(
+                  height: 50.h,
+                  decoration: ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                      5,
+                    )),
+                    shadows: const [
+                      BoxShadow(
+                        color: Color(0x21000000),
+                        blurRadius: 10,
+                        offset: Offset(3, 2),
+                        spreadRadius: 0,
+                      )
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Transaction Details',
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20.sp,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 0.50,
                       ),
                     ),
-                    content: SizedBox(
-                      height: 100.h,
-                      child: Column(
+                  ),
+                ),
+                content: SizedBox(
+                  height: 120.h,
+                  child: Column(
+                    children: [
+                      //row for transaction data
+                      Column(
                         children: [
-                          //row for transaction date
                           Row(
                             children: [
                               SizedBox(
@@ -655,17 +769,13 @@ class _DisplayFarmerSwapCoinsWrapperState
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          //row for user uid
                           Row(
                             children: [
                               SizedBox(
                                 width: 10.w,
                               ),
                               Text(
-                                "User ID: ",
+                                "Time : ",
                                 style: Poppins.adminName.copyWith(
                                   color: const Color(0xFF09041B),
                                   fontSize: 15.sp,
@@ -673,34 +783,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                                 ),
                               ),
                               Text(
-                                "${document["userId"]} ",
-                                style: Poppins.adminName.copyWith(
-                                  color: const Color(0xFF09041B),
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          //row for type of transaction just calling the request from the db
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                              Text(
-                                "Top Up Swap Coins : ",
-                                style: Poppins.adminName.copyWith(
-                                  color: const Color(0xFF09041B),
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "${document["swapcoins"]} ",
+                                timeListTile,
                                 style: Poppins.adminName.copyWith(
                                   color: const Color(0xFF09041B),
                                   fontSize: 15.sp,
@@ -708,61 +791,114 @@ class _DisplayFarmerSwapCoinsWrapperState
                                 ),
                               ),
                             ],
-                          ),
-
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          //row for the transaction status
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "Status: ",
-                                  style: Poppins.adminName.copyWith(
-                                    color: const Color(0xFF09041B),
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  "${document["status"]} ",
-                                  style: Poppins.adminName.copyWith(
-                                    color: const Color(0xFF09041B),
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5.h,
                           ),
                         ],
                       ),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text("Close"),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pop(); // Close the second AlertDialog
-                        },
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      //row for user uid
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Text(
+                            "User ID: ",
+                            style: Poppins.adminName.copyWith(
+                              color: const Color(0xFF09041B),
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "${data["userId"]} ",
+                            style: Poppins.adminName.copyWith(
+                              color: const Color(0xFF09041B),
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      //row for type of transaction just calling the request from the db
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Text(
+                            "Top Up Swap Coins : ",
+                            style: Poppins.adminName.copyWith(
+                              color: const Color(0xFF09041B),
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "${data["swapcoins"]} ",
+                            style: Poppins.adminName.copyWith(
+                              color: const Color(0xFF09041B),
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      //row for the transaction status
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Expanded(
+                            child: Text(
+                              "Status: ",
+                              style: Poppins.adminName.copyWith(
+                                color: const Color(0xFF09041B),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              "${data["status"]} ",
+                              style: Poppins.adminName.copyWith(
+                                color: const Color(0xFF09041B),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5.h,
                       ),
                     ],
-                  );
-                },
+                  ),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text("Close"),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pop(); // Close the second AlertDialog
+                    },
+                  ),
+                ],
               );
             },
-          ),
-        ),
+          );
+        },
       );
     }
 
