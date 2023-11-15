@@ -92,6 +92,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
 
     /*Firebase data assigned to variables for easy use */
     /*Firebase data assigned to variables for easy use */
+    String id = document.id;
     String imageUrl = data["listingpictureUrl"];
     String listingname = data["listingName"];
     String listingPrice = data["listingprice"].toString();
@@ -106,6 +107,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
     String farmerMunicipality = data["farmerMunicipality"];
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
+    String farmerid = data["farmerId"];
 
     /*Actual design of widget to be returned */
     return Padding(
@@ -115,6 +117,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) {
               return DashboardPromotedProductDetails(
+                listingId: id,
                 imageUrl: imageUrl,
                 listingname: listingname,
                 listingPrice: listingPrice,
@@ -131,6 +134,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
                 endTime: finalEndDate,
                 listingQuan: listingQuan,
                 listingStatus: listingStatus,
+                farmerId: farmerid,
               );
             },
           ));
