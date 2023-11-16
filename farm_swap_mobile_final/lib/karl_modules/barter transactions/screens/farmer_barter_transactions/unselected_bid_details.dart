@@ -1,19 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
-import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/consumer_farmer_actualchat.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class GetConsumerBidDetails extends StatefulWidget {
-  const GetConsumerBidDetails({
+class UnselectedBidDetails extends StatefulWidget {
+  const UnselectedBidDetails({
     super.key,
     required this.imgurl,
     required this.itemname,
@@ -21,20 +16,20 @@ class GetConsumerBidDetails extends StatefulWidget {
     required this.itemVal,
     required this.itemCond,
     required this.itemDisc,
-    required this.bartered,
     required this.bidTime,
     required this.listId,
     required this.listName,
     required this.listStat,
     required this.listPrice,
     required this.listQuan,
-    required this.farmerid,
-    required this.farmername,
-    required this.farmerlname,
-    required this.farmeruname,
-    required this.farmerbarangay,
-    required this.farmermunicipal,
+    required this.consname,
+    required this.consid,
+    required this.conslname,
+    required this.consuname,
+    required this.consbarangay,
+    required this.consmunicipal,
     required this.selected,
+    required this.bartered,
   });
 
   final String imgurl;
@@ -44,8 +39,8 @@ class GetConsumerBidDetails extends StatefulWidget {
   final String itemCond;
   final String itemDisc;
   final String bidTime;
-  final bool bartered;
   final bool selected;
+  final bool bartered;
 
   final String listId;
   final String listName;
@@ -53,38 +48,24 @@ class GetConsumerBidDetails extends StatefulWidget {
   final String listPrice;
   final String listQuan;
 
-  final String farmername;
-  final String farmerid;
-  final String farmerlname;
-  final String farmeruname;
-  final String farmerbarangay;
-  final String farmermunicipal;
+  final String consname;
+  final String consid;
+  final String conslname;
+  final String consuname;
+  final String consbarangay;
+  final String consmunicipal;
 
   @override
-  State<GetConsumerBidDetails> createState() => _GetConsumerBidDetailsState();
+  State<UnselectedBidDetails> createState() => _UnselectedBidDetailsState();
 }
 
-class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
-/*Creating a scafoold key so that we can open a drawer that is built from another class */
+class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
+  /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
-  }
-
-  ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
-  String consid = "";
-  String consName = "";
-  String consLname = "";
-  String consUname = "";
-  String consBarangay = "";
-  String constMunispyo = "";
-
-  @override
-  void initState() {
-    super.initState();
-    getConsumerDetails();
   }
 
   @override
@@ -169,40 +150,12 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                /*This container indicates that the listing is unselected */
                 Container(
                   height: 50.h,
                   width: 130.w,
                   decoration: BoxDecoration(
-                    /*The color of the container will change to green when it is the bid that is selected by farmer */
-                    color: (widget.selected == true) ? Colors.green : Colors.red,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(30),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: shadow,
-                        blurRadius: 2,
-                        offset: const Offset(1, 5),
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: poppinsText(
-                      (widget.selected == true) ? "SELECTED" : "WAITING...",
-                      Colors.white,
-                      15.sp,
-                      FontWeight.w500,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 13.w,
-                ),
-                Container(
-                  height: 50.h,
-                  width: 130.w,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: Colors.red,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(30),
                     ),
@@ -216,31 +169,10 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      /*The text high will be change to navigator when the message functionality is functional */
-                      (widget.selected == true)
-                          ? Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return ConsumerFarmerActualChat(
-                                  farmerId: widget.farmerid,
-                                  farmerName: widget.farmername,
-                                  farmerUname: widget.farmeruname,
-                                  farmerBarangay: widget.farmerbarangay,
-                                  farmerMunicipality: widget.farmermunicipal,
-                                  consumerId: consid,
-                                  consumerFname: consName,
-                                  consumerLname: consLname,
-                                  consumerUname: consUname,
-                                  consumerBarangay: consBarangay,
-                                  consumerMunicipality: constMunispyo,
-                                  listingId: widget.listId,
-                                  listingName: widget.listName,
-                                );
-                              }),
-                            )
-                          : showInvaidMessage();
+                      showInvalidMessage();
                     },
                     child: poppinsText(
-                      "MESSAGE",
+                      "UNSELECTED",
                       Colors.white,
                       15.sp,
                       FontWeight.w500,
@@ -396,7 +328,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                 ],
               ),
             ),
-            /*This container is for the listing name */
+            /*Container for the consumer name */
             Container(
               color: const Color(0xFF86A789),
               width: MediaQuery.of(context).size.width,
@@ -408,7 +340,9 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                   Padding(
                     padding: EdgeInsets.all(8.sp),
                     child: Text(
-                      "Bartered to ${widget.listName}",
+                      "Your customer is ${widget.consname} "
+                      " ${widget.conslname} "
+                      " (${widget.consuname})",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 13.sp,
@@ -420,7 +354,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                 ],
               ),
             ),
-            /*This container is for the listing active */
+            /*This container is for da customer address*/
             Container(
               color: const Color(0xFFB2C8BA),
               width: MediaQuery.of(context).size.width,
@@ -432,55 +366,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                   Padding(
                     padding: EdgeInsets.all(8.sp),
                     child: Text(
-                      "listing is ${widget.listStat}",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        color: Colors.white,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            /*Listing estimated value */
-            Container(
-              color: const Color(0xFF86A789),
-              width: MediaQuery.of(context).size.width,
-              height: 50.h,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8.sp),
-                    child: Text(
-                      "Listing worth ${widget.listPrice}",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        color: Colors.white,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            /*This container is for the listing quantity */
-            Container(
-              color: const Color(0xFFB2C8BA),
-              width: MediaQuery.of(context).size.width,
-              height: 50.h,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8.sp),
-                    child: Text(
-                      "${widget.listQuan} kg available",
+                      "Address at ${widget.consbarangay} " " ${widget.consmunicipal} ",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 13.sp,
@@ -498,14 +384,14 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
     );
   }
 
-  void showInvaidMessage() {
+  void showInvalidMessage() {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Invalid Operation", Colors.red, 20.sp, FontWeight.w500),
+          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.normal),
           content: poppinsText(
-            "You can only message the farmer when your bid status is SELECTED, as of now it is WAITING...",
+            "This listing was an unselected bid, it is here for your reference only",
             Colors.black,
             13.sp,
             FontWeight.normal,
@@ -513,33 +399,40 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(RouteManager.consumerbidListings);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return UnselectedBidDetails(
+                        imgurl: widget.imgurl,
+                        itemname: widget.itemname,
+                        itemquan: widget.itemquan,
+                        itemVal: widget.itemVal,
+                        itemCond: widget.itemCond,
+                        itemDisc: widget.itemDisc,
+                        bidTime: widget.bidTime,
+                        listId: widget.listId,
+                        listName: widget.listName,
+                        listStat: widget.listStat,
+                        listPrice: widget.listPrice,
+                        listQuan: widget.listQuan,
+                        consname: widget.consname,
+                        consid: widget.consid,
+                        conslname: widget.conslname,
+                        consuname: widget.consuname,
+                        consbarangay: widget.consbarangay,
+                        consmunicipal: widget.consmunicipal,
+                        selected: widget.selected,
+                        bartered: widget.bartered,
+                      );
+                    },
+                  ),
+                );
               },
-              child: Text(
-                "Back",
-                style: TextStyle(color: farmSwapTitlegreen),
-              ),
+              child: poppinsText("Back", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );
       },
     );
-  }
-
-  Future<void> getConsumerDetails() async {
-    String id = await consumerDetails.getConsumerUserId();
-    String name = await consumerDetails.getConsumerFirstname();
-    String lname = await consumerDetails.getConsumerLastName();
-    String uname = await consumerDetails.getUname();
-    String barangay = await consumerDetails.getBaranggay();
-    String municipal = await consumerDetails.getMunicipalityFirstname();
-    setState(() {
-      consid = id;
-      consName = name;
-      consLname = lname;
-      consUname = uname;
-      consBarangay = barangay;
-      constMunispyo = municipal;
-    });
   }
 }

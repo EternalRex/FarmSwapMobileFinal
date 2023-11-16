@@ -1,29 +1,30 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/farmer_list_of_bids_details.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/unselected_bid_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class GetBarteringListOfBids extends StatefulWidget {
-  const GetBarteringListOfBids({
+class GetUnselectedBid extends StatefulWidget {
+  const GetUnselectedBid({
     super.key,
     required this.farmerUname,
     required this.farmerId,
-    required this.farmerListingId,
+    required this.listingId,
   });
+
   final String farmerUname;
   final String farmerId;
-  final String farmerListingId;
+  final String listingId;
 
   @override
-  State<GetBarteringListOfBids> createState() => _GetBarteringListOfBidsState();
+  State<GetUnselectedBid> createState() => _GetUnselectedBidState();
 }
 
-class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
+class _GetUnselectedBidState extends State<GetUnselectedBid> {
   final _firestore = FirebaseFirestore.instance;
 
   @override
@@ -31,7 +32,8 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     return StreamBuilder<QuerySnapshot>(
       stream: _firestore
           .collectionGroup('barterbids')
-          .where('listingId', isEqualTo: widget.farmerListingId)
+          .where('listingId', isEqualTo: widget.listingId)
+          .orderBy('itemBidTime', descending: false)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -89,7 +91,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     DateTime newbidTime = bidtime.toDate();
     String finalbidTime = DateFormat('yyyy-MM-dd').format(newbidTime);
 
-    if ((listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") && isBartered == false) {
+    if (isBartered == true && isSelected == false) {
       print(isBartered.toString());
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -115,7 +117,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => FarmerListOfBidsDetils(
+                  builder: (context) => UnselectedBidDetails(
                     imgurl: imageUrl,
                     itemname: itemName,
                     itemquan: itemquantity,
@@ -217,7 +219,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => FarmerListOfBidsDetils(
+                          builder: (context) => UnselectedBidDetails(
                             imgurl: imageUrl,
                             itemname: itemName,
                             itemquan: itemquantity,

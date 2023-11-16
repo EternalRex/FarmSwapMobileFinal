@@ -68,6 +68,9 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
             );*/
           }
         }
+        if (snapshot.hasError) {
+          print(snapshot.error);
+        }
         return const Text("Loading");
       },
     );
