@@ -1,37 +1,32 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/farmer_list_of_bids_details.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/get_consumer_bid_details.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class GetBarteringListOfBids extends StatefulWidget {
-  const GetBarteringListOfBids({
-    super.key,
-    required this.farmerUname,
-    required this.farmerId,
-    required this.farmerListingId,
-  });
-  final String farmerUname;
-  final String farmerId;
-  final String farmerListingId;
+class GetConsumerBids extends StatefulWidget {
+  const GetConsumerBids({super.key});
 
   @override
-  State<GetBarteringListOfBids> createState() => _GetBarteringListOfBidsState();
+  State<GetConsumerBids> createState() => _GetConsumerBidsState();
 }
 
-class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
+class _GetConsumerBidsState extends State<GetConsumerBids> {
   final _firestore = FirebaseFirestore.instance;
+  final _uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: _firestore
           .collectionGroup('barterbids')
-          .where('listingId', isEqualTo: widget.farmerListingId)
+          .where('consumerId', isEqualTo: _uid)
+          .orderBy('itemBidTime', descending: false)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -67,7 +62,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     String itemCondition = data["itemCondition"];
     String itemDisc = data["itemDisc"];
     bool isBartered = data["isBarteredOut"];
-    bool isSelected = data["selected"];
+    bool selected = data["selected"];
 
     /*Listing data*/
     String listingId = data["listingId"];
@@ -77,20 +72,20 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     String listStatus = data["listingStatus"];
 
     /*Consumer data*/
-    String consumername = data["consumerName"];
-    String consumerid = data["consumerId"];
-    String consumerLname = data["consumerLName"];
-    String consumeruname = data["consumerUname"];
-    String consumerBarangay = data["consumerBaranggay"];
-    String consumerMunicipality = data["consumerMuniciplaity"];
+    String farmerId = data["farmerId"];
+    String farmerName = data["farmerName"];
+    String farmerLname = data["farmerLName"];
+    String farmerUname = data["farmerUname"];
+    String farmerBarangay = data["farmerBaranggay"];
+    String farmerMunisipyo = data["farmerMunisipyo"];
 
 /*Bid time conversion*/
     Timestamp bidtime = data["itemBidTime"];
     DateTime newbidTime = bidtime.toDate();
     String finalbidTime = DateFormat('yyyy-MM-dd').format(newbidTime);
 
-    if ((listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") && isBartered == false) {
-      print(isBartered.toString());
+/*Kani na condition is kung ang listing dli na active, or kundi na barter na, kay dli na siya mo display */
+    if (listingStatus == "ACTIVE" || listingStatus == "REACTIVATED" && isBartered == false) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         /*The oval container*/
@@ -115,28 +110,30 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => FarmerListOfBidsDetils(
-                    imgurl: imageUrl,
-                    itemname: itemName,
-                    itemquan: itemquantity,
-                    itemVal: itemValue,
-                    itemCond: itemCondition,
-                    itemDisc: itemDisc,
-                    bidTime: finalbidTime,
-                    listId: listingId,
-                    listName: listingName,
-                    listStat: listStatus,
-                    listPrice: listingPrice,
-                    listQuan: listingQuan,
-                    consname: consumername,
-                    consid: consumerid,
-                    conslname: consumerLname,
-                    consuname: consumeruname,
-                    consbarangay: consumerBarangay,
-                    consmunicipal: consumerMunicipality,
-                    selected: isSelected,
-                    bartered: isBartered,
-                  ),
+                  builder: (context) {
+                    return GetConsumerBidDetails(
+                      imgurl: imageUrl,
+                      itemname: itemName,
+                      itemquan: itemquantity,
+                      itemVal: itemValue,
+                      itemCond: itemCondition,
+                      itemDisc: itemDisc,
+                      bartered: isBartered,
+                      bidTime: finalbidTime,
+                      listId: listingId,
+                      listName: listingName,
+                      listStat: listingStatus,
+                      listPrice: listingPrice,
+                      listQuan: listingQuan,
+                      farmerid: farmerId,
+                      farmername: farmerName,
+                      farmerlname: farmerLname,
+                      farmeruname: farmerUname,
+                      farmerbarangay: farmerBarangay,
+                      farmermunicipal: farmerMunisipyo,
+                      selected: selected,
+                    );
+                  },
                 ),
               );
             },
@@ -217,28 +214,30 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => FarmerListOfBidsDetils(
-                            imgurl: imageUrl,
-                            itemname: itemName,
-                            itemquan: itemquantity,
-                            itemVal: itemValue,
-                            itemCond: itemCondition,
-                            itemDisc: itemDisc,
-                            bidTime: finalbidTime,
-                            listId: listingId,
-                            listName: listingName,
-                            listStat: listStatus,
-                            listPrice: listingPrice,
-                            listQuan: listingQuan,
-                            consname: consumername,
-                            consid: consumerid,
-                            conslname: consumerLname,
-                            consuname: consumeruname,
-                            consbarangay: consumerBarangay,
-                            consmunicipal: consumerMunicipality,
-                            selected: isSelected,
-                            bartered: isBartered,
-                          ),
+                          builder: (context) {
+                            return GetConsumerBidDetails(
+                              imgurl: imageUrl,
+                              itemname: itemName,
+                              itemquan: itemquantity,
+                              itemVal: itemValue,
+                              itemCond: itemCondition,
+                              itemDisc: itemDisc,
+                              bartered: isBartered,
+                              bidTime: finalbidTime,
+                              listId: listingId,
+                              listName: listingName,
+                              listStat: listingStatus,
+                              listPrice: listingPrice,
+                              listQuan: listingQuan,
+                              farmerid: farmerId,
+                              farmername: farmerName,
+                              farmerlname: farmerLname,
+                              farmeruname: farmerUname,
+                              farmerbarangay: farmerBarangay,
+                              farmermunicipal: farmerMunisipyo,
+                              selected: selected,
+                            );
+                          },
                         ),
                       );
                     },
@@ -255,7 +254,9 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
         ),
       );
     } else {
-      return Container();
+      return const Center(
+        child: Text("No Bids Available"),
+      );
     }
   }
 }

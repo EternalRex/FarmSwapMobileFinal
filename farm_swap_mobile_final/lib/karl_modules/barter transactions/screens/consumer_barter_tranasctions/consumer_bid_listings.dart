@@ -1,29 +1,19 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/get_barterting_listofbids.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/widgets/barter_bids_navbar.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/get_consumer_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class FarmerListOfBids extends StatefulWidget {
-  const FarmerListOfBids({
-    super.key,
-    required this.farmerUname,
-    required this.farmerId,
-    required this.listingId,
-  });
-
-  final String farmerUname;
-  final String farmerId;
-  final String listingId;
+class ConsumerBidListings extends StatefulWidget {
+  const ConsumerBidListings({super.key});
 
   @override
-  State<FarmerListOfBids> createState() => _FarmerListOfBidsState();
+  State<ConsumerBidListings> createState() => _ConsumerBidListingsState();
 }
 
-class _FarmerListOfBidsState extends State<FarmerListOfBids> {
-/*Creating a scafoold key so that we can open a drawer that is built from another class */
+class _ConsumerBidListingsState extends State<ConsumerBidListings> {
+  /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -39,11 +29,11 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
         title: Row(
           children: [
             Text(
-              "Barter Bids",
+              "My Bids",
               style: TextStyle(fontSize: 25.sp),
             ),
             SizedBox(
-              width: 50.w,
+              width: 85.w,
             ),
             /*Shoppping cart button */
             IconButton(
@@ -80,33 +70,12 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 525.h,
+              height: 600.h,
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
-              child: GetBarteringListOfBids(
-                farmerId: widget.farmerId,
-                farmerUname: widget.farmerUname,
-                farmerListingId: widget.listingId,
-              ),
-            ),
-            Container(
-              height: 55.h,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: greenNormal,
-                image: const DecorationImage(
-                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
-                  fit: BoxFit.cover,
-                ),
-                border: Border.all(color: farmSwapTitlegreen),
-              ),
-              child: BarterBidsNavBar(
-                farmerId: widget.farmerId,
-                farmerUname: widget.farmerUname,
-                listingId: widget.listingId,
-              ),
-            ),
+              child: const GetConsumerBids(),
+            )
           ],
         ),
       ),

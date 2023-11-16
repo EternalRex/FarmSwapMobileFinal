@@ -40,6 +40,7 @@ class SaveBarterBid {
       itemPicUrl: itemPicUrlBid,
       bidTime: DateTime.now(),
       isAlreadyBartered: isAlreadyBarteredBid,
+      selected: false,
       listingId: listingIdBid,
       listingName: listingNameBid,
       listingDisc: listingDiscBid,

@@ -6,6 +6,7 @@ import "package:farm_swap_mobile_final/provider/listing_addcategory_provider.dar
 import "package:farm_swap_mobile_final/provider/listing_page_provider.dart";
 import "package:farm_swap_mobile_final/provider/login_usertype_provider.dart";
 import 'package:farm_swap_mobile_final/provider/farmer_accountstatus_provider.dart';
+import "package:farm_swap_mobile_final/provider/selected_barter_bid_provider.dart";
 import "package:farm_swap_mobile_final/provider/sell_listing_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/user_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/user_type_provider.dart";
@@ -14,7 +15,6 @@ import "package:firebase_core/firebase_core.dart";
 import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:provider/provider.dart";
-
 import "karl_modules/dashboard/screens/account_management_farmer/provider/update_dropdown.dart";
 
 void main() async {
@@ -67,6 +67,10 @@ class MyApp extends StatelessWidget {
             /*This provider is about the details selected listing that the consumer wants to barter*/
             ChangeNotifierProvider(
               create: (context) => BartertingItemDetailsProvider(),
+            ),
+            /*This provider is used when a bid is selected by the farmer */
+            ChangeNotifierProvider(
+              create: (context) => SelectedBarterBidProvider(),
             ),
           ],
           builder: (context, child) {

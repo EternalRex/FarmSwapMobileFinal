@@ -2,12 +2,12 @@ import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_managem
 import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/cashIn_Gesture_ShowDialog.dart';
 import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/cashOut_Gesture_ShowDialog.dart';
 import 'package:farm_swap_mobile_final/clare_modules/pages/swap_coins_management/screens/farmer_swapCoins_management_screen.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/consumer_bid_listings.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item2.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item3.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/farmer_barter_transactions.dart';
+import 'package:farm_swap_mobile_final/karl_modules/communication/screens/farmer_chat_screen_main.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart';
-import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/barter_dashboard.dart';
-import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/sell_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_management_mainpage.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_barter/add_barter_listing_page2.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_barter/add_barter_listing_page3.dart';
@@ -79,8 +79,8 @@ class RouteManager {
   static const uploadItemPictureToBarter = "/uploadItemPictureToBarter";
   static const entertobarteritem3 = "/entertobarteritem3";
   static const farmerbartertransactionmainpage = "/farmerbartertransactionmainpage";
-  static const barterdashboard = "/barterdashboard";
-  static const selldashboard = "/selldashboard";
+  static const consumerbidListings = "/consumerbidListings";
+  static const farmerchatmainpage = "/farmerchatmainpage";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -192,12 +192,22 @@ class RouteManager {
 
       case farmerbartertransactionmainpage:
         return MaterialPageRoute(builder: (context) => const FarmerBarterTransactionMainPage());
-        
-      case barterdashboard:
-        return MaterialPageRoute(builder: (context) => const BarterDashboard());
 
-      case selldashboard:
-        return MaterialPageRoute(builder: (context) => const SellDashboard());
+      case consumerbidListings:
+        return MaterialPageRoute(
+          builder: (context) => const ConsumerBidListings(),
+        );
+
+      case farmerchatmainpage:
+        return MaterialPageRoute(builder: (context) => const FarmerMainChatScreen());
+
+      case consumerbidListings:
+        return MaterialPageRoute(
+          builder: (context) => const ConsumerBidListings(),
+        );
+
+      case farmerchatmainpage:
+        return MaterialPageRoute(builder: (context) => const FarmerMainChatScreen());
 
       default:
         throw const FormatException("Warning!!! Page Routing Problem");

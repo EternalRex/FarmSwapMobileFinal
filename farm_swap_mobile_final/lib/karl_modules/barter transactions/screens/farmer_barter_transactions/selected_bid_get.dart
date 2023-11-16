@@ -8,22 +8,23 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class GetBarteringListOfBids extends StatefulWidget {
-  const GetBarteringListOfBids({
+class GetSelectedBid extends StatefulWidget {
+  const GetSelectedBid({
     super.key,
     required this.farmerUname,
     required this.farmerId,
-    required this.farmerListingId,
+    required this.listingId,
   });
+
   final String farmerUname;
   final String farmerId;
-  final String farmerListingId;
+  final String listingId;
 
   @override
-  State<GetBarteringListOfBids> createState() => _GetBarteringListOfBidsState();
+  State<GetSelectedBid> createState() => _GetSelectedBidState();
 }
 
-class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
+class _GetSelectedBidState extends State<GetSelectedBid> {
   final _firestore = FirebaseFirestore.instance;
 
   @override
@@ -31,10 +32,12 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     return StreamBuilder<QuerySnapshot>(
       stream: _firestore
           .collectionGroup('barterbids')
-          .where('listingId', isEqualTo: widget.farmerListingId)
+          .where('listingId', isEqualTo: widget.listingId)
+          .orderBy('itemBidTime', descending: false)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
+          // ignore: avoid_print
           print(snapshot.error);
         }
         if (snapshot.connectionState == ConnectionState.active) {
@@ -89,7 +92,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     DateTime newbidTime = bidtime.toDate();
     String finalbidTime = DateFormat('yyyy-MM-dd').format(newbidTime);
 
-    if ((listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") && isBartered == false) {
+    if (isBartered == true && isSelected == true) {
       print(isBartered.toString());
       return Padding(
         padding: const EdgeInsets.all(8.0),

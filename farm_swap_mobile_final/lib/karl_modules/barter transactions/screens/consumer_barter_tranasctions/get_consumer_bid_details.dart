@@ -1,19 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
+import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
+import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/update_barter_selectedproperty.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/consumer_farmer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/provider/selected_barter_bid_provider.dart';
+import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
-class FarmerListOfBidsDetils extends StatefulWidget {
-  const FarmerListOfBidsDetils({
+class GetConsumerBidDetails extends StatefulWidget {
+  const GetConsumerBidDetails({
     super.key,
     required this.imgurl,
     required this.itemname,
@@ -21,20 +21,20 @@ class FarmerListOfBidsDetils extends StatefulWidget {
     required this.itemVal,
     required this.itemCond,
     required this.itemDisc,
+    required this.bartered,
     required this.bidTime,
     required this.listId,
     required this.listName,
     required this.listStat,
     required this.listPrice,
     required this.listQuan,
-    required this.consname,
-    required this.consid,
-    required this.conslname,
-    required this.consuname,
-    required this.consbarangay,
-    required this.consmunicipal,
+    required this.farmerid,
+    required this.farmername,
+    required this.farmerlname,
+    required this.farmeruname,
+    required this.farmerbarangay,
+    required this.farmermunicipal,
     required this.selected,
-    required this.bartered,
   });
 
   final String imgurl;
@@ -44,8 +44,8 @@ class FarmerListOfBidsDetils extends StatefulWidget {
   final String itemCond;
   final String itemDisc;
   final String bidTime;
-  final bool selected;
   final bool bartered;
+  final bool selected;
 
   final String listId;
   final String listName;
@@ -53,19 +53,19 @@ class FarmerListOfBidsDetils extends StatefulWidget {
   final String listPrice;
   final String listQuan;
 
-  final String consname;
-  final String consid;
-  final String conslname;
-  final String consuname;
-  final String consbarangay;
-  final String consmunicipal;
+  final String farmername;
+  final String farmerid;
+  final String farmerlname;
+  final String farmeruname;
+  final String farmerbarangay;
+  final String farmermunicipal;
 
   @override
-  State<FarmerListOfBidsDetils> createState() => _FarmerListOfBidsDetilsState();
+  State<GetConsumerBidDetails> createState() => _GetConsumerBidDetailsState();
 }
 
-class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
-  /*Creating a scafoold key so that we can open a drawer that is built from another class */
+class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
+/*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -73,20 +73,18 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
-  UpdateSelectedBarterBid updateSelected = UpdateSelectedBarterBid();
-  ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
-  bool accepted = false;
-  String farmerFname = "";
-  String farmerLname = "";
-  String farmerUname = "";
-  String farmerId = "";
-  String farmerBaranggay = "";
-  String farmerMunicipality = "";
+  ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
+  String consid = "";
+  String consName = "";
+  String consLname = "";
+  String consUname = "";
+  String consBarangay = "";
+  String constMunispyo = "";
 
   @override
   void initState() {
     super.initState();
-    getFarmerDetails();
+    getConsumerDetails();
   }
 
   @override
@@ -189,56 +187,11 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                     ],
                   ),
                   child: Center(
-                    child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          accepted = true;
-                        });
-                        /*Ato e update ang selected na property to true sa bid na napilian */
-                        updateSelected.updateBidSelectedStatus(
-                          true,
-                          widget.listId,
-                          widget.consid,
-                        );
-                        /*Ato e update ang tanang IsBarteredOut property sa tanang bids to true
-                          kay nana may napili an si farmer */
-                        updateSelected.updateIsBarteredOutProperty();
-
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return FarmerListOfBidsDetils(
-                                imgurl: widget.imgurl,
-                                itemname: widget.itemname,
-                                itemquan: widget.itemquan,
-                                itemVal: widget.itemVal,
-                                itemCond: widget.itemCond,
-                                itemDisc: widget.itemDisc,
-                                bidTime: widget.bidTime,
-                                listId: widget.listId,
-                                listName: widget.listName,
-                                listStat: widget.listStat,
-                                listPrice: widget.listPrice,
-                                listQuan: widget.listQuan,
-                                consname: widget.consname,
-                                consid: widget.consid,
-                                conslname: widget.conslname,
-                                consuname: widget.consuname,
-                                consbarangay: widget.consbarangay,
-                                consmunicipal: widget.consmunicipal,
-                                selected: true,
-                                bartered: true,
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      child: poppinsText(
-                        (widget.selected == true) ? "ACCEPTED" : "ACCEPT BID",
-                        Colors.white,
-                        15.sp,
-                        FontWeight.w500,
-                      ),
+                    child: poppinsText(
+                      (widget.selected == true) ? "SELECTED" : "WAITING...",
+                      Colors.white,
+                      15.sp,
+                      FontWeight.w500,
                     ),
                   ),
                 ),
@@ -263,29 +216,28 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                   ),
                   child: TextButton(
                     onPressed: () {
+                      /*The text high will be change to navigator when the message functionality is functional */
                       (widget.selected == true)
                           ? Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return FarmerConsumerActualChat(
-                                    farmerId: farmerId,
-                                    farmerName: farmerFname,
-                                    farmerUname: farmerUname,
-                                    farmerBarangay: farmerBaranggay,
-                                    farmerMunicipality: farmerMunicipality,
-                                    consumerId: widget.consid,
-                                    consumerFname: widget.consname,
-                                    consumerLname: widget.conslname,
-                                    consumerUname: widget.consuname,
-                                    consumerBarangay: widget.consbarangay,
-                                    consumerMunicipality: widget.consmunicipal,
-                                    listingId: widget.listId,
-                                    listingName: widget.listName,
-                                  );
-                                },
-                              ),
+                              MaterialPageRoute(builder: (context) {
+                                return ConsumerFarmerActualChat(
+                                  farmerId: widget.farmerid,
+                                  farmerName: widget.farmername,
+                                  farmerUname: widget.farmeruname,
+                                  farmerBarangay: widget.farmerbarangay,
+                                  farmerMunicipality: widget.farmermunicipal,
+                                  consumerId: consid,
+                                  consumerFname: consName,
+                                  consumerLname: consLname,
+                                  consumerUname: consUname,
+                                  consumerBarangay: consBarangay,
+                                  consumerMunicipality: constMunispyo,
+                                  listingId: widget.listId,
+                                  listingName: widget.listName,
+                                );
+                              }),
                             )
-                          : showInvalidMessage();
+                          : showInvaidMessage();
                     },
                     child: poppinsText(
                       "MESSAGE",
@@ -444,7 +396,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                 ],
               ),
             ),
-            /*Container for the consumer name */
+            /*This container is for the listing name */
             Container(
               color: const Color(0xFF86A789),
               width: MediaQuery.of(context).size.width,
@@ -456,9 +408,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                   Padding(
                     padding: EdgeInsets.all(8.sp),
                     child: Text(
-                      "Your customer is ${widget.consname} "
-                      " ${widget.conslname} "
-                      " (${widget.consuname})",
+                      "Bartered to ${widget.listName}",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 13.sp,
@@ -470,7 +420,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                 ],
               ),
             ),
-            /*This container is for da customer address*/
+            /*This container is for the listing active */
             Container(
               color: const Color(0xFFB2C8BA),
               width: MediaQuery.of(context).size.width,
@@ -482,7 +432,55 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                   Padding(
                     padding: EdgeInsets.all(8.sp),
                     child: Text(
-                      "Address at ${widget.consbarangay} " " ${widget.consmunicipal} ",
+                      "listing is ${widget.listStat}",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        color: Colors.white,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            /*Listing estimated value */
+            Container(
+              color: const Color(0xFF86A789),
+              width: MediaQuery.of(context).size.width,
+              height: 50.h,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.sp),
+                    child: Text(
+                      "Listing worth ${widget.listPrice}",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        color: Colors.white,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            /*This container is for the listing quantity */
+            Container(
+              color: const Color(0xFFB2C8BA),
+              width: MediaQuery.of(context).size.width,
+              height: 50.h,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.sp),
+                    child: Text(
+                      "${widget.listQuan} kg available",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 13.sp,
@@ -500,14 +498,14 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
     );
   }
 
-  void showInvalidMessage() {
+  void showInvaidMessage() {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Invalid Operation", Colors.red, 20.sp, FontWeight.normal),
+          title: poppinsText("Invalid Operation", Colors.red, 20.sp, FontWeight.w500),
           content: poppinsText(
-            "You can only message the consumer once you accept his/her bid",
+            "You can only message the farmer when your bid status is SELECTED, as of now it is WAITING...",
             Colors.black,
             13.sp,
             FontWeight.normal,
@@ -515,36 +513,12 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return FarmerListOfBidsDetils(
-                        imgurl: widget.imgurl,
-                        itemname: widget.itemname,
-                        itemquan: widget.itemquan,
-                        itemVal: widget.itemVal,
-                        itemCond: widget.itemCond,
-                        itemDisc: widget.itemDisc,
-                        bidTime: widget.bidTime,
-                        listId: widget.listId,
-                        listName: widget.listName,
-                        listStat: widget.listStat,
-                        listPrice: widget.listPrice,
-                        listQuan: widget.listQuan,
-                        consname: widget.consname,
-                        consid: widget.consid,
-                        conslname: widget.conslname,
-                        consuname: widget.consuname,
-                        consbarangay: widget.consbarangay,
-                        consmunicipal: widget.consmunicipal,
-                        selected: widget.selected,
-                        bartered: widget.bartered,
-                      );
-                    },
-                  ),
-                );
+                Navigator.of(context).pushNamed(RouteManager.consumerbidListings);
               },
-              child: poppinsText("Back", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: Text(
+                "Back",
+                style: TextStyle(color: farmSwapTitlegreen),
+              ),
             ),
           ],
         );
@@ -552,21 +526,20 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
     );
   }
 
-  Future<void> getFarmerDetails() async {
-    String fname = await farmerDetails.getFarmerFirstname();
-    String lname = await farmerDetails.getLastName();
-    String uname = await farmerDetails.getUname();
-    String fid = await farmerDetails.getFarmerUserId();
-    String fbarangay = await farmerDetails.getBaranggay();
-    String fmunicipality = await farmerDetails.getMunicipalityFirstname();
-
+  Future<void> getConsumerDetails() async {
+    String id = await consumerDetails.getConsumerUserId();
+    String name = await consumerDetails.getConsumerFirstname();
+    String lname = await consumerDetails.getConsumerLastName();
+    String uname = await consumerDetails.getUname();
+    String barangay = await consumerDetails.getBaranggay();
+    String municipal = await consumerDetails.getMunicipalityFirstname();
     setState(() {
-      farmerFname = fname;
-      farmerLname = lname;
-      farmerUname = uname;
-      farmerId = fid;
-      farmerBaranggay = fbarangay;
-      farmerMunicipality = fmunicipality;
+      consid = id;
+      consName = name;
+      consLname = lname;
+      consUname = uname;
+      consBarangay = barangay;
+      constMunispyo = municipal;
     });
   }
 }

@@ -1,13 +1,14 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/get_barterting_listofbids.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/selected_bid_get.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/unselected_bid_get.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/widgets/barter_bids_navbar.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class FarmerListOfBids extends StatefulWidget {
-  const FarmerListOfBids({
+class UnselectedBarterBids extends StatefulWidget {
+  const UnselectedBarterBids({
     super.key,
     required this.farmerUname,
     required this.farmerId,
@@ -19,11 +20,11 @@ class FarmerListOfBids extends StatefulWidget {
   final String listingId;
 
   @override
-  State<FarmerListOfBids> createState() => _FarmerListOfBidsState();
+  State<UnselectedBarterBids> createState() => _UnselectedBarterBidsState();
 }
 
-class _FarmerListOfBidsState extends State<FarmerListOfBids> {
-/*Creating a scafoold key so that we can open a drawer that is built from another class */
+class _UnselectedBarterBidsState extends State<UnselectedBarterBids> {
+  /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -39,11 +40,11 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
         title: Row(
           children: [
             Text(
-              "Barter Bids",
-              style: TextStyle(fontSize: 25.sp),
+              "Unselected Bids",
+              style: TextStyle(fontSize: 20.sp),
             ),
             SizedBox(
-              width: 50.w,
+              width: 35.w,
             ),
             /*Shoppping cart button */
             IconButton(
@@ -84,10 +85,10 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
-              child: GetBarteringListOfBids(
+              child: GetUnselectedBid(
                 farmerId: widget.farmerId,
                 farmerUname: widget.farmerUname,
-                farmerListingId: widget.listingId,
+                listingId: widget.listingId,
               ),
             ),
             Container(

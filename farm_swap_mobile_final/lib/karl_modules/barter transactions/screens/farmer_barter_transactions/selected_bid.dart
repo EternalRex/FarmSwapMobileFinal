@@ -1,29 +1,30 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/get_barterting_listofbids.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/selected_bid_get.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/widgets/barter_bids_navbar.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class FarmerListOfBids extends StatefulWidget {
-  const FarmerListOfBids({
+class SelectedBids extends StatefulWidget {
+  const SelectedBids({
     super.key,
-    required this.farmerUname,
     required this.farmerId,
     required this.listingId,
+    required this.farmerUname,
   });
 
-  final String farmerUname;
   final String farmerId;
   final String listingId;
+  final String farmerUname;
 
   @override
-  State<FarmerListOfBids> createState() => _FarmerListOfBidsState();
+  State<SelectedBids> createState() => _SelectedBidsState();
 }
 
-class _FarmerListOfBidsState extends State<FarmerListOfBids> {
-/*Creating a scafoold key so that we can open a drawer that is built from another class */
+class _SelectedBidsState extends State<SelectedBids> {
+  /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -39,11 +40,11 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
         title: Row(
           children: [
             Text(
-              "Barter Bids",
+              "Selected Bids",
               style: TextStyle(fontSize: 25.sp),
             ),
             SizedBox(
-              width: 50.w,
+              width: 20.w,
             ),
             /*Shoppping cart button */
             IconButton(
@@ -84,10 +85,10 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
-              child: GetBarteringListOfBids(
+              child: GetSelectedBid(
                 farmerId: widget.farmerId,
                 farmerUname: widget.farmerUname,
-                farmerListingId: widget.listingId,
+                listingId: widget.listingId,
               ),
             ),
             Container(

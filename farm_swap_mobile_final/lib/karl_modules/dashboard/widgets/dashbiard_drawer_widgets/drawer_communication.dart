@@ -1,4 +1,5 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,7 +27,9 @@ class MyCommunicationManagement extends StatelessWidget {
               width: 10.w,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(RouteManager.farmerchatmainpage);
+              },
               child: DashBoardTxt(
                 myText: "Communication",
                 myColor: const Color(0xFF09041B),

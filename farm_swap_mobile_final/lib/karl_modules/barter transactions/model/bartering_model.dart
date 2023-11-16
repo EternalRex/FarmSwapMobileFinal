@@ -26,6 +26,7 @@ class BarteringModel {
     required this.consumerBarangay,
     required this.consumerMunicipality,
     required this.bidTime,
+    required this.selected,
   });
 
 /*The data we needed from the lisiting */
@@ -60,6 +61,7 @@ class BarteringModel {
   double itemValue;
   double itemQuantity;
   bool isAlreadyBartered;
+  bool selected;
   DateTime bidTime;
 
   Map<String, dynamic> toMap() {
@@ -72,6 +74,7 @@ class BarteringModel {
       'itemPicUrl': itemPicUrl,
       'itemBidTime': bidTime,
       'isBarteredOut': isAlreadyBartered,
+      'selected': selected,
       'listingId': listingId,
       'listingName': listingName,
       'listingDiscription': listingDisc,
