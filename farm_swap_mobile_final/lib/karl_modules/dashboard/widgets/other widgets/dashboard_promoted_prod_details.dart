@@ -6,6 +6,7 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_das
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
 import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
+import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -55,10 +56,12 @@ class DashboardPromotedProductDetails extends StatefulWidget {
   final String farmerId;
 
   @override
-  State<DashboardPromotedProductDetails> createState() => _DashboardPromotedProductDetailsState();
+  State<DashboardPromotedProductDetails> createState() =>
+      _DashboardPromotedProductDetailsState();
 }
 
-class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProductDetails> {
+class _DashboardPromotedProductDetailsState
+    extends State<DashboardPromotedProductDetails> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -69,7 +72,8 @@ class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProdu
 
   @override
   Widget build(BuildContext context) {
-    String loginUserType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String loginUserType =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -96,7 +100,8 @@ class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProdu
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -222,7 +227,8 @@ class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProdu
                                   style: TextStyle(
                                     fontSize: 11.sp,
                                     color: Colors.black,
-                                    fontFamily: GoogleFonts.poppins().fontFamily,
+                                    fontFamily:
+                                        GoogleFonts.poppins().fontFamily,
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -361,22 +367,33 @@ class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProdu
                                   (loginUserType == "CONSUMER")
                                       ?
                                       /*We used this kind of navigation so that we can pass data to the next class*/
-                                      Navigator.of(context).push(MaterialPageRoute(
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
                                           builder: (context) {
                                             /*So ato e pasa ang mga data ni listing ni farmer og item
                                       kay para magamit sa next class */
                                             return EnterToBarterItem(
                                               listingIdNeed: widget.listingId,
-                                              listingNameNeed: widget.listingname,
-                                              listingDiscNeed: widget.listingDisc,
-                                              listingEquivalentPriceNeed: widget.listingPrice,
-                                              listingQuantityNeed: widget.listingQuan,
-                                              listingStatusNeed: widget.listingStatus,
-                                              farmerFNameNeed: widget.farmerName,
-                                              farmerUnameNeed: widget.farmerUsername,
-                                              farmerLnameNeed: widget.farmerLname,
-                                              farmerBaranggayNeed: widget.farmerBarangay,
-                                              farmerMunicaplityNeed: widget.farmerMunicipality,
+                                              listingNameNeed:
+                                                  widget.listingname,
+                                              listingDiscNeed:
+                                                  widget.listingDisc,
+                                              listingEquivalentPriceNeed:
+                                                  widget.listingPrice,
+                                              listingQuantityNeed:
+                                                  widget.listingQuan,
+                                              listingStatusNeed:
+                                                  widget.listingStatus,
+                                              farmerFNameNeed:
+                                                  widget.farmerName,
+                                              farmerUnameNeed:
+                                                  widget.farmerUsername,
+                                              farmerLnameNeed:
+                                                  widget.farmerLname,
+                                              farmerBaranggayNeed:
+                                                  widget.farmerBarangay,
+                                              farmerMunicaplityNeed:
+                                                  widget.farmerMunicipality,
                                               farmerId: widget.farmerId,
                                             );
                                           },
@@ -396,22 +413,62 @@ class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProdu
             ),
           ),
           /*Navbar areea */
-          Expanded(
+          /*Expanded(
             flex: 2,
             child: Container(
               decoration: BoxDecoration(
                 color: greenNormal,
                 image: const DecorationImage(
-                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: farmSwapTitlegreen),
               ),
               child: const DashboardButtomNavBar(),
             ),
-          ),
+          ),*/
         ],
       ),
+      bottomNavigationBar: Container(
+        height: 60.sp,
+        decoration: BoxDecoration(
+          color: greenNormal,
+          image: const DecorationImage(
+            image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+            fit: BoxFit.cover,
+          ),
+          border: Border.all(color: farmSwapTitlegreen),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: shadow,
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
+            ),
+          ],
+        ),
+        child: const DashboardButtomNavBar(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -441,7 +498,8 @@ class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProdu
                   ),
                 );
               },
-              child: poppinsText("Back", farmSwapTitlegreen, 13.sp, FontWeight.w500),
+              child: poppinsText(
+                  "Back", farmSwapTitlegreen, 13.sp, FontWeight.w500),
             ),
           ],
         );

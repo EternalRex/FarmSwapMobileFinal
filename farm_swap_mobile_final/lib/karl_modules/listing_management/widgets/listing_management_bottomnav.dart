@@ -94,6 +94,7 @@ class ListingManagementBottomNav extends StatelessWidget {
                 Navigator.of(context).pushNamed(RouteManager.listingmainpage);
               },
               icon: const Icon(
+                // ignore: deprecated_member_use
                 FontAwesomeIcons.archive,
                 color: Colors.white,
               ),
@@ -110,7 +111,7 @@ class ListingManagementBottomNav extends StatelessWidget {
                 Navigator.of(context).pushNamed(RouteManager.activeDashboard);
               },
               icon: const Icon(
-                FontAwesomeIcons.arrowLeft,
+                Icons.dashboard_rounded,
                 color: Colors.white,
               ),
             ),

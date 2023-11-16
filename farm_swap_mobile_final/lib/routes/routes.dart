@@ -6,6 +6,8 @@ import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screen
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item3.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/farmer_barter_transactions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/barter_dashboard.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/sell_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_management_mainpage.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_barter/add_barter_listing_page2.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/add_listing_pages/add_barter/add_barter_listing_page3.dart';
@@ -77,6 +79,8 @@ class RouteManager {
   static const uploadItemPictureToBarter = "/uploadItemPictureToBarter";
   static const entertobarteritem3 = "/entertobarteritem3";
   static const farmerbartertransactionmainpage = "/farmerbartertransactionmainpage";
+  static const barterdashboard = "/barterdashboard";
+  static const selldashboard = "/selldashboard";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -188,6 +192,12 @@ class RouteManager {
 
       case farmerbartertransactionmainpage:
         return MaterialPageRoute(builder: (context) => const FarmerBarterTransactionMainPage());
+        
+      case barterdashboard:
+        return MaterialPageRoute(builder: (context) => const BarterDashboard());
+
+      case selldashboard:
+        return MaterialPageRoute(builder: (context) => const SellDashboard());
 
       default:
         throw const FormatException("Warning!!! Page Routing Problem");

@@ -7,6 +7,7 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/sell_dashb
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
 import 'package:farm_swap_mobile_final/provider/dashboard_type_provider.dart';
+import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,7 +30,8 @@ class ActiveDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     //accessing the value of our provider that provides what dashboard type to display
     String dashboardType =
-        Provider.of<DashboardTypeProvider>(context, listen: false).getDashboardType;
+        Provider.of<DashboardTypeProvider>(context, listen: false)
+            .getDashboardType;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -56,7 +58,8 @@ class ActiveDashboard extends StatelessWidget {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -117,22 +120,62 @@ class ActiveDashboard extends StatelessWidget {
                       : const BarterDashboard(),
             ),
           ),
-          Expanded(
+          /*Expanded(
             flex: 2,
             child: Container(
               decoration: BoxDecoration(
                 color: greenNormal,
                 image: const DecorationImage(
-                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: farmSwapTitlegreen),
               ),
               child: const DashboardButtomNavBar(),
             ),
-          ),
+          ),*/
         ],
       ),
+      bottomNavigationBar: Container(
+        height: 60.sp,
+        decoration: BoxDecoration(
+          color: greenNormal,
+          image: const DecorationImage(
+            image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+            fit: BoxFit.cover,
+          ),
+          border: Border.all(color: farmSwapTitlegreen),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(15.0),
+              topRight: Radius.circular(15.0),
+            ),
+          boxShadow: [
+            BoxShadow(
+              color: shadow,
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
+            ),
+          ],
+        ),
+        child: const DashboardButtomNavBar(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

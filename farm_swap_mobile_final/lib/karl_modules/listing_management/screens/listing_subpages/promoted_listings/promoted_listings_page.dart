@@ -125,13 +125,13 @@ class _PromotedListingPageState extends State<PromotedListingPage> {
   void containerColor(int index) {
     setState(() {
       if (index == 1) {
-        container1 = Colors.black;
+        container1 = blackLightActive;
         container2 = Colors.white;
         containerSelector = 1;
         listingType = "BARTER";
       } else {
         container1 = Colors.white;
-        container2 = Colors.black;
+        container2 = blackLightActive;
         containerSelector = 2;
         listingType = "SELL";
       }
