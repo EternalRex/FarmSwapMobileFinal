@@ -1,5 +1,5 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/selected_bid_get.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/farmer_list_of_bids.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/unselected_bid_get.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/widgets/barter_bids_navbar.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
@@ -61,7 +61,8 @@ class _UnselectedBarterBidsState extends State<UnselectedBarterBids> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -81,7 +82,7 @@ class _UnselectedBarterBidsState extends State<UnselectedBarterBids> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 525.h,
+              height: 750.h,
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
@@ -91,26 +92,49 @@ class _UnselectedBarterBidsState extends State<UnselectedBarterBids> {
                 listingId: widget.listingId,
               ),
             ),
-            Container(
-              height: 55.h,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: greenNormal,
-                image: const DecorationImage(
-                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
-                  fit: BoxFit.cover,
-                ),
-                border: Border.all(color: farmSwapTitlegreen),
-              ),
-              child: BarterBidsNavBar(
-                farmerId: widget.farmerId,
-                farmerUname: widget.farmerUname,
-                listingId: widget.listingId,
-              ),
-            ),
           ],
         ),
       ),
+      bottomNavigationBar: Container(
+        height: 55.h,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: greenNormal,
+          image: const DecorationImage(
+            image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+            fit: BoxFit.cover,
+          ),
+          border: Border.all(color: farmSwapTitlegreen),
+        ),
+        child: BarterBidsNavBar(
+          farmerId: widget.farmerId,
+          farmerUname: widget.farmerUname,
+          listingId: widget.listingId,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => FarmerListOfBids(
+                  farmerUname: widget.farmerUname,
+                  farmerId: widget.farmerId,
+                  listingId: widget.listingId),
+            ),
+          );
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

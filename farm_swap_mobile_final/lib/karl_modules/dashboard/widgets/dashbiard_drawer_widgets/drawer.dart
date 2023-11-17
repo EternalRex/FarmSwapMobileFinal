@@ -2,6 +2,7 @@ import "package:farm_swap_mobile_final/common/get_specific_user_docid.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/darwer_sell_transactions.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_accountmanagement_buttons.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_communication.dart";
+import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_dashboard.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_dispute.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_lisitingmanagement.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_signout.dart";
@@ -13,6 +14,7 @@ import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_buy.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_cart.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_communication.dart";
+import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_dashboard.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_dispute.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_swapcoins.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_wallet.dart";
@@ -66,6 +68,9 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                   ),
                 ),
                 const ListTile(
+                  title: DashboardBtn(),
+                ),
+                const ListTile(
                   title: AccountManagementBtn(),
                 ),
                 const ListTile(
@@ -115,6 +120,9 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                       ),
                     ],
                   ),
+                ),
+                const ListTile(
+                  title: ConsumerDashboardBtn(),
                 ),
                 const ListTile(
                   title: ConsumerAccountManagementBtn(),

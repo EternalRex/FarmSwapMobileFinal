@@ -108,11 +108,12 @@ class ListingManagementBottomNav extends StatelessWidget {
             width: 50.w,
             child: IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+                Navigator.of(context).pushNamed(RouteManager.walletpage);
               },
               icon: const Icon(
-                Icons.dashboard_rounded,
+                Icons.wallet_rounded,
                 color: Colors.white,
+                size: 30,
               ),
             ),
           ),

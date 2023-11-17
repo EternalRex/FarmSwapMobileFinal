@@ -6,6 +6,7 @@ import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/l
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/screens/listing_subpages/promoted_listings/promoted_listings_page.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/widgets/listing_management_bottomnav.dart';
 import 'package:farm_swap_mobile_final/provider/listing_page_provider.dart';
+import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -139,6 +140,22 @@ nya ato dayn e set ang state sa page na variable para ma ilisan iyang default va
         ),
         child: const ListingManagementBottomNav(),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.home_rounded,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

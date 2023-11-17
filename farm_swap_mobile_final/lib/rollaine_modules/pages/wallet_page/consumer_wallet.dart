@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/get_specific_user_docid.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
@@ -32,8 +30,6 @@ class _ConsumerWalletState extends State<ConsumerWallet> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
 
     return Scaffold(
       key: _scaffoldKey,
@@ -54,20 +50,6 @@ class _ConsumerWalletState extends State<ConsumerWallet> {
           },
           icon: const Icon(Icons.menu),
         ),
-        /*actions: [
-          FutureBuilder(
-            future: reference.doc(widget.userId).get(),
-            builder: (context, snapshot) {
-              Map<String, dynamic> data =
-                  snapshot.data!.data() as Map<String, dynamic>;
-              return CircleAvatar(
-                backgroundImage:
-                    CachedNetworkImageProvider(data['profilePhoto']),
-                radius: 30,
-              );
-            },
-          ),
-        ],*/
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(

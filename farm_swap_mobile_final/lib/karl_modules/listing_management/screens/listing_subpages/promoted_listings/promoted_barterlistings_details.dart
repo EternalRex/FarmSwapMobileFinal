@@ -481,7 +481,7 @@ class _PromotedBarterListingsDetailsState extends State<PromotedBarterListingsDe
             ),
           ),
           /*Expanded for the bottom navbar */
-          Expanded(
+          /*Expanded(
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
@@ -494,7 +494,7 @@ class _PromotedBarterListingsDetailsState extends State<PromotedBarterListingsDe
               ),
               child: const ListingManagementBottomNav(),
             ),
-          ),
+          ),*/
         ],
       ),
       bottomNavigationBar: Container(

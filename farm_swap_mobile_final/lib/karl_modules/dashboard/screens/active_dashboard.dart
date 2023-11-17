@@ -7,7 +7,6 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/sell_dashb
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
 import 'package:farm_swap_mobile_final/provider/dashboard_type_provider.dart';
-import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -160,22 +159,6 @@ class ActiveDashboard extends StatelessWidget {
         ),
         child: const DashboardButtomNavBar(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(RouteManager.activeDashboard);
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        elevation: 2,
-        backgroundColor: greenNormal,
-        splashColor: greenLight,
-        child: const Icon(
-          Icons.arrow_back,
-          color: Colors.white,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

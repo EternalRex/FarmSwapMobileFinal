@@ -11,10 +11,12 @@ class DashBoardGetAllBarterListings extends StatefulWidget {
   const DashBoardGetAllBarterListings({super.key});
 
   @override
-  State<DashBoardGetAllBarterListings> createState() => _DashBoardGetAllBarterListingsState();
+  State<DashBoardGetAllBarterListings> createState() =>
+      _DashBoardGetAllBarterListingsState();
 }
 
-class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterListings> {
+class _DashBoardGetAllBarterListingsState
+    extends State<DashBoardGetAllBarterListings> {
   final _firestore = FirebaseFirestore.instance;
 
   @override
@@ -26,7 +28,8 @@ class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterLis
           if (snapshot.hasData) {
             final barterLists = snapshot.data!.docs;
             return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
               itemCount: barterLists.length,
               itemBuilder: (context, index) {
                 return accesspromotionDoc(barterLists[index]);

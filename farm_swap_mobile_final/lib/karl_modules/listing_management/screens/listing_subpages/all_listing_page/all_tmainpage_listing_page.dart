@@ -134,13 +134,13 @@ class _AllListingsListState extends State<AllListingsList> {
   void containerColor(int index) {
     setState(() {
       if (index == 1) {
-        container1 = blackLightActive;
+        container1 = greenLight;
         container2 = Colors.white;
         containerSelector = 1;
         listingType = "BARTER";
       } else {
         container1 = Colors.white;
-        container2 = blackLightActive;
+        container2 = greenLight;
         containerSelector = 2;
         listingType = "SELL";
       }
