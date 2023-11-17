@@ -35,15 +35,6 @@ class _FarmerBarterTransactionMainPageState
               "Barter Transac.",
               style: TextStyle(fontSize: 20.sp),
             ),
-            SizedBox(
-              width: 50.w,
-            ),
-            /*Shoppping cart button */
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -67,6 +58,17 @@ class _FarmerBarterTransactionMainPageState
           },
           icon: const Icon(Icons.menu),
         ),
+        actions: [
+          /*Shoppping cart button */
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(FontAwesomeIcons.cartShopping),
+              iconSize: 30.sp,
+            ),
+          ),
+        ],
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(

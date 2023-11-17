@@ -79,18 +79,9 @@ class _DashboardPromotedProductDetailsState
       key: _scaffoldKey,
       /*Start of appbar */
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
-            const Text("Dashboard"),
-            SizedBox(
-              width: 80.w,
-            ),
-            /*Shoppping cart button */
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
+            Text("Dashboard"),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -114,6 +105,17 @@ class _DashboardPromotedProductDetailsState
           },
           icon: const Icon(Icons.menu),
         ),
+        actions: [
+          /*Shoppping cart button */
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(FontAwesomeIcons.cartShopping),
+              iconSize: 30.sp,
+            ),
+          ),
+        ],
       ),
       /*End of appbar */
       /*Displaying the drawer */

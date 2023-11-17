@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
-import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/consumer_farmer_actualchat.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -98,15 +96,6 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
               "Bid Details",
               style: TextStyle(fontSize: 25.sp),
             ),
-            SizedBox(
-              width: 50.w,
-            ),
-            /*Shoppping cart button */
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -116,7 +105,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -129,6 +119,17 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
           },
           icon: const Icon(Icons.menu),
         ),
+        actions: [
+          /*Shoppping cart button */
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(FontAwesomeIcons.cartShopping),
+              iconSize: 30.sp,
+            ),
+          ),
+        ],
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(
@@ -174,7 +175,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                   width: 130.w,
                   decoration: BoxDecoration(
                     /*The color of the container will change to green when it is the bid that is selected by farmer */
-                    color: (widget.selected == true) ? Colors.green : Colors.red,
+                    color:
+                        (widget.selected == true) ? Colors.green : Colors.red,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(30),
                     ),
@@ -495,6 +497,22 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(RouteManager.consumerbidListings);
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.arrow_back_rounded,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -503,7 +521,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Invalid Operation", Colors.red, 20.sp, FontWeight.w500),
+          title: poppinsText(
+              "Invalid Operation", Colors.red, 20.sp, FontWeight.w500),
           content: poppinsText(
             "You can only message the farmer when your bid status is SELECTED, as of now it is WAITING...",
             Colors.black,
@@ -513,7 +532,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(RouteManager.consumerbidListings);
+                Navigator.of(context)
+                    .pushNamed(RouteManager.consumerbidListings);
               },
               child: Text(
                 "Back",

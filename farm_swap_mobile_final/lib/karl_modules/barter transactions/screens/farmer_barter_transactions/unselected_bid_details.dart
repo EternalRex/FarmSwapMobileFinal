@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/unselected_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -84,15 +84,6 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
               "Bid Details",
               style: TextStyle(fontSize: 25.sp),
             ),
-            SizedBox(
-              width: 50.w,
-            ),
-            /*Shoppping cart button */
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -116,6 +107,17 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
           },
           icon: const Icon(Icons.menu),
         ),
+        actions: [
+          /*Shoppping cart button */
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(FontAwesomeIcons.cartShopping),
+              iconSize: 30.sp,
+            ),
+          ),
+        ],
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(
@@ -390,7 +392,14 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteManager.farmerbartertransactionmainpage);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => UnselectedBarterBids(
+                  farmerUname: widget.farmerUname,
+                  farmerId: widget.farmerId,
+                  listingId: widget.farmerListingId),
+            ),
+          );
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

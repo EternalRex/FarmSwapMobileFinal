@@ -48,7 +48,8 @@ class ConsumerFarmerActualChat extends StatefulWidget {
   final String listingId;
 
   @override
-  State<ConsumerFarmerActualChat> createState() => _ConsumerFarmerActualChatState();
+  State<ConsumerFarmerActualChat> createState() =>
+      _ConsumerFarmerActualChatState();
 }
 
 class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
@@ -77,7 +78,8 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
   void sendMessage() async {
     print("mao ni consumer id ${widget.consumerId}");
     String message = chatController.text;
-    await chatQuery.sendMessageConsumer(widget.farmerId, widget.listingId, message);
+    await chatQuery.sendMessageConsumer(
+        widget.farmerId, widget.listingId, message);
     chatController.clear();
   }
 
@@ -99,7 +101,8 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -120,13 +123,6 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
               17.sp,
               FontWeight.w300,
             ),
-            SizedBox(
-              width: 52.w,
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_back_ios),
-            ),
           ],
         ),
         leading: IconButton(
@@ -136,6 +132,17 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
           },
           icon: const Icon(Icons.menu),
         ),
+        actions: [
+          /*Shoppping cart button */
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.arrow_back_ios_new_rounded),
+              iconSize: 30.sp,
+            ),
+          ),
+        ],
       ),
       drawer: const DashBoardDrawer(),
       body: Column(
@@ -185,7 +192,8 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
     return Row(
       children: [
         Expanded(
-            child: ChatInputTxtField(controller: chatController, hintText: "Enter message....")),
+            child: ChatInputTxtField(
+                controller: chatController, hintText: "Enter message....")),
         const SizedBox(
           width: 7,
         ),
@@ -210,7 +218,8 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
 actual qurry is in the querry class*/
   Widget buildUserMessageList() {
     return StreamBuilder(
-      stream: chatQuery.getChatMessages(widget.farmerId, FirebaseAuth.instance.currentUser!.uid),
+      stream: chatQuery.getChatMessages(
+          widget.farmerId, FirebaseAuth.instance.currentUser!.uid),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -244,9 +253,10 @@ actual qurry is in the querry class*/
 /*This methods access the properties and its value of each document that is baing passed here*/
   Widget accessDocumentContents(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    var messageAlignment = (data["senderId"] != FirebaseAuth.instance.currentUser!.uid)
-        ? Alignment.topLeft
-        : Alignment.topRight;
+    var messageAlignment =
+        (data["senderId"] != FirebaseAuth.instance.currentUser!.uid)
+            ? Alignment.topLeft
+            : Alignment.topRight;
 
     /*Converting the date into string*/
     Timestamp timeSTMP = data["time"];
@@ -256,12 +266,14 @@ actual qurry is in the querry class*/
     return Container(
       alignment: messageAlignment,
       child: Column(
-        crossAxisAlignment: (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
-            ? CrossAxisAlignment.end
-            : CrossAxisAlignment.start,
-        mainAxisAlignment: (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
-            ? MainAxisAlignment.end
-            : MainAxisAlignment.start,
+        crossAxisAlignment:
+            (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
+                ? CrossAxisAlignment.end
+                : CrossAxisAlignment.start,
+        mainAxisAlignment:
+            (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
         children: [
           Text(
             finalDate,
@@ -278,14 +290,16 @@ actual qurry is in the querry class*/
 /*Mga functions rani nga mag pull out sa profile url sa consumer*/
   Future<void> getFarmerProfilePic() async {
     print("Mao ni farmer id ${widget.farmerId}");
-    String profileUrl = await farmerPhoto.getFarmerProfilePhoto(widget.farmerId);
+    String profileUrl =
+        await farmerPhoto.getFarmerProfilePhoto(widget.farmerId);
     setState(() {
       farmerProfileUrl = profileUrl;
     });
   }
 
   Future<void> getProfilePic() async {
-    String profileUrl = await consumerPhoto.getConsumerProfilePhoto(widget.consumerId);
+    String profileUrl =
+        await consumerPhoto.getConsumerProfilePhoto(widget.consumerId);
     print("mao ni profile url $profileUrl");
     setState(() {
       consumerProfileUrl = profileUrl;

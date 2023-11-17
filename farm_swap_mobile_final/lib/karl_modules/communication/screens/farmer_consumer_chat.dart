@@ -48,17 +48,20 @@ class _FarmerConsumerChatState extends State<FarmerConsumerChat> {
           ],
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const FarmerMainChatScreen();
-                  },
-                ),
-              );
-            },
-            icon: const Icon(Icons.arrow_back_ios),
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const FarmerMainChatScreen();
+                    },
+                  ),
+                );
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            ),
           ),
         ],
         leading: IconButton(
