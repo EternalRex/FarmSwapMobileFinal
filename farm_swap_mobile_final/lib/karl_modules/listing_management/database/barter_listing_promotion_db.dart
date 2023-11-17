@@ -19,6 +19,7 @@ class BarterPromotionInsertDataDb {
     DateTime listingEndDate,
     String prefferedItem,
     String status,
+    double promotionfee,
   ) async {
     final barterpromotionlists = BarterPromotionListsModel(
       profilePhoto: profilePhoto,
@@ -36,6 +37,7 @@ class BarterPromotionInsertDataDb {
       listingEndDate: listingEndDate,
       prefferedItem: prefferedItem,
       status: status,
+      promotionfee: promotionfee,
     );
     savingDb.createBarterPromotionLists(barterpromotionlists);
   }
@@ -70,6 +72,7 @@ class BarterPromotionListsModel {
     required this.listingEndDate,
     required this.prefferedItem,
     required this.status,
+    required this.promotionfee,
   });
 
   String profilePhoto;
@@ -87,6 +90,7 @@ class BarterPromotionListsModel {
   DateTime listingEndDate;
   String prefferedItem;
   String status;
+  double promotionfee;
 
   toJson() {
     return {
@@ -105,6 +109,7 @@ class BarterPromotionListsModel {
       "listingEndDate": listingEndDate,
       "preferredItem": prefferedItem,
       "status": status,
+      "fee": promotionfee,
     };
   }
 }

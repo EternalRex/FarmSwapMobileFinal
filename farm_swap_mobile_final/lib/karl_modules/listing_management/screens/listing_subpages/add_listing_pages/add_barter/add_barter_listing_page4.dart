@@ -12,7 +12,6 @@ import '../../../../../../common/colors.dart';
 import '../../../../../../common/farmer_individual_details.dart';
 import '../../../../../../common/green_btn.dart';
 import '../../../../../dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import '../../../../database/barter_listing_promotion_db.dart';
 import '../../../../database/sell_listing_saving.dart';
 import '../../../../widgets/listing_management_bottomnav.dart';
 
@@ -44,8 +43,6 @@ class _AddActualBarterListingDetails4State
   String municipality = "";
   String baranggay = "";
   String uname = "";
-  String userId = "";
-  String profilePhoto = "";
 
 /*Initializign the function that will get the farmer individual data */
   @override
@@ -409,7 +406,7 @@ class _AddActualBarterListingDetails4State
             actions: [
               Center(
                 child: GestureDetector(
-                  onTap: () async {
+                  onTap: () {
                     /*Saving the data */
                     barterSave.saveBarteringListing(
                       Provider.of<BarterListingDetailsProvider>(context,
@@ -440,41 +437,6 @@ class _AddActualBarterListingDetails4State
                       Provider.of<BarterListingDetailsProvider>(context,
                               listen: false)
                           .getEndDate,
-                    );
-
-                    BarterPromotionInsertDataDb barterPromotion =
-                        BarterPromotionInsertDataDb();
-                    // Create a createBarterPromotionLists in the database collection sample_PromotionListings
-                    await barterPromotion.createBarterPromotionLists(
-                      profilePhoto,
-                      userId,
-                      firstname,
-                      lastname,
-                      "$baranggay, $municipality",
-                      "BARTER",
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getPhoto,
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getListingName,
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getPrice,
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getListingDisc,
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getquantity,
-                      DateTime.now(),
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getEndDate,
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getPrefferedItem,
-                      "PROMOTED",
                     );
                     Navigator.of(context)
                         .pushNamed(RouteManager.listingmainpage);
@@ -527,20 +489,6 @@ ni farmer kato ning class nga  ListinGetFarmerDetails*/
     String username = await farmerDetails.getUname();
     setState(() {
       uname = username;
-    });
-  }
-
-  Future<void> getFarmerUserId() async {
-    String userId = await farmerDetails.getFarmerUserId();
-    setState(() {
-      userId = userId;
-    });
-  }
-
-  Future<void> getFarmerUserProfilePhoto() async {
-    String profile = await farmerDetails.getFarmerUserProfilePhoto();
-    setState(() {
-      profilePhoto = profile;
     });
   }
 }
