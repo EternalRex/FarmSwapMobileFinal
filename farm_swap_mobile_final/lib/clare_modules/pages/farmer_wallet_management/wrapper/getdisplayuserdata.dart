@@ -339,7 +339,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                         height: 500.h,
                         child: _buildUserList(userId),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

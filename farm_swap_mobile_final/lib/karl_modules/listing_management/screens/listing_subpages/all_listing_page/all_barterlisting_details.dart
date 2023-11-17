@@ -11,6 +11,7 @@ import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../../database/barter_listing_promotion_db.dart';
 import '../../../widgets/listing_management_bottomnav.dart';
 
 class BarterAllListingDetails extends StatefulWidget {
@@ -51,7 +52,8 @@ class BarterAllListingDetails extends StatefulWidget {
   final String fbarangay;
 
   @override
-  State<BarterAllListingDetails> createState() => _BarterAllListingDetailsState();
+  State<BarterAllListingDetails> createState() =>
+      _BarterAllListingDetailsState();
 }
 
 class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
@@ -96,7 +98,8 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -407,7 +410,9 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                                         width: 13.sp,
                                       ),
                                       poppinsText(
-                                        (widget.promoted == false) ? "Not Promoted" : "Promoted",
+                                        (widget.promoted == false)
+                                            ? "Not Promoted"
+                                            : "Promoted",
                                         Colors.black,
                                         15.sp,
                                         FontWeight.normal,
@@ -451,7 +456,8 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                                         width: 13.sp,
                                       ),
                                       poppinsText(
-                                        "${widget.fbarangay} " " ${widget.fmunicipal}",
+                                        "${widget.fbarangay} "
+                                        " ${widget.fmunicipal}",
                                         Colors.black,
                                         15.sp,
                                         FontWeight.normal,
@@ -539,7 +545,8 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
               decoration: BoxDecoration(
                 color: greenNormal,
                 image: const DecorationImage(
-                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: farmSwapTitlegreen),
@@ -577,7 +584,8 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                 onPressed: () {
                   selectFieldToUpdate();
                 },
-                child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+                child: poppinsText(
+                    "Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
               ),
             ),
           ],
@@ -646,7 +654,8 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                   //adto nya tani e redirect sa swap coins page
                   Navigator.of(context).pushNamed(RouteManager.listingmainpage);
                 },
-                child: poppinsText("Ok", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+                child: poppinsText(
+                    "Ok", farmSwapTitlegreen, 20.sp, FontWeight.w500),
               ),
             ),
           ],
@@ -679,7 +688,8 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                 updatePromotion();
                 promotionSuccess();
               },
-              child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+              child: poppinsText(
+                  "Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
             ),
           ],
         );
@@ -701,6 +711,40 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
     );
 
     await promotionUpdate.updateFarmerSwapCoins(newSwapCoins.toInt());
+
+    //creating an instance for inserting data into db collection sample_PromotionListings
+    BarterPromotionInsertDataDb barterPromotion = BarterPromotionInsertDataDb();
+
+    //creating a variable para sa ga parse na data
+    double quantity = double.parse(widget.quantity);
+    double price = double.parse(widget.price);
+    String startdate = widget.start;
+    // Parse the string to a DateTime object
+    DateTime listingStartDate = DateTime.parse(startdate);
+    String enddate = widget.end;
+    // Parse the string to a DateTime object
+    DateTime listingEndDate = DateTime.parse(enddate);
+    String userID = await farmerDetails.getFarmerUserId();
+    String profilePhoto = await farmerDetails.getFarmerUserProfilePhoto();
+    // Create a createBarterPromotionLists in the database collection sample_PromotionListings
+    await barterPromotion.createBarterPromotionLists(
+      profilePhoto,
+      userID,
+      widget.fname,
+      widget.fLname,
+      "${widget.fbarangay}, ${widget.fmunicipal}",
+      "BARTER",
+      widget.url,
+      widget.name,
+      price,
+      widget.disc,
+      quantity,
+      listingStartDate,
+      listingEndDate,
+      widget.prefItem,
+      "PROMOTED",
+      constantDeductibleSwapCoins,
+    );
   }
 
   /*Function that notifies that user that promotion was sucessfull*/
@@ -771,7 +815,8 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                 archiveListing();
                 successArchive();
               },
-              child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+              child: poppinsText(
+                  "Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
             ),
           ],
         );
@@ -802,7 +847,8 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
               onPressed: () {
                 Navigator.of(context).pushNamed(RouteManager.listingmainpage);
               },
-              child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+              child: poppinsText(
+                  "Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
             ),
           ],
         );
