@@ -27,6 +27,7 @@ class BarteringModel {
     required this.consumerMunicipality,
     required this.bidTime,
     required this.selected,
+    required this.completed,
   });
 
 /*The data we needed from the lisiting */
@@ -63,6 +64,7 @@ class BarteringModel {
   bool isAlreadyBartered;
   bool selected;
   DateTime bidTime;
+  bool completed;
 
   Map<String, dynamic> toMap() {
     return {
@@ -93,6 +95,7 @@ class BarteringModel {
       'consumerId': consumerId,
       'consumerBaranggay': consumerBarangay,
       'consumerMuniciplaity': consumerMunicipality,
+      'isCompleted': completed,
     };
   }
 }

@@ -27,12 +27,18 @@ class _DashBoardGetAllBarterListingsState
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             final barterLists = snapshot.data!.docs;
+            // Filtering the barterLists based on listingStatus
+            final filteredBarterLists = barterLists.where((document) {
+              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+              String listingStatus = data["listingstatus"];
+              return listingStatus == "ACTIVE" || listingStatus == "REACTIVATED";
+            }).toList();
+
             return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-              itemCount: barterLists.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              itemCount: filteredBarterLists.length,
               itemBuilder: (context, index) {
-                return accesspromotionDoc(barterLists[index]);
+                return accesspromotionDoc(filteredBarterLists[index]);
               },
             );
           }
@@ -79,128 +85,132 @@ class _DashBoardGetAllBarterListingsState
     String farmerid = data["farmerId"];
 
     /*Actual design of widget to be returned */
-    return Padding(
-      padding: EdgeInsets.all(8.0.sp),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
-              return DashBoardAllBarterDetails(
-                itemId: id,
-                imageUrl: imageUrl,
-                listingname: listingname,
-                listingPrice: listingPrice,
-                prefItem: prefItem,
-                promoted: promoted,
-                listingCategory: listingCategory,
-                listingDisc: listingDisc,
-                farmerName: farmerName,
-                farmerLname: farmerLname,
-                farmerMunicipality: farmerMunicipality,
-                farmerBarangay: farmerBarangay,
-                farmerUsername: farmerUsername,
-                startTime: finalStartDate,
-                endTime: finalEndDate,
-                listingQuan: listingQuan,
-                listingStatus: listingStatus,
-                farmerId: farmerid,
-              );
-            },
-          ));
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(30),
+    if (listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") {
+      return Padding(
+        padding: EdgeInsets.all(8.0.sp),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) {
+                return DashBoardAllBarterDetails(
+                  itemId: id,
+                  imageUrl: imageUrl,
+                  listingname: listingname,
+                  listingPrice: listingPrice,
+                  prefItem: prefItem,
+                  promoted: promoted,
+                  listingCategory: listingCategory,
+                  listingDisc: listingDisc,
+                  farmerName: farmerName,
+                  farmerLname: farmerLname,
+                  farmerMunicipality: farmerMunicipality,
+                  farmerBarangay: farmerBarangay,
+                  farmerUsername: farmerUsername,
+                  startTime: finalStartDate,
+                  endTime: finalEndDate,
+                  listingQuan: listingQuan,
+                  listingStatus: listingStatus,
+                  farmerId: farmerid,
+                );
+              },
+            ));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(30),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: shadow,
+                      blurRadius: 2,
+                      offset: const Offset(1, 5),
+                    ),
+                  ],
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: shadow,
-                    blurRadius: 2,
-                    offset: const Offset(1, 5),
-                  ),
-                ],
-              ),
-              width: 164.w,
-              height: 164.h,
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(15.sp),
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.sp),
-                      ),
-                      /*PUTTING BOX SHADOW ON THE CONTAINER */
-                      image: DecorationImage(
-                        image: CachedNetworkImageProvider(imageUrl),
-                        fit: BoxFit.fill,
+                width: 164.w,
+                height: 164.h,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(15.sp),
+                      height: 100.h,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.sp),
+                        ),
+                        /*PUTTING BOX SHADOW ON THE CONTAINER */
+                        image: DecorationImage(
+                          image: CachedNetworkImageProvider(imageUrl),
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.sp),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          listingname,
-                          style: TextStyle(
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontSize: 10.sp,
-                              color: farmSwapTitlegreen,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.sp),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            listingname,
+                            style: TextStyle(
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontSize: 10.sp,
+                                color: farmSwapTitlegreen,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.sp),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "$listingQuan kilograms",
-                          style: TextStyle(
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontSize: 9.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal),
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.sp),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "$listingQuan kilograms",
+                            style: TextStyle(
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontSize: 9.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.sp),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "$listingPrice value",
-                          style: TextStyle(
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontSize: 9.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal),
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.sp),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "$listingPrice value",
+                            style: TextStyle(
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontSize: 9.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }

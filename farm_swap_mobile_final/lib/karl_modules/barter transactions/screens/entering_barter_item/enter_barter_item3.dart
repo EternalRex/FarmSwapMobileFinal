@@ -1,8 +1,9 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
-import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/save_barter_bid.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/functions/compute_deductible_swapcoins.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_barter_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_sell_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
@@ -14,7 +15,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class EnterToBarterItem3 extends StatefulWidget {
-  const EnterToBarterItem3({super.key});
+  const EnterToBarterItem3({super.key, required this.itemValue, required this.listingValue});
+  final double? itemValue;
+  final double? listingValue;
 
   @override
   State<EnterToBarterItem3> createState() => _EnterToBarterItem3State();
@@ -29,10 +32,27 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
+/*Instance of other classes */
   SaveBarterBid bid = SaveBarterBid();
+  ComputeDeductibleSwapCoins compute = ComputeDeductibleSwapCoins();
+  ListinGetConsumerDetails consumerdetails = ListinGetConsumerDetails();
+
+/*Variables*/
+  double? average = 0;
+  double? swapcoins = 0;
+  String percent = "";
+  int consumerSwapCoins = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getSwapCoins();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print("${consumerSwapCoins.toString()}");
+    print("${swapcoins}");
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -137,61 +157,17 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          /*Actual saving of data*/
-                          bid.saveBarterBid(
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getFarmerUname,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getFarmerId,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getFarmerFname,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getFarmerLname,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getFarmerBrgy,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getFarmerMunisipyo,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getConsumerId,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getConsumerFname,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getConsumerLname,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getConsumerUname,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getConsumerBaranggay,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getConsumerMunisipyo,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getListingId,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getListingName,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getListDisc,
-                            double.parse(
-                                Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                    .getListingPrice),
-                            double.parse(
-                                Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                    .getListingQuan),
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getListingStatus,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getItemName,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getItemDisc,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getItemCondition,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getItemQuantity,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getItemUrl,
-                            Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                                .getItemValue,
-                            false,
-                          );
-                          showDoneMessage();
+                          computeSwapCoins();
+                          computeAvaerage();
+                          computePercentage();
+                          /*Check if the consumer has enough swapcoins */
+                          if (consumerSwapCoins > swapcoins!.toInt()) {
+                            showConfirmationMessage();
+                          } else {
+                            /*Else display a message that consumer cant continue the transaction 
+                          because of no swap coins */
+                            showNoSwapCoinsMessage();
+                          }
                         },
                         child: const FarmSwapGreenBtn(text: "Bid"),
                       ),
@@ -223,6 +199,33 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
     );
   }
 
+/*Function that will show a message when consumers has not enough swap coins */
+  void showNoSwapCoinsMessage() {
+    int neededswapCoins = swapcoins!.toInt() - consumerSwapCoins;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Invalid Operation", Colors.red, 17.sp, FontWeight.bold),
+          content: poppinsText(
+            "Not enough swapcoins. You need ${neededswapCoins.toString()}",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+              },
+              child: poppinsText("Ok", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   /*functions that will output a message that the barter bid has already been placed*/
   void showDoneMessage() {
     showDialog(
@@ -247,5 +250,143 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
         );
       },
     );
+  }
+
+  /*Function that will show the confirmation message */
+  void showConfirmationMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
+          content: poppinsText(
+            "This transaction has an average value of ${average.toString()}. The system will deduct $percent that is equal to ${swapcoins.toString()} swapCoins",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            Row(
+              children: [
+                /*Will Save the biddings to the database */
+                TextButton(
+                  onPressed: () {
+                    bid.saveBarterBid(
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getFarmerUname,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getFarmerId,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getFarmerFname,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getFarmerLname,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getFarmerBrgy,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getFarmerMunisipyo,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getConsumerId,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getConsumerFname,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getConsumerLname,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getConsumerUname,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getConsumerBaranggay,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getConsumerMunisipyo,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getListingId,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getListingName,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getListDisc,
+                      double.parse(
+                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                              .getListingPrice),
+                      double.parse(
+                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                              .getListingQuan),
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getListingStatus,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getItemName,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getItemDisc,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getItemCondition,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getItemQuantity,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false).getItemUrl,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getItemValue,
+                      false,
+                    );
+                    showDoneMessage();
+                  },
+                  child: poppinsText(
+                    "Continue",
+                    farmSwapTitlegreen,
+                    17.sp,
+                    FontWeight.w300,
+                  ),
+                ),
+                SizedBox(
+                  width: 40.w,
+                ),
+                /*Will cancel the bidding */
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+                  },
+                  child: poppinsText(
+                    "Cancel",
+                    Colors.red,
+                    17.sp,
+                    FontWeight.w300,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /*Function that will compute the average value range */
+  void computeAvaerage() {
+    double averageValue = compute.averageValue(widget.listingValue!, widget.itemValue);
+    setState(() {
+      average = averageValue;
+    });
+  }
+
+/*Function that will compute the percentage the average value range belongs */
+  void computePercentage() {
+    double averageValue = (widget.listingValue! + widget.itemValue!) / 2;
+    String percentage = compute.percentDeduction(averageValue);
+    setState(() {
+      percent = percentage;
+    });
+  }
+
+/*Function that will compute the actual deductible swapcoins */
+  void computeSwapCoins() {
+    print("Computing the swap coins");
+    double deductibleCoins =
+        compute.computeDeductibleSwapCoins(widget.listingValue, widget.itemValue!);
+    setState(() {
+      swapcoins = deductibleCoins;
+    });
+  }
+
+  /*Function that will get the swapcoins of the consumer */
+  Future<void> getSwapCoins() async {
+    int swapCoins = await consumerdetails.getSwapCoins();
+    setState(() {
+      consumerSwapCoins = swapCoins;
+    });
   }
 }

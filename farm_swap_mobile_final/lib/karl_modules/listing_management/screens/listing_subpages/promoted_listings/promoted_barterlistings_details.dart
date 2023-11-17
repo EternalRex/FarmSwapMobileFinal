@@ -47,10 +47,12 @@ class PromotedBarterListingsDetails extends StatefulWidget {
   final String fbarangay;
 
   @override
-  State<PromotedBarterListingsDetails> createState() => _PromotedBarterListingsDetailsState();
+  State<PromotedBarterListingsDetails> createState() =>
+      _PromotedBarterListingsDetailsState();
 }
 
-class _PromotedBarterListingsDetailsState extends State<PromotedBarterListingsDetails> {
+class _PromotedBarterListingsDetailsState
+    extends State<PromotedBarterListingsDetails> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -71,7 +73,8 @@ class _PromotedBarterListingsDetailsState extends State<PromotedBarterListingsDe
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -382,7 +385,9 @@ class _PromotedBarterListingsDetailsState extends State<PromotedBarterListingsDe
                                         width: 13.sp,
                                       ),
                                       poppinsText(
-                                        (widget.promoted == false) ? "Not Promoted" : "Promoted",
+                                        (widget.promoted == false)
+                                            ? "Not Promoted"
+                                            : "Promoted",
                                         Colors.black,
                                         15.sp,
                                         FontWeight.normal,
@@ -426,7 +431,8 @@ class _PromotedBarterListingsDetailsState extends State<PromotedBarterListingsDe
                                         width: 13.sp,
                                       ),
                                       poppinsText(
-                                        "${widget.fbarangay} " " ${widget.fmunicipal}",
+                                        "${widget.fbarangay} "
+                                        " ${widget.fmunicipal}",
                                         Colors.black,
                                         15.sp,
                                         FontWeight.normal,
@@ -469,7 +475,8 @@ class _PromotedBarterListingsDetailsState extends State<PromotedBarterListingsDe
                                     Icons.question_mark,
                                     color: Colors.white,
                                   ),
-                                  poppinsText("Information", Colors.white, 15.sp, FontWeight.w500),
+                                  poppinsText("Information", Colors.white,
+                                      15.sp, FontWeight.w500),
                                 ],
                               )),
                         ),
@@ -487,7 +494,8 @@ class _PromotedBarterListingsDetailsState extends State<PromotedBarterListingsDe
               decoration: BoxDecoration(
                 color: greenNormal,
                 image: const DecorationImage(
-                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: farmSwapTitlegreen),

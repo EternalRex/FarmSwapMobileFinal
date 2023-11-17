@@ -2,6 +2,7 @@ import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/common/upload_image_functions.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item2.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/widgets/barter_txt_field.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_barter_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_sell_promotions.dart';
@@ -324,7 +325,14 @@ class _EnterToBarterItemState extends State<EnterToBarterItem> {
                               .setConsumerBaranggay(cBarangay);
                           Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                               .setConsumerMunisipyo(cMunicipality);
-                          Navigator.of(context).pushNamed(RouteManager.uploadItemPictureToBarter);
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return UploadBarterItemPicture(
+                                itemvalue2: double.tryParse(itemValueController!.text),
+                                listingvalue2: double.tryParse(widget.listingEquivalentPriceNeed),
+                              );
+                            },
+                          ));
                         },
                         child: poppinsText(
                           "Upload Picture",

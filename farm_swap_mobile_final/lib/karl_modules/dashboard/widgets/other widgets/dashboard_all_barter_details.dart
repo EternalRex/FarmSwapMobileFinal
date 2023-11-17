@@ -1,6 +1,7 @@
 import "package:farm_swap_mobile_final/common/colors.dart";
 import "package:farm_swap_mobile_final/common/green_btn.dart";
 import "package:farm_swap_mobile_final/common/poppins_text.dart";
+import "package:farm_swap_mobile_final/karl_modules/barter%20transactions/functions/compute_deductible_swapcoins.dart";
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item.dart';
 import "package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart";

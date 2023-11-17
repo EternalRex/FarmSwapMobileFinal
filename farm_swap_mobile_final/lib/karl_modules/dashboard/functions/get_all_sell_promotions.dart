@@ -20,7 +20,7 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collectionGroup('sell').snapshots(),
+      stream: _firestore.collectionGroup('sell').where('promoted', isEqualTo: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
