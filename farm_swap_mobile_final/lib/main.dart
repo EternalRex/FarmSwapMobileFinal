@@ -1,6 +1,7 @@
 import "package:farm_swap_mobile_final/firebase_initializations_options.dart";
 import "package:farm_swap_mobile_final/provider/barter_listing_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/bartering_item_details_provider.dart";
+import "package:farm_swap_mobile_final/provider/completed_bartertransaction_provider.dart";
 import "package:farm_swap_mobile_final/provider/dashboard_type_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_addcategory_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_page_provider.dart";
@@ -71,6 +72,9 @@ class MyApp extends StatelessWidget {
             /*This provider is used when a bid is selected by the farmer */
             ChangeNotifierProvider(
               create: (context) => SelectedBarterBidProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => CompletedTransactionProvider(),
             ),
           ],
           builder: (context, child) {

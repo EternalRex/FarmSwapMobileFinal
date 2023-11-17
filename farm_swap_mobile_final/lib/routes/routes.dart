@@ -184,12 +184,6 @@ class RouteManager {
       case farmerswapcoins:
         return MaterialPageRoute(builder: (context) => FarmerSwapCoinsPage());
 
-      case uploadItemPictureToBarter:
-        return MaterialPageRoute(builder: (context) => const UploadBarterItemPicture());
-
-      case entertobarteritem3:
-        return MaterialPageRoute(builder: (context) => const EnterToBarterItem3());
-
       case farmerbartertransactionmainpage:
         return MaterialPageRoute(builder: (context) => const FarmerBarterTransactionMainPage());
 

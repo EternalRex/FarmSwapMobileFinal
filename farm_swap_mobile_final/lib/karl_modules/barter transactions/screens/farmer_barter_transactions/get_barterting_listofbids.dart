@@ -68,6 +68,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     String itemDisc = data["itemDisc"];
     bool isBartered = data["isBarteredOut"];
     bool isSelected = data["selected"];
+    bool isCompleted = data["completed"];
 
     /*Listing data*/
     String listingId = data["listingId"];
@@ -136,6 +137,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
                     consmunicipal: consumerMunicipality,
                     selected: isSelected,
                     bartered: isBartered,
+                    completed: isCompleted,
                   ),
                 ),
               );
@@ -238,6 +240,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
                             consmunicipal: consumerMunicipality,
                             selected: isSelected,
                             bartered: isBartered,
+                            completed: isCompleted,
                           ),
                         ),
                       );

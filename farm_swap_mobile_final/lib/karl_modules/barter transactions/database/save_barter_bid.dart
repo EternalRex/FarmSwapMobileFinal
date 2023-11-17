@@ -60,6 +60,7 @@ class SaveBarterBid {
       consumerUname: consumerUnameBid,
       consumerBarangay: consumerBarangayBid,
       consumerMunicipality: consumerMunispyoBid,
+      completed: false,
     );
 
     var barterListingRef =

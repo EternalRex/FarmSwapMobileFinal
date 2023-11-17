@@ -33,7 +33,7 @@ class _GetSelectedBidState extends State<GetSelectedBid> {
       stream: _firestore
           .collectionGroup('barterbids')
           .where('listingId', isEqualTo: widget.listingId)
-          .orderBy('itemBidTime', descending: false)
+          .orderBy('itemBidTime', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -78,6 +78,7 @@ class _GetSelectedBidState extends State<GetSelectedBid> {
     String listingQuan = data["listingQuantity"].toString();
     String listingPrice = data["listingPrice"].toString();
     String listStatus = data["listingStatus"];
+    bool isCompleted = data["completed"];
 
     /*Consumer data*/
     String consumername = data["consumerName"];
@@ -139,6 +140,7 @@ class _GetSelectedBidState extends State<GetSelectedBid> {
                     consmunicipal: consumerMunicipality,
                     selected: isSelected,
                     bartered: isBartered,
+                    completed: isCompleted,
                   ),
                 ),
               );
@@ -241,6 +243,7 @@ class _GetSelectedBidState extends State<GetSelectedBid> {
                             consmunicipal: consumerMunicipality,
                             selected: isSelected,
                             bartered: isBartered,
+                            completed: isCompleted,
                           ),
                         ),
                       );

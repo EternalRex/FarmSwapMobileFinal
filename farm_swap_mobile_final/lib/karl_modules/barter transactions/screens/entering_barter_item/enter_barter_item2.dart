@@ -1,6 +1,7 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/common/upload_image_functions.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item3.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_barter_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_sell_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
@@ -13,7 +14,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class UploadBarterItemPicture extends StatefulWidget {
-  const UploadBarterItemPicture({super.key});
+  const UploadBarterItemPicture({super.key, required this.itemvalue2, required this.listingvalue2});
+  final double? itemvalue2;
+  final double? listingvalue2;
 
   @override
   State<UploadBarterItemPicture> createState() => _UploadBarterItemPictureState();
@@ -124,7 +127,14 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                           Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                               .setItemUrl(picUrl.toString());
                           // ignore: use_build_context_synchronously
-                          Navigator.of(context).pushNamed(RouteManager.entertobarteritem3);
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return EnterToBarterItem3(
+                                itemValue: widget.itemvalue2,
+                                listingValue: widget.listingvalue2,
+                              );
+                            },
+                          ));
                         },
                         child: CustomPicturePicker(
                           height: MediaQuery.of(context).size.height,
@@ -145,7 +155,14 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                             picUrl.toString(),
                           );
                           // ignore: use_build_context_synchronously
-                          Navigator.of(context).pushNamed(RouteManager.entertobarteritem3);
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return EnterToBarterItem3(
+                                itemValue: widget.itemvalue2,
+                                listingValue: widget.listingvalue2,
+                              );
+                            },
+                          ));
                         },
                         child: CustomPicturePicker(
                           height: MediaQuery.of(context).size.height,
