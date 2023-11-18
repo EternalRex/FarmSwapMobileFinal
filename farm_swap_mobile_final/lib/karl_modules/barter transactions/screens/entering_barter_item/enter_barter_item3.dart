@@ -4,6 +4,7 @@ import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/save_barter_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/functions/compute_deductible_swapcoins.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item2.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_barter_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_sell_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
@@ -15,7 +16,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class EnterToBarterItem3 extends StatefulWidget {
-  const EnterToBarterItem3({super.key, required this.itemValue, required this.listingValue});
+  const EnterToBarterItem3(
+      {super.key, required this.itemValue, required this.listingValue});
   final double? itemValue;
   final double? listingValue;
 
@@ -57,18 +59,9 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
       key: _scaffoldKey,
       /*Start of appbar */
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
-            const Text("Dashboard"),
-            SizedBox(
-              width: 80.w,
-            ),
-            /*Shoppping cart button */
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
+            Text("Dashboard"),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -78,7 +71,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -91,6 +85,17 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
           },
           icon: const Icon(Icons.menu),
         ),
+        actions: [
+          /*Shoppping cart button */
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(FontAwesomeIcons.cartShopping),
+              iconSize: 30.sp,
+            ),
+          ),
+        ],
       ),
       /*End of appbar */
       /*Displaying the drawer */
@@ -196,6 +201,28 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => UploadBarterItemPicture(
+                  itemvalue2: widget.itemValue,
+                  listingvalue2: widget.listingValue),
+            ),
+          );
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.arrow_back_rounded,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -206,7 +233,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Invalid Operation", Colors.red, 17.sp, FontWeight.bold),
+          title: poppinsText(
+              "Invalid Operation", Colors.red, 17.sp, FontWeight.bold),
           content: poppinsText(
             "Not enough swapcoins. You need ${neededswapCoins.toString()}",
             Colors.black,
@@ -218,7 +246,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
               onPressed: () {
                 Navigator.of(context).pushNamed(RouteManager.activeDashboard);
               },
-              child: poppinsText("Ok", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child:
+                  poppinsText("Ok", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );
@@ -244,7 +273,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
               onPressed: () {
                 Navigator.of(context).pushNamed(RouteManager.activeDashboard);
               },
-              child: poppinsText("Finish", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: poppinsText(
+                  "Finish", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );
@@ -258,7 +288,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
+          title:
+              poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
           content: poppinsText(
             "This transaction has an average value of ${average.toString()}. The system will deduct $percent that is equal to ${swapcoins.toString()} swapCoins",
             Colors.black,
@@ -272,54 +303,79 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                 TextButton(
                   onPressed: () {
                     bid.saveBarterBid(
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getFarmerUname,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getFarmerId,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getFarmerFname,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getFarmerLname,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getFarmerBrgy,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getFarmerMunisipyo,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getConsumerId,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getConsumerFname,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getConsumerLname,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getConsumerUname,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getConsumerBaranggay,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getConsumerMunisipyo,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getListingId,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getListingName,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getListDisc,
-                      double.parse(
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                              .getListingPrice),
-                      double.parse(
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                              .getListingQuan),
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      double.parse(Provider.of<BartertingItemDetailsProvider>(
+                              context,
+                              listen: false)
+                          .getListingPrice),
+                      double.parse(Provider.of<BartertingItemDetailsProvider>(
+                              context,
+                              listen: false)
+                          .getListingQuan),
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getListingStatus,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getItemName,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getItemDisc,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getItemCondition,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getItemQuantity,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false).getItemUrl,
-                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
+                          .getItemUrl,
+                      Provider.of<BartertingItemDetailsProvider>(context,
+                              listen: false)
                           .getItemValue,
                       false,
                     );
@@ -338,7 +394,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                 /*Will cancel the bidding */
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+                    Navigator.of(context)
+                        .pushNamed(RouteManager.activeDashboard);
                   },
                   child: poppinsText(
                     "Cancel",
@@ -357,7 +414,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
 
   /*Function that will compute the average value range */
   void computeAvaerage() {
-    double averageValue = compute.averageValue(widget.listingValue!, widget.itemValue);
+    double averageValue =
+        compute.averageValue(widget.listingValue!, widget.itemValue);
     setState(() {
       average = averageValue;
     });
@@ -375,8 +433,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
 /*Function that will compute the actual deductible swapcoins */
   void computeSwapCoins() {
     print("Computing the swap coins");
-    double deductibleCoins =
-        compute.computeDeductibleSwapCoins(widget.listingValue, widget.itemValue!);
+    double deductibleCoins = compute.computeDeductibleSwapCoins(
+        widget.listingValue, widget.itemValue!);
     setState(() {
       swapcoins = deductibleCoins;
     });

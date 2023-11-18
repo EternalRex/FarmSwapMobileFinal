@@ -511,7 +511,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
             ),
           ),
           /*Expanded for the bottom navbar */
-          Expanded(
+          /*Expanded(
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
@@ -524,9 +524,48 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
               ),
               child: const ListingManagementBottomNav(),
             ),
-          ),
+          ),*/
         ],
       ),
+      bottomNavigationBar: Container(
+        height: 80.sp,
+        decoration: BoxDecoration(
+          color: greenNormal,
+          image: const DecorationImage(
+            image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+            fit: BoxFit.cover,
+          ),
+          border: Border.all(color: farmSwapTitlegreen),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: shadow,
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
+            ),
+          ],
+        ),
+        child: const ListingManagementBottomNav(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(RouteManager.listingmainpage);
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 

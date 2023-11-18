@@ -35,31 +35,35 @@ class _FarmerConsumerChatState extends State<FarmerConsumerChat> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
           ),
         ),
-        title: Row(
+        title: const Row(
           children: [
-            const Text("Chat Consumers"),
-            SizedBox(
-              width: 21.w,
-            ),
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const FarmerMainChatScreen();
-                      },
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.arrow_back_ios)),
+            Text("Chat Consumers"),
           ],
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const FarmerMainChatScreen();
+                    },
+                  ),
+                );
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            ),
+          ),
+        ],
         leading: IconButton(
           onPressed: () {
             /*Opening the drawer */

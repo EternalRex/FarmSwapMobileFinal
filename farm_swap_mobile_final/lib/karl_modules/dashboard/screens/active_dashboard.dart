@@ -29,24 +29,16 @@ class ActiveDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     //accessing the value of our provider that provides what dashboard type to display
     String dashboardType =
-        Provider.of<DashboardTypeProvider>(context, listen: false).getDashboardType;
+        Provider.of<DashboardTypeProvider>(context, listen: false)
+            .getDashboardType;
 
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
-            const Text("Dashboard"),
-            SizedBox(
-              width: 80.w,
-            ),
-            /*Shoppping cart button */
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
+            Text("Dashboard"),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -56,7 +48,8 @@ class ActiveDashboard extends StatelessWidget {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -69,6 +62,17 @@ class ActiveDashboard extends StatelessWidget {
           },
           icon: const Icon(Icons.menu),
         ),
+        actions: [
+          /*Shoppping cart button */
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(FontAwesomeIcons.cartShopping),
+                iconSize: 30.sp,
+              ),
+            ),
+        ],
       ),
       /*End of appbar */
       /*Displaying the drawer */
@@ -117,21 +121,45 @@ class ActiveDashboard extends StatelessWidget {
                       : const BarterDashboard(),
             ),
           ),
-          Expanded(
+          /*Expanded(
             flex: 2,
             child: Container(
               decoration: BoxDecoration(
                 color: greenNormal,
                 image: const DecorationImage(
-                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: farmSwapTitlegreen),
               ),
               child: const DashboardButtomNavBar(),
             ),
-          ),
+          ),*/
         ],
+      ),
+      bottomNavigationBar: Container(
+        height: 60.sp,
+        decoration: BoxDecoration(
+          color: greenNormal,
+          image: const DecorationImage(
+            image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+            fit: BoxFit.cover,
+          ),
+          border: Border.all(color: farmSwapTitlegreen),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(15.0),
+              topRight: Radius.circular(15.0),
+            ),
+          boxShadow: [
+            BoxShadow(
+              color: shadow,
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
+            ),
+          ],
+        ),
+        child: const DashboardButtomNavBar(),
       ),
     );
   }

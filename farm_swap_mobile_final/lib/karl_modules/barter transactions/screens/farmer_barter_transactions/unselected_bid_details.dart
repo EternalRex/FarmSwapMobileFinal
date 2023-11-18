@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/unselected_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,6 +56,10 @@ class UnselectedBidDetails extends StatefulWidget {
   final String consbarangay;
   final String consmunicipal;
 
+  final String farmerUname = '';
+  final String farmerId = '';
+  final String farmerListingId = '';
+
   @override
   State<UnselectedBidDetails> createState() => _UnselectedBidDetailsState();
 }
@@ -79,15 +84,6 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
               "Bid Details",
               style: TextStyle(fontSize: 25.sp),
             ),
-            SizedBox(
-              width: 50.w,
-            ),
-            /*Shoppping cart button */
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -97,7 +93,8 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -110,6 +107,17 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
           },
           icon: const Icon(Icons.menu),
         ),
+        actions: [
+          /*Shoppping cart button */
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(FontAwesomeIcons.cartShopping),
+              iconSize: 30.sp,
+            ),
+          ),
+        ],
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(
@@ -366,7 +374,8 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
                   Padding(
                     padding: EdgeInsets.all(8.sp),
                     child: Text(
-                      "Address at ${widget.consbarangay} " " ${widget.consmunicipal} ",
+                      "Address at ${widget.consbarangay} "
+                      " ${widget.consmunicipal} ",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 13.sp,
@@ -381,6 +390,29 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => UnselectedBarterBids(
+                  farmerUname: widget.farmerUname,
+                  farmerId: widget.farmerId,
+                  listingId: widget.farmerListingId),
+            ),
+          );
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -389,7 +421,8 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.normal),
+          title:
+              poppinsText("Information", Colors.blue, 20.sp, FontWeight.normal),
           content: poppinsText(
             "This listing was an unselected bid, it is here for your reference only",
             Colors.black,
@@ -428,7 +461,8 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
                   ),
                 );
               },
-              child: poppinsText("Back", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: poppinsText(
+                  "Back", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );

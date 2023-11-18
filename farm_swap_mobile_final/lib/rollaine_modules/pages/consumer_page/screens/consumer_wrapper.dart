@@ -893,7 +893,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.update_rounded,
                                   color: Colors.blue,
                                 ),

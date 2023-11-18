@@ -5,6 +5,7 @@ import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/save_tobarter_database.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/update_barter_selectedproperty.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/functions/compute_deductible_swapcoins.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/selected_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/archive_update.dart';
@@ -66,6 +67,10 @@ class FarmerListOfBidsDetils extends StatefulWidget {
   final String consuname;
   final String consbarangay;
   final String consmunicipal;
+
+  final String farmerUname = '';
+  final String farmerId = '';
+  final String listingId = '';
 
   @override
   State<FarmerListOfBidsDetils> createState() => _FarmerListOfBidsDetilsState();
@@ -141,7 +146,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -237,7 +243,9 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                         width: 130.w,
                         decoration: BoxDecoration(
                           /*The color of the container will change to green when it is the bid that is selected by farmer */
-                          color: (widget.selected == true) ? Colors.green : Colors.red,
+                          color: (widget.selected == true)
+                              ? Colors.green
+                              : Colors.red,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(30),
                           ),
@@ -264,7 +272,9 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                               }
                             },
                             child: poppinsText(
-                              (widget.selected == true) ? "ACCEPTED" : "ACCEPT BID",
+                              (widget.selected == true)
+                                  ? "ACCEPTED"
+                                  : "ACCEPT BID",
                               Colors.white,
                               15.sp,
                               FontWeight.w500,
@@ -303,13 +313,15 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                                           farmerName: farmerFname,
                                           farmerUname: farmerUname,
                                           farmerBarangay: farmerBaranggay,
-                                          farmerMunicipality: farmerMunicipality,
+                                          farmerMunicipality:
+                                              farmerMunicipality,
                                           consumerId: widget.consid,
                                           consumerFname: widget.consname,
                                           consumerLname: widget.conslname,
                                           consumerUname: widget.consuname,
                                           consumerBarangay: widget.consbarangay,
-                                          consumerMunicipality: widget.consmunicipal,
+                                          consumerMunicipality:
+                                              widget.consmunicipal,
                                           listingId: widget.listId,
                                           listingName: widget.listName,
                                         );
@@ -514,7 +526,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                   Padding(
                     padding: EdgeInsets.all(8.sp),
                     child: Text(
-                      "Address at ${widget.consbarangay} " " ${widget.consmunicipal} ",
+                      "Address at ${widget.consbarangay} "
+                      " ${widget.consmunicipal} ",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 13.sp,
@@ -535,7 +548,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                 ? Container()
                 /*Kung dli pa marked as completed ang transaction so naay button na choices na pwde e label as completed or e dispute lang ang transaction */
                 : Padding(
-                    padding: EdgeInsets.only(right: 10.sp, left: 10.sp, bottom: 10.sp),
+                    padding: EdgeInsets.only(
+                        right: 10.sp, left: 10.sp, bottom: 10.sp),
                     child: Row(
                       children: [
                         TextButton(
@@ -575,15 +589,16 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                               ),
                             );
                           },
-                          child: poppinsText(
-                              "Completed", farmSwapTitlegreen, 20.sp, FontWeight.normal),
+                          child: poppinsText("Completed", farmSwapTitlegreen,
+                              20.sp, FontWeight.normal),
                         ),
                         SizedBox(
                           width: 70.w,
                         ),
                         TextButton(
                           onPressed: () {},
-                          child: poppinsText("Dispute", Colors.red, 20.sp, FontWeight.normal),
+                          child: poppinsText(
+                              "Dispute", Colors.red, 20.sp, FontWeight.normal),
                         ),
                       ],
                     ),
@@ -591,6 +606,29 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SelectedBids(
+                  farmerId: widget.farmerId,
+                  listingId: widget.listingId,
+                  farmerUname: widget.farmerUname),
+            ),
+          );
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -599,7 +637,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Invalid Operation", Colors.red, 20.sp, FontWeight.normal),
+          title: poppinsText(
+              "Invalid Operation", Colors.red, 20.sp, FontWeight.normal),
           content: poppinsText(
             "You can only message the consumer once you accept his/her bid",
             Colors.black,
@@ -640,7 +679,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                   ),
                 );
               },
-              child: poppinsText("Back", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: poppinsText(
+                  "Back", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );
@@ -679,8 +719,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
 
 /*Function that will compute the average value range */
   void computeAverageValueRange() {
-    double average =
-        compute.averageValue(double.tryParse(widget.listPrice), double.tryParse(widget.itemVal));
+    double average = compute.averageValue(
+        double.tryParse(widget.listPrice), double.tryParse(widget.itemVal));
     setState(() {
       averageValue = average;
     });
@@ -722,7 +762,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
+          title:
+              poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
           content: poppinsText(
             "This transaction has an average value of ${averageValue.toString()}. The system will deduct $percentValue that is equal to ${deductSwapCoins.toString()} swapCoins",
             Colors.black,
@@ -875,7 +916,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Invalid Operation", Colors.red, 17.sp, FontWeight.bold),
+          title: poppinsText(
+              "Invalid Operation", Colors.red, 17.sp, FontWeight.bold),
           content: poppinsText(
             "Not enough swapcoins. You need ${neededswapCoins.toString()}",
             Colors.black,
@@ -916,7 +958,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                   ),
                 );
               },
-              child: poppinsText("Ok", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child:
+                  poppinsText("Ok", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );
@@ -940,7 +983,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
           actions: [
             TextButton(
               onPressed: () {},
-              child: poppinsText("Finish", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: poppinsText(
+                  "Finish", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );

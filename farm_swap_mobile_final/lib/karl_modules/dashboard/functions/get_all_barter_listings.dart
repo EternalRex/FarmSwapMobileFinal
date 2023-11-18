@@ -11,10 +11,12 @@ class DashBoardGetAllBarterListings extends StatefulWidget {
   const DashBoardGetAllBarterListings({super.key});
 
   @override
-  State<DashBoardGetAllBarterListings> createState() => _DashBoardGetAllBarterListingsState();
+  State<DashBoardGetAllBarterListings> createState() =>
+      _DashBoardGetAllBarterListingsState();
 }
 
-class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterListings> {
+class _DashBoardGetAllBarterListingsState
+    extends State<DashBoardGetAllBarterListings> {
   final _firestore = FirebaseFirestore.instance;
 
   @override

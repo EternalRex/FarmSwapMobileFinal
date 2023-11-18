@@ -12,7 +12,6 @@ import '../../../../../../common/colors.dart';
 import '../../../../../../common/farmer_individual_details.dart';
 import '../../../../../../common/green_btn.dart';
 import '../../../../../dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import '../../../../database/sell_listing_saving.dart';
 import '../../../../widgets/listing_management_bottomnav.dart';
 
 class AddActualBarterListingDetails4 extends StatefulWidget {
@@ -220,6 +219,22 @@ class _AddActualBarterListingDetails4State
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(RouteManager.listingmainpage);
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.arrow_back_rounded,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 

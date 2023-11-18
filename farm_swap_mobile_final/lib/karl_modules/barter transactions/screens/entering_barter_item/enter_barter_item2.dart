@@ -1,25 +1,43 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/common/upload_image_functions.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item3.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_barter_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_sell_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/widgets/custom_image_picker.dart';
 import 'package:farm_swap_mobile_final/provider/bartering_item_details_provider.dart';
-import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class UploadBarterItemPicture extends StatefulWidget {
-  const UploadBarterItemPicture({super.key, required this.itemvalue2, required this.listingvalue2});
+  const UploadBarterItemPicture(
+      {super.key, required this.itemvalue2, required this.listingvalue2});
   final double? itemvalue2;
   final double? listingvalue2;
 
+  /*The data we needed from the lisiting */
+  final String listingIdNeed = '';
+  final String listingNameNeed = '';
+  final String listingDiscNeed = '';
+  final String listingEquivalentPriceNeed = '';
+  final String listingQuantityNeed = ' = ';
+  final String listingStatusNeed = '';
+
+/*The data that we need from farmer*/
+  final String farmerFNameNeed = '';
+  final String farmerLnameNeed = '';
+  final String farmerUnameNeed = '';
+  final String farmerBaranggayNeed = '';
+  final String farmerMunicaplityNeed = '';
+  final String farmerId = '';
+
   @override
-  State<UploadBarterItemPicture> createState() => _UploadBarterItemPictureState();
+  State<UploadBarterItemPicture> createState() =>
+      _UploadBarterItemPictureState();
 }
 
 class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
@@ -40,18 +58,9 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
       key: _scaffoldKey,
       /*Start of appbar */
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           children: [
-            const Text("Dashboard"),
-            SizedBox(
-              width: 80.w,
-            ),
-            /*Shoppping cart button */
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
+            Text("Dashboard"),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -61,7 +70,8 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -74,6 +84,17 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
           },
           icon: const Icon(Icons.menu),
         ),
+        actions: [
+          /*Shoppping cart button */
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(FontAwesomeIcons.cartShopping),
+              iconSize: 30.sp,
+            ),
+          ),
+        ],
       ),
       /*End of appbar */
       /*Displaying the drawer */
@@ -122,9 +143,11 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                       /*For the pick image in gallery */
                       GestureDetector(
                         onTap: () async {
-                          String? picUrl = await upload.uploadImageToFirebaseGallery();
+                          String? picUrl =
+                              await upload.uploadImageToFirebaseGallery();
                           // ignore: use_build_context_synchronously
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setItemUrl(picUrl.toString());
                           // ignore: use_build_context_synchronously
                           Navigator.of(context).push(MaterialPageRoute(
@@ -149,9 +172,11 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                       /*This is for picking image in the camera */
                       GestureDetector(
                         onTap: () async {
-                          String? picUrl = await upload.uploadImageToFirebaseCamera();
+                          String? picUrl =
+                              await upload.uploadImageToFirebaseCamera();
                           // ignore: use_build_context_synchronously
-                          Provider.of<BartertingItemDetailsProvider>(context).setItemUrl(
+                          Provider.of<BartertingItemDetailsProvider>(context)
+                              .setItemUrl(
                             picUrl.toString(),
                           );
                           // ignore: use_build_context_synchronously
@@ -196,6 +221,38 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => EnterToBarterItem(
+                  listingIdNeed: widget.listingIdNeed,
+                  listingNameNeed: widget.listingNameNeed,
+                  listingDiscNeed: widget.listingDiscNeed,
+                  listingEquivalentPriceNeed: widget.listingEquivalentPriceNeed,
+                  listingQuantityNeed: widget.listingQuantityNeed,
+                  listingStatusNeed: widget.listingStatusNeed,
+                  farmerFNameNeed: widget.farmerFNameNeed,
+                  farmerUnameNeed: widget.farmerUnameNeed,
+                  farmerLnameNeed: widget.farmerLnameNeed,
+                  farmerBaranggayNeed: widget.farmerBaranggayNeed,
+                  farmerMunicaplityNeed: widget.farmerMunicaplityNeed,
+                  farmerId: widget.farmerId),
+            ),
+          );
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+        backgroundColor: greenNormal,
+        splashColor: greenLight,
+        child: const Icon(
+          Icons.arrow_back_rounded,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

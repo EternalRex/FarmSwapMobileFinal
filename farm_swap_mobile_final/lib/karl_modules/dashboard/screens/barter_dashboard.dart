@@ -20,7 +20,7 @@ class _BarterDashboardState extends State<BarterDashboard> {
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
-              height: 440.h,
+              height: 460.h,
               child: const DashBoardGetAllBarterListings(),
             ),
           ),
