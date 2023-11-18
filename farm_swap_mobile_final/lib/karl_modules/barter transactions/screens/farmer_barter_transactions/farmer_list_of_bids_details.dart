@@ -596,9 +596,6 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           getFarmerDetails();
-          print("farmer Id $farmerId");
-          print("farmerUname $farmerUname");
-          print(widget.listId);
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => FarmerListOfBids(

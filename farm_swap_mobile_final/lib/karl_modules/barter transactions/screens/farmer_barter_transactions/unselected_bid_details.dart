@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/unselected_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
@@ -58,10 +59,6 @@ class UnselectedBidDetails extends StatefulWidget {
   final String consbarangay;
   final String consmunicipal;
 
-  final String farmerUname = '';
-  final String farmerId = '';
-  final String farmerListingId = '';
-
   @override
   State<UnselectedBidDetails> createState() => _UnselectedBidDetailsState();
 }
@@ -73,6 +70,15 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
   /*A function for opening a drawer using the scaffold key */
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
+  }
+
+  String farmerUname = '';
+  String farmerId = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getFarmerDetails();
   }
 
   @override
@@ -396,9 +402,9 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => UnselectedBarterBids(
-                farmerUname: widget.farmerUname,
-                farmerId: widget.farmerId,
-                listingId: widget.farmerListingId,
+                farmerUname: farmerUname,
+                farmerId: farmerId,
+                listingId: widget.listId,
                 listUrl: widget.listUrl,
               ),
             ),
@@ -417,6 +423,19 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+  }
+
+  ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+
+/*Function that get all farmer details */
+  Future<void> getFarmerDetails() async {
+    String uname = await farmerDetails.getUname();
+    String fid = await farmerDetails.getFarmerUserId();
+
+    setState(() {
+      farmerId = fid;
+      farmerUname = uname;
+    });
   }
 
   void showInvalidMessage() {
