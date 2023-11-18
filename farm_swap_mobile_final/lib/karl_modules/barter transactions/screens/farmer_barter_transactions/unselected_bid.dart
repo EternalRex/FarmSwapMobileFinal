@@ -91,6 +91,7 @@ class _UnselectedBarterBidsState extends State<UnselectedBarterBids> {
                 farmerId: widget.farmerId,
                 farmerUname: widget.farmerUname,
                 listingId: widget.listingId,
+                listingUrl: widget.listUrl,
               ),
             ),
             Container(

@@ -14,11 +14,13 @@ class GetUnselectedBid extends StatefulWidget {
     required this.farmerUname,
     required this.farmerId,
     required this.listingId,
+    required this.listingUrl,
   });
 
   final String farmerUname;
   final String farmerId;
   final String listingId;
+  final String listingUrl;
 
   @override
   State<GetUnselectedBid> createState() => _GetUnselectedBidState();
@@ -138,6 +140,7 @@ class _GetUnselectedBidState extends State<GetUnselectedBid> {
                     consmunicipal: consumerMunicipality,
                     selected: isSelected,
                     bartered: isBartered,
+                    listUrl: widget.listingUrl,
                   ),
                 ),
               );
@@ -240,6 +243,7 @@ class _GetUnselectedBidState extends State<GetUnselectedBid> {
                             consmunicipal: consumerMunicipality,
                             selected: isSelected,
                             bartered: isBartered,
+                            listUrl: widget.listingUrl,
                           ),
                         ),
                       );

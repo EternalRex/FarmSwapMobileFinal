@@ -63,8 +63,7 @@ class _SelectedBidsState extends State<SelectedBids> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -95,7 +94,6 @@ class _SelectedBidsState extends State<SelectedBids> {
                 listingUrl: widget.listingUrl,
               ),
             ),
-<<<<<<< HEAD
             Container(
               height: 55.h,
               width: MediaQuery.of(context).size.width,
@@ -114,8 +112,6 @@ class _SelectedBidsState extends State<SelectedBids> {
                 listUrl: widget.listingUrl,
               ),
             ),
-=======
->>>>>>> 07505adcf2068c518a6d1ac54954087b29f526ee
           ],
         ),
       ),
@@ -134,6 +130,7 @@ class _SelectedBidsState extends State<SelectedBids> {
           farmerId: widget.farmerId,
           farmerUname: widget.farmerUname,
           listingId: widget.listingId,
+          listUrl: widget.listingUrl,
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -141,9 +138,11 @@ class _SelectedBidsState extends State<SelectedBids> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => FarmerListOfBids(
-                  farmerUname: widget.farmerUname,
-                  farmerId: widget.farmerId,
-                  listingId: widget.listingId),
+                farmerUname: widget.farmerUname,
+                farmerId: widget.farmerId,
+                listingId: widget.listingId,
+                listingUrl: widget.listingUrl,
+              ),
             ),
           );
         },

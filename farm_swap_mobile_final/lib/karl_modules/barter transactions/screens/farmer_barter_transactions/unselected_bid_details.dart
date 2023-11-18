@@ -31,6 +31,7 @@ class UnselectedBidDetails extends StatefulWidget {
     required this.consmunicipal,
     required this.selected,
     required this.bartered,
+    required this.listUrl,
   });
 
   final String imgurl;
@@ -43,6 +44,7 @@ class UnselectedBidDetails extends StatefulWidget {
   final bool selected;
   final bool bartered;
 
+  final String listUrl;
   final String listId;
   final String listName;
   final String listStat;
@@ -93,8 +95,7 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -395,9 +396,11 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => UnselectedBarterBids(
-                  farmerUname: widget.farmerUname,
-                  farmerId: widget.farmerId,
-                  listingId: widget.farmerListingId),
+                farmerUname: widget.farmerUname,
+                farmerId: widget.farmerId,
+                listingId: widget.farmerListingId,
+                listUrl: widget.listUrl,
+              ),
             ),
           );
         },
@@ -421,8 +424,7 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title:
-              poppinsText("Information", Colors.blue, 20.sp, FontWeight.normal),
+          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.normal),
           content: poppinsText(
             "This listing was an unselected bid, it is here for your reference only",
             Colors.black,
@@ -456,13 +458,13 @@ class _UnselectedBidDetailsState extends State<UnselectedBidDetails> {
                         consmunicipal: widget.consmunicipal,
                         selected: widget.selected,
                         bartered: widget.bartered,
+                        listUrl: widget.listUrl,
                       );
                     },
                   ),
                 );
               },
-              child: poppinsText(
-                  "Back", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: poppinsText("Back", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );

@@ -54,8 +54,7 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -97,7 +96,6 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
                 listingUrl: widget.listingUrl,
               ),
             ),
-<<<<<<< HEAD
             Container(
               height: 55.h,
               width: MediaQuery.of(context).size.width,
@@ -116,8 +114,6 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
                 listUrl: widget.listingUrl,
               ),
             ),
-=======
->>>>>>> 07505adcf2068c518a6d1ac54954087b29f526ee
           ],
         ),
       ),
@@ -147,12 +143,12 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
           farmerId: widget.farmerId,
           farmerUname: widget.farmerUname,
           listingId: widget.listingId,
+          listUrl: widget.listingUrl,
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .pushNamed(RouteManager.farmerbartertransactionmainpage);
+          Navigator.of(context).pushNamed(RouteManager.farmerbartertransactionmainpage);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
