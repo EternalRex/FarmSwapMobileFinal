@@ -11,11 +11,13 @@ class BarterBidsNavBar extends StatelessWidget {
     required this.farmerUname,
     required this.farmerId,
     required this.listingId,
+    required this.listUrl,
   });
 
   final String farmerUname;
   final String farmerId;
   final String listingId;
+  final String listUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class BarterBidsNavBar extends StatelessWidget {
                         farmerId: farmerId,
                         farmerUname: farmerUname,
                         listingId: listingId,
+                        listingUrl: listUrl,
                       );
                     },
                   ),
@@ -55,6 +58,7 @@ class BarterBidsNavBar extends StatelessWidget {
                       farmerId: farmerId,
                       farmerUname: farmerUname,
                       listingId: listingId,
+                      listUrl: listUrl,
                     );
                   },
                 ));

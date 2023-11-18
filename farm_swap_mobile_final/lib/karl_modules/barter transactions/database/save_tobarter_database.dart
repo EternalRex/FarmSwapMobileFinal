@@ -7,6 +7,7 @@ class BarterTransactionDatabase {
     String farmerName,
     String farmerId,
     String farmerUname,
+    String farmerLname,
     String farmerBarangay,
     String farmerMunicipality,
 
@@ -14,15 +15,18 @@ class BarterTransactionDatabase {
     String consumerName,
     String consumerId,
     String consumerUname,
+    String consumerLname,
     String consumerBarangay,
     String consumerMunicipality,
 
     /*Item details */
+    String listingurl,
     String listingid,
     String listingName,
     double? listingValue,
     String itemName,
     double? itemValue,
+    String itemUrl,
 
     /*Transaction details*/
     double averageValueRange,
@@ -51,6 +55,10 @@ class BarterTransactionDatabase {
       deductConsumerCoins: deductConsumerCoins,
       percentage: percentageValue,
       acceptDate: DateTime.now(),
+      farmerLastName: farmerLname,
+      itemUrl: itemUrl,
+      listingUrl: listingurl,
+      consumserLastName: consumerLname,
     );
     FirebaseFirestore.instance
         .collection('sample_BarterTransactions')

@@ -13,11 +13,13 @@ class SelectedBids extends StatefulWidget {
     required this.farmerId,
     required this.listingId,
     required this.farmerUname,
+    required this.listingUrl,
   });
 
   final String farmerId;
   final String listingId;
   final String farmerUname;
+  final String listingUrl;
 
   @override
   State<SelectedBids> createState() => _SelectedBidsState();
@@ -89,6 +91,7 @@ class _SelectedBidsState extends State<SelectedBids> {
                 farmerId: widget.farmerId,
                 farmerUname: widget.farmerUname,
                 listingId: widget.listingId,
+                listingUrl: widget.listingUrl,
               ),
             ),
             Container(
@@ -106,6 +109,7 @@ class _SelectedBidsState extends State<SelectedBids> {
                 farmerId: widget.farmerId,
                 farmerUname: widget.farmerUname,
                 listingId: widget.listingId,
+                listUrl: widget.listingUrl,
               ),
             ),
           ],

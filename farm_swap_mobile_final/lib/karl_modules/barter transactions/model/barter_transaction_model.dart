@@ -20,11 +20,16 @@ class BarterTransactionModel {
     required this.deductConsumerCoins,
     required this.percentage,
     required this.acceptDate,
+    required this.farmerLastName,
+    required this.listingUrl,
+    required this.itemUrl,
+    required this.consumserLastName,
   });
 
   /*Farmer Details */
   String farmerName;
   String farmerId;
+  String farmerLastName;
   String farmerUname;
   String farmerBarangay;
   String farmerMunicipality;
@@ -33,15 +38,18 @@ class BarterTransactionModel {
   String consumerName;
   String consumerId;
   String consumerUname;
+  String consumserLastName;
   String consumerBarangay;
   String consumerMunicipality;
 
   /*Item details */
+  String listingUrl;
   String listingid;
   String listingName;
   double listingValue;
   String itemName;
   double itemValue;
+  String itemUrl;
 
   /*Transaction details*/
   double averageValueRange;
@@ -72,6 +80,10 @@ class BarterTransactionModel {
       'deductedConsumerCoins': deductConsumerCoins,
       'percentageFee': percentage,
       'transactionDate': acceptDate,
+      'itemUrl': itemUrl,
+      'listingUrl': listingUrl,
+      'farmerLname': farmerLastName,
+      'consumerLname': consumserLastName,
     };
   }
 }

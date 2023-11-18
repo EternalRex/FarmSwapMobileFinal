@@ -75,7 +75,7 @@ class _FarmerBarterTransactionMainPageState extends State<FarmerBarterTransactio
                 color: Colors.white,
               ),
               child: const GetBarteringListingDetails(),
-            )
+            ),
           ],
         ),
       ),

@@ -33,7 +33,7 @@ class _GetUnselectedBidState extends State<GetUnselectedBid> {
       stream: _firestore
           .collectionGroup('barterbids')
           .where('listingId', isEqualTo: widget.listingId)
-          .orderBy('itemBidTime', descending: false)
+          .orderBy('itemBidTime', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {

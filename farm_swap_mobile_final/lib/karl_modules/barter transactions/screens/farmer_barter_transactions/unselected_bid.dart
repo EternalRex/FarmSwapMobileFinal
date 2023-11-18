@@ -13,11 +13,13 @@ class UnselectedBarterBids extends StatefulWidget {
     required this.farmerUname,
     required this.farmerId,
     required this.listingId,
+    required this.listUrl,
   });
 
   final String farmerUname;
   final String farmerId;
   final String listingId;
+  final String listUrl;
 
   @override
   State<UnselectedBarterBids> createState() => _UnselectedBarterBidsState();
@@ -106,6 +108,7 @@ class _UnselectedBarterBidsState extends State<UnselectedBarterBids> {
                 farmerId: widget.farmerId,
                 farmerUname: widget.farmerUname,
                 listingId: widget.listingId,
+                listUrl: widget.listUrl,
               ),
             ),
           ],

@@ -14,10 +14,12 @@ class GetBarteringListOfBids extends StatefulWidget {
     required this.farmerUname,
     required this.farmerId,
     required this.farmerListingId,
+    required this.listingUrl,
   });
   final String farmerUname;
   final String farmerId;
   final String farmerListingId;
+  final String listingUrl;
 
   @override
   State<GetBarteringListOfBids> createState() => _GetBarteringListOfBidsState();
@@ -138,6 +140,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
                     selected: isSelected,
                     bartered: isBartered,
                     completed: isCompleted,
+                    listUrl: widget.listingUrl,
                   ),
                 ),
               );
@@ -241,6 +244,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
                             selected: isSelected,
                             bartered: isBartered,
                             completed: isCompleted,
+                            listUrl: widget.listingUrl,
                           ),
                         ),
                       );

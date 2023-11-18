@@ -7,10 +7,13 @@ import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/databa
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/functions/compute_deductible_swapcoins.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/archive_update.dart';
+import 'package:farm_swap_mobile_final/provider/completed_bartertransaction_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class FarmerListOfBidsDetils extends StatefulWidget {
   const FarmerListOfBidsDetils({
@@ -36,6 +39,7 @@ class FarmerListOfBidsDetils extends StatefulWidget {
     required this.selected,
     required this.bartered,
     required this.completed,
+    required this.listUrl,
   });
 
   final String imgurl;
@@ -49,6 +53,7 @@ class FarmerListOfBidsDetils extends StatefulWidget {
   final bool bartered;
   final bool completed;
 
+  final String listUrl;
   final String listId;
   final String listName;
   final String listStat;
@@ -79,6 +84,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
   ComputeDeductibleSwapCoins compute = ComputeDeductibleSwapCoins();
   UpdateSelectedBarterBid updateSelected = UpdateSelectedBarterBid();
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+  ArchiveUpdateListing archive = ArchiveUpdateListing();
   bool accepted = false;
   String farmerFname = "";
   String farmerLname = "";
@@ -90,12 +96,20 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
   double deductSwapCoins = 0;
   double farmerSwapCoins = 0;
   String percentValue = "";
+  bool _isMounted = false;
 
   @override
   void initState() {
     super.initState();
+    // _isMounted = true;
     getFarmerDetails();
     farmersSwapCoins();
+  }
+
+  @override
+  void dispose() {
+    //_isMounted = false;
+    super.dispose();
   }
 
   @override
@@ -177,12 +191,12 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                 ),
               ],
             ),
+            /*I need to put a condition here nga kung completed na ang transaction dili na accessible
+                ang chat og ang message na option naa nalay label na mag ingon na completed*/
             (widget.completed == true)
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      /*I need to put a condition here nga kung completed na ang transaction dili na accessible
-                ang chat og ang message na option naa nalay label na mag ingon na completed*/
                       Container(
                         height: 50.h,
                         width: 250.w,
@@ -555,6 +569,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                                     selected: widget.selected,
                                     bartered: widget.bartered,
                                     completed: widget.completed,
+                                    listUrl: widget.listUrl,
                                   );
                                 },
                               ),
@@ -619,6 +634,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                         selected: widget.selected,
                         bartered: widget.bartered,
                         completed: widget.completed,
+                        listUrl: widget.listUrl,
                       );
                     },
                   ),
@@ -640,7 +656,6 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
     String fid = await farmerDetails.getFarmerUserId();
     String fbarangay = await farmerDetails.getBaranggay();
     String fmunicipality = await farmerDetails.getMunicipalityFirstname();
-
     setState(() {
       farmerFname = fname;
       farmerLname = lname;
@@ -649,6 +664,17 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
       farmerBaranggay = fbarangay;
       farmerMunicipality = fmunicipality;
     });
+/*
+    if (_isMounted) {
+      setState(() {
+        farmerFname = fname;
+        farmerLname = lname;
+        farmerUname = uname;
+        farmerId = fid;
+        farmerBaranggay = fbarangay;
+        farmerMunicipality = fmunicipality;
+      });
+    }*/
   }
 
 /*Function that will compute the average value range */
@@ -680,6 +706,11 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
   /*Function that will get the consumer swap coins */
   Future<void> farmersSwapCoins() async {
     int farmSwapCoins = await farmerDetails.getSwapCoins();
+    /* if (_isMounted) {
+      setState(() {
+        farmerSwapCoins = farmSwapCoins.toDouble();
+      });
+    }*/
     setState(() {
       farmerSwapCoins = farmSwapCoins.toDouble();
     });
@@ -717,22 +748,29 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                           kay nana may napili an si farmer */
                     updateSelected.updateIsBarteredOutProperty();
 
+                    /*If the tranaction is completed then the barter listing will be archived*/
+                    archive.archiveBarterListing(farmerUname, widget.listUrl);
+
                     transaction.addBarterTransaction(
                       farmerFname,
                       farmerId,
                       farmerUname,
+                      farmerLname,
                       farmerBaranggay,
                       farmerMunicipality,
                       widget.consname,
                       widget.consid,
                       widget.consname,
+                      widget.conslname,
                       widget.consbarangay,
                       widget.consmunicipal,
+                      widget.listUrl,
                       widget.listId,
                       widget.listName,
                       double.tryParse(widget.listPrice),
                       widget.itemname,
                       double.tryParse(widget.itemVal),
+                      widget.imgurl,
                       averageValue,
                       deductSwapCoins,
                       deductSwapCoins,
@@ -764,6 +802,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                             selected: true,
                             bartered: true,
                             completed: widget.completed,
+                            listUrl: widget.listUrl,
                           );
                         },
                       ),
@@ -808,6 +847,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                             selected: true,
                             bartered: true,
                             completed: widget.completed,
+                            listUrl: widget.listUrl,
                           );
                         },
                       ),
@@ -870,6 +910,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                         selected: true,
                         bartered: true,
                         completed: widget.completed,
+                        listUrl: widget.listUrl,
                       );
                     },
                   ),

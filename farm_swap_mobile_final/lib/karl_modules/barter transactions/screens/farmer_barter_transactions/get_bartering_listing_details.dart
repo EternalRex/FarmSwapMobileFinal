@@ -88,12 +88,14 @@ class _GetBarteringListingDetailsState extends State<GetBarteringListingDetails>
           height: 100.h,
           child: GestureDetector(
             onTap: () {
+              /*Pasa nato ang needed na data sa next page nga Farmer list of bids */
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) {
                   return FarmerListOfBids(
                     farmerId: farmerId,
                     farmerUname: farmerUsername,
                     listingId: listingid,
+                    listingUrl: imageUrl,
                   );
                 },
               ));
@@ -151,12 +153,14 @@ class _GetBarteringListingDetailsState extends State<GetBarteringListingDetails>
                   padding: EdgeInsets.only(right: 15.sp),
                   child: IconButton(
                     onPressed: () {
+                      /*Pasa nato ang needed na data sa next page nga Farmer list of bids */
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           return FarmerListOfBids(
                             farmerId: farmerId,
                             farmerUname: farmerUsername,
                             listingId: listingid,
+                            listingUrl: imageUrl,
                           );
                         },
                       ));
