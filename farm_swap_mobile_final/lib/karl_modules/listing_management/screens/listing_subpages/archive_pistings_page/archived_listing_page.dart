@@ -19,7 +19,6 @@ class _ArchiveListingPageState extends State<ArchiveListingPage> {
   Color container2 = Colors.white;
   int containerSelector = 1;
   String listingType = "";
-
   String farmerUname = "";
 
 /*Instance of the class that gets the individual details of a farmer */

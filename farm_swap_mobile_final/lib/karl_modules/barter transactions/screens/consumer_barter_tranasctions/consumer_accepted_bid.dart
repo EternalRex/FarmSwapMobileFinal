@@ -1,20 +1,20 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/consumer_bid_listings.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/consumer_bid_navbar.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/get_consumer_bid.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/get_consumer_accepted_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ConsumerBidListings extends StatefulWidget {
-  const ConsumerBidListings({super.key});
+class ConsumerSelectedBid extends StatefulWidget {
+  const ConsumerSelectedBid({super.key});
 
   @override
-  State<ConsumerBidListings> createState() => _ConsumerBidListingsState();
+  State<ConsumerSelectedBid> createState() => _ConsumerSelectedBidState();
 }
 
-class _ConsumerBidListingsState extends State<ConsumerBidListings> {
+class _ConsumerSelectedBidState extends State<ConsumerSelectedBid> {
   /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,8 +31,17 @@ class _ConsumerBidListingsState extends State<ConsumerBidListings> {
         title: Row(
           children: [
             Text(
-              "My Bids",
+              "Selected Bids",
               style: TextStyle(fontSize: 25.sp),
+            ),
+            SizedBox(
+              width: 20.w,
+            ),
+            /*Shoppping cart button */
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(FontAwesomeIcons.cartShopping),
+              iconSize: 30.sp,
             ),
           ],
         ),
@@ -56,44 +65,26 @@ class _ConsumerBidListingsState extends State<ConsumerBidListings> {
           },
           icon: const Icon(Icons.menu),
         ),
-        actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
-          ),
-        ],
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: 600.h,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: const GetConsumerBids(),
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 750.h,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: const GetConsumerSelectedBid(),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Container(
         height: 55.h,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(15.0),
-            topRight: Radius.circular(15.0),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: shadow,
-              blurRadius: 10.0,
-              spreadRadius: 2.0,
-            ),
-          ],
           color: greenNormal,
           image: const DecorationImage(
             image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
@@ -105,7 +96,13 @@ class _ConsumerBidListingsState extends State<ConsumerBidListings> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return const ConsumerBidListings();
+              },
+            ),
+          );
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -114,7 +111,7 @@ class _ConsumerBidListingsState extends State<ConsumerBidListings> {
         backgroundColor: greenNormal,
         splashColor: greenLight,
         child: const Icon(
-          Icons.home_rounded,
+          Icons.arrow_back,
           color: Colors.white,
         ),
       ),

@@ -17,31 +17,22 @@ class GetConsumerBids extends StatefulWidget {
 }
 
 class _GetConsumerBidsState extends State<GetConsumerBids> {
-  final _firestore = FirebaseFirestore.instance;
-  final _uid = FirebaseAuth.instance.currentUser!.uid;
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore
+      stream: FirebaseFirestore.instance
           .collectionGroup('barterbids')
-          .where('consumerId', isEqualTo: _uid)
+          .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .orderBy('itemBidTime', descending: false)
           .snapshots(),
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          print(snapshot.error);
-        }
         if (snapshot.connectionState == ConnectionState.active) {
-          if (snapshot.hasData) {
-            return ListView(
-              scrollDirection: Axis.vertical,
-              children: snapshot.data!.docs
-                  .map<Widget>((document) => accessDocumentContents(document))
-                  .toList(),
-            );
-          }
-          return const Text("No Bidings One");
+          return ListView(
+            scrollDirection: Axis.vertical,
+            children: snapshot.data!.docs
+                .map<Widget>((document) => accessDocumentContents(document))
+                .toList(),
+          );
         } else {
           return const Text("No Bidings Two...");
         }
@@ -63,6 +54,8 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
     String itemDisc = data["itemDisc"];
     bool isBartered = data["isBarteredOut"];
     bool selected = data["selected"];
+    bool isCompleted = data["completed"];
+    bool isConsComplete = data["consumerCompleted"];
 
     /*Listing data*/
     String listingId = data["listingId"];
@@ -85,7 +78,8 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
     String finalbidTime = DateFormat('yyyy-MM-dd').format(newbidTime);
 
 /*Kani na condition is kung ang listing dli na active, or kundi na barter na, kay dli na siya mo display */
-    if (listingStatus == "ACTIVE" || listingStatus == "REACTIVATED" && isBartered == false) {
+    if ((listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") &&
+        (isBartered == false && selected == false)) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         /*The oval container*/
@@ -132,6 +126,8 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
                       farmerbarangay: farmerBarangay,
                       farmermunicipal: farmerMunisipyo,
                       selected: selected,
+                      completed: isCompleted,
+                      isConsCompleted: isConsComplete,
                     );
                   },
                 ),
@@ -236,6 +232,8 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
                               farmerbarangay: farmerBarangay,
                               farmermunicipal: farmerMunisipyo,
                               selected: selected,
+                              completed: isCompleted,
+                              isConsCompleted: isConsComplete,
                             );
                           },
                         ),
@@ -254,9 +252,7 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
         ),
       );
     } else {
-      return const Center(
-        child: Text("No Bids Available"),
-      );
+      return Container();
     }
   }
 }

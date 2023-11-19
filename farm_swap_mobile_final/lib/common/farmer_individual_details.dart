@@ -99,7 +99,7 @@ class ListinGetFarmerDetails {
     return snapshot["userName"];
   }
 
-  Future<int> getSwapCoins() async {
+  Future<double> getSwapCoins() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
     String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
     CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");

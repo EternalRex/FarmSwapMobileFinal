@@ -37,6 +37,7 @@ class _AllListingsListState extends State<AllListingsList> {
 
   @override
   Widget build(BuildContext context) {
+    print("Hi freak");
     return SingleChildScrollView(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -36,7 +36,7 @@ class AddNewConsumerUserDb {
     String profilePhoto = profileUrl;
     DateTime birthdate = bday;
     DateTime registrationDate = rday;
-    int swapCoins = 5000;
+    int swapCoins = 500;
     double balance = 0;
     int rating = 0;
 

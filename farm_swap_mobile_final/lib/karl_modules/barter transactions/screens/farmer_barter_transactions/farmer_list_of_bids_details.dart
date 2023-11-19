@@ -1,14 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/swap_coins_management/widgets/update_SwapCoins_Class.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/save_tobarter_database.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/update_barter_selectedproperty.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/update_swap_coins.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/functions/compute_deductible_swapcoins.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/farmer_list_of_bids.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/archive_update.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -87,7 +92,10 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
   ComputeDeductibleSwapCoins compute = ComputeDeductibleSwapCoins();
   UpdateSelectedBarterBid updateSelected = UpdateSelectedBarterBid();
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+  ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
   ArchiveUpdateListing archive = ArchiveUpdateListing();
+  UpdateConsumerFarmerSwapCoins consumerFarmerSwapCoins = UpdateConsumerFarmerSwapCoins();
+
   bool accepted = false;
   String farmerFname = "";
   String farmerLname = "";
@@ -99,12 +107,14 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
   double deductSwapCoins = 0;
   double farmerSwapCoins = 0;
   String percentValue = "";
+  double consSwapCoins = 0;
 
   @override
   void initState() {
     super.initState();
     getFarmerDetails();
     farmersSwapCoins();
+    getConsumersSwapCoins();
   }
 
   @override
@@ -253,7 +263,11 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                               computePercentage();
                               /*Check if the farmer has enough swap coins to do the trade*/
                               if (farmerSwapCoins > deductSwapCoins) {
-                                showConfirmationMessage();
+                                /*Atong gi total kung pila nalay mahabilin sa swap coins ni farmer og consumer
+                                tapos atong gi pasa ang value ngadto sa function na maoy mo update sa swapcoins value didto sa database */
+                                double newFCoins = farmerSwapCoins - deductSwapCoins;
+                                double newCCoins = consSwapCoins - deductSwapCoins;
+                                showConfirmationMessage(newFCoins, newCCoins);
                               } else {
                                 showNoSwapCoinsMessage();
                               }
@@ -536,44 +550,48 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            /*Ato e update ang completed field to true tapos ato e reload ang page*/
-                            updateSelected.updateIsBarteredCompletedProperty(
-                                widget.listId, widget.consid);
+                            if (widget.selected == false) {
+                              showInvalidMessage();
+                            } else {
+/*Ato e update ang completed field to true tapos ato e reload ang page*/
+                              updateSelected.updateIsBarteredCompletedProperty(
+                                  widget.listId, widget.consid);
 
-                            /*If the tranaction is completed then the barter listing will be archived*/
-                            archive.archiveBarterListing(farmerUname, widget.listUrl);
+                              /*If the tranaction is completed then the barter listing will be archived*/
+                              archive.archiveBarterListing(farmerUname, widget.listUrl);
 
-                            /*Reloading sa page */
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return FarmerListOfBidsDetils(
-                                    imgurl: widget.imgurl,
-                                    itemname: widget.itemname,
-                                    itemquan: widget.itemquan,
-                                    itemVal: widget.itemVal,
-                                    itemCond: widget.itemCond,
-                                    itemDisc: widget.itemDisc,
-                                    bidTime: widget.bidTime,
-                                    listId: widget.listId,
-                                    listName: widget.listName,
-                                    listStat: widget.listStat,
-                                    listPrice: widget.listPrice,
-                                    listQuan: widget.listQuan,
-                                    consname: widget.consname,
-                                    consid: widget.consid,
-                                    conslname: widget.conslname,
-                                    consuname: widget.consuname,
-                                    consbarangay: widget.consbarangay,
-                                    consmunicipal: widget.consmunicipal,
-                                    selected: widget.selected,
-                                    bartered: widget.bartered,
-                                    completed: widget.completed,
-                                    listUrl: widget.listUrl,
-                                  );
-                                },
-                              ),
-                            );
+                              /*Reloading sa page */
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return FarmerListOfBidsDetils(
+                                      imgurl: widget.imgurl,
+                                      itemname: widget.itemname,
+                                      itemquan: widget.itemquan,
+                                      itemVal: widget.itemVal,
+                                      itemCond: widget.itemCond,
+                                      itemDisc: widget.itemDisc,
+                                      bidTime: widget.bidTime,
+                                      listId: widget.listId,
+                                      listName: widget.listName,
+                                      listStat: widget.listStat,
+                                      listPrice: widget.listPrice,
+                                      listQuan: widget.listQuan,
+                                      consname: widget.consname,
+                                      consid: widget.consid,
+                                      conslname: widget.conslname,
+                                      consuname: widget.consuname,
+                                      consbarangay: widget.consbarangay,
+                                      consmunicipal: widget.consmunicipal,
+                                      selected: widget.selected,
+                                      bartered: widget.bartered,
+                                      completed: widget.completed,
+                                      listUrl: widget.listUrl,
+                                    );
+                                  },
+                                ),
+                              );
+                            }
                           },
                           child: poppinsText(
                               "Completed", farmSwapTitlegreen, 20.sp, FontWeight.normal),
@@ -582,7 +600,11 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                           width: 70.w,
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (widget.selected == false) {
+                              showInvalidMessage();
+                            }
+                          },
                           child: poppinsText("Dispute", Colors.red, 20.sp, FontWeight.normal),
                         ),
                       ],
@@ -628,7 +650,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
         return AlertDialog(
           title: poppinsText("Invalid Operation", Colors.red, 20.sp, FontWeight.normal),
           content: poppinsText(
-            "You can only message the consumer once you accept his/her bid",
+            "You can only perform this opeartion once you accept this bid",
             Colors.black,
             13.sp,
             FontWeight.normal,
@@ -732,19 +754,27 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
 
   /*Function that will get the consumer swap coins */
   Future<void> farmersSwapCoins() async {
-    int farmSwapCoins = await farmerDetails.getSwapCoins();
+    double farmSwapCoins = await farmerDetails.getSwapCoins();
     /* if (_isMounted) {
       setState(() {
         farmerSwapCoins = farmSwapCoins.toDouble();
       });
     }*/
     setState(() {
-      farmerSwapCoins = farmSwapCoins.toDouble();
+      farmerSwapCoins = farmSwapCoins;
+    });
+  }
+
+  /*Funcntion that will counpute the swap coins of consumer*/
+  Future<void> getConsumersSwapCoins() async {
+    double consumerSwapCoins = await consumerDetails.getSwapCoinsWithProvidedId(widget.consid);
+    setState(() {
+      consSwapCoins = consumerSwapCoins;
     });
   }
 
   /*Function that will show the confirmation message */
-  void showConfirmationMessage() {
+  void showConfirmationMessage(double newFarmerCoins, double newConsumerCoins) {
     showDialog(
       context: context,
       builder: (context) {
@@ -765,6 +795,12 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                     setState(() {
                       accepted = true;
                     });
+                    /*Function na mo hansak og swap coins lag ngadto sa farmer og consumer */
+
+                    /*Updates the consumer and farmer swap coins/ deducting the consumer and farmer swapcoins */
+                    updateSwapCoins(FirebaseAuth.instance.currentUser!.uid, newFarmerCoins,
+                        widget.consid, newConsumerCoins);
+
                     /*Ato e update ang selected na property to true sa bid na napilian */
                     updateSelected.updateBidSelectedStatus(
                       true,
@@ -970,5 +1006,12 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
         );
       },
     );
+  }
+
+  /*Function na mo deduct sa swap coins sa farmer og consumer*/
+  void updateSwapCoins(
+      String farmerId, double newFarmerSwapCoins, String consumerId, double newConsumerSwapCoins) {
+    consumerFarmerSwapCoins.updateFarmerSwapCoins(farmerId, newFarmerSwapCoins);
+    consumerFarmerSwapCoins.updateConsumerSwapCoins(consumerId, newConsumerSwapCoins);
   }
 }
