@@ -570,9 +570,9 @@ class _ArchiveSellListingDetailsState extends State<ArchiveSellListingDetails> {
 
   /*Function ni siya na mag pull out sa pila ang swap coins ni farmer */
   Future<void> getFarmerSwapCoins() async {
-    int coins = await farmerDetails.getSwapCoins();
+    double coins = await farmerDetails.getSwapCoins();
     setState(() {
-      swapCoins = coins.toDouble();
+      swapCoins = coins;
     });
   }
 

@@ -27,19 +27,12 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
-          if (snapshot.hasData) {
-            return ListView(
-              scrollDirection: Axis.vertical,
-              children: snapshot.data!.docs
-                  .map<Widget>((document) => accessDocumentContents(document))
-                  .toList(),
-            );
-          }
-          return const Text("No Bidings One");
-        }
-        if (snapshot.hasError) {
-          print(snapshot.error);
-          return Text(snapshot.error.toString());
+          return ListView(
+            scrollDirection: Axis.vertical,
+            children: snapshot.data!.docs
+                .map<Widget>((document) => accessDocumentContents(document))
+                .toList(),
+          );
         } else {
           return const Text("No Bidings Two...");
         }

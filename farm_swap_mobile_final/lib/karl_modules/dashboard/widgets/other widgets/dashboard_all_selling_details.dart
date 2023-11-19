@@ -2,6 +2,7 @@ import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/place_order_screens/buy_order_1.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,6 +29,7 @@ class DashBoardAllSellDetails extends StatefulWidget {
     required this.endTime,
     required this.listingQuan,
     required this.listingStatus,
+    required this.farmerId,
   });
 
   final String imageUrl;
@@ -45,10 +47,10 @@ class DashBoardAllSellDetails extends StatefulWidget {
   final String farmerUsername;
   final String startTime;
   final String endTime;
+  final String farmerId;
 
   @override
-  State<DashBoardAllSellDetails> createState() =>
-      _DashBoardAllSellDetailsState();
+  State<DashBoardAllSellDetails> createState() => _DashBoardAllSellDetailsState();
 }
 
 class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
@@ -78,8 +80,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -216,8 +217,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                   style: TextStyle(
                                     fontSize: 11.sp,
                                     color: Colors.black,
-                                    fontFamily:
-                                        GoogleFonts.poppins().fontFamily,
+                                    fontFamily: GoogleFonts.poppins().fontFamily,
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -290,7 +290,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                       width: 15.w,
                                     ),
                                     poppinsText(
-                                      "${widget.listingPrice} pesos equivalent price",
+                                      "${widget.listingPrice} pesos per kilo",
                                       Colors.black54,
                                       13.sp,
                                       FontWeight.normal,
@@ -330,7 +330,29 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                 height: 15.h,
                               ),
                               GestureDetector(
-                                  child: const FarmSwapGreenBtn(text: "Buy")),
+                                onTap: () {
+                                  /*Pasa nato ang mga needed na data sa pag place sa order */
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return ConsumerBuyPart1(
+                                          farmerName: widget.farmerName,
+                                          farmerId: widget.farmerId,
+                                          farmerLName: widget.farmerLname,
+                                          farmerUname: widget.farmerUsername,
+                                          farmerBarangay: widget.farmerBarangay,
+                                          farmerMunicipal: widget.farmerMunicipality,
+                                          listingName: widget.listingname,
+                                          listingUrl: widget.imageUrl,
+                                          listingPrice: widget.listingPrice,
+                                          listingQuan: widget.listingQuan,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: const FarmSwapGreenBtn(text: "Buy"),
+                              ),
                             ],
                           )
                         ],

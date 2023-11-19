@@ -12,10 +12,8 @@ class ListinGetConsumerDetails {
   GetSpecificUserDocumentId docId = GetSpecificUserDocumentId();
   Future<String> getConsumerUserId() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId =
-        await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     /*E return nato ang value sa doument */
@@ -24,10 +22,8 @@ class ListinGetConsumerDetails {
 
   Future<String> getConsumerFirstname() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId =
-        await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     /*E return nato ang value sa doument */
@@ -36,10 +32,8 @@ class ListinGetConsumerDetails {
 
   Future<String> getConsumerLastName() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId =
-        await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     /*E return nato ang value sa doument */
@@ -48,10 +42,8 @@ class ListinGetConsumerDetails {
 
   Future<String> getConsumerContactNum() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId =
-        await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     /*E return nato ang value sa doument */
@@ -60,10 +52,8 @@ class ListinGetConsumerDetails {
 
   Future<String> getConsumerUserRole() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId =
-        await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     /*E return nato ang value sa doument */
@@ -72,10 +62,8 @@ class ListinGetConsumerDetails {
 
   Future<String> getConsumerProfilePhoto() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId =
-        await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     /*E return nato ang value sa doument */
@@ -84,10 +72,8 @@ class ListinGetConsumerDetails {
 
 /*Municipality na value */
   Future<String> getMunicipalityFirstname() async {
-    String documentId =
-        await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     return snapshot["city_municipality"];
@@ -95,10 +81,8 @@ class ListinGetConsumerDetails {
 
 /*Barangay na Value */
   Future<String> getBaranggay() async {
-    String documentId =
-        await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     return snapshot["baranggay"];
@@ -106,19 +90,29 @@ class ListinGetConsumerDetails {
 
   Future<String> getUname() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId =
-        await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     /*E return nato ang value sa doument */
     return snapshot["userName"];
   }
 
-  Future<int> getSwapCoins() async {
+  Future<double> getSwapCoins() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
     String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    return snapshot["swapcoins"];
+  }
+
+/*Kuha gihapon ni siyag swap coins ang naka lahi lang is mag need ni siyag user id from the class diin ni gi call na method unlike sa babaw
+na largo ratag provide sa firebase Auth */
+
+  Future<double> getSwapCoinsWithProvidedId(String consId) async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getConsumerDocumentId(consId);
     CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
