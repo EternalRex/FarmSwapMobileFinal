@@ -9,23 +9,29 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class GetConsumerBids extends StatefulWidget {
-  const GetConsumerBids({super.key});
+class GetConsumerSelectedBid extends StatefulWidget {
+  const GetConsumerSelectedBid({super.key});
 
   @override
-  State<GetConsumerBids> createState() => _GetConsumerBidsState();
+  State<GetConsumerSelectedBid> createState() => _GetConsumerSelectedBidState();
 }
 
-class _GetConsumerBidsState extends State<GetConsumerBids> {
+class _GetConsumerSelectedBidState extends State<GetConsumerSelectedBid> {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
+    return StreamBuilder(
+      stream: firestore
           .collectionGroup('barterbids')
           .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-          .orderBy('itemBidTime', descending: false)
+          .orderBy('itemBidTime', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          // ignore: avoid_print
+          print(snapshot.error);
+        }
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             return ListView(
@@ -36,10 +42,6 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
             );
           }
           return const Text("No Bidings One");
-        }
-        if (snapshot.hasError) {
-          print(snapshot.error);
-          return Text(snapshot.error.toString());
         } else {
           return const Text("No Bidings Two...");
         }
@@ -84,9 +86,9 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
     DateTime newbidTime = bidtime.toDate();
     String finalbidTime = DateFormat('yyyy-MM-dd').format(newbidTime);
 
-/*Kani na condition is kung ang listing dli na active, or kundi na barter na, kay dli na siya mo display */
+/*Ang mo display diri kay kato rang mga listing na active, reactivated og katong mga gi select sa farmer*/
     if ((listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") &&
-        (isBartered == false && selected == false)) {
+        (selected == true && isBartered == true)) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         /*The oval container*/

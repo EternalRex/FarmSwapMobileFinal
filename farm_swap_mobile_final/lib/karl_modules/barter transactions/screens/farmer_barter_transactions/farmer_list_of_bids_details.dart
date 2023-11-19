@@ -537,44 +537,48 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            /*Ato e update ang completed field to true tapos ato e reload ang page*/
-                            updateSelected.updateIsBarteredCompletedProperty(
-                                widget.listId, widget.consid);
+                            if (widget.selected == false) {
+                              showInvalidMessage();
+                            } else {
+/*Ato e update ang completed field to true tapos ato e reload ang page*/
+                              updateSelected.updateIsBarteredCompletedProperty(
+                                  widget.listId, widget.consid);
 
-                            /*If the tranaction is completed then the barter listing will be archived*/
-                            archive.archiveBarterListing(farmerUname, widget.listUrl);
+                              /*If the tranaction is completed then the barter listing will be archived*/
+                              archive.archiveBarterListing(farmerUname, widget.listUrl);
 
-                            /*Reloading sa page */
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return FarmerListOfBidsDetils(
-                                    imgurl: widget.imgurl,
-                                    itemname: widget.itemname,
-                                    itemquan: widget.itemquan,
-                                    itemVal: widget.itemVal,
-                                    itemCond: widget.itemCond,
-                                    itemDisc: widget.itemDisc,
-                                    bidTime: widget.bidTime,
-                                    listId: widget.listId,
-                                    listName: widget.listName,
-                                    listStat: widget.listStat,
-                                    listPrice: widget.listPrice,
-                                    listQuan: widget.listQuan,
-                                    consname: widget.consname,
-                                    consid: widget.consid,
-                                    conslname: widget.conslname,
-                                    consuname: widget.consuname,
-                                    consbarangay: widget.consbarangay,
-                                    consmunicipal: widget.consmunicipal,
-                                    selected: widget.selected,
-                                    bartered: widget.bartered,
-                                    completed: widget.completed,
-                                    listUrl: widget.listUrl,
-                                  );
-                                },
-                              ),
-                            );
+                              /*Reloading sa page */
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return FarmerListOfBidsDetils(
+                                      imgurl: widget.imgurl,
+                                      itemname: widget.itemname,
+                                      itemquan: widget.itemquan,
+                                      itemVal: widget.itemVal,
+                                      itemCond: widget.itemCond,
+                                      itemDisc: widget.itemDisc,
+                                      bidTime: widget.bidTime,
+                                      listId: widget.listId,
+                                      listName: widget.listName,
+                                      listStat: widget.listStat,
+                                      listPrice: widget.listPrice,
+                                      listQuan: widget.listQuan,
+                                      consname: widget.consname,
+                                      consid: widget.consid,
+                                      conslname: widget.conslname,
+                                      consuname: widget.consuname,
+                                      consbarangay: widget.consbarangay,
+                                      consmunicipal: widget.consmunicipal,
+                                      selected: widget.selected,
+                                      bartered: widget.bartered,
+                                      completed: widget.completed,
+                                      listUrl: widget.listUrl,
+                                    );
+                                  },
+                                ),
+                              );
+                            }
                           },
                           child: poppinsText(
                               "Completed", farmSwapTitlegreen, 20.sp, FontWeight.normal),
@@ -583,7 +587,11 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                           width: 70.w,
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (widget.selected == false) {
+                              showInvalidMessage();
+                            }
+                          },
                           child: poppinsText("Dispute", Colors.red, 20.sp, FontWeight.normal),
                         ),
                       ],
@@ -629,7 +637,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
         return AlertDialog(
           title: poppinsText("Invalid Operation", Colors.red, 20.sp, FontWeight.normal),
           content: poppinsText(
-            "You can only message the consumer once you accept his/her bid",
+            "You can only perform this opeartion once you accept this bid",
             Colors.black,
             13.sp,
             FontWeight.normal,

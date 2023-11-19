@@ -63,4 +63,24 @@ farmer is ang iyang selected property is equal to true pd, while sa uban kay fal
       throw Exception("Indexing Problem");
     }
   }
+
+  /*Mao ni function na mo confirm na ang transaction kay completed na jud sa consumer side ni */
+  Future<void> updateConsumerIsCompeleted(String listingid, String customerid) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collectionGroup('barterbids')
+        .where('listingId', isEqualTo: listingid)
+        .where('consumerId', isEqualTo: customerid)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentReference docRef = querySnapshot.docs.first.reference;
+      try {
+        await docRef.update({'consumerCompleted': true});
+      } catch (e) {
+        print("Empty document para ma update ang selected property$e");
+      }
+    } else {
+      throw Exception("Indexing Problem");
+    }
+  }
 }

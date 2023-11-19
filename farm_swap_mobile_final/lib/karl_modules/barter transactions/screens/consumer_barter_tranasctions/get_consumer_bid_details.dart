@@ -2,9 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/update_barter_selectedproperty.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/consumer_accepted_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/consumer_farmer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -33,6 +36,8 @@ class GetConsumerBidDetails extends StatefulWidget {
     required this.farmerbarangay,
     required this.farmermunicipal,
     required this.selected,
+    required this.completed,
+    required this.isConsCompleted,
   });
 
   final String imgurl;
@@ -44,6 +49,8 @@ class GetConsumerBidDetails extends StatefulWidget {
   final String bidTime;
   final bool bartered;
   final bool selected;
+  final bool completed;
+  final bool isConsCompleted;
 
   final String listId;
   final String listName;
@@ -71,6 +78,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
+  UpdateSelectedBarterBid update = UpdateSelectedBarterBid();
   ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
   String consid = "";
   String consName = "";
@@ -105,8 +113,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -167,90 +174,124 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 50.h,
-                  width: 130.w,
-                  decoration: BoxDecoration(
-                    /*The color of the container will change to green when it is the bid that is selected by farmer */
-                    color:
-                        (widget.selected == true) ? Colors.green : Colors.red,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(30),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: shadow,
-                        blurRadius: 2,
-                        offset: const Offset(1, 5),
+            (widget.isConsCompleted == true)
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 50.h,
+                        width: 250.w,
+                        decoration: BoxDecoration(
+                          /*The color of the container will change to green when it is the bid that is selected by farmer */
+                          color: Colors.red,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: shadow,
+                              blurRadius: 2,
+                              offset: const Offset(1, 5),
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: poppinsText(
+                              "COMPLETED TRANSACTION",
+                              Colors.white,
+                              15.sp,
+                              FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 50.h,
+                        width: 130.w,
+                        decoration: BoxDecoration(
+                          /*The color of the container will change to green when it is the bid that is selected by farmer */
+                          color: (widget.selected == true) ? Colors.green : Colors.red,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: shadow,
+                              blurRadius: 2,
+                              offset: const Offset(1, 5),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: poppinsText(
+                            (widget.selected == true) ? "SELECTED" : "WAITING...",
+                            Colors.white,
+                            15.sp,
+                            FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 13.w,
+                      ),
+                      Container(
+                        height: 50.h,
+                        width: 130.w,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: shadow,
+                              blurRadius: 2,
+                              offset: const Offset(1, 5),
+                            ),
+                          ],
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            /*The text high will be change to navigator when the message functionality is functional */
+                            (widget.selected == true)
+                                ? Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) {
+                                      return ConsumerFarmerActualChat(
+                                        farmerId: widget.farmerid,
+                                        farmerName: widget.farmername,
+                                        farmerUname: widget.farmeruname,
+                                        farmerBarangay: widget.farmerbarangay,
+                                        farmerMunicipality: widget.farmermunicipal,
+                                        consumerId: consid,
+                                        consumerFname: consName,
+                                        consumerLname: consLname,
+                                        consumerUname: consUname,
+                                        consumerBarangay: consBarangay,
+                                        consumerMunicipality: constMunispyo,
+                                        listingId: widget.listId,
+                                        listingName: widget.listName,
+                                      );
+                                    }),
+                                  )
+                                : showInvaidMessage();
+                          },
+                          child: poppinsText(
+                            "MESSAGE",
+                            Colors.white,
+                            15.sp,
+                            FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                  child: Center(
-                    child: poppinsText(
-                      (widget.selected == true) ? "SELECTED" : "WAITING...",
-                      Colors.white,
-                      15.sp,
-                      FontWeight.w500,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 13.w,
-                ),
-                Container(
-                  height: 50.h,
-                  width: 130.w,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(30),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: shadow,
-                        blurRadius: 2,
-                        offset: const Offset(1, 5),
-                      ),
-                    ],
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      /*The text high will be change to navigator when the message functionality is functional */
-                      (widget.selected == true)
-                          ? Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return ConsumerFarmerActualChat(
-                                  farmerId: widget.farmerid,
-                                  farmerName: widget.farmername,
-                                  farmerUname: widget.farmeruname,
-                                  farmerBarangay: widget.farmerbarangay,
-                                  farmerMunicipality: widget.farmermunicipal,
-                                  consumerId: consid,
-                                  consumerFname: consName,
-                                  consumerLname: consLname,
-                                  consumerUname: consUname,
-                                  consumerBarangay: consBarangay,
-                                  consumerMunicipality: constMunispyo,
-                                  listingId: widget.listId,
-                                  listingName: widget.listName,
-                                );
-                              }),
-                            )
-                          : showInvaidMessage();
-                    },
-                    child: poppinsText(
-                      "MESSAGE",
-                      Colors.white,
-                      15.sp,
-                      FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
             SizedBox(
               height: 15.h,
             ),
@@ -494,6 +535,59 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                 ],
               ),
             ),
+            (widget.isConsCompleted == true)
+                /*If completed the ang transaction so wala nay completed og disupute na button meaning
+            dli na maka dispute si farmer kung iya na e mark as complete ang transaction */
+                ? Container()
+                /*Kung dli pa marked as completed ang transaction so naay button na choices na pwde e label as completed or e dispute lang ang transaction */
+                : Padding(
+                    padding: EdgeInsets.only(right: 10.sp, left: 10.sp, bottom: 10.sp),
+                    child: Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            /*Condition ni na if dli pa gani selected ang status sa listing, dli maka gamit sa completed og dispute
+                            functionality si consumer */
+                            if (widget.selected == false) {
+                              showInvaidMessage();
+                            } else {
+                              /*E update nato ang field na consuemerCompleted to true */
+                              update.updateConsumerIsCompeleted(
+                                  widget.listId, FirebaseAuth.instance.currentUser!.uid);
+                              /*Re routign to this page to show the updated value effect*/
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const ConsumerSelectedBid();
+                                },
+                              );
+                            }
+                          },
+                          child: poppinsText(
+                              "Completed", farmSwapTitlegreen, 20.sp, FontWeight.normal),
+                        ),
+                        SizedBox(
+                          width: 70.w,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            /*Condition ni na if dli pa gani selected ang status sa listing, dli maka gamit sa completed og dispute
+                            functionality si consumer */
+                            if (widget.selected == false) {
+                              showInvaidMessage();
+                            } else {
+                              /*Re routign to this page to show the updated value effect*/
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const ConsumerSelectedBid();
+                                },
+                              );
+                            }
+                          },
+                          child: poppinsText("Dispute", Colors.red, 20.sp, FontWeight.normal),
+                        ),
+                      ],
+                    ),
+                  ),
           ],
         ),
       ),
@@ -521,10 +615,9 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText(
-              "Invalid Operation", Colors.red, 20.sp, FontWeight.w500),
+          title: poppinsText("Invalid Operation", Colors.red, 20.sp, FontWeight.w500),
           content: poppinsText(
-            "You can only message the farmer when your bid status is SELECTED, as of now it is WAITING...",
+            "You can only perform this operation  when your bid status is SELECTED by the FARMER, as of now it is WAITING...",
             Colors.black,
             13.sp,
             FontWeight.normal,
@@ -532,8 +625,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context)
-                    .pushNamed(RouteManager.consumerbidListings);
+                Navigator.of(context).pushNamed(RouteManager.consumerbidListings);
               },
               child: Text(
                 "Back",
