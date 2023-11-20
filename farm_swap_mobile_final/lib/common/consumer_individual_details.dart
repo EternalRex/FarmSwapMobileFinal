@@ -116,7 +116,8 @@ na largo ratag provide sa firebase Auth */
     CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
-    return snapshot["swapcoins"];
+    double coins = (snapshot["swapcoins"] as num).toDouble();
+    return coins;
   }
 
   //So pun e lang ni og method diri kung aduna pamoy ganahan na value na e pullout sa propert ni farmer
