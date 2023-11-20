@@ -51,12 +51,10 @@ class ArchivedBarterListingDetails extends StatefulWidget {
   final String fbarangay;
 
   @override
-  State<ArchivedBarterListingDetails> createState() =>
-      _ArchivedBarterListingDetailsState();
+  State<ArchivedBarterListingDetails> createState() => _ArchivedBarterListingDetailsState();
 }
 
-class _ArchivedBarterListingDetailsState
-    extends State<ArchivedBarterListingDetails> {
+class _ArchivedBarterListingDetailsState extends State<ArchivedBarterListingDetails> {
 /*Instance of the other classes used in this class */
   final ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
   RenewUpdateListing renew = RenewUpdateListing();
@@ -92,8 +90,7 @@ class _ArchivedBarterListingDetailsState
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -404,9 +401,7 @@ class _ArchivedBarterListingDetailsState
                                         width: 13.sp,
                                       ),
                                       poppinsText(
-                                        (widget.promoted == false)
-                                            ? "Not Promoted"
-                                            : "Promoted",
+                                        (widget.promoted == false) ? "Not Promoted" : "Promoted",
                                         Colors.black,
                                         15.sp,
                                         FontWeight.normal,
@@ -498,8 +493,8 @@ class _ArchivedBarterListingDetailsState
                                     Icons.question_mark,
                                     color: Colors.white,
                                   ),
-                                  poppinsText("Renew Listing", Colors.white,
-                                      15.sp, FontWeight.w500),
+                                  poppinsText(
+                                      "Renew Listing", Colors.white, 15.sp, FontWeight.w500),
                                 ],
                               )),
                         ),
@@ -610,9 +605,9 @@ class _ArchivedBarterListingDetailsState
 
   /*Function ni siya na mag pull out sa pila ang swap coins ni farmer */
   Future<void> getFarmerSwapCoins() async {
-    int coins = await farmerDetails.getSwapCoins();
+    double coins = await farmerDetails.getSwapCoins();
     setState(() {
-      swapCoins = coins.toDouble();
+      swapCoins = coins;
     });
   }
 
@@ -645,8 +640,7 @@ class _ArchivedBarterListingDetailsState
                   //adto nya tani e redirect sa swap coins page
                   Navigator.of(context).pushNamed(RouteManager.listingmainpage);
                 },
-                child: poppinsText(
-                    "Ok", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+                child: poppinsText("Ok", farmSwapTitlegreen, 20.sp, FontWeight.w500),
               ),
             ),
           ],
@@ -703,8 +697,7 @@ class _ArchivedBarterListingDetailsState
                 onPressed: () {
                   selectFinalDateBox2();
                 },
-                child: poppinsText(
-                    "See Date", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+                child: poppinsText("See Date", farmSwapTitlegreen, 20.sp, FontWeight.w500),
               ),
             ),
           ],
@@ -729,8 +722,7 @@ class _ArchivedBarterListingDetailsState
             mainAxisSize: MainAxisSize.min,
             children: [
               Center(
-                child: poppinsText(
-                    endListingDateString, Colors.black, 15.sp, FontWeight.w200),
+                child: poppinsText(endListingDateString, Colors.black, 15.sp, FontWeight.w200),
               ),
             ],
           ),
@@ -741,8 +733,7 @@ class _ArchivedBarterListingDetailsState
                   updatePromotion();
                   Navigator.of(context).pushNamed(RouteManager.listingmainpage);
                 },
-                child: poppinsText(
-                    "Finish", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+                child: poppinsText("Finish", farmSwapTitlegreen, 20.sp, FontWeight.w500),
               ),
             ),
           ],

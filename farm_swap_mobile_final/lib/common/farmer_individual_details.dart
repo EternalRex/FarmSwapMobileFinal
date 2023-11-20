@@ -99,13 +99,14 @@ class ListinGetFarmerDetails {
     return snapshot["userName"];
   }
 
-  Future<int> getSwapCoins() async {
+  Future<double> getSwapCoins() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
     String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
     CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
-    return snapshot["swapcoins"];
+    double coins = (snapshot["swapcoins"] as num).toDouble();
+    return coins;
   }
 
   //So pun e lang ni og method diri kung aduna pamoy ganahan na value na e pullout sa propert ni farmer

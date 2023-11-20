@@ -92,7 +92,8 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     DateTime newbidTime = bidtime.toDate();
     String finalbidTime = DateFormat('yyyy-MM-dd').format(newbidTime);
 
-    if ((listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") && isBartered == false) {
+    if ((listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") &&
+        (isBartered == false && isSelected == false)) {
       print(isBartered.toString());
       return Padding(
         padding: const EdgeInsets.all(8.0),

@@ -822,9 +822,9 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
   /*Function ni siya na mag pull out sa pila ang swap coins ni farmer */
   Future<void> getFarmerSwapCoins() async {
     print("Hi");
-    int coins = await farmerDetails.getSwapCoins();
+    double coins = await farmerDetails.getSwapCoins();
     setState(() {
-      swapCoins = coins.toDouble();
+      swapCoins = coins;
     });
   }
 
