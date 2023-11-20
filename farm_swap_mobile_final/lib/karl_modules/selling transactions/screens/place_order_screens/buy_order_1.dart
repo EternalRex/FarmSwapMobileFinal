@@ -222,6 +222,13 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                     SizedBox(
                       width: 20.w,
                     ),
+                    TextButton(
+                      onPressed: () {},
+                      child: poppinsText("Buy", farmSwapTitlegreen, 26.sp, FontWeight.bold),
+                    ),
+                    SizedBox(
+                      width: 20.w,
+                    ),
                     /*For decrementing the number of kilograms*/
                     CircleAvatar(
                       backgroundColor: Colors.red,
@@ -252,10 +259,6 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
           ),
           SizedBox(
             height: 30.h,
-          ),
-          TextButton(
-            onPressed: () {},
-            child: poppinsText("Buy", farmSwapTitlegreen, 26.sp, FontWeight.bold),
           ),
         ],
       ),
