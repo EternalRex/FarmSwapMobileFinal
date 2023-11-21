@@ -80,6 +80,7 @@ class _DashBoardGetAllSellListingsState extends State<DashBoardGetAllSellListing
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
     String farmerId = data["farmerId"];
+    String listingId = document.id;
 
     if (listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") {
 /*Actual design of widget to be returned */
@@ -107,6 +108,7 @@ class _DashBoardGetAllSellListingsState extends State<DashBoardGetAllSellListing
                     listingQuan: listingQuan,
                     listingStatus: listingStatus,
                     farmerId: farmerId,
+                    listingId: listingId,
                   );
                 },
               ),

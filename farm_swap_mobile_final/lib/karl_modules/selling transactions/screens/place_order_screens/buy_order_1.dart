@@ -1,8 +1,10 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/common/green_btn.dart';
+import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/save_order.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/consumer_wallet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,6 +23,9 @@ class ConsumerBuyPart1 extends StatefulWidget {
     required this.listingName,
     required this.listingPrice,
     required this.listingQuan,
+    required this.listingId,
+    required this.listingStatus,
+    required this.imageUrl,
   });
   /*Mga properties na needed para sa place order */
   final String farmerName;
@@ -33,6 +38,9 @@ class ConsumerBuyPart1 extends StatefulWidget {
   final String listingName;
   final String listingPrice;
   final String listingQuan;
+  final String listingId;
+  final String listingStatus;
+  final String imageUrl;
 
   @override
   State<ConsumerBuyPart1> createState() => _ConsumerBuyPart1State();
@@ -46,17 +54,28 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
+  SaveCustomerBuyOrder buy = SaveCustomerBuyOrder();
+  ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
+
 /*Variables na mo hold sa information ni consumer*/
   String consName = "";
   String consLName = "";
   String consUname = "";
   String consId = FirebaseAuth.instance.currentUser!.uid;
   String consBarangay = "";
+  String consMunicipality = "";
+  double consWallet = 0;
 
   String kilogramString = "Kilograms";
-  double kilogramdDouble = 0;
+  double kilogramdDouble = 1;
   String totalString = "Total Price";
-  double totalDouble = 0;
+  double totalDouble = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    getConsumerData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +152,7 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
           ),
           Container(
             width: 300.w,
-            height: 250.h,
+            height: 280.h,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: const BorderRadius.all(
@@ -223,7 +242,40 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                       width: 20.w,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        /*A condition that checks if the consumer has enough wallet balance to pay the price once the
+                        farmer confirms the buy */
+                        if (consWallet >= totalDouble) {
+                          /*Actual saving of data */
+                          buy.saveBuyOrder(
+                            consName,
+                            consLName,
+                            consUname,
+                            consId,
+                            consBarangay,
+                            consMunicipality,
+                            widget.farmerName,
+                            widget.farmerLName,
+                            widget.farmerUname,
+                            widget.farmerId,
+                            widget.farmerBarangay,
+                            widget.farmerMunicipal,
+                            widget.listingName,
+                            widget.listingId,
+                            widget.listingPrice,
+                            widget.listingQuan,
+                            kilogramdDouble,
+                            totalDouble,
+                            DateTime.now(),
+                            false,
+                            widget.listingStatus,
+                            widget.imageUrl,
+                          );
+                          showSuccessMessage();
+                        } else {
+                          showNotWalletBalanceMessage();
+                        }
+                      },
                       child: poppinsText("Buy", farmSwapTitlegreen, 26.sp, FontWeight.bold),
                     ),
                     SizedBox(
@@ -283,7 +335,7 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
             ),
           ],
         ),
-        child: const DashboardButtomNavBar(),
+        child: const ConsumerBuyingNavBar(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -325,6 +377,61 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
           title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.bold),
           content: poppinsText(
               "You have reached the minimum kilogram", Colors.black, 15.sp, FontWeight.normal),
+        );
+      },
+    );
+  }
+
+  /*A function that will show a message that the order has been successfully placed and awaiting for farmer confirmation*/
+  void showSuccessMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Success!", Colors.blue, 20.sp, FontWeight.bold),
+          content: poppinsText(
+            "You have successfully placed an order, Wallet balance deduction will happen after farmer confirmation",
+            Colors.black,
+            15.sp,
+            FontWeight.normal,
+          ),
+        );
+      },
+    );
+  }
+
+  /*Function that will get  the needed consumer data*/
+  Future<void> getConsumerData() async {
+    String consumserName = await consumerDetails.getConsumerFirstname();
+    String consumerLname = await consumerDetails.getConsumerLastName();
+    String consumerUname = await consumerDetails.getUname();
+    String consumerBarangay = await consumerDetails.getBaranggay();
+    String consumerMunisipyo = await consumerDetails.getMunicipalityFirstname();
+    double consumerWalletBalance = await consumerDetails.getWalletBalance();
+
+    setState(() {
+      consName = consumserName;
+      consLName = consumerLname;
+      consUname = consumerUname;
+      consBarangay = consumerBarangay;
+      consMunicipality = consumerMunisipyo;
+      consWallet = consumerWalletBalance;
+    });
+  }
+
+  /*Function to show that consumer has not enough balance */
+  /*A function that will show a message if the amount of kilograms being purchased is less than 1 kilogram*/
+  void showNotWalletBalanceMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.bold),
+          content: poppinsText(
+              "You do not have enough wallet balance to continue the transaction, Please Cash in",
+              Colors.black,
+              15.sp,
+              FontWeight.normal),
         );
       },
     );

@@ -70,6 +70,16 @@ class ListinGetConsumerDetails {
     return snapshot["profilePhoto"];
   }
 
+  Future<String> getConsumerProfilePhotoWithParameter(String id) async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getConsumerDocumentId(id);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    /*E return nato ang value sa doument */
+    return snapshot["profilePhoto"];
+  }
+
 /*Municipality na value */
   Future<String> getMunicipalityFirstname() async {
     String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
@@ -118,6 +128,28 @@ na largo ratag provide sa firebase Auth */
 
     double coins = (snapshot["swapcoins"] as num).toDouble();
     return coins;
+  }
+
+/*Method to pull out the wallet balance */
+  Future<double> getWalletBalance() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    double walletBalance = (snapshot["balance"] as num).toDouble();
+    return walletBalance;
+  }
+
+/*Method to pull out the wallet balance with parameter*/
+  Future<double> getWalletBalanceWithParameter(String id) async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getConsumerDocumentId(id);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    double walletBalance = (snapshot["balance"] as num).toDouble();
+    return walletBalance;
   }
 
   //So pun e lang ni og method diri kung aduna pamoy ganahan na value na e pullout sa propert ni farmer
