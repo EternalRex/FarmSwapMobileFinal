@@ -13,10 +13,12 @@ class UserPersonalDetailsRegistration5 extends StatefulWidget {
   const UserPersonalDetailsRegistration5({super.key});
 
   @override
-  State<UserPersonalDetailsRegistration5> createState() => _UserPersonalDetailsRegistration5State();
+  State<UserPersonalDetailsRegistration5> createState() =>
+      _UserPersonalDetailsRegistration5State();
 }
 
-class _UserPersonalDetailsRegistration5State extends State<UserPersonalDetailsRegistration5>
+class _UserPersonalDetailsRegistration5State
+    extends State<UserPersonalDetailsRegistration5>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -34,7 +36,8 @@ class _UserPersonalDetailsRegistration5State extends State<UserPersonalDetailsRe
 
   @override
   Widget build(BuildContext context) {
-    String userRole = Provider.of<UserTypeProvider>(context, listen: false).getUserType;
+    String userRole =
+        Provider.of<UserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -49,62 +52,57 @@ class _UserPersonalDetailsRegistration5State extends State<UserPersonalDetailsRe
               ),
             ),
             (userRole == "Farmer")
-                ? Positioned(
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(13),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset("assets/karl_assets/images/farmer.png"),
-                              /*Header text */
-                              poppinsText(
-                                "Farmer Registration",
-                                farmSwapTitlegreen,
-                                20,
-                                FontWeight.w500,
-                              ),
-                              SizedBox(
-                                height: 20.sp,
-                              ),
-                              /*Displaying the uploaded Document*/
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: farmSwapSmoothGreen,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: shadow,
-                                        blurRadius: 2,
-                                        offset: const Offset(1, 5),
-                                      )
-                                    ]),
-                                height: 500.sp,
-                                width: 250.sp,
-                                /*Pull outing the link or url of the image we uploaded from our provider
+                ? SizedBox(
+                    width: 800,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Spacer(),
+                        Image.asset("assets/karl_assets/images/farmer.png"),
+                        /*Header text */
+                        poppinsText(
+                          "Farmer Registration",
+                          farmSwapTitlegreen,
+                          20,
+                          FontWeight.w500,
+                        ),
+                        SizedBox(
+                          height: 20.sp,
+                        ),
+                        /*Displaying the uploaded Document*/
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: farmSwapSmoothGreen,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: shadow,
+                                  blurRadius: 2,
+                                  offset: const Offset(1, 5),
+                                )
+                              ]),
+                          height: 500.sp,
+                          width: 250.sp,
+                          /*Pull outing the link or url of the image we uploaded from our provider
                             because the provider carries that link */
-                                child: Consumer<UserDetailsProvider>(
-                                  builder: (context, value, child) {
-                                    return Image.network(value.getDocUrl);
-                                  },
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20.sp,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(RouteManager.userDetailsRegister6);
-                                },
-                                child: const FarmSwapGreenBtn(text: "Next"),
-                              ),
-                            ],
+                          child: Consumer<UserDetailsProvider>(
+                            builder: (context, value, child) {
+                              return Image.network(value.getDocUrl);
+                            },
                           ),
                         ),
-                      ),
+                        SizedBox(
+                          height: 20.sp,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(RouteManager.userDetailsRegister6);
+                          },
+                          child: const FarmSwapGreenBtn(text: "Next"),
+                        ),
+                      ],
                     ),
                   )
                 : const Positioned(

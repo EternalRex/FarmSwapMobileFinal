@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
@@ -11,6 +9,7 @@ import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class UserPersonalDetailsRegistration8 extends StatefulWidget {
@@ -197,24 +196,39 @@ class _UserPersonalDetailsRegistration8State
                           ),
                           GestureDetector(
                             onTap: () {
-                              farmerUser.insertFarmerData(
-                                fname,
-                                lname,
-                                birthplaces,
-                                contactNum,
-                                municipalitys,
-                                baranggays,
-                                userNames,
-                                docUrls,
-                                idUrls,
-                                profilePhoto,
-                                registerdate,
-                                registerdate2,
-                                walletbalance,
-                                userrating,
-                              );
-                              Navigator.of(context).pushNamed(
-                                  RouteManager.userDetailsRegisterEnd);
+                              // Check if both dates are selected
+                              if (registerdate != null &&
+                                  registerdate2 != null) {
+                                // Proceed with the logic when both dates are selected
+                                farmerUser.insertFarmerData(
+                                  fname,
+                                  lname,
+                                  birthplaces,
+                                  contactNum,
+                                  municipalitys,
+                                  baranggays,
+                                  userNames,
+                                  docUrls,
+                                  idUrls,
+                                  profilePhoto,
+                                  registerdate!,
+                                  registerdate2!,
+                                  walletbalance,
+                                  userrating,
+                                );
+
+                                Navigator.of(context).pushNamed(
+                                    RouteManager.userDetailsRegisterEnd);
+                              } else {
+                                // Show an error message Snackbar
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        'Please select both birth and registration dates.'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
                             },
                             child: const FarmSwapGreenBtn(text: "Next"),
                           ),
@@ -339,23 +353,38 @@ class _UserPersonalDetailsRegistration8State
                           ),
                           GestureDetector(
                             onTap: () {
-                              consumerUser.insertConsumerData(
-                                fname,
-                                lname,
-                                birthplaces,
-                                contactNum,
-                                municipalitys,
-                                baranggays,
-                                userNames,
-                                idUrls,
-                                profilePhoto,
-                                registerdate,
-                                registerdate2,
-                                walletbalance,
-                                userrating,
-                              );
-                              Navigator.of(context).pushNamed(
-                                  RouteManager.userDetailsRegisterEnd);
+                              // Check if both dates are selected
+                              if (registerdate != null &&
+                                  registerdate2 != null) {
+                                // Proceed with the logic when both dates are selected
+                                consumerUser.insertConsumerData(
+                                  fname,
+                                  lname,
+                                  birthplaces,
+                                  contactNum,
+                                  municipalitys,
+                                  baranggays,
+                                  userNames,
+                                  idUrls,
+                                  profilePhoto,
+                                  registerdate!,
+                                  registerdate2!,
+                                  walletbalance,
+                                  userrating,
+                                );
+
+                                Navigator.of(context).pushNamed(
+                                    RouteManager.userDetailsRegisterEnd);
+                              } else {
+                                // Show an error message Snackbar
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        'Please select both birth and registration dates.'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
                             },
                             child: const FarmSwapGreenBtn(text: "Next"),
                           ),
@@ -369,38 +398,70 @@ class _UserPersonalDetailsRegistration8State
     );
   }
 
-  DateTime registerdate = DateTime.now();
-  DateTime registerdate2 = DateTime.now();
-
-  /*Functions for birthdate */
+  DateTime? registerdate; // Use DateTime? to allow null values
+  DateTime? registerdate2; // Use DateTime? to allow null values
   Future<void> _selectDate() async {
+    DateTime initialDate = registerdate ?? DateTime.now();
+
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: registerdate,
+      initialDate: initialDate,
       firstDate: DateTime(1900),
       lastDate: DateTime(2050),
     );
 
     if (pickedDate != null && pickedDate != registerdate) {
       setState(() {
-        birthdates = pickedDate.toString();
+        // Format the pickedDate to display only the date
+        birthdates = DateFormat('MMMM dd, yyyy').format(pickedDate);
         registerdate = pickedDate;
       });
+
+      // Check if the selected date is not in the legal age (less than 18 years old)
+      if (!isLegalAge(pickedDate)) {
+        // Show a Snackbar
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('You must be at least 18 years old.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
+  }
+
+  bool isLegalAge(DateTime date) {
+    // Calculate age based on the selected birthdate
+    DateTime currentDate = DateTime.now();
+    int age = currentDate.year - date.year;
+
+    // Check if the birthday has occurred this year
+    if (currentDate.month < date.month ||
+        (currentDate.month == date.month && currentDate.day < date.day)) {
+      age--;
+    }
+
+    // Check if the calculated age is 18 or older
+    return age >= 18;
   }
 
 /*For selecting registration date */
   Future<void> _selectDate2() async {
+    DateTime initialDate = registerdate2 ?? DateTime.now();
+    String formattedDate =
+        DateFormat('MMMM dd, yyyy hh:mm a').format(initialDate);
+
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: registerdate,
+      initialDate:
+          initialDate, // Set the initial date to the current date or registerdate2 if not null
       firstDate: DateTime(1900),
       lastDate: DateTime(2050),
     );
 
-    if (pickedDate != null && pickedDate != registerdate) {
+    if (pickedDate != null && pickedDate != registerdate2) {
       setState(() {
-        registrationdates = pickedDate.toString();
+        registrationdates = formattedDate;
         registerdate2 = pickedDate;
       });
     }

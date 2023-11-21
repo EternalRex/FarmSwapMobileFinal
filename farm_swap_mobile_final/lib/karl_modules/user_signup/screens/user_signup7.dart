@@ -14,17 +14,20 @@ class UserPersonalDetailsRegistration6 extends StatefulWidget {
   const UserPersonalDetailsRegistration6({super.key});
 
   @override
-  State<UserPersonalDetailsRegistration6> createState() => _UserPersonalDetailsRegistration6State();
+  State<UserPersonalDetailsRegistration6> createState() =>
+      _UserPersonalDetailsRegistration6State();
 }
 
-class _UserPersonalDetailsRegistration6State extends State<UserPersonalDetailsRegistration6> {
+class _UserPersonalDetailsRegistration6State
+    extends State<UserPersonalDetailsRegistration6> {
   /*Initializing the upload picture class */
   final UploadImageFunctions _uploadImage = UploadImageFunctions();
   String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
-    String userRole = Provider.of<UserTypeProvider>(context, listen: false).getUserType;
+    String userRole =
+        Provider.of<UserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -39,12 +42,18 @@ class _UserPersonalDetailsRegistration6State extends State<UserPersonalDetailsRe
               ),
             ),
             (userRole == "Farmer")
-                ? Positioned(
-                    child: Center(
+                ? SizedBox(
+                    width: 800,
+                    child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset("assets/karl_assets/images/farmer.png"),
+                          SizedBox(
+                            height: 100.sp,
+                          ),
+                          Image.asset(
+                            "assets/karl_assets/images/farmer.png",
+                          ),
                           /*Header text */
                           poppinsText(
                             "Farmer Registration",
@@ -67,17 +76,21 @@ class _UserPersonalDetailsRegistration6State extends State<UserPersonalDetailsRe
                           /*This is for picking image in the gallery */
                           GestureDetector(
                             onTap: () async {
-                              imageUrl = await _uploadImage.uploadImageToFirebaseGallery();
+                              imageUrl = await _uploadImage
+                                  .uploadImageToFirebaseGallery();
                               // ignore: use_build_context_synchronously
-                              Provider.of<UserDetailsProvider>(context, listen: false)
+                              Provider.of<UserDetailsProvider>(context,
+                                      listen: false)
                                   .setIdPicture(imageUrl.toString());
                               // ignore: use_build_context_synchronously
-                              Navigator.of(context).pushNamed(RouteManager.userDetailsRegister7);
+                              Navigator.of(context)
+                                  .pushNamed(RouteManager.userDetailsRegister7);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
                               width: 200.sp,
-                              imagePath: "assets/karl_assets/images/Gallery.svg",
+                              imagePath:
+                                  "assets/karl_assets/images/Gallery.svg",
                               title: "From Gallery",
                             ),
                           ),
@@ -87,12 +100,15 @@ class _UserPersonalDetailsRegistration6State extends State<UserPersonalDetailsRe
                           /*This is for picking image in the camera */
                           GestureDetector(
                             onTap: () async {
-                              imageUrl = await _uploadImage.uploadImageToFirebaseCamera();
+                              imageUrl = await _uploadImage
+                                  .uploadImageToFirebaseCamera();
                               // ignore: use_build_context_synchronously
-                              Provider.of<UserDetailsProvider>(context, listen: false)
+                              Provider.of<UserDetailsProvider>(context,
+                                      listen: false)
                                   .setIdPicture(imageUrl.toString());
                               // ignore: use_build_context_synchronously
-                              Navigator.of(context).pushNamed(RouteManager.userDetailsRegister7);
+                              Navigator.of(context)
+                                  .pushNamed(RouteManager.userDetailsRegister7);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
@@ -105,8 +121,9 @@ class _UserPersonalDetailsRegistration6State extends State<UserPersonalDetailsRe
                       ),
                     ),
                   )
-                : Positioned(
-                    child: Center(
+                : SizedBox(
+                    width: 800,
+                    child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -133,17 +150,21 @@ class _UserPersonalDetailsRegistration6State extends State<UserPersonalDetailsRe
                           /*This is for picking image in the gallery */
                           GestureDetector(
                             onTap: () async {
-                              imageUrl = await _uploadImage.uploadImageToFirebaseGallery();
+                              imageUrl = await _uploadImage
+                                  .uploadImageToFirebaseGallery();
                               // ignore: use_build_context_synchronously
-                              Provider.of<UserDetailsProvider>(context, listen: false)
+                              Provider.of<UserDetailsProvider>(context,
+                                      listen: false)
                                   .setIdPicture(imageUrl.toString());
                               // ignore: use_build_context_synchronously
-                              Navigator.of(context).pushNamed(RouteManager.userDetailsRegister7);
+                              Navigator.of(context)
+                                  .pushNamed(RouteManager.userDetailsRegister7);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
                               width: 200.sp,
-                              imagePath: "assets/karl_assets/images/Gallery.svg",
+                              imagePath:
+                                  "assets/karl_assets/images/Gallery.svg",
                               title: "From Gallery",
                             ),
                           ),
@@ -153,12 +174,15 @@ class _UserPersonalDetailsRegistration6State extends State<UserPersonalDetailsRe
                           /*This is for picking image in the camera */
                           GestureDetector(
                             onTap: () async {
-                              imageUrl = await _uploadImage.uploadImageToFirebaseCamera();
+                              imageUrl = await _uploadImage
+                                  .uploadImageToFirebaseCamera();
                               // ignore: use_build_context_synchronously
-                              Provider.of<UserDetailsProvider>(context, listen: false)
+                              Provider.of<UserDetailsProvider>(context,
+                                      listen: false)
                                   .setIdPicture(imageUrl.toString());
                               // ignore: use_build_context_synchronously
-                              Navigator.of(context).pushNamed(RouteManager.userDetailsRegister7);
+                              Navigator.of(context)
+                                  .pushNamed(RouteManager.userDetailsRegister7);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,

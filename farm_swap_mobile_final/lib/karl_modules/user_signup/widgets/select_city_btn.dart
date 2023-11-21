@@ -5,7 +5,11 @@ import 'package:provider/provider.dart';
 import '../../../common/poppins_text.dart';
 
 class SelectCityBtn extends StatefulWidget {
-  const SelectCityBtn({super.key});
+  // Add the onMunicipalitySelected callback
+  final void Function(String) onMunicipalitySelected;
+
+  const SelectCityBtn({Key? key, required this.onMunicipalitySelected})
+      : super(key: key);
 
   @override
   State<SelectCityBtn> createState() => _SelectCityBtnState();
@@ -26,12 +30,13 @@ class _SelectCityBtnState extends State<SelectCityBtn> {
         15,
         FontWeight.w600,
       ),
-      onChanged: (value) {
+      onChanged: (String? value) {
         setState(() {
-          selectedValue = value;
-          Provider.of<UserDetailsProvider>(context, listen: false).setCityMunicipality(
-            selectedValue.toString(),
-          );
+          selectedValue = value ?? ""; // Use the empty string if value is null
+          widget.onMunicipalitySelected(
+              selectedValue!); // Pass the selected value to the callback, assuming it won't be null here
+          Provider.of<UserDetailsProvider>(context, listen: false)
+              .setCityMunicipality(selectedValue!);
         });
       },
       items: [
