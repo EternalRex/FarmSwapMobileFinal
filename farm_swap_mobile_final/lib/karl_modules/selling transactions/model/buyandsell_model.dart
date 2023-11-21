@@ -20,6 +20,13 @@ class BuyAndSell {
     required this.purchaseTotalPrice,
     required this.purchaseTime,
     required this.isCompletedPurchase,
+    required this.isConfirmed,
+    required this.confirmedDate,
+    required this.completeDate,
+    required this.listingStatus,
+    required this.selected,
+    required this.declined,
+    required this.imageUrl,
   });
 
   /*Consumer Details */
@@ -49,6 +56,13 @@ class BuyAndSell {
   double purchaseTotalPrice;
   DateTime purchaseTime;
   bool isCompletedPurchase;
+  bool isConfirmed;
+  DateTime confirmedDate;
+  DateTime completeDate;
+  String listingStatus;
+  bool selected;
+  bool declined;
+  String imageUrl;
 
   Map<String, dynamic> toMap() {
     return {
@@ -72,6 +86,13 @@ class BuyAndSell {
       'purchaseTotalPrice': purchaseTotalPrice,
       'purchaseDate': purchaseTime,
       'purchaseIsComplete': isCompletedPurchase,
+      'confirmed': isConfirmed,
+      'confirmedDate': confirmedDate,
+      'completeDate': completeDate,
+      'listingStatus': listingStatus,
+      'selected': selected,
+      'declined': declined,
+      'imgurl': imageUrl,
     };
   }
 }

@@ -30,6 +30,7 @@ class DashBoardAllSellDetails extends StatefulWidget {
     required this.listingQuan,
     required this.listingStatus,
     required this.farmerId,
+    required this.listingId,
   });
 
   final String imageUrl;
@@ -48,6 +49,7 @@ class DashBoardAllSellDetails extends StatefulWidget {
   final String startTime;
   final String endTime;
   final String farmerId;
+  final String listingId;
 
   @override
   State<DashBoardAllSellDetails> createState() => _DashBoardAllSellDetailsState();
@@ -346,6 +348,9 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                           listingUrl: widget.imageUrl,
                                           listingPrice: widget.listingPrice,
                                           listingQuan: widget.listingQuan,
+                                          listingId: widget.listingId,
+                                          listingStatus: widget.listingStatus,
+                                          imageUrl: widget.imageUrl,
                                         );
                                       },
                                     ),

@@ -47,8 +47,7 @@ class FarmerConsumerActualChat extends StatefulWidget {
   final String listingId;
 
   @override
-  State<FarmerConsumerActualChat> createState() =>
-      _FarmerConsumerActualChatState();
+  State<FarmerConsumerActualChat> createState() => _FarmerConsumerActualChatState();
 }
 
 class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
@@ -83,8 +82,13 @@ class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
   void initState() {
     super.initState();
     getConsumerProfilePic();
-    //getFarmerProfilePic();
-    //buildUserMessageList();
+    //  getFarmerProfilePic();
+  }
+
+  @override
+  void dispose() {
+    chatController.dispose();
+    super.dispose();
   }
 
   @override
@@ -98,8 +102,7 @@ class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -189,8 +192,7 @@ class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
     return Row(
       children: [
         Expanded(
-            child: ChatInputTxtField(
-                controller: chatController, hintText: "Enter message....")),
+            child: ChatInputTxtField(controller: chatController, hintText: "Enter message....")),
         const SizedBox(
           width: 7,
         ),
@@ -215,10 +217,9 @@ class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
 actual qurry is in the querry class*/
   Widget buildUserMessageList() {
     return StreamBuilder(
-      stream: chatQuery.getChatMessages(
-          FirebaseAuth.instance.currentUser!.uid, widget.consumerId),
+      stream: chatQuery.getChatMessages(FirebaseAuth.instance.currentUser!.uid, widget.consumerId),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        /* if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: LinearProgressIndicator(),
           );
@@ -227,22 +228,25 @@ actual qurry is in the querry class*/
           print("Error ${snapshot.error}");
           return const Text("Nay Erro Choy");
         } else {
-          print("Solod dayn sha diri");
           return ListView(
             children: snapshot.data!.docs
                 .map<Widget>((document) => accessDocumentContents(document))
                 .toList(),
           );
-        }
-        /* if (snapshot.connectionState == ConnectionState.active) {
-          return ListView(
-            children: snapshot.data!.docs
-                .map<Widget>((document) => accessDocumentContents(document))
-                .toList(),
-          );
+        }*/
+        if (snapshot.connectionState == ConnectionState.active) {
+          if (snapshot.hasData) {
+            return ListView(
+              children: snapshot.data!.docs
+                  .map<Widget>((document) => accessDocumentContents(document))
+                  .toList(),
+            );
+          } else {
+            return const Text("Error");
+          }
         } else {
           return const Text("Loading...");
-        }*/
+        }
       },
     );
   }
@@ -250,10 +254,9 @@ actual qurry is in the querry class*/
 /*This methods access the properties and its value of each document that is baing passed here*/
   Widget accessDocumentContents(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    var messageAlignment =
-        (data["senderId"] != FirebaseAuth.instance.currentUser!.uid)
-            ? Alignment.topLeft
-            : Alignment.topRight;
+    var messageAlignment = (data["senderId"] != FirebaseAuth.instance.currentUser!.uid)
+        ? Alignment.topLeft
+        : Alignment.topRight;
 
     /*Converting the date into string*/
     Timestamp timeSTMP = data["time"];
@@ -263,14 +266,12 @@ actual qurry is in the querry class*/
     return Container(
       alignment: messageAlignment,
       child: Column(
-        crossAxisAlignment:
-            (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
-                ? CrossAxisAlignment.end
-                : CrossAxisAlignment.start,
-        mainAxisAlignment:
-            (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
-                ? MainAxisAlignment.end
-                : MainAxisAlignment.start,
+        crossAxisAlignment: (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
+        mainAxisAlignment: (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         children: [
           Text(
             finalDate,
@@ -293,11 +294,14 @@ actual qurry is in the querry class*/
   }
 
   Future<void> getConsumerProfilePic() async {
-    String profileUrl =
-        await consumerPhoto.getConsumerProfilePhoto(widget.consumerId);
+    String profileUrl = await consumerPhoto.getConsumerProfilePhoto(widget.consumerId);
     print("mao ni profile url $profileUrl");
     setState(() {
       consumerProfileUrl = profileUrl;
     });
+  }
+
+  void unfocusTextField() {
+    FocusScope.of(context).unfocus();
   }
 }

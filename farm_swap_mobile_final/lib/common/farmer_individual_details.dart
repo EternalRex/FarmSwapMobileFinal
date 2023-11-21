@@ -71,6 +71,17 @@ class ListinGetFarmerDetails {
     return snapshot["profilePhoto"];
   }
 
+/*Getting farmer photo with a parameter accepted */
+  Future<String> getFarmerUserProfilePhotoWithParameter(String id) async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getFarmerDocumentId(id);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    /*E return nato ang value sa doument */
+    return snapshot["profilePhoto"];
+  }
+
 /*Municipality na value */
   Future<String> getMunicipalityFirstname() async {
     String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
@@ -106,6 +117,17 @@ class ListinGetFarmerDetails {
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
     double coins = (snapshot["swapcoins"] as num).toDouble();
+    return coins;
+  }
+
+/*Get farmer wallet balance*/
+  Future<double> getWalletBalance() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    double coins = (snapshot["balance"] as num).toDouble();
     return coins;
   }
 

@@ -1,4 +1,5 @@
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_options_text.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +23,15 @@ class ConsumerBuyTransactionBtn extends StatelessWidget {
               width: 10.w,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const MyOrders();
+                    },
+                  ),
+                );
+              },
               child: DashBoardTxt(
                 myText: "Buy Transactions",
                 myColor: const Color(0xFF09041B),
