@@ -28,8 +28,8 @@ class SwapCoinsDetailsConsumer {
 
   Future<Map<String, String>> getConsumerAddress() async {
     /*Mao ni buhaton para ma access nato ang properties sa document */
-    String documentId =
-        await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    String documentId = await docId
+        .getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid);
     CollectionReference reference =
         FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
