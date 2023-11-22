@@ -1,31 +1,28 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/farmer_list_of_bids.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/selected_bid_get.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/widgets/barter_bids_navbar.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/barter/farmer_barterlist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SelectedBids extends StatefulWidget {
-  const SelectedBids({
+class BarterDispute extends StatefulWidget {
+  const BarterDispute({
     super.key,
+    required this.farmerUname,
     required this.farmerId,
     required this.listingId,
-    required this.farmerUname,
     required this.listingUrl,
   });
 
+  final String farmerUname;
   final String farmerId;
   final String listingId;
-  final String farmerUname;
   final String listingUrl;
 
   @override
-  State<SelectedBids> createState() => _SelectedBidsState();
+  State<BarterDispute> createState() => _BarterDisputeState();
 }
 
-class _SelectedBidsState extends State<SelectedBids> {
+class _BarterDisputeState extends State<BarterDispute> {
   /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -42,17 +39,8 @@ class _SelectedBidsState extends State<SelectedBids> {
         title: Row(
           children: [
             Text(
-              "Selected Bids",
+              'Compeleted Barters',
               style: TextStyle(fontSize: 25.sp),
-            ),
-            SizedBox(
-              width: 20.w,
-            ),
-            /*Shoppping cart button */
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
             ),
           ],
         ),
@@ -63,7 +51,8 @@ class _SelectedBidsState extends State<SelectedBids> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -87,12 +76,11 @@ class _SelectedBidsState extends State<SelectedBids> {
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
-              child: GetSelectedBid(
-                farmerId: widget.farmerId,
-                farmerUname: widget.farmerUname,
-                listingId: widget.listingId,
-                listingUrl: widget.listingUrl,
-              ),
+              child: FarmerBarterList(
+                  farmerUname: widget.farmerUname,
+                  farmerId: widget.farmerId,
+                  farmerListingId: widget.listingId,
+                  listingUrl: widget.listingUrl),
             ),
           ],
         ),
@@ -101,6 +89,17 @@ class _SelectedBidsState extends State<SelectedBids> {
         height: 55.h,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: shadow,
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
+            ),
+          ],
           color: greenNormal,
           image: const DecorationImage(
             image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
@@ -108,38 +107,7 @@ class _SelectedBidsState extends State<SelectedBids> {
           ),
           border: Border.all(color: farmSwapTitlegreen),
         ),
-        child: BarterBidsNavBar(
-          farmerId: widget.farmerId,
-          farmerUname: widget.farmerUname,
-          listingId: widget.listingId,
-          listUrl: widget.listingUrl,
-        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => FarmerListOfBids(
-                farmerUname: widget.farmerUname,
-                farmerId: widget.farmerId,
-                listingId: widget.listingId,
-                listingUrl: widget.listingUrl,
-              ),
-            ),
-          );
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        elevation: 2,
-        backgroundColor: greenNormal,
-        splashColor: greenLight,
-        child: const Icon(
-          Icons.arrow_back,
-          color: Colors.white,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

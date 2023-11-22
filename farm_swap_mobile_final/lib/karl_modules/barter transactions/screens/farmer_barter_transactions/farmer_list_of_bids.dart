@@ -96,24 +96,6 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
                 listingUrl: widget.listingUrl,
               ),
             ),
-            Container(
-              height: 55.h,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: greenNormal,
-                image: const DecorationImage(
-                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
-                  fit: BoxFit.cover,
-                ),
-                border: Border.all(color: farmSwapTitlegreen),
-              ),
-              child: BarterBidsNavBar(
-                farmerId: widget.farmerId,
-                farmerUname: widget.farmerUname,
-                listingId: widget.listingId,
-                listUrl: widget.listingUrl,
-              ),
-            ),
           ],
         ),
       ),
