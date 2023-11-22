@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /*Ang purpose ngano need mo select si user nga farmer ba siya or consumer usa siya no login is
 para mabutang nato sa provider kung unsa na type na user ang mi login. Then during sa login function
@@ -64,7 +65,8 @@ class _UserTypeLoginSelectionState extends State<UserTypeLoginSelection> {
                     GestureDetector(
                       onTap: () {
                         /*Putting the value of Farmer inside a provider when this option is tapped to be used in another page */
-                        Provider.of<LoginUserTypeProvider>(context, listen: false)
+                        Provider.of<LoginUserTypeProvider>(context,
+                                listen: false)
                             .setLoginUsertype("FARMER");
                         Navigator.of(context).pushNamed(RouteManager.userlogin);
                       },
@@ -79,18 +81,20 @@ class _UserTypeLoginSelectionState extends State<UserTypeLoginSelection> {
                               height: 300.sp,
                             ),
                           ),
-                          poppinsText("Farmer", Colors.black, 20.sp, FontWeight.w500),
+                          poppinsText(
+                              "Farmer", Colors.black, 20.sp, FontWeight.w500),
                         ],
                       ),
                     ),
                     /*End of the farmer choice photo selection */
                     SizedBox(
-                      height: 30.sp,
+                      height: 20.sp,
                     ),
                     GestureDetector(
                       onTap: () {
                         /*Putting the value of Farmer inside a provider when this option is tapped to be used in another page */
-                        Provider.of<LoginUserTypeProvider>(context, listen: false)
+                        Provider.of<LoginUserTypeProvider>(context,
+                                listen: false)
                             .setLoginUsertype("CONSUMER");
                         Navigator.of(context).pushNamed(RouteManager.userlogin);
                       },
@@ -99,10 +103,34 @@ class _UserTypeLoginSelectionState extends State<UserTypeLoginSelection> {
                           CircleAvatar(
                             radius: 80.sp,
                             backgroundColor: farmSwapSmoothGreen,
-                            child: Image.asset("assets/karl_assets/images/consumer.png"),
+                            child: Image.asset(
+                                "assets/karl_assets/images/consumer.png"),
                           ),
-                          poppinsText("Consumer", Colors.black, 20.sp, FontWeight.w300),
+                          poppinsText(
+                              "Consumer", Colors.black, 20.sp, FontWeight.w300),
                         ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.sp,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(RouteManager.usersignup);
+                        },
+                        child: Text(
+                          "Don't have an account? Register here.",
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                            fontFamily: GoogleFonts.poppins().fontFamily,
+                            color: FarmSwapGreen.darkGreenActive,
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
                       ),
                     ),
                   ],
