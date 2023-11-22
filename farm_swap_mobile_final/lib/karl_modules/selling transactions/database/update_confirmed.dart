@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/model/sell_transaction_model.dart';
 
 class UpdateConfirmedOrder {
 /*Querry ni para e update ang confirmed field into true kung e hit ni farmer ang confirmed button */
@@ -81,7 +82,6 @@ class UpdateConfirmedOrder {
   }
 
 /*Function na mo update sa wallet ni consumer */
-  /*Function na mo update sa wallet ni farmer na naaddan siya*/
   Future<void> updateConsumerWalletBalance(String consumerId, double balance) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('sample_ConsumerUsers')
@@ -98,5 +98,101 @@ class UpdateConfirmedOrder {
     } else {
       throw Exception("Indexing Problem");
     }
+  }
+
+/*Function na m */
+  Future<void> updateRemainingListingQuantity(String url, double quantity) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collectionGroup('sell')
+        .where('listingpictureUrl', isEqualTo: url)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentReference docRef = querySnapshot.docs.first.reference;
+      try {
+        await docRef.update({'listingQuantity': quantity});
+      } catch (e) {
+        print("Empty document para ma update ang selected property$e");
+      }
+    } else {
+      throw Exception("Indexing Problem");
+    }
+  }
+
+  Future<void> addSellingTransaction(
+//Consumer Details
+    String consProfileUrl,
+    String consName,
+    String consLName,
+    String consUname,
+    String consId,
+    String consBarangay,
+    String consMunicipality,
+
+    /*Farmer Details */
+    String farmerProfileUrl,
+    String farmerName,
+    String farmerLName,
+    String farmerUname,
+    String farmerId,
+    String farmerBarangay,
+    String farmerMunicipality,
+
+    /*listing details*/
+    String listingName,
+    String listingId,
+    String listingPrice,
+    String listingQuantity,
+    String listingUrl,
+
+    /*Purchase details*/
+    double purchaseQuantity,
+    double purchaseTotalPrice,
+    DateTime purchaseTime,
+    bool isConfirmed,
+    DateTime confirmedDate,
+    String listingStatus,
+    bool selected,
+
+/*Computations*/
+    double addedFarmerWalletAmount,
+    double decutedFarmerSwapCoins,
+    DateTime tranasctinDate,
+  ) async {
+    final sellTransaction = SellTransactionModel(
+      consProfileUrl: consProfileUrl,
+      consName: consName,
+      consLName: consLName,
+      consUname: consUname,
+      consId: consId,
+      consBarangay: consBarangay,
+      consMunicipality: consMunicipality,
+      farmerProfileUrl: farmerProfileUrl,
+      farmerName: farmerName,
+      farmerLName: farmerLName,
+      farmerUname: farmerUname,
+      farmerId: farmerId,
+      farmerBarangay: farmerBarangay,
+      farmerMunicipality: farmerMunicipality,
+      listingName: listingName,
+      listingId: listingId,
+      listingPrice: listingPrice,
+      listingQuantity: listingQuantity,
+      listingUrl: listingUrl,
+      purchaseQuantity: purchaseQuantity,
+      purchaseTotalPrice: purchaseTotalPrice,
+      purchaseTime: purchaseTime,
+      isConfirmed: isConfirmed,
+      selected: selected,
+      confirmedDate: confirmedDate,
+      listingStatus: listingStatus,
+      addedFarmerWalletAmount: addedFarmerWalletAmount,
+      decutedFarmerSwapCoins: decutedFarmerSwapCoins,
+      tranasctinDate: tranasctinDate,
+    );
+
+    FirebaseFirestore.instance
+        .collection('sample_SellingTransactions')
+        .add(sellTransaction.toMap());
   }
 }

@@ -102,6 +102,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
   UpdateConfirmedOrder updateConfirm = UpdateConfirmedOrder();
 
   String consumerPhoto = "";
+  String farmerPhoto = "";
   double consumerWalletBalance = 0;
   double farmerSwapCoins = 0;
   double swapCoinsToDeduct = 0;
@@ -113,6 +114,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
     getConsumerDetails();
     getConsumerWalletBalance();
     getFarmerSwapCoins();
+    getFarmerPhoto();
   }
 
   @override
@@ -425,11 +427,24 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                       double remainingBalance = consumerWalletBalance - widget.purchaseTotalPrice;
                       /*Computing the new farmer wallet balance adding the purchase price amount */
                       double farmerAddedBalance = farmerWalletBalance + widget.purchaseTotalPrice;
+                      /*Computing the remaining listing kilograms*/
+                      double remainKilogram =
+                          double.parse(widget.listingQuantity) - widget.purchaseQuantity;
 
                       computeSwapCoinsDeduction();
                       computeTransactionFeePercent();
+                      /*If farmer has suffecient swap coins*/
                       if (farmerSwapCoins > swapCoinsToDeduct) {
-                        showConfirmedMessage(finalDeductSp, remainingBalance, farmerAddedBalance);
+                        /*Passing the values to the function that saves/update the data */
+                        showConfirmedMessage(
+                          finalDeductSp,
+                          remainingBalance,
+                          farmerAddedBalance,
+                          remainKilogram,
+                        );
+                      } else {
+                        /*If not enough swap coins */
+                        showNotNotEnoughSwapCoins();
                       }
                     },
                     child: const AcceptOrderBtn(text: "Confirm"),
@@ -560,7 +575,9 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
     });
   }
 
-  void showConfirmedMessage(double finalDeductSp, remainingConsumerBalance, farmerBalance) {
+/*A confirmation message that has butttons where the actual saving of data is made */
+  void showConfirmedMessage(
+      double finalDeductSp, remainingConsumerBalance, farmerBalance, remainKilogram) {
     showDialog(
       context: context,
       builder: (context) {
@@ -586,6 +603,42 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                         widget.consId, remainingConsumerBalance);
                     /*Sending the payed purchase amount to farmers wallet */
                     updateConfirm.updateFarmerWalletBalance(widget.farmerId, farmerBalance);
+                    /*Update the remaining balance of the listing kilograms*/
+                    updateConfirm.updateRemainingListingQuantity(widget.imageUrl, remainKilogram);
+                    /*Saving the transaction to the database */
+                    updateConfirm.addSellingTransaction(
+                      consumerPhoto,
+                      widget.consName,
+                      widget.consLName,
+                      widget.consUname,
+                      widget.consId,
+                      widget.consBarangay,
+                      widget.consMunicipality,
+                      farmerPhoto,
+                      widget.farmerName,
+                      widget.farmerLName,
+                      widget.farmerUname,
+                      widget.farmerId,
+                      widget.farmerBarangay,
+                      widget.farmerMunicipality,
+                      widget.listingName,
+                      widget.listingId,
+                      widget.listingPrice,
+                      widget.listingQuantity,
+                      widget.imageUrl,
+                      widget.purchaseQuantity,
+                      widget.purchaseTotalPrice,
+                      DateTime.parse(widget.purchaseTime),
+                      widget.isConfirmed,
+                      DateTime.parse(widget.confirmedDate),
+                      widget.listingStatus,
+                      widget.selected,
+                      widget.purchaseTotalPrice,
+                      swapCoinsToDeduct,
+                      DateTime.now(),
+                    );
+
+                    print("data saved");
                   },
                   child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.normal),
                 ),
@@ -599,5 +652,31 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
         );
       },
     );
+  }
+
+  /*A function that shows not enough swapcoins*/
+  void showNotNotEnoughSwapCoins() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.bold),
+          content: poppinsText(
+            "Not enough swap coins, please add!",
+            Colors.black,
+            15.sp,
+            FontWeight.normal,
+          ),
+        );
+      },
+    );
+  }
+
+  /*Function that gets the farmer photo*/
+  Future<void> getFarmerPhoto() async {
+    String photo = await farmerDetails.getFarmerUserProfilePhoto();
+    setState(() {
+      farmerPhoto = photo;
+    });
   }
 }
