@@ -41,6 +41,7 @@ class MyOrderDetails extends StatefulWidget {
     required this.selected,
     required this.declined,
     required this.imageUrl,
+    required this.consumerCompleted,
   });
 
   /*Consumer Details */
@@ -77,6 +78,7 @@ class MyOrderDetails extends StatefulWidget {
   final bool selected;
   final bool declined;
   final String imageUrl;
+  final bool consumerCompleted;
 
   @override
   State<MyOrderDetails> createState() => _MyOrderDetailsState();
