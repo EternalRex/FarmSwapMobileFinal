@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
-class DisputePage extends StatefulWidget {
-  const DisputePage({super.key});
+class FarmerDisputePage extends StatefulWidget {
+  const FarmerDisputePage({super.key});
 
   @override
-  State<DisputePage> createState() => _DisputePageState();
+  State<FarmerDisputePage> createState() => _FarmerDisputePageState();
 }
 
-class _DisputePageState extends State<DisputePage> {
+class _FarmerDisputePageState extends State<FarmerDisputePage> {
   /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
