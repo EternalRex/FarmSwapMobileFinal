@@ -1,9 +1,7 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
-import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/functions/compute_deductible_swapcoins.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/update_confirmed.dart';
@@ -15,6 +13,7 @@ import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widge
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FarmerOrderDetails extends StatefulWidget {
   const FarmerOrderDetails({
@@ -417,46 +416,109 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
             /*Row for accept and deny btn */
             Padding(
               padding: EdgeInsets.all(10.sp),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      /*Computing the remaining swapcoins of farmer */
-                      double finalDeductSp = farmerSwapCoins - swapCoinsToDeduct;
-                      /*Computing the remaining wallet balance of consumer */
-                      double remainingBalance = consumerWalletBalance - widget.purchaseTotalPrice;
-                      /*Computing the new farmer wallet balance adding the purchase price amount */
-                      double farmerAddedBalance = farmerWalletBalance + widget.purchaseTotalPrice;
-                      /*Computing the remaining listing kilograms*/
-                      double remainKilogram =
-                          double.parse(widget.listingQuantity) - widget.purchaseQuantity;
+              /*Kung dli pa gani selected or confirmed si order, naa siyay button to accept or decline */
+              child: (widget.selected == false &&
+                      widget.isConfirmed == false &&
+                      widget.declined == false)
+                  ? Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            /*Computing the remaining swapcoins of farmer */
+                            double finalDeductSp = farmerSwapCoins - swapCoinsToDeduct;
+                            /*Computing the remaining wallet balance of consumer */
+                            double remainingBalance =
+                                consumerWalletBalance - widget.purchaseTotalPrice;
+                            /*Computing the new farmer wallet balance adding the purchase price amount */
+                            double farmerAddedBalance =
+                                farmerWalletBalance + widget.purchaseTotalPrice;
+                            /*Computing the remaining listing kilograms*/
+                            double remainKilogram =
+                                double.parse(widget.listingQuantity) - widget.purchaseQuantity;
 
-                      computeSwapCoinsDeduction();
-                      computeTransactionFeePercent();
-                      /*If farmer has suffecient swap coins*/
-                      if (farmerSwapCoins > swapCoinsToDeduct) {
-                        /*Passing the values to the function that saves/update the data */
-                        showConfirmedMessage(
-                          finalDeductSp,
-                          remainingBalance,
-                          farmerAddedBalance,
-                          remainKilogram,
-                        );
-                      } else {
-                        /*If not enough swap coins */
-                        showNotNotEnoughSwapCoins();
-                      }
-                    },
-                    child: const AcceptOrderBtn(text: "Confirm"),
-                  ),
-                  SizedBox(
-                    width: 13.w,
-                  ),
-                  GestureDetector(
-                    child: const DenyOrderBtn(text: "Decline"),
-                  ),
-                ],
-              ),
+                            computeSwapCoinsDeduction();
+                            computeTransactionFeePercent();
+                            /*If farmer has suffecient swap coins*/
+                            if (farmerSwapCoins > swapCoinsToDeduct) {
+                              /*Passing the values to the function that saves/update the data */
+                              showConfirmedMessage(
+                                finalDeductSp,
+                                remainingBalance,
+                                farmerAddedBalance,
+                                remainKilogram,
+                              );
+                            } else {
+                              /*If not enough swap coins */
+                              showNotNotEnoughSwapCoins();
+                            }
+                          },
+                          child: const AcceptOrderBtn(text: "Confirm"),
+                        ),
+                        SizedBox(
+                          width: 13.w,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            /*Updates the denied field */
+                            updateConfirm.updateOrderDenied(widget.listingId, widget.consId);
+                            showDeclineMessage();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const FarmerOrdersList();
+                                },
+                              ),
+                            );
+                          },
+                          child: const DenyOrderBtn(text: "Decline"),
+                        ),
+                      ],
+                    )
+                  : (widget.selected == true && widget.isConfirmed == true)
+                      /*Kung decline gani si Order mao ni na button ang mo display */
+                      ? Container(
+                          height: 50,
+                          width: 141,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFFFE0000), Color(0xFFD83F31)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(15),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: shadow,
+                                blurRadius: 5,
+                                offset: const Offset(1, 5),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.archive),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "Archive",
+                                  style: TextStyle(
+                                    fontFamily: GoogleFonts.poppins().fontFamily,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      /*Kung confirmed gani si Order mao ni na button ang mo display */
+                      : Container(),
             ),
             SizedBox(
               height: 70.h,
@@ -526,10 +588,11 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
         return AlertDialog(
           title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.bold),
           content: poppinsText(
-              "You need to confirm the order first so that you can message the consumer!",
-              Colors.black,
-              15.sp,
-              FontWeight.normal),
+            "You need to confirm the order first so that you can message the consumer!",
+            Colors.black,
+            15.sp,
+            FontWeight.normal,
+          ),
         );
       },
     );
@@ -678,5 +741,23 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
     setState(() {
       farmerPhoto = photo;
     });
+  }
+
+  /*A function that will show a message*/
+  void showDeclineMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
+          content: poppinsText(
+            "Order was declined successfully",
+            Colors.black,
+            15.sp,
+            FontWeight.normal,
+          ),
+        );
+      },
+    );
   }
 }

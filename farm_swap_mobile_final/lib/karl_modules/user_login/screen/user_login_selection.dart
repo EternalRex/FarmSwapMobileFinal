@@ -65,8 +65,7 @@ class _UserTypeLoginSelectionState extends State<UserTypeLoginSelection> {
                     GestureDetector(
                       onTap: () {
                         /*Putting the value of Farmer inside a provider when this option is tapped to be used in another page */
-                        Provider.of<LoginUserTypeProvider>(context,
-                                listen: false)
+                        Provider.of<LoginUserTypeProvider>(context, listen: false)
                             .setLoginUsertype("FARMER");
                         Navigator.of(context).pushNamed(RouteManager.userlogin);
                       },
@@ -81,8 +80,7 @@ class _UserTypeLoginSelectionState extends State<UserTypeLoginSelection> {
                               height: 300.sp,
                             ),
                           ),
-                          poppinsText(
-                              "Farmer", Colors.black, 20.sp, FontWeight.w500),
+                          poppinsText("Farmer", Colors.black, 20.sp, FontWeight.w500),
                         ],
                       ),
                     ),
@@ -92,9 +90,8 @@ class _UserTypeLoginSelectionState extends State<UserTypeLoginSelection> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        /*Putting the value of Farmer inside a provider when this option is tapped to be used in another page */
-                        Provider.of<LoginUserTypeProvider>(context,
-                                listen: false)
+                        /*Putting the value of Consumer inside a provider when this option is tapped to be used in another page */
+                        Provider.of<LoginUserTypeProvider>(context, listen: false)
                             .setLoginUsertype("CONSUMER");
                         Navigator.of(context).pushNamed(RouteManager.userlogin);
                       },
@@ -103,11 +100,9 @@ class _UserTypeLoginSelectionState extends State<UserTypeLoginSelection> {
                           CircleAvatar(
                             radius: 80.sp,
                             backgroundColor: farmSwapSmoothGreen,
-                            child: Image.asset(
-                                "assets/karl_assets/images/consumer.png"),
+                            child: Image.asset("assets/karl_assets/images/consumer.png"),
                           ),
-                          poppinsText(
-                              "Consumer", Colors.black, 20.sp, FontWeight.w300),
+                          poppinsText("Consumer", Colors.black, 20.sp, FontWeight.w300),
                         ],
                       ),
                     ),
@@ -118,8 +113,7 @@ class _UserTypeLoginSelectionState extends State<UserTypeLoginSelection> {
                       padding: const EdgeInsets.only(top: 20),
                       child: TextButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(RouteManager.usersignup);
+                          Navigator.of(context).pushNamed(RouteManager.usersignup);
                         },
                         child: Text(
                           "Don't have an account? Register here.",

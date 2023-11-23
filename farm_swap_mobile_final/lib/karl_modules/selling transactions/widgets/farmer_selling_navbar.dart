@@ -1,5 +1,6 @@
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/confirmed_farmer_orders.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/declined_farmer_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/farmer_orders_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,7 +58,15 @@ class _FarmerSellingNavbarState extends State<FarmerSellingNavbar> {
           SizedBox(
             width: 100.w,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const DeclineFarmerOrders();
+                    },
+                  ),
+                );
+              },
               child: poppinsText("Denied", Colors.white, 13.sp, FontWeight.bold),
             ),
           ),
