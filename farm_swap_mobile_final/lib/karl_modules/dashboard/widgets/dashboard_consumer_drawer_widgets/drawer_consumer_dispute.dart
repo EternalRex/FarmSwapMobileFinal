@@ -26,7 +26,7 @@ class ConsumerDisputeManagementBtn extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(RouteManager.disputepage);
+                Navigator.of(context).pushNamed(RouteManager.consumerdisputepage);
               },
               child: DashBoardTxt(
                 myText: "Disputes",

@@ -29,6 +29,9 @@ import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_sig
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup8.dart';
 import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/user_signup9.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/consumer_page/consumer_account.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/consumer_dispute_page.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/farmer_dispute_page.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/farmer_report_barter.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/swapcoins_page/consumer_swapcoins.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/consumer_wallet.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/screens/form/cash_in_form.dart';
@@ -79,7 +82,8 @@ class RouteManager {
   static const farmerbartertransactionmainpage = "/farmerbartertransactionmainpage";
   static const consumerbidListings = "/consumerbidListings";
   static const farmerchatmainpage = "/farmerchatmainpage";
-  static const disputepage = "/disputepage";
+  static const farmerdisputepage = "/farmerdisputepage";
+  static const consumerdisputepage = "/consumerdisputepage";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -193,6 +197,12 @@ class RouteManager {
 
       case farmerchatmainpage:
         return MaterialPageRoute(builder: (context) => const FarmerMainChatScreen());
+
+      case farmerdisputepage:
+        return MaterialPageRoute(builder: (context) => const FarmerDisputePage());
+
+      case consumerdisputepage:
+        return MaterialPageRoute(builder: (context) => const ConsumerDisputePage());
 
       default:
         throw const FormatException("Warning!!! Page Routing Problem");
