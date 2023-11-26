@@ -93,7 +93,7 @@ class _GetFarmerOrdersState extends State<GetFarmerOrders> {
     DateTime newCompletedTime = confirmedTime.toDate();
     String finalCompletedTime = DateFormat('yyyy-MM-dd').format(newCompletedTime);
 
-    if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATE") &&
+    if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATED") &&
         (confirmed == false && selected == false && declined == false)) {
       return Padding(
         padding: const EdgeInsets.all(8.0),

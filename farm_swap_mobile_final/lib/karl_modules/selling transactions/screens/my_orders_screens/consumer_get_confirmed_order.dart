@@ -96,7 +96,7 @@ class _GetConsumerConfirmedOrderesState extends State<GetConsumerConfirmedOrdere
     DateTime newCompletedTime = confirmedTime.toDate();
     String finalCompletedTime = DateFormat('yyyy-MM-dd').format(newCompletedTime);
 
-    if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATE") &&
+    if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATED") &&
         (confirmed == true &&
             selected == true &&
             isConsumerComplete == false &&
