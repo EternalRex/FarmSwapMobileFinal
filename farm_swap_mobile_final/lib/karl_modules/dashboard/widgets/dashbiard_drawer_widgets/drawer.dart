@@ -4,6 +4,7 @@ import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_communication.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_dashboard.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_dispute.dart";
+import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_farmer_review_rating.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_lisitingmanagement.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_signout.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_swapcoins.dart";
@@ -93,6 +94,9 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                 ),
                 const ListTile(
                   title: MyWalletManagement(),
+                ),
+                const ListTile(
+                  title: MyFarmerReviewAndRAting(),
                 ),
                 ListTile(
                   title: Signout(),
