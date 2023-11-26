@@ -55,15 +55,10 @@ class BarterDisputeModel {
   String listingQuan;
   String listingStatus;
   String listingUrl;
-
   DateTime disputeDateFile;
-
   bool isResolved;
-
   String farmerDisputeStatus;
-
   String farmerDisputeText;
-
   String farmerDisputeUrl;
 
   Map<String, dynamic> toMap() {

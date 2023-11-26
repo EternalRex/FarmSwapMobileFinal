@@ -7,14 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
-class GetFarmerReviews extends StatefulWidget {
-  const GetFarmerReviews({super.key});
-
+class GetFarmerReview2 extends StatefulWidget {
+  const GetFarmerReview2({super.key, required this.farmerId});
+  final String farmerId;
   @override
-  State<GetFarmerReviews> createState() => _GetFarmerReviewsState();
+  State<GetFarmerReview2> createState() => _GetFarmerReview2State();
 }
 
-class _GetFarmerReviewsState extends State<GetFarmerReviews> {
+class _GetFarmerReview2State extends State<GetFarmerReview2> {
+  ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
   final _firebase = FirebaseFirestore.instance;
 
   @override
@@ -27,7 +28,7 @@ class _GetFarmerReviewsState extends State<GetFarmerReviews> {
     return StreamBuilder(
       stream: _firebase
           .collectionGroup('reviewrating')
-          .where('farmerid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('farmerid', isEqualTo: widget.farmerId)
           .orderBy('reviewDate', descending: true)
           .snapshots(),
       builder: (context, snapshot) {

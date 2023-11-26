@@ -1,33 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
-class GetFarmerReviews extends StatefulWidget {
-  const GetFarmerReviews({super.key});
+class GetConsumerRating extends StatefulWidget {
+  const GetConsumerRating({super.key});
 
   @override
-  State<GetFarmerReviews> createState() => _GetFarmerReviewsState();
+  State<GetConsumerRating> createState() => _GetConsumerRatingState();
 }
 
-class _GetFarmerReviewsState extends State<GetFarmerReviews> {
+class _GetConsumerRatingState extends State<GetConsumerRating> {
   final _firebase = FirebaseFirestore.instance;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: _firebase
-          .collectionGroup('reviewrating')
-          .where('farmerid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .collectionGroup('consreviewrating')
+          .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .orderBy('reviewDate', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
@@ -55,7 +48,7 @@ class _GetFarmerReviewsState extends State<GetFarmerReviews> {
   Widget accessDocumentContents(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
 
-    String consumerUserName = data["consumerUname"];
+    String farmerUname = data["farmerUname"];
     String review = data["review"];
     int finalRating = (data["rate"] as num).toInt();
     Timestamp reviewDate = data["reviewDate"];
@@ -86,7 +79,7 @@ class _GetFarmerReviewsState extends State<GetFarmerReviews> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                consumerUserName,
+                farmerUname,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20.sp),
               ),

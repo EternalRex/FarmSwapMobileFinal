@@ -1,14 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/functions/get_farmer_transactions.dart';
-import 'package:farm_swap_mobile_final/routes/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 
 class FarmerDisputePage extends StatefulWidget {
   const FarmerDisputePage({super.key});
@@ -54,7 +49,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
           Expanded(
             flex: 2,
             child: Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: EdgeInsets.all(5.0.sp),
               child: Container(
                 height: 375.h,
                 decoration: BoxDecoration(
@@ -97,7 +92,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
           Expanded(
             flex: 2,
             child: Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: EdgeInsets.all(5.0.sp),
               child: Container(
                 height: 375.h,
                 decoration: BoxDecoration(

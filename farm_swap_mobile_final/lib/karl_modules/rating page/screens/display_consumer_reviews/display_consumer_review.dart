@@ -1,29 +1,21 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
-import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_farmer_reviews/get_farmer_reviews.dart';
-import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_farmer_reviews/get_farmer_reviews2.dart';
-import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_consumer_reviews/get_consumer_review.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
-class DisplayFarmerReviews extends StatefulWidget {
-  const DisplayFarmerReviews({
-    super.key,
-    this.farmerId,
-  });
-  final String? farmerId;
+class DisplayConsumerReview extends StatefulWidget {
+  const DisplayConsumerReview({super.key});
 
   @override
-  State<DisplayFarmerReviews> createState() => _DisplayFarmerReviewsState();
+  State<DisplayConsumerReview> createState() => _DisplayConsumerReviewState();
 }
 
-class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
+class _DisplayConsumerReviewState extends State<DisplayConsumerReview> {
   /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 /*A function for opening a drawer using the scaffold key */
@@ -32,19 +24,16 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
   }
 
   ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
-  ListinGetFarmerDetails farmerDetails2 = ListinGetFarmerDetails();
   int finalRating = 0;
-  int finalRating2 = 0;
 
   @override
   void initState() {
     super.initState();
-    getFarmerRating();
+    getConsumerRating();
   }
 
   @override
   Widget build(BuildContext context) {
-    String userType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -93,7 +82,6 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
                     30.sp,
                     FontWeight.w500,
                   ),
-/*Using the finalRating, it is where the number of stars are being displayed */
                   (finalRating == 5)
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -259,11 +247,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
-              /*A condition nga mo ingon nga kung ang user type conumser is katong class na nag need og parameter 
-              na farmerid atong gamiton, but kung dli gani consumer, awh katong class na wala nag need og parameter ato gamiton */
-              child: (userType == "CONSUMER")
-                  ? GetFarmerReview2(farmerId: widget.farmerId.toString())
-                  : const GetFarmerReviews(),
+              child: const GetConsumerRating(),
             ),
           ],
         ),
@@ -310,18 +294,10 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
     );
   }
 
-  Future<void> getFarmerRating() async {
-    String userType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
-    if (userType == "CONSUMER") {
-      double rating = await farmerDetails2.getFarmerRating(widget.farmerId.toString());
-      setState(() {
-        finalRating = rating.toInt();
-      });
-    } else {
-      double rating = await farmerDetails2.getFarmerRating(FirebaseAuth.instance.currentUser!.uid);
-      setState(() {
-        finalRating = rating.toInt();
-      });
-    }
+  Future<void> getConsumerRating() async {
+    double rating = await consumerDetails.getConsumerRating(FirebaseAuth.instance.currentUser!.uid);
+    setState(() {
+      finalRating = rating.toInt();
+    });
   }
 }

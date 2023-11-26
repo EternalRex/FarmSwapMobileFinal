@@ -55,8 +55,7 @@ class DashBoardAllSellDetails extends StatefulWidget {
   final String listingId;
 
   @override
-  State<DashBoardAllSellDetails> createState() =>
-      _DashBoardAllSellDetailsState();
+  State<DashBoardAllSellDetails> createState() => _DashBoardAllSellDetailsState();
 }
 
 class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
@@ -78,8 +77,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
 
   @override
   Widget build(BuildContext context) {
-    String userRole =
-        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String userRole = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -97,8 +95,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -235,8 +232,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                   style: TextStyle(
                                     fontSize: 11.sp,
                                     color: Colors.black,
-                                    fontFamily:
-                                        GoogleFonts.poppins().fontFamily,
+                                    fontFamily: GoogleFonts.poppins().fontFamily,
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -250,8 +246,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                   : (rating > 1 && rating <= 2)
                                       ? Center(
                                           child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Icon(
                                                 Icons.star,
@@ -267,8 +262,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                       : (rating > 2 && rating <= 3)
                                           ? Center(
                                               child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   Icon(
                                                     Icons.star,
@@ -288,9 +282,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                           : (rating > 3 && rating <= 4)
                                               ? Center(
                                                   child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       Icon(
                                                         Icons.star,
@@ -314,9 +306,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                               : (rating > 4 && rating <= 5)
                                                   ? Center(
                                                       child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
+                                                        mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [
                                                           Icon(
                                                             Icons.star,
@@ -446,47 +436,72 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                               SizedBox(
                                 height: 13.h,
                               ),
-                              if (userRole == "FARMER")
-                                GestureDetector(
-                                  onTap: () {
-                                    showInvalidMessage();
-                                  },
-                                  child: const FarmSwapGreenBtn(text: "Buy"),
-                                ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              if (userRole == "FARMER")
-                                GestureDetector(
-                                  onTap: () {
-                                    /*Pasa nato ang mga needed na data sa pag place sa order */
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return ConsumerBuyPart1(
-                                            farmerName: widget.farmerName,
-                                            farmerId: widget.farmerId,
-                                            farmerLName: widget.farmerLname,
-                                            farmerUname: widget.farmerUsername,
-                                            farmerBarangay:
-                                                widget.farmerBarangay,
-                                            farmerMunicipal:
-                                                widget.farmerMunicipality,
-                                            listingName: widget.listingname,
-                                            listingUrl: widget.imageUrl,
-                                            listingPrice: widget.listingPrice,
-                                            listingQuan: widget.listingQuan,
-                                            listingId: widget.listingId,
-                                            listingStatus: widget.listingStatus,
-                                            imageUrl: widget.imageUrl,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: const FarmSwapOrangeBtn(
-                                      text: "Add to Cart"),
-                                ),
+                              /*IF ang user kay consumer mo display ang mga button
+                                else container ray mo display walay buttons*/
+                              (userRole == "CONSUMER")
+                                  ? Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            /*Pasa nato ang mga needed na data sa pag place sa order */
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) {
+                                                  return ConsumerBuyPart1(
+                                                    farmerName: widget.farmerName,
+                                                    farmerId: widget.farmerId,
+                                                    farmerLName: widget.farmerLname,
+                                                    farmerUname: widget.farmerUsername,
+                                                    farmerBarangay: widget.farmerBarangay,
+                                                    farmerMunicipal: widget.farmerMunicipality,
+                                                    listingName: widget.listingname,
+                                                    listingUrl: widget.imageUrl,
+                                                    listingPrice: widget.listingPrice,
+                                                    listingQuan: widget.listingQuan,
+                                                    listingId: widget.listingId,
+                                                    listingStatus: widget.listingStatus,
+                                                    imageUrl: widget.imageUrl,
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          child: const FarmSwapGreenBtn(text: "Buy"),
+                                        ),
+                                        SizedBox(
+                                          height: 15.h,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            /*Pasa nato ang mga needed na data sa pag place sa order */
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) {
+                                                  return ConsumerBuyPart1(
+                                                    farmerName: widget.farmerName,
+                                                    farmerId: widget.farmerId,
+                                                    farmerLName: widget.farmerLname,
+                                                    farmerUname: widget.farmerUsername,
+                                                    farmerBarangay: widget.farmerBarangay,
+                                                    farmerMunicipal: widget.farmerMunicipality,
+                                                    listingName: widget.listingname,
+                                                    listingUrl: widget.imageUrl,
+                                                    listingPrice: widget.listingPrice,
+                                                    listingQuan: widget.listingQuan,
+                                                    listingId: widget.listingId,
+                                                    listingStatus: widget.listingStatus,
+                                                    imageUrl: widget.imageUrl,
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          child: const FarmSwapOrangeBtn(text: "Add to Cart"),
+                                        )
+                                      ],
+                                    )
+                                  : Container(),
+                              /*
                               if (userRole == "CONSUMER")
                                 GestureDetector(
                                   onTap: () {
@@ -499,10 +514,8 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                             farmerId: widget.farmerId,
                                             farmerLName: widget.farmerLname,
                                             farmerUname: widget.farmerUsername,
-                                            farmerBarangay:
-                                                widget.farmerBarangay,
-                                            farmerMunicipal:
-                                                widget.farmerMunicipality,
+                                            farmerBarangay: widget.farmerBarangay,
+                                            farmerMunicipal: widget.farmerMunicipality,
                                             listingName: widget.listingname,
                                             listingUrl: widget.imageUrl,
                                             listingPrice: widget.listingPrice,
@@ -516,7 +529,9 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                     );
                                   },
                                   child: const FarmSwapGreenBtn(text: "Buy"),
-                                ),
+                                )
+                              else
+                                Container(),
                               SizedBox(
                                 height: 5.h,
                               ),
@@ -532,10 +547,8 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                             farmerId: widget.farmerId,
                                             farmerLName: widget.farmerLname,
                                             farmerUname: widget.farmerUsername,
-                                            farmerBarangay:
-                                                widget.farmerBarangay,
-                                            farmerMunicipal:
-                                                widget.farmerMunicipality,
+                                            farmerBarangay: widget.farmerBarangay,
+                                            farmerMunicipal: widget.farmerMunicipality,
                                             listingName: widget.listingname,
                                             listingUrl: widget.imageUrl,
                                             listingPrice: widget.listingPrice,
@@ -548,9 +561,10 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                       ),
                                     );
                                   },
-                                  child: const FarmSwapOrangeBtn(
-                                      text: "Add to Cart"),
-                                ),
+                                  child: const FarmSwapOrangeBtn(text: "Add to Cart"),
+                                )
+                              else
+                                Container(),*/
                             ],
                           )
                         ],
