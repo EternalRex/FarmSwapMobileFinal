@@ -96,7 +96,10 @@ class _GetConfirmedOrdersState extends State<GetConfirmedOrders> {
     String finalCompletedTime = DateFormat('yyyy-MM-dd').format(newCompletedTime);
 
     if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATE") &&
-        (confirmed == true && selected == true && declined == false)) {
+        (confirmed == true &&
+            selected == true &&
+            declined == false &&
+            purchaseIsComplete == false)) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         /*The oval container*/

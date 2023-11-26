@@ -1,3 +1,4 @@
+import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/label/wallet_textfield_label.dart';
 import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
@@ -62,6 +63,14 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
   /*A function for opening a drawer using the scaffold key */
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
+  }
+
+  double rating = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    farmeRating();
   }
 
   @override
@@ -224,6 +233,101 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                   ),
                                 ),
                               ),
+                              /*Diri ang condtion kung pila ang e display s arating depende sa pula ka value ang stars */
+                              (rating <= 1)
+                                  ? Icon(
+                                      Icons.star,
+                                      color: darkGreen,
+                                    )
+                                  : (rating > 1 && rating <= 2)
+                                      ? Center(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: darkGreen,
+                                              ),
+                                              Icon(
+                                                Icons.star,
+                                                color: darkGreen,
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : (rating > 2 && rating <= 3)
+                                          ? Center(
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: darkGreen,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: darkGreen,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: darkGreen,
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          : (rating > 3 && rating <= 4)
+                                              ? Center(
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: darkGreen,
+                                                      ),
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: darkGreen,
+                                                      ),
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: darkGreen,
+                                                      ),
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: darkGreen,
+                                                      )
+                                                    ],
+                                                  ),
+                                                )
+                                              : (rating > 4 && rating <= 5)
+                                                  ? Center(
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: darkGreen,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: darkGreen,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: darkGreen,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: darkGreen,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: darkGreen,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  : Container(),
                               SizedBox(
                                 height: 15.h,
                               ),
@@ -425,5 +529,12 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+  }
+
+  Future<void> farmeRating() async {
+    double rate = await farmerDetails.getFarmerRating(widget.farmerId);
+    setState(() {
+      rating = rate;
+    });
   }
 }

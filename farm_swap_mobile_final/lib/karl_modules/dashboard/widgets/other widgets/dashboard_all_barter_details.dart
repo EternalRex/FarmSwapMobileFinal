@@ -1,4 +1,5 @@
 import "package:farm_swap_mobile_final/common/colors.dart";
+import "package:farm_swap_mobile_final/common/farmer_individual_details.dart";
 import "package:farm_swap_mobile_final/common/green_btn.dart";
 import "package:farm_swap_mobile_final/common/poppins_text.dart";
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item.dart';
@@ -56,8 +57,7 @@ class DashBoardAllBarterDetails extends StatefulWidget {
   final String farmerId;
 
   @override
-  State<DashBoardAllBarterDetails> createState() =>
-      _DashBoardAllBarterDetailsState();
+  State<DashBoardAllBarterDetails> createState() => _DashBoardAllBarterDetailsState();
 }
 
 class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
@@ -69,10 +69,18 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
+  ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+  double rating = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    farmerRating();
+  }
+
   @override
   Widget build(BuildContext context) {
-    String loginUserType =
-        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String loginUserType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -90,8 +98,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -228,12 +235,106 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                   style: TextStyle(
                                     fontSize: 11.sp,
                                     color: Colors.black,
-                                    fontFamily:
-                                        GoogleFonts.poppins().fontFamily,
+                                    fontFamily: GoogleFonts.poppins().fontFamily,
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
                               ),
+                              /*Diri ang condtion kung pila ang e display s arating depende sa pula ka value ang stars */
+                              (rating <= 1)
+                                  ? Icon(
+                                      Icons.star,
+                                      color: darkGreen,
+                                    )
+                                  : (rating > 1 && rating <= 2)
+                                      ? Center(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: darkGreen,
+                                              ),
+                                              Icon(
+                                                Icons.star,
+                                                color: darkGreen,
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : (rating > 2 && rating <= 3)
+                                          ? Center(
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: darkGreen,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: darkGreen,
+                                                  ),
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: darkGreen,
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          : (rating > 3 && rating <= 4)
+                                              ? Center(
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: darkGreen,
+                                                      ),
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: darkGreen,
+                                                      ),
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: darkGreen,
+                                                      ),
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: darkGreen,
+                                                      )
+                                                    ],
+                                                  ),
+                                                )
+                                              : (rating > 4 && rating <= 5)
+                                                  ? Center(
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: darkGreen,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: darkGreen,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: darkGreen,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: darkGreen,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: darkGreen,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  : Container(),
                               SizedBox(
                                 height: 15.h,
                               ),
@@ -368,33 +469,22 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                   (loginUserType == "CONSUMER")
                                       ?
                                       /*We used this kind of navigation so that we can pass data to the next class*/
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
+                                      Navigator.of(context).push(MaterialPageRoute(
                                           builder: (context) {
                                             /*So ato e pasa ang mga data ni listing ni farmer og item
                                       kay para magamit sa next class */
                                             return EnterToBarterItem(
                                               listingIdNeed: widget.itemId,
-                                              listingNameNeed:
-                                                  widget.listingname,
-                                              listingDiscNeed:
-                                                  widget.listingDisc,
-                                              listingEquivalentPriceNeed:
-                                                  widget.listingPrice,
-                                              listingQuantityNeed:
-                                                  widget.listingQuan,
-                                              listingStatusNeed:
-                                                  widget.listingStatus,
-                                              farmerFNameNeed:
-                                                  widget.farmerName,
-                                              farmerUnameNeed:
-                                                  widget.farmerUsername,
-                                              farmerLnameNeed:
-                                                  widget.farmerLname,
-                                              farmerBaranggayNeed:
-                                                  widget.farmerBarangay,
-                                              farmerMunicaplityNeed:
-                                                  widget.farmerMunicipality,
+                                              listingNameNeed: widget.listingname,
+                                              listingDiscNeed: widget.listingDisc,
+                                              listingEquivalentPriceNeed: widget.listingPrice,
+                                              listingQuantityNeed: widget.listingQuan,
+                                              listingStatusNeed: widget.listingStatus,
+                                              farmerFNameNeed: widget.farmerName,
+                                              farmerUnameNeed: widget.farmerUsername,
+                                              farmerLnameNeed: widget.farmerLname,
+                                              farmerBaranggayNeed: widget.farmerBarangay,
+                                              farmerMunicaplityNeed: widget.farmerMunicipality,
                                               farmerId: widget.farmerId,
                                             );
                                           },
@@ -501,12 +591,18 @@ sa other farmers gamit ang farmer account */
                   ),
                 );
               },
-              child: poppinsText(
-                  "Back", farmSwapTitlegreen, 13.sp, FontWeight.w500),
+              child: poppinsText("Back", farmSwapTitlegreen, 13.sp, FontWeight.w500),
             ),
           ],
         );
       },
     );
+  }
+
+  Future<void> farmerRating() async {
+    double rate = await farmerDetails.getFarmerRating(widget.farmerId);
+    setState(() {
+      rating = rate;
+    });
   }
 }

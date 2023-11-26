@@ -92,7 +92,7 @@ class _GetBarterPromotedListingsState extends State<GetBarterPromotedListings> {
 
 /*A condition that states that only display the listings that have both an active
 status and a promoted field that is equal to true */
-    if (listingStatus == "ACTIVE" && promoted == true) {
+    if ((listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") && promoted == true) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(

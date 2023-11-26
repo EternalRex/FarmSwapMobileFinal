@@ -121,7 +121,7 @@ class _GetBarterListingsState extends State<GetBarterListings> {
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
 
-    if (listingStatus == "ACTIVE" || listingStatus == "REACTIVATED" && promoted != true) {
+    if ((listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") && promoted != true) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(

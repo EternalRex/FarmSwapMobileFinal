@@ -748,7 +748,7 @@ class _ArchivedBarterListingDetailsState extends State<ArchivedBarterListingDeta
   Future<void> updatePromotion() async {
     double constantDeductibleSwapCoins = 10;
     double newSwapCoins = swapCoins - constantDeductibleSwapCoins;
-
+    print("Mao ni swap coins $newSwapCoins");
     /*Gi call nato ang function sa class na mag update sa atong database niya giapasa nato
     ang mga needed na values */
     await renew.renewBarterListing(

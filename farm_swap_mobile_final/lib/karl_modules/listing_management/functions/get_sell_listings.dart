@@ -117,7 +117,7 @@ class _GetSellListingsState extends State<GetSellListings> {
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
 
-    if (listingStatus == "ACTIVE" && promoted != true) {
+    if ((listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") && promoted != true) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(

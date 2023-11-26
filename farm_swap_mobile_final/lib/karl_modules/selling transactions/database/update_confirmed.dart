@@ -42,6 +42,26 @@ class UpdateConfirmedOrder {
     }
   }
 
+  /*updates the consumer completed field when the consumer marks the transaction as done */
+  Future<void> updateOrderCompletedFarmer(String listid, String consumerId) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collectionGroup('sellbuy')
+        .where('listingId', isEqualTo: listid)
+        .where('consumerId', isEqualTo: consumerId)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentReference docRef = querySnapshot.docs.first.reference;
+      try {
+        await docRef.update({'purchaseIsComplete': true, 'completeDate': DateTime.now()});
+      } catch (e) {
+        print("Empty document para ma update ang selected property$e");
+      }
+    } else {
+      throw Exception("Indexing Problem");
+    }
+  }
+
 /*updates the consumer completed field when the consumer marks the transaction as done */
   Future<void> updateOrderCompletedConsumer(String listid, String consumerId) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance

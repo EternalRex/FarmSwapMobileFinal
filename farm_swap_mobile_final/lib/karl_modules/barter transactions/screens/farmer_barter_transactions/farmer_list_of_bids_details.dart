@@ -11,6 +11,7 @@ import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screen
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/archive_update.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/farmer_consumer_barter_rating.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -106,6 +107,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
   double farmerSwapCoins = 0;
   String percentValue = "";
   double consSwapCoins = 0;
+  int finalRating = 0;
 
   @override
   void initState() {
@@ -113,6 +115,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
     getFarmerDetails();
     farmersSwapCoins();
     getConsumersSwapCoins();
+    getConsumersRating();
   }
 
   @override
@@ -127,12 +130,24 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
               style: TextStyle(fontSize: 25.sp),
             ),
             SizedBox(
-              width: 50.w,
+              width: 60.w,
             ),
-            /*Shoppping cart button */
+            /*Back cart button */
             IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
+              onPressed: () {
+                getFarmerDetails();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FarmerListOfBids(
+                      farmerUname: farmerUname,
+                      farmerId: farmerId,
+                      listingId: widget.listId,
+                      listingUrl: widget.listUrl,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.arrow_back_ios),
               iconSize: 30.sp,
             ),
           ],
@@ -338,8 +353,212 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
             SizedBox(
               height: 15.h,
             ),
+            poppinsText2(widget.itemname, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Item Name", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.itemDisc, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Item Discription", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.itemVal, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Estimated Item Value", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.itemquan, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Number of Items", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.itemCond, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Condition of Item", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.consuname, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Bidder User Name", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(
+              " Barnagay ${widget.consbarangay} , Municipality of ${widget.consmunicipal}",
+              Colors.black,
+              20.sp,
+              FontWeight.normal,
+            ),
+            const Divider(),
+            poppinsText2("Bidder Location", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            /*IF rating is 5 display 5 stars */
+            (finalRating == 5)
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 40.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 40.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 40.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 40.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 40.sp,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      poppinsText2(
+                        "(5/5)",
+                        Colors.black,
+                        20.sp,
+                        FontWeight.normal,
+                      ),
+                    ],
+                  )
+                /*if rating is 4 display 4 stars */
+                : (finalRating < 5 && finalRating >= 4)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 40.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 40.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 40.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 40.sp,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          poppinsText2(
+                            "(4/5)",
+                            Colors.black,
+                            20.sp,
+                            FontWeight.normal,
+                          ),
+                        ],
+                      )
+                    : (finalRating < 4 && finalRating >= 3)
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 40.sp,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 40.sp,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 40.sp,
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              poppinsText2(
+                                "(3/5)",
+                                Colors.black,
+                                20.sp,
+                                FontWeight.normal,
+                              ),
+                            ],
+                          )
+                        : (finalRating < 3 && finalRating >= 2)
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 40.sp,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 40.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  poppinsText2(
+                                    "(2/5)",
+                                    Colors.black,
+                                    20.sp,
+                                    FontWeight.normal,
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 40.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  poppinsText2(
+                                    "(1/5)",
+                                    Colors.black,
+                                    20.sp,
+                                    FontWeight.normal,
+                                  ),
+                                ],
+                              ),
+            const Divider(),
+            poppinsText2("Bidder Rating", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
             /*Diri sugod ang mga details sa listing sa og sa item og sa consumer*/
             /*This container is for the item name */
+            /*
             Container(
               color: const Color(0xFF86A789),
               width: MediaQuery.of(context).size.width,
@@ -533,7 +752,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                   )
                 ],
               ),
-            ),
+            ),*/
             SizedBox(
               height: 10.h,
             ),
@@ -551,12 +770,14 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                             if (widget.selected == false) {
                               showInvalidMessage();
                             } else {
-/*Ato e update ang completed field to true tapos ato e reload ang page*/
+                              /*Ato e update ang completed field to true tapos ato e reload ang page*/
                               updateSelected.updateIsBarteredCompletedProperty(
                                   widget.listId, widget.consid);
 
                               /*If the tranaction is completed then the barter listing will be archived*/
                               archive.archiveBarterListing(farmerUname, widget.listUrl);
+
+                              showArchiveMessage();
 
                               /*Reloading sa page */
                               Navigator.of(context).push(
@@ -591,19 +812,123 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                               );
                             }
                           },
-                          child: poppinsText(
-                              "Completed", farmSwapTitlegreen, 20.sp, FontWeight.normal),
+                          child: Container(
+                            height: 50,
+                            width: 135,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFF53E78B), Color(0xFF14BE77)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: shadow,
+                                  blurRadius: 5,
+                                  offset: const Offset(1, 5),
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(10.sp),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.check_box,
+                                      color: Colors.white,
+                                    ),
+                                    poppinsText(
+                                      "Mark as Done",
+                                      Colors.white,
+                                      13.sp,
+                                      FontWeight.normal,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          /*poppinsText(
+                              "Completed", farmSwapTitlegreen, 20.sp, FontWeight.normal)*/
                         ),
                         SizedBox(
-                          width: 70.w,
+                          width: 0.w,
                         ),
                         TextButton(
                           onPressed: () {
                             if (widget.selected == false) {
                               showInvalidMessage();
+                            } else {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return FarmerRatesConsumerBarter(
+                                      farmerId: farmerId,
+                                      farmerName: farmerFname,
+                                      farmerLname: farmerLname,
+                                      farmerUname: farmerUname,
+                                      farmerBarangay: farmerBaranggay,
+                                      farmerMunicipal: farmerMunicipality,
+                                      consId: widget.consid,
+                                      consName: widget.consname,
+                                      consUname: widget.consuname,
+                                      consLname: widget.conslname,
+                                      consBarangay: widget.consbarangay,
+                                      consMunicipal: widget.consmunicipal,
+                                      listingUrl: widget.imgurl,
+                                      listingid: widget.listId,
+                                    );
+                                  },
+                                ),
+                              );
                             }
                           },
-                          child: poppinsText("Dispute", Colors.red, 20.sp, FontWeight.normal),
+                          child: Container(
+                            height: 50,
+                            width: 135,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFFFE0000), Color(0xFFD83F31)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: shadow,
+                                  blurRadius: 5,
+                                  offset: const Offset(1, 5),
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(10.sp),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.star_border,
+                                      color: Colors.white,
+                                    ),
+                                    poppinsText(
+                                      "Review & Rate ",
+                                      Colors.white,
+                                      13.sp,
+                                      FontWeight.normal,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -611,33 +936,6 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
           ],
         ),
       ),
-      /*This is the button that will go back to the bids to be selected */
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          getFarmerDetails();
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => FarmerListOfBids(
-                farmerUname: farmerUname,
-                farmerId: farmerId,
-                listingId: widget.listId,
-                listingUrl: widget.listUrl,
-              ),
-            ),
-          );
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        elevation: 2,
-        backgroundColor: greenNormal,
-        splashColor: greenLight,
-        child: const Icon(
-          Icons.arrow_back,
-          color: Colors.white,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -768,6 +1066,14 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
     double consumerSwapCoins = await consumerDetails.getSwapCoinsWithProvidedId(widget.consid);
     setState(() {
       consSwapCoins = consumerSwapCoins;
+    });
+  }
+
+  /*Funcntion that will get the rating of consumer*/
+  Future<void> getConsumersRating() async {
+    double rating = await consumerDetails.getConsumerRating(widget.consid);
+    setState(() {
+      finalRating = rating.toInt();
     });
   }
 
@@ -1011,5 +1317,25 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
       String farmerId, double newFarmerSwapCoins, String consumerId, double newConsumerSwapCoins) {
     consumerFarmerSwapCoins.updateFarmerSwapCoins(farmerId, newFarmerSwapCoins);
     consumerFarmerSwapCoins.updateConsumerSwapCoins(consumerId, newConsumerSwapCoins);
+  }
+
+  void showArchiveMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Warning", Colors.red, 20, FontWeight.w500),
+          content: Text(
+            "Your listing will now be archived, For dispute, go to Dispute Page",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20.sp,
+              fontFamily: GoogleFonts.poppins().fontFamily,
+            ),
+          ),
+        );
+      },
+    );
   }
 }
