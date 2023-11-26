@@ -12,7 +12,6 @@ import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_accountmanagement.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_barter.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_buy.dart";
-import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_cart.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_communication.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_dashboard.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_dispute.dart";
@@ -40,7 +39,8 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    String userRole = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String userRole =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     return Drawer(
       child: (userRole == "FARMER")
           ? ListView(
@@ -53,7 +53,8 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                     children: [
                       FutureBuilder(
                         /*Kwaon nato ang document id sa atong current login user */
-                        future: id.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid),
+                        future: id.getFarmerDocumentId(
+                            FirebaseAuth.instance.currentUser!.uid),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             String data = snapshot.data!;
@@ -107,7 +108,8 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                     children: [
                       FutureBuilder(
                         /*Kwaon nato ang document id sa atong current login user */
-                        future: id.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid),
+                        future: id.getConsumerDocumentId(
+                            FirebaseAuth.instance.currentUser!.uid),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             String data = snapshot.data!;
@@ -144,9 +146,6 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                 ),
                 const ListTile(
                   title: ConsumerWalletManagementBtn(),
-                ),
-                const ListTile(
-                  title: ConsumerCartManagementBtn(),
                 ),
                 const Spacer(),
                 ListTile(

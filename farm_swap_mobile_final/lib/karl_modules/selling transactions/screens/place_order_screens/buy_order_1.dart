@@ -3,8 +3,8 @@ import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/save_order.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/consumer_wallet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -95,7 +95,8 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -129,22 +130,23 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
           Padding(
             padding: EdgeInsets.only(top: 15.sp),
             child: Center(
-              child: poppinsText(widget.listingName, Colors.black, 30.sp, FontWeight.w500),
+              child: poppinsText(
+                  widget.listingName, Colors.black, 30.sp, FontWeight.w500),
             ),
           ),
           /*This is for the listing price per kilogram */
           Padding(
             padding: EdgeInsets.only(top: 5.sp),
             child: Center(
-              child: poppinsText(
-                  "${widget.listingPrice} pesos /kg", Colors.black54, 17.sp, FontWeight.w500),
+              child: poppinsText("${widget.listingPrice} pesos /kg",
+                  Colors.black54, 17.sp, FontWeight.w500),
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 5.sp),
             child: Center(
-              child: poppinsText(
-                  "${widget.listingQuan} kg available", Colors.black54, 10.sp, FontWeight.w500),
+              child: poppinsText("${widget.listingQuan} kg available",
+                  Colors.black54, 10.sp, FontWeight.w500),
             ),
           ),
           SizedBox(
@@ -176,7 +178,8 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                     child: Center(
                       child: Column(
                         children: [
-                          poppinsText("$totalString pesos", Colors.black, 20.sp, FontWeight.normal),
+                          poppinsText("$totalString pesos", Colors.black, 20.sp,
+                              FontWeight.normal),
                           const Divider(),
                           poppinsText(
                             "Total amount payable",
@@ -198,7 +201,8 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                   child: Center(
                     child: Column(
                       children: [
-                        poppinsText("$kilogramString kg", Colors.black, 20.sp, FontWeight.normal),
+                        poppinsText("$kilogramString kg", Colors.black, 20.sp,
+                            FontWeight.normal),
                         const Divider(),
                         poppinsText(
                           "Total kilograms payable",
@@ -221,7 +225,8 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                     CircleAvatar(
                       child: IconButton(
                         onPressed: () {
-                          if (kilogramdDouble == double.tryParse(widget.listingQuan)!.toDouble()) {
+                          if (kilogramdDouble ==
+                              double.tryParse(widget.listingQuan)!.toDouble()) {
                             showExceedMessage();
                           } else {
                             setState(() {
@@ -229,7 +234,8 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                               kilogramString = kilogramdDouble.toString();
 
                               double payable = kilogramdDouble *
-                                  double.tryParse(widget.listingPrice)!.toDouble();
+                                  double.tryParse(widget.listingPrice)!
+                                      .toDouble();
                               totalDouble = payable;
                               totalString = payable.toString();
                             });
@@ -243,40 +249,45 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                     ),
                     TextButton(
                       onPressed: () {
-                        /*A condition that checks if the consumer has enough wallet balance to pay the price once the
-                        farmer confirms the buy */
-                        if (consWallet >= totalDouble) {
-                          /*Actual saving of data */
-                          buy.saveBuyOrder(
-                            consName,
-                            consLName,
-                            consUname,
-                            consId,
-                            consBarangay,
-                            consMunicipality,
-                            widget.farmerName,
-                            widget.farmerLName,
-                            widget.farmerUname,
-                            widget.farmerId,
-                            widget.farmerBarangay,
-                            widget.farmerMunicipal,
-                            widget.listingName,
-                            widget.listingId,
-                            widget.listingPrice,
-                            widget.listingQuan,
-                            kilogramdDouble,
-                            totalDouble,
-                            DateTime.now(),
-                            false,
-                            widget.listingStatus,
-                            widget.imageUrl,
-                          );
-                          showSuccessMessage();
+                        if (totalDouble == 1) {
+                          showInvalidMessage();
                         } else {
-                          showNotWalletBalanceMessage();
+                          /*A condition that checks if the consumer has enough wallet balance to pay the price once the
+                        farmer confirms the buy */
+                          if (consWallet >= totalDouble) {
+                            /*Actual saving of data */
+                            buy.saveBuyOrder(
+                              consName,
+                              consLName,
+                              consUname,
+                              consId,
+                              consBarangay,
+                              consMunicipality,
+                              widget.farmerName,
+                              widget.farmerLName,
+                              widget.farmerUname,
+                              widget.farmerId,
+                              widget.farmerBarangay,
+                              widget.farmerMunicipal,
+                              widget.listingName,
+                              widget.listingId,
+                              widget.listingPrice,
+                              widget.listingQuan,
+                              kilogramdDouble,
+                              totalDouble,
+                              DateTime.now(),
+                              false,
+                              widget.listingStatus,
+                              widget.imageUrl,
+                            );
+                            showSuccessMessage();
+                          } else {
+                            showNotWalletBalanceMessage();
+                          }
                         }
                       },
-                      child: poppinsText("Buy", farmSwapTitlegreen, 26.sp, FontWeight.bold),
+                      child: poppinsText(
+                          "Buy", farmSwapTitlegreen, 26.sp, FontWeight.bold),
                     ),
                     SizedBox(
                       width: 20.w,
@@ -295,7 +306,8 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                               kilogramString = kilogramdDouble.toString();
 
                               double payable = kilogramdDouble *
-                                  double.tryParse(widget.listingPrice)!.toDouble();
+                                  double.tryParse(widget.listingPrice)!
+                                      .toDouble();
                               totalDouble = payable;
                               totalString = payable.toString();
                             });
@@ -361,8 +373,11 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
       builder: (context) {
         return AlertDialog(
           title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.bold),
-          content: poppinsText("You cannot exceed the number of available kilograms", Colors.black,
-              15.sp, FontWeight.normal),
+          content: poppinsText(
+              "You cannot exceed the number of available kilograms",
+              Colors.black,
+              15.sp,
+              FontWeight.normal),
         );
       },
     );
@@ -375,8 +390,8 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
       builder: (context) {
         return AlertDialog(
           title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.bold),
-          content: poppinsText(
-              "You have reached the minimum kilogram", Colors.black, 15.sp, FontWeight.normal),
+          content: poppinsText("You have reached the minimum kilogram",
+              Colors.black, 15.sp, FontWeight.normal),
         );
       },
     );
@@ -391,6 +406,36 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
           title: poppinsText("Success!", Colors.blue, 20.sp, FontWeight.bold),
           content: poppinsText(
             "You have successfully placed an order, Wallet balance deduction will happen after farmer confirmation",
+            Colors.black,
+            15.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const MyOrders();
+                      },
+                    ),
+                  );
+                },
+                child: const Text("Go to Cart"))
+          ],
+        );
+      },
+    );
+  }
+
+  void showInvalidMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Warning!", Colors.red, 20.sp, FontWeight.bold),
+          content: poppinsText(
+            "Please adjust the kilogram/s",
             Colors.black,
             15.sp,
             FontWeight.normal,
