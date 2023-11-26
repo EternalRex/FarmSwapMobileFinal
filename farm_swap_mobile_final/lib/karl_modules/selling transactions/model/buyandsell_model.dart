@@ -27,6 +27,8 @@ class BuyAndSell {
     required this.selected,
     required this.declined,
     required this.imageUrl,
+    required this.consumerCompleted,
+    required this.consumerCompletedDate,
   });
 
   /*Consumer Details */
@@ -63,6 +65,8 @@ class BuyAndSell {
   bool selected;
   bool declined;
   String imageUrl;
+  bool consumerCompleted;
+  DateTime consumerCompletedDate;
 
   Map<String, dynamic> toMap() {
     return {
@@ -93,6 +97,8 @@ class BuyAndSell {
       'selected': selected,
       'declined': declined,
       'imgurl': imageUrl,
+      'consumerCompleted': consumerCompleted,
+      'consumerCompletedDate': consumerCompletedDate,
     };
   }
 }

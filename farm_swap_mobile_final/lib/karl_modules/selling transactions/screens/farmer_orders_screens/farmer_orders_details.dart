@@ -118,6 +118,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
     getFarmerSwapCoins();
     getFarmerPhoto();
     getConsumerRating();
+    getFarmerWalletBalance();
   }
 
   @override
@@ -579,6 +580,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            computeSwapCoinsDeduction();
                             /*Computing the remaining swapcoins of farmer */
                             double finalDeductSp = farmerSwapCoins - swapCoinsToDeduct;
                             /*Computing the remaining wallet balance of consumer */
@@ -590,8 +592,6 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                             /*Computing the remaining listing kilograms*/
                             double remainKilogram =
                                 double.parse(widget.listingQuantity) - widget.purchaseQuantity;
-
-                            computeSwapCoinsDeduction();
                             computeTransactionFeePercent();
                             /*If farmer has suffecient swap coins*/
                             if (farmerSwapCoins > swapCoinsToDeduct) {
@@ -932,13 +932,27 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                       swapCoinsToDeduct,
                       DateTime.now(),
                     );
-
                     print("data saved");
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const ConfirmedOrders();
+                        },
+                      ),
+                    );
                   },
                   child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.normal),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const FarmerOrdersList();
+                        },
+                      ),
+                    );
+                  },
                   child: poppinsText("Cancel", Colors.red, 20.sp, FontWeight.normal),
                 ),
               ],

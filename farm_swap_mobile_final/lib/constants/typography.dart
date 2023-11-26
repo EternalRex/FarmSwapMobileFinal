@@ -44,10 +44,10 @@ class Poppins {
     fontWeight: FontWeight.w800,
     fontSize: 20,
   );
-  static TextStyle farmerName = const TextStyle(
+  static TextStyle farmerName = TextStyle(
     fontFamily: poppins,
     fontWeight: FontWeight.w600,
-    fontSize: 16,
+    fontSize: 16.sp,
   );
   static TextStyle adminName = TextStyle(
     fontFamily: poppins,

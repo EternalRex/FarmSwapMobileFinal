@@ -1,13 +1,12 @@
+import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_options_text.dart';
-import 'package:farm_swap_mobile_final/routes/routes.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_farmer_reviews/display_farmer_review.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/*Kani na class is button ni siya  drawer na kung e click mo redirect ni siya sa desired page */
-
-class ConsumerDisputeManagementBtn extends StatelessWidget {
-  const ConsumerDisputeManagementBtn({super.key});
+class MyFarmerReviewAndRAting extends StatelessWidget {
+  const MyFarmerReviewAndRAting({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +19,23 @@ class ConsumerDisputeManagementBtn extends StatelessWidget {
             SizedBox(
               width: 3.w,
             ),
-            const DisGreen(),
+            Icon(
+              Icons.wallet,
+              color: farmSwapTitlegreen,
+            ),
             SizedBox(
               width: 10.w,
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(RouteManager.consumerdisputepage);
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) {
+                    return const DisplayFarmerReviews();
+                  },
+                ));
               },
               child: DashBoardTxt(
-                myText: "Disputes",
+                myText: "My Reviews",
                 myColor: const Color(0xFF09041B),
                 mySize: 15.sp,
                 myFont: GoogleFonts.poppins().fontFamily,
@@ -38,29 +44,6 @@ class ConsumerDisputeManagementBtn extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class DisGreen extends StatelessWidget {
-  const DisGreen({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ShaderMask(
-      shaderCallback: (Rect bounds) {
-        return const LinearGradient(
-          colors: [Color(0xFF53E78B), Color(0xFF14BE77)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ).createShader(bounds);
-      },
-      child: const Icon(
-        Icons.report_rounded,
-        color: Colors.white,
       ),
     );
   }

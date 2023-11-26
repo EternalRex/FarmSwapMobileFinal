@@ -64,6 +64,8 @@ class SaveCustomerBuyOrder {
       selected: false,
       declined: false,
       imageUrl: imageurl,
+      consumerCompleted: false,
+      consumerCompletedDate: DateTime.now(),
     );
 
     var sellListingRef = FirebaseFirestore.instance.collection("sample_SellListings").doc(docId);
