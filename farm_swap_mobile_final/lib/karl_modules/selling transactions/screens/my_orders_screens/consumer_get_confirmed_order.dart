@@ -9,20 +9,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class GetMyOrders extends StatefulWidget {
-  const GetMyOrders({super.key});
+class GetConsumerConfirmedOrderes extends StatefulWidget {
+  const GetConsumerConfirmedOrderes({super.key});
 
   @override
-  State<GetMyOrders> createState() => _GetMyOrdersState();
+  State<GetConsumerConfirmedOrderes> createState() => _GetConsumerConfirmedOrderesState();
 }
 
-class _GetMyOrdersState extends State<GetMyOrders> {
+class _GetConsumerConfirmedOrderesState extends State<GetConsumerConfirmedOrderes> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collectionGroup("sellbuy")
           .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('selected', isEqualTo: true)
+          .where('confirmed', isEqualTo: true)
           .orderBy('purchaseDate', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
@@ -63,7 +65,6 @@ class _GetMyOrdersState extends State<GetMyOrders> {
     String fUname = data["farmerUname"];
     String fBarangay = data["farmerBarangay"];
     String fMunicipal = data["farmerMunicipal"];
-    bool isConsumerComplete = data["consumerCompleted"];
 
     String listingid = data["listingId"];
     String listingName = data["listingName"];
@@ -78,6 +79,7 @@ class _GetMyOrdersState extends State<GetMyOrders> {
     bool confirmed = data["confirmed"];
     bool selected = data["selected"];
     bool declined = data["declined"];
+    bool isConsumerComplete = data["consumerCompleted"];
 
 /*Order time conversion*/
     Timestamp orderTime = data["purchaseDate"];
@@ -95,7 +97,10 @@ class _GetMyOrdersState extends State<GetMyOrders> {
     String finalCompletedTime = DateFormat('yyyy-MM-dd').format(newCompletedTime);
 
     if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATE") &&
-        (confirmed == false && selected == false && declined == false)) {
+        (confirmed == true &&
+            selected == true &&
+            isConsumerComplete == false &&
+            declined == false)) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         /*The oval container*/

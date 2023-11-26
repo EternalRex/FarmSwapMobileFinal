@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_order_details.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/farmer_orders_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,20 +9,21 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class GetMyOrders extends StatefulWidget {
-  const GetMyOrders({super.key});
+class GetDeclinedFarmerOders extends StatefulWidget {
+  const GetDeclinedFarmerOders({super.key});
 
   @override
-  State<GetMyOrders> createState() => _GetMyOrdersState();
+  State<GetDeclinedFarmerOders> createState() => _GetDeclinedFarmerOdersState();
 }
 
-class _GetMyOrdersState extends State<GetMyOrders> {
+class _GetDeclinedFarmerOdersState extends State<GetDeclinedFarmerOders> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collectionGroup("sellbuy")
-          .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('farmerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('declined', isEqualTo: true)
           .orderBy('purchaseDate', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
@@ -63,7 +64,6 @@ class _GetMyOrdersState extends State<GetMyOrders> {
     String fUname = data["farmerUname"];
     String fBarangay = data["farmerBarangay"];
     String fMunicipal = data["farmerMunicipal"];
-    bool isConsumerComplete = data["consumerCompleted"];
 
     String listingid = data["listingId"];
     String listingName = data["listingName"];
@@ -95,7 +95,7 @@ class _GetMyOrdersState extends State<GetMyOrders> {
     String finalCompletedTime = DateFormat('yyyy-MM-dd').format(newCompletedTime);
 
     if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATE") &&
-        (confirmed == false && selected == false && declined == false)) {
+        (confirmed == false && selected == false && declined == true)) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         /*The oval container*/
@@ -121,7 +121,7 @@ class _GetMyOrdersState extends State<GetMyOrders> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return MyOrderDetails(
+                    return FarmerOrderDetails(
                       consName: cFName,
                       consLName: cLname,
                       consUname: cLUname,
@@ -149,7 +149,6 @@ class _GetMyOrdersState extends State<GetMyOrders> {
                       selected: selected,
                       declined: declined,
                       imageUrl: imageUrl,
-                      consumerCompleted: isConsumerComplete,
                     );
                   },
                 ),
@@ -233,7 +232,7 @@ class _GetMyOrdersState extends State<GetMyOrders> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
-                            return MyOrderDetails(
+                            return FarmerOrderDetails(
                               consName: cFName,
                               consLName: cLname,
                               consUname: cLUname,
@@ -261,7 +260,6 @@ class _GetMyOrdersState extends State<GetMyOrders> {
                               selected: selected,
                               declined: declined,
                               imageUrl: imageUrl,
-                              consumerCompleted: isConsumerComplete,
                             );
                           },
                         ),

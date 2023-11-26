@@ -1,5 +1,6 @@
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
-import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/confirmed_farmer_orders.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/consumer_confirmed_orders.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/consumer_declined_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,7 +35,15 @@ class ConsumerBuyingNavBar extends StatelessWidget {
           SizedBox(
             width: 100.w,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const ConsumerConfirmedOrder();
+                    },
+                  ),
+                );
+              },
               child: poppinsText("Confirmed", Colors.white, 13.sp, FontWeight.bold),
             ),
           ),
@@ -44,8 +53,16 @@ class ConsumerBuyingNavBar extends StatelessWidget {
           SizedBox(
             width: 100.w,
             child: TextButton(
-              onPressed: () {},
-              child: poppinsText("Denied", Colors.white, 13.sp, FontWeight.bold),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const ConsumerDeclinedOrders();
+                    },
+                  ),
+                );
+              },
+              child: poppinsText("Declined", Colors.white, 13.sp, FontWeight.bold),
             ),
           ),
         ],

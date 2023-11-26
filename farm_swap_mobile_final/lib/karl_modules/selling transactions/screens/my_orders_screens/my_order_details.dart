@@ -1,10 +1,12 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
+import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/consumer_farmer_actualchat.dart';
-import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
-import 'package:farm_swap_mobile_final/karl_modules/communication/screens/farmer_consumer_chat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/update_confirmed.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/confirmed_farmer_orders.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/consumer_confirmed_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +43,7 @@ class MyOrderDetails extends StatefulWidget {
     required this.selected,
     required this.declined,
     required this.imageUrl,
+    required this.consumerCompleted,
   });
 
   /*Consumer Details */
@@ -77,6 +80,7 @@ class MyOrderDetails extends StatefulWidget {
   final bool selected;
   final bool declined;
   final String imageUrl;
+  final bool consumerCompleted;
 
   @override
   State<MyOrderDetails> createState() => _MyOrderDetailsState();
@@ -91,6 +95,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
   }
 
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+  UpdateConfirmedOrder update = UpdateConfirmedOrder();
   String farmerPhoto = "";
 
   @override
@@ -213,26 +218,30 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                   left: 125.h,
                   child: IconButton(
                     onPressed: () {
-                      /*Messaging function*/
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) {
-                          return ConsumerFarmerActualChat(
-                            farmerId: widget.farmerId,
-                            farmerName: widget.farmerName,
-                            farmerUname: widget.farmerUname,
-                            farmerBarangay: widget.farmerBarangay,
-                            farmerMunicipality: widget.farmerMunicipality,
-                            consumerId: widget.consId,
-                            consumerFname: widget.consName,
-                            consumerLname: widget.consLName,
-                            consumerUname: widget.consUname,
-                            consumerBarangay: widget.consBarangay,
-                            consumerMunicipality: widget.consMunicipality,
-                            listingId: widget.listingId,
-                            listingName: widget.listingName,
-                          );
-                        },
-                      ));
+                      /*A condition that says the consumer cant use the chat functionality once the farmer declines the offer */
+                      (widget.declined == true)
+                          ? showCantDoChatMessage()
+                          :
+                          /*Messaging function*/
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return ConsumerFarmerActualChat(
+                                  farmerId: widget.farmerId,
+                                  farmerName: widget.farmerName,
+                                  farmerUname: widget.farmerUname,
+                                  farmerBarangay: widget.farmerBarangay,
+                                  farmerMunicipality: widget.farmerMunicipality,
+                                  consumerId: widget.consId,
+                                  consumerFname: widget.consName,
+                                  consumerLname: widget.consLName,
+                                  consumerUname: widget.consUname,
+                                  consumerBarangay: widget.consBarangay,
+                                  consumerMunicipality: widget.consMunicipality,
+                                  listingId: widget.listingId,
+                                  listingName: widget.listingName,
+                                );
+                              },
+                            ));
                     },
                     icon: Icon(
                       FontAwesomeIcons.facebookMessenger,
@@ -355,6 +364,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                     width: 30.w,
                     child: const Icon(Icons.arrow_right),
                   ),
+                  /*Condition ni nga atong ilisan ang text kung ma selected ma siya */
                   SizedBox(
                     width: 150.w,
                     child: (widget.isConfirmed == true && widget.declined == false)
@@ -391,6 +401,19 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 ],
               ),
             ),
+            /*If dli pa gani accepted or confirmed ang order ni consumer, wala say mark as done ang transaction display lang ang container */
+            (widget.selected == true && widget.isConfirmed == true)
+                ?
+                /*To Mark the transaction as done */
+                (widget.consumerCompleted == true)
+                    ? poppinsText("Transaction Marked as Done", Colors.red, 20, FontWeight.normal)
+                    : TextButton(
+                        onPressed: () {
+                          showRemoveMessage();
+                        },
+                        child: poppinsText("Mark as Done", Colors.blue, 20.sp, FontWeight.normal),
+                      )
+                : Container(),
             SizedBox(
               height: 70.h,
             ),
@@ -454,7 +477,72 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
     });
   }
 
-  /*Function that will get the details of consumer */
+  void showRemoveMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.w500),
+          content: poppinsText(
+            "This transaction will be removed from confirmed order list, Go to dispute page to dispute this transaction",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            Row(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    /*Updates the consumer update field into true*/
+                    update.updateOrderCompletedConsumer(widget.listingId, widget.consId);
+                    /*Navigate back to the confirmed orders page */
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const ConfirmedOrders();
+                        },
+                      ),
+                    );
+                  },
+                  child: poppinsText("Continue", farmSwapTitlegreen, 17.sp, FontWeight.normal),
+                ),
+                TextButton(
+                  onPressed: () {
+                    /*Navigate back to the confirmed orders page */
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const ConsumerConfirmedOrder();
+                        },
+                      ),
+                    );
+                  },
+                  child: poppinsText("Cancel", farmSwapTitlegreen, 17.sp, FontWeight.normal),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-  /*Function that will display if complete message is clicked before the listing is confirmed */
+/*Function that will return a message saying that the chat functionality can't be used because he is denied*/
+  void showCantDoChatMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.w500),
+          content: poppinsText(
+            "You cannot message the farmer because your order was declined",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+        );
+      },
+    );
+  }
 }

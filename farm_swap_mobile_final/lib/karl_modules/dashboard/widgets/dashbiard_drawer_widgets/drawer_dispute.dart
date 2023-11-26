@@ -28,7 +28,7 @@ class MyDisputeManagement extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(RouteManager.disputepage);
+                Navigator.of(context).pushNamed(RouteManager.farmerdisputepage);
               },
               child: DashBoardTxt(
                 myText: "Disputes",
