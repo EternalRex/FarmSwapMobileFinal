@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/label/wallet_textfield_label.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
@@ -6,6 +7,7 @@ import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/databa
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/consumer_accepted_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/consumer_farmer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/consumer_rating_farmer_rating.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -86,11 +88,13 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
   String consUname = "";
   String consBarangay = "";
   String constMunispyo = "";
+  int finalRating = 0;
 
   @override
   void initState() {
     super.initState();
     getConsumerDetails();
+    getFarmerRating();
   }
 
   @override
@@ -296,6 +300,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
               height: 15.h,
             ),
             /*This container is for the item name */
+            /*
             Container(
               color: const Color(0xFF86A789),
               width: MediaQuery.of(context).size.width,
@@ -534,7 +539,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                   )
                 ],
               ),
-            ),
+            ),*/
             (widget.isConsCompleted == true)
                 /*If completed the ang transaction so wala nay completed og disupute na button meaning
             dli na maka dispute si farmer kung iya na e mark as complete ang transaction */
@@ -544,6 +549,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                     padding: EdgeInsets.only(right: 10.sp, left: 10.sp, bottom: 10.sp),
                     child: Row(
                       children: [
+                        /*Text button for completing the order */
                         TextButton(
                           onPressed: () {
                             /*Condition ni na if dli pa gani selected ang status sa listing, dli maka gamit sa completed og dispute
@@ -563,11 +569,12 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                             }
                           },
                           child: poppinsText(
-                              "Completed", farmSwapTitlegreen, 20.sp, FontWeight.normal),
+                              "Completed", farmSwapTitlegreen, 15.sp, FontWeight.normal),
                         ),
                         SizedBox(
-                          width: 70.w,
+                          width: 30.w,
                         ),
+                        /*Text button for disputing */
                         TextButton(
                           onPressed: () {
                             /*Condition ni na if dli pa gani selected ang status sa listing, dli maka gamit sa completed og dispute
@@ -583,11 +590,273 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                               );
                             }
                           },
-                          child: poppinsText("Dispute", Colors.red, 20.sp, FontWeight.normal),
+                          child: poppinsText("Dispute", Colors.red, 15.sp, FontWeight.normal),
+                        ),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        /*Text button for Rating */
+                        TextButton(
+                          onPressed: () {
+                            /*Condition ni na if dli pa gani selected ang status sa listing, dli maka gamit sa completed og dispute
+                            functionality si consumer */
+                            if (widget.selected == false) {
+                              showInvaidMessage();
+                            } else {
+                              /*Re routign to this page to show the updated value effect*/
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return FarmerRating(
+                                      farmerId: widget.farmerid,
+                                      farmerName: widget.farmername,
+                                      farmerLname: widget.farmerlname,
+                                      farmerUname: widget.farmeruname,
+                                      farmerBarangay: widget.farmerbarangay,
+                                      farmerMunicipal: widget.farmermunicipal,
+                                      consId: consid,
+                                      consName: consName,
+                                      consUname: consUname,
+                                      consLname: consLname,
+                                      consBarangay: consBarangay,
+                                      consMunicipal: constMunispyo,
+                                      listingUrl: widget.imgurl,
+                                      listingid: widget.listId,
+                                    );
+                                  },
+                                ),
+                              );
+                            }
+                          },
+                          child: poppinsText("Review", orangeDark, 15.sp, FontWeight.normal),
                         ),
                       ],
                     ),
                   ),
+            SizedBox(
+              height: 20.h,
+            ),
+            poppinsText2(widget.itemname, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Item Name", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.itemDisc, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Item Discription", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.itemVal, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Estimated Item Value", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.itemquan, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Number of Items", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.itemCond, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Condition of Item", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.listName, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Farmer Product Name", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2("${widget.listPrice} pesos", Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Estimated product price", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2("${widget.listQuan} kilograms", Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Product Quantity", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(widget.farmeruname, Colors.black, 20.sp, FontWeight.normal),
+            const Divider(),
+            poppinsText2("Farmer Username", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            poppinsText2(
+              " Barnagay ${widget.farmerbarangay} , Municipality of ${widget.farmermunicipal}",
+              Colors.black,
+              20.sp,
+              FontWeight.normal,
+            ),
+            const Divider(),
+            poppinsText2("Farmer Location", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
+            /*IF rating is 5 display 5 stars */
+            (finalRating == 5)
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 40.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 40.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 40.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 40.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 40.sp,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      poppinsText2(
+                        "(5/5)",
+                        Colors.black,
+                        20.sp,
+                        FontWeight.normal,
+                      ),
+                    ],
+                  )
+                /*if rating is 4 display 4 stars */
+                : (finalRating < 5 && finalRating >= 4)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 40.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 40.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 40.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 40.sp,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          poppinsText2(
+                            "(4/5)",
+                            Colors.black,
+                            20.sp,
+                            FontWeight.normal,
+                          ),
+                        ],
+                      )
+                    : (finalRating < 4 && finalRating >= 3)
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 40.sp,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 40.sp,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 40.sp,
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              poppinsText2(
+                                "(3/5)",
+                                Colors.black,
+                                20.sp,
+                                FontWeight.normal,
+                              ),
+                            ],
+                          )
+                        : (finalRating < 3 && finalRating >= 2)
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 40.sp,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 40.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  poppinsText2(
+                                    "(2/5)",
+                                    Colors.black,
+                                    20.sp,
+                                    FontWeight.normal,
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 40.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  poppinsText2(
+                                    "(1/5)",
+                                    Colors.black,
+                                    20.sp,
+                                    FontWeight.normal,
+                                  ),
+                                ],
+                              ),
+            const Divider(),
+            poppinsText2("Farmer Rating", Colors.black54, 15.sp, FontWeight.normal),
+            SizedBox(
+              height: 10.h,
+            ),
           ],
         ),
       ),
@@ -652,6 +921,13 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
       consUname = uname;
       consBarangay = barangay;
       constMunispyo = municipal;
+    });
+  }
+
+  Future<void> getFarmerRating() async {
+    double rating = await farmerDetails.getFarmerRating(widget.farmerid);
+    setState(() {
+      finalRating = rating.toInt();
     });
   }
 }

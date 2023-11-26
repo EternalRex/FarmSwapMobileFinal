@@ -114,7 +114,8 @@ class ListinGetConsumerDetails {
     CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
     DocumentSnapshot snapshot = await reference.doc(documentId).get();
 
-    return snapshot["swapcoins"];
+    double coins = (snapshot["swapcoins"] as num).toDouble();
+    return coins;
   }
 
 /*Kuha gihapon ni siyag swap coins ang naka lahi lang is mag need ni siyag user id from the class diin ni gi call na method unlike sa babaw
@@ -152,5 +153,15 @@ na largo ratag provide sa firebase Auth */
     return walletBalance;
   }
 
+/*Method to pull out the wallet balance with parameter*/
+  Future<double> getConsumerRating(String id) async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getConsumerDocumentId(id);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_ConsumerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    double rating = (snapshot["rating"] as num).toDouble();
+    return rating;
+  }
   //So pun e lang ni og method diri kung aduna pamoy ganahan na value na e pullout sa propert ni farmer
 }

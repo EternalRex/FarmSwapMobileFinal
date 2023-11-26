@@ -131,5 +131,16 @@ class ListinGetFarmerDetails {
     return coins;
   }
 
+/*Get farmer rating balance with parameter*/
+  Future<double> getFarmerRating(String farmerid) async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getFarmerDocumentId(farmerid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    double rating = (snapshot["rating"] as num).toDouble();
+    return rating;
+  }
+
   //So pun e lang ni og method diri kung aduna pamoy ganahan na value na e pullout sa propert ni farmer
 }

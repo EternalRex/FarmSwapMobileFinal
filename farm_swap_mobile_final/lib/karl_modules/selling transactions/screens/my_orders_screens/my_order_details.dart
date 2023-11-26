@@ -4,11 +4,15 @@ import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/consumer_farmer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/consumer_rating_farmer_rating.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/consumer_selling_rating_farmer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/update_confirmed.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/confirmed_farmer_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/consumer_confirmed_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_orders.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/accept_order_btn.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/deny_order_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -97,11 +101,13 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
   UpdateConfirmedOrder update = UpdateConfirmedOrder();
   String farmerPhoto = "";
+  int finalRating = 0;
 
   @override
   void initState() {
     super.initState();
     getFarmerDetails();
+    getFarmerRating();
   }
 
   @override
@@ -218,7 +224,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                   left: 125.h,
                   child: IconButton(
                     onPressed: () {
-                      /*A condition that says the consumer cant use the chat functionality once the farmer declines the offer */
+                      /*A condition that says the consumer cant use the chat functionality once the farmer declines the */
                       (widget.declined == true)
                           ? showCantDoChatMessage()
                           :
@@ -261,6 +267,156 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
               17.sp,
               FontWeight.normal,
             ),
+            (finalRating == 5)
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 25.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 25.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 25.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 25.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 25.sp,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      poppinsText2(
+                        "(5/5)",
+                        Colors.black,
+                        13.sp,
+                        FontWeight.normal,
+                      ),
+                    ],
+                  )
+                /*if rating is 4 display 4 stars */
+                : (finalRating < 5 && finalRating >= 4)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 25.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 25.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 25.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 25.sp,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          poppinsText2(
+                            "(4/5)",
+                            Colors.black,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                        ],
+                      )
+                    : (finalRating < 4 && finalRating >= 3)
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 25.sp,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 25.sp,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 25.sp,
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              poppinsText2(
+                                "(3/5)",
+                                Colors.black,
+                                13.sp,
+                                FontWeight.normal,
+                              ),
+                            ],
+                          )
+                        : (finalRating < 3 && finalRating >= 2)
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  poppinsText2(
+                                    "(2/5)",
+                                    Colors.black,
+                                    13.sp,
+                                    FontWeight.normal,
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  poppinsText2(
+                                    "(1/5)",
+                                    Colors.black,
+                                    13.sp,
+                                    FontWeight.normal,
+                                  ),
+                                ],
+                              ),
             poppinsText(
               "Located at ${widget.farmerBarangay} ${widget.farmerMunicipality} ",
               Colors.black54,
@@ -407,11 +563,120 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 /*To Mark the transaction as done */
                 (widget.consumerCompleted == true)
                     ? poppinsText("Transaction Marked as Done", Colors.red, 20, FontWeight.normal)
-                    : TextButton(
-                        onPressed: () {
-                          showRemoveMessage();
-                        },
-                        child: poppinsText("Mark as Done", Colors.blue, 20.sp, FontWeight.normal),
+                    : Column(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              showRemoveMessage();
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 145,
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [Color(0xFF53E78B), Color(0xFF14BE77)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: shadow,
+                                    blurRadius: 5,
+                                    offset: const Offset(1, 5),
+                                  ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(10.sp),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.check_box,
+                                        color: Colors.white,
+                                      ),
+                                      poppinsText(
+                                        "Mark as Done",
+                                        Colors.white,
+                                        15.sp,
+                                        FontWeight.normal,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return SellConsumerRatingFarmer(
+                                    farmerId: widget.farmerId,
+                                    farmerName: widget.farmerName,
+                                    farmerLname: widget.farmerLName,
+                                    farmerUname: widget.farmerUname,
+                                    farmerBarangay: widget.farmerBarangay,
+                                    farmerMunicipal: widget.farmerMunicipality,
+                                    consId: widget.consId,
+                                    consName: widget.consName,
+                                    consUname: widget.consUname,
+                                    consLname: widget.consLName,
+                                    consBarangay: widget.consBarangay,
+                                    consMunicipal: widget.consMunicipality,
+                                    listingUrl: widget.imageUrl,
+                                    listingid: widget.listingId,
+                                  );
+                                },
+                              ));
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 145,
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [Color(0xFFFE0000), Color(0xFFD83F31)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: shadow,
+                                    blurRadius: 5,
+                                    offset: const Offset(1, 5),
+                                  ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(10.sp),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.star_border,
+                                        color: Colors.white,
+                                      ),
+                                      poppinsText(
+                                        "Rate Farmer",
+                                        Colors.white,
+                                        15.sp,
+                                        FontWeight.normal,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       )
                 : Container(),
             SizedBox(
@@ -544,5 +809,12 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
         );
       },
     );
+  }
+
+  Future<void> getFarmerRating() async {
+    double rating = await farmerDetails.getFarmerRating(widget.farmerId);
+    setState(() {
+      finalRating = rating.toInt();
+    });
   }
 }

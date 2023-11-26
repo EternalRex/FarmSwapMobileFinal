@@ -4,8 +4,10 @@ import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/farmer_consumer_selling_rating.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/update_confirmed.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/functions/compute_sell_deductible_swapcoins.dart';
+import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/confirmed_farmer_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/farmer_orders_list.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/accept_order_btn.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/deny_order_btn.dart';
@@ -100,6 +102,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
   ComputeSellDeductibleSwapCoins deductibleSP = ComputeSellDeductibleSwapCoins();
   UpdateConfirmedOrder updateConfirm = UpdateConfirmedOrder();
 
+  int finalRating = 0;
   String consumerPhoto = "";
   String farmerPhoto = "";
   double consumerWalletBalance = 0;
@@ -114,6 +117,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
     getConsumerWalletBalance();
     getFarmerSwapCoins();
     getFarmerPhoto();
+    getConsumerRating();
   }
 
   @override
@@ -274,6 +278,157 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
               17.sp,
               FontWeight.normal,
             ),
+            /*Farmer rating starts here */
+            (finalRating == 5)
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 25.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 25.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 25.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 25.sp,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: darkGreen,
+                        size: 25.sp,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      poppinsText2(
+                        "(5/5)",
+                        Colors.black,
+                        13.sp,
+                        FontWeight.normal,
+                      ),
+                    ],
+                  )
+                /*if rating is 4 display 4 stars */
+                : (finalRating < 5 && finalRating >= 4)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 25.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 25.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 25.sp,
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: darkGreen,
+                            size: 25.sp,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          poppinsText2(
+                            "(4/5)",
+                            Colors.black,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                        ],
+                      )
+                    : (finalRating < 4 && finalRating >= 3)
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 25.sp,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 25.sp,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: darkGreen,
+                                size: 25.sp,
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              poppinsText2(
+                                "(3/5)",
+                                Colors.black,
+                                13.sp,
+                                FontWeight.normal,
+                              ),
+                            ],
+                          )
+                        : (finalRating < 3 && finalRating >= 2)
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  poppinsText2(
+                                    "(2/5)",
+                                    Colors.black,
+                                    13.sp,
+                                    FontWeight.normal,
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  poppinsText2(
+                                    "(1/5)",
+                                    Colors.black,
+                                    13.sp,
+                                    FontWeight.normal,
+                                  ),
+                                ],
+                              ),
             poppinsText(
               "Located at ${widget.consBarangay} ${widget.consMunicipality} ",
               Colors.black54,
@@ -475,49 +630,126 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                       ],
                     )
                   : (widget.selected == true && widget.isConfirmed == true)
-                      /*Kung decline gani si Order mao ni na button ang mo display */
-                      ? Container(
-                          height: 50,
-                          width: 141,
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFFE0000), Color(0xFFD83F31)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: shadow,
-                                blurRadius: 5,
-                                offset: const Offset(1, 5),
+                      /*Kung confirmed gani si order mao ni mga buttons na mo display */
+                      ? Row(
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 141,
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [Color(0xFFFE0000), Color(0xFFD83F31)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: shadow,
+                                    blurRadius: 5,
+                                    offset: const Offset(1, 5),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.archive),
-                              SizedBox(
-                                width: 10.w,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 25.sp),
+                                    child: const Icon(
+                                      Icons.archive,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 5.w,
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      showArchiveMessage();
+                                    },
+                                    child: Text(
+                                      "Done",
+                                      style: TextStyle(
+                                        fontFamily: GoogleFonts.poppins().fontFamily,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "Archive",
-                                  style: TextStyle(
-                                    fontFamily: GoogleFonts.poppins().fontFamily,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w900,
-                                    color: Colors.white,
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return FarmerConsumerSellingRating(
+                                      farmerId: widget.farmerId,
+                                      farmerName: widget.farmerName,
+                                      farmerLname: widget.farmerLName,
+                                      farmerUname: widget.farmerUname,
+                                      farmerBarangay: widget.farmerBarangay,
+                                      farmerMunicipal: widget.farmerMunicipality,
+                                      consId: widget.consId,
+                                      consName: widget.consName,
+                                      consUname: widget.consUname,
+                                      consLname: widget.consLName,
+                                      consBarangay: widget.consBarangay,
+                                      consMunicipal: widget.consMunicipality,
+                                      listingUrl: widget.imageUrl,
+                                      listingid: widget.listingId,
+                                    );
+                                  },
+                                ));
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 145,
+                                decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                    colors: [Color(0xFFFE0000), Color(0xFFD83F31)],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: shadow,
+                                      blurRadius: 5,
+                                      offset: const Offset(1, 5),
+                                    ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(10.sp),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.star_border,
+                                          color: Colors.white,
+                                        ),
+                                        poppinsText(
+                                          "Rate Farmer",
+                                          Colors.white,
+                                          15.sp,
+                                          FontWeight.normal,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         )
-                      /*Kung confirmed gani si Order mao ni na button ang mo display */
+                      /*Kung declined gani si Order mao ni na button ang mo display */
                       : Container(),
             ),
             SizedBox(
@@ -759,5 +991,67 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
         );
       },
     );
+  }
+
+  /*A function that will show a message*/
+  void showArchiveMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
+          content: const Text(
+            "This listing will be removed from the confirmed orders, In case of dispute for this transaction, go to Dispute Page",
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+            /*The row that have the buttons that decides what to do after the farmer archives the transaction */
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      updateConfirm.updateOrderCompletedFarmer(widget.listingId, widget.consId);
+                      /*Butngan ni diri og navigator padong sa dispute page for now e balik lang sa nako sa confirmed page*/
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const ConfirmedOrders();
+                          },
+                        ),
+                      );
+                    },
+                    child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+                  ),
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const ConfirmedOrders();
+                          },
+                        ),
+                      );
+                    },
+                    child: poppinsText("Cancel", Colors.red, 20.sp, FontWeight.w500),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> getConsumerRating() async {
+    double rating = await consumerDetails.getConsumerRating(widget.consId);
+    setState(() {
+      finalRating = rating.toInt();
+    });
   }
 }

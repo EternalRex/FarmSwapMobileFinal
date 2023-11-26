@@ -2,6 +2,7 @@ import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/get_confirmed_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/farmer_selling_navbar.dart';
+import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -105,7 +106,9 @@ class _ConfirmedOrdersState extends State<ConfirmedOrders> {
         child: const FarmerSellingNavbar(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

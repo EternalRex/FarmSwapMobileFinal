@@ -1,17 +1,15 @@
 import 'dart:ui';
+
+import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../common/colors.dart';
-
-// ignore: must_be_immutable
-class FarmSwapTextField extends StatelessWidget {
-  FarmSwapTextField({
+class RatingTxtField extends StatelessWidget {
+  const RatingTxtField({
     super.key,
     required this.controller,
     required this.label,
-    required this.isPassword,
     this.prefixIcon,
     this.suffixIcon,
     this.onChanged,
@@ -19,11 +17,10 @@ class FarmSwapTextField extends StatelessWidget {
     this.inputFormatters,
   });
 
-  TextEditingController controller;
-  Widget label;
+  final TextEditingController controller;
+  final Widget label;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
-  bool isPassword;
   final void Function(String)? onChanged;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
@@ -39,10 +36,10 @@ class FarmSwapTextField extends StatelessWidget {
       child: SizedBox(
         width: 300,
         child: TextField(
+          maxLines: 10,
           onChanged: onChanged,
           controller: controller,
           textCapitalization: TextCapitalization.words,
-          obscureText: isPassword,
           cursorColor: normalGreen,
           keyboardType: TextInputType.text,
           selectionHeightStyle: BoxHeightStyle.includeLineSpacingBottom,
@@ -60,7 +57,7 @@ class FarmSwapTextField extends StatelessWidget {
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(width: 0.50, color: Color(0xFFF4F4F4)),
+              borderSide: const BorderSide(width: 0.50, color: Colors.black),
               borderRadius: BorderRadius.circular(15),
             ),
             focusedBorder: OutlineInputBorder(

@@ -71,6 +71,12 @@ class _ArchiveSellListingDetailsState extends State<ArchiveSellListingDetails> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    getFarmerSwapCoins();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -713,7 +719,7 @@ class _ArchiveSellListingDetailsState extends State<ArchiveSellListingDetails> {
   Future<void> updatePromotion() async {
     double constantDeductibleSwapCoins = 10;
     double newSwapCoins = swapCoins - constantDeductibleSwapCoins;
-
+    print("Mao ni swap coins $newSwapCoins");
     /*Gi call nato ang function sa class na mag update sa atong database niya giapasa nato
     ang mga needed na values */
     await renew.renewSellingListing(
