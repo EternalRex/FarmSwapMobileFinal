@@ -75,6 +75,9 @@ na function */
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    SizedBox(
+                      height: 50.h,
+                    ),
                     /*Logo */
                     Image(
                       image: const AssetImage(
@@ -169,6 +172,7 @@ na function */
                           SizedBox(
                             height: 15.h,
                           ),
+                          /*
                           /*Start of google option for login */
                           Text(
                             "Or continue with",
@@ -181,6 +185,7 @@ na function */
                           SizedBox(
                             height: 25.h,
                           ),
+                          */
                           /*Actual google options */
                           Row(
                             children: [
@@ -188,6 +193,7 @@ na function */
                                 padding: EdgeInsets.only(left: 65.sp),
                                 child: Column(
                                   children: [
+                                    /*
                                     /*The google icon and words inside a button */
                                     ElevatedButton.icon(
                                       onPressed: () {},
@@ -213,6 +219,7 @@ na function */
                                         ),
                                       ),
                                     ),
+                                    */
                                     /*The text sign up and register with Email */
                                     Row(
                                       children: [
