@@ -59,6 +59,7 @@ class BarterTransactionDatabase {
       itemUrl: itemUrl,
       listingUrl: listingurl,
       consumserLastName: consumerLname,
+      isDisputed: false,
     );
     FirebaseFirestore.instance
         .collection('sample_BarterTransactions')

@@ -25,3 +25,29 @@ Text poppinsText2(String text, Color color, double size, FontWeight weight) {
     ),
   );
 }
+
+Text poppinsText3(String text, Color color, double size, FontWeight weight) {
+  return Text(
+    text,
+    textAlign: TextAlign.left,
+    style: TextStyle(
+      color: color,
+      fontSize: size,
+      fontFamily: GoogleFonts.poppins().fontFamily,
+      fontWeight: weight,
+    ),
+  );
+}
+
+Text poppinsText4(String text, Color color, double size, FontWeight weight) {
+  return Text(
+    text,
+    textAlign: TextAlign.right,
+    style: TextStyle(
+      color: color,
+      fontSize: size,
+      fontFamily: GoogleFonts.poppins().fontFamily,
+      fontWeight: weight,
+    ),
+  );
+}

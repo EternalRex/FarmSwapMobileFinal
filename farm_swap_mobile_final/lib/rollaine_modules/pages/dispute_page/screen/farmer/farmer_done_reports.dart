@@ -2,19 +2,19 @@ import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/functions/get_farmer_transactions.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/get_farmer_done_barter_reports.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/farmer_dispute_page_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FarmerDisputePage extends StatefulWidget {
-  const FarmerDisputePage({super.key});
+class FarmerDoneReports extends StatefulWidget {
+  const FarmerDoneReports({super.key});
 
   @override
-  State<FarmerDisputePage> createState() => _FarmerDisputePageState();
+  State<FarmerDoneReports> createState() => _FarmerDoneReportsState();
 }
 
-class _FarmerDisputePageState extends State<FarmerDisputePage> {
+class _FarmerDoneReportsState extends State<FarmerDoneReports> {
   /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,7 +31,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
         title: Row(
           children: [
             poppinsText(
-              "Transactions",
+              "Reports",
               Colors.white,
               20.sp,
               FontWeight.bold,
@@ -86,7 +86,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
-                        'Completed Barters',
+                        'Barter Reports',
                         style: Poppins.farmerName.copyWith(
                           color: greenDark,
                         ),
@@ -96,7 +96,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
                       child: SizedBox(
                         height: 320.h,
                         width: MediaQuery.of(context).size.width,
-                        child: const GetFarmerBarters(),
+                        child: const GetFarmerDoneBarterReports(),
                       ),
                     ),
                   ],
@@ -126,7 +126,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
-                        'Completed Sales',
+                        'Sale Reports',
                         style: Poppins.farmerName.copyWith(
                           color: greenDark,
                         ),
@@ -136,7 +136,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
                       child: SizedBox(
                         height: 320.h,
                         width: MediaQuery.of(context).size.width,
-                        child: const GetFarmerSales(),
+                        child: Text("Hi"),
                       ),
                     ),
                   ],

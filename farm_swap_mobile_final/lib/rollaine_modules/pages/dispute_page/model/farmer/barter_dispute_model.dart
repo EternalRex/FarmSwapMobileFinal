@@ -23,9 +23,12 @@ class BarterDisputeModel {
     required this.listingId,
     required this.listingName,
     required this.listingPrice,
-    required this.listingQuan,
-    required this.listingStatus,
     required this.listingUrl,
+    required this.deductedFarmerCoins,
+    required this.deductedConsumerCoins,
+    required this.averageValue,
+    required this.percentage,
+    required this.transactionDate,
   });
 
   /*Farmer Details */
@@ -48,18 +51,20 @@ class BarterDisputeModel {
   String itemName;
   double itemValue;
   String itemUrl;
-
   String listingName;
   String listingId;
   String listingPrice;
-  String listingQuan;
-  String listingStatus;
   String listingUrl;
   DateTime disputeDateFile;
   bool isResolved;
   String farmerDisputeStatus;
   String farmerDisputeText;
   String farmerDisputeUrl;
+  double deductedFarmerCoins;
+  double deductedConsumerCoins;
+  double averageValue;
+  String percentage;
+  DateTime transactionDate;
 
   Map<String, dynamic> toMap() {
     return {
@@ -86,9 +91,12 @@ class BarterDisputeModel {
       'listingId': listingId,
       'listingName': listingName,
       'listingPrice': listingPrice,
-      'listingQuan': listingQuan,
-      'listingStatus': listingStatus,
       'listingUrl': listingUrl,
+      'deductedFarmerCoins': deductedFarmerCoins,
+      'deductedConsumerCoins': deductedConsumerCoins,
+      'valueRange': averageValue,
+      'percentageFee': percentage,
+      'transactionDate': transactionDate,
     };
   }
 }

@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/common/upload_image_functions.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/controllers/farmer/barter_dispute_controller.dart';
@@ -15,29 +16,32 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FarmerReportBarter extends StatefulWidget {
-  const FarmerReportBarter(
-      {super.key,
-      required this.cBarangay,
-      required this.cLname,
-      required this.cMunicipality,
-      required this.cName,
-      required this.cUname,
-      required this.deductFarm,
-      required this.deductCons,
-      required this.fBarangay,
-      required this.fLname,
-      required this.fMunicipality,
-      required this.fName,
-      required this.lName,
-      required this.fUname,
-      required this.iName,
-      required this.iUrl,
-      required this.iValue,
-      required this.lId,
-      required this.lValue,
-      required this.lUrl,
-      required this.pFee,
-      required this.consumerId});
+  const FarmerReportBarter({
+    super.key,
+    required this.cBarangay,
+    required this.cLname,
+    required this.cMunicipality,
+    required this.cName,
+    required this.cUname,
+    required this.deductFarm,
+    required this.deductCons,
+    required this.fBarangay,
+    required this.fLname,
+    required this.fMunicipality,
+    required this.fName,
+    required this.lName,
+    required this.fUname,
+    required this.iName,
+    required this.iUrl,
+    required this.iValue,
+    required this.lId,
+    required this.lValue,
+    required this.lUrl,
+    required this.pFee,
+    required this.consumerId,
+    required this.average,
+    required this.transactionTime,
+  });
 
   final String consumerId;
   final String cBarangay;
@@ -45,8 +49,8 @@ class FarmerReportBarter extends StatefulWidget {
   final String cMunicipality;
   final String cName;
   final String cUname;
-  final String deductFarm;
-  final String deductCons;
+  final double deductFarm;
+  final double deductCons;
   final String fBarangay;
   final String fLname;
   final String fMunicipality;
@@ -60,6 +64,8 @@ class FarmerReportBarter extends StatefulWidget {
   final String lValue;
   final String lUrl;
   final String pFee;
+  final double average;
+  final DateTime transactionTime;
 
   @override
   State<FarmerReportBarter> createState() => _FarmerReportBarterState();
@@ -557,7 +563,18 @@ class _FarmerReportBarterState extends State<FarmerReportBarter> {
                                         ),
                                         /*Ig click nato diri masubmit ang tnanan docs */
                                         onPressed: () {
-                                          /*saveBarterDispute.addFBarterDispute(
+                                          /*Updating the isDisputed property of the barter transaction database to true
+                                          so that the disputed transaction will be removed from this list and transfer to the 
+                                          page were already disputed transaction are being reflected */
+                                          saveBarterDispute.updateDisputed(
+                                            widget.lId,
+                                            widget.iUrl,
+                                            FirebaseAuth.instance.currentUser!.uid,
+                                            widget.consumerId,
+                                          );
+
+                                          /*Saving the dispute report details to the database */
+                                          saveBarterDispute.addFBarterDispute(
                                             widget.fName,
                                             FirebaseAuth.instance.currentUser!.uid,
                                             widget.fLname,
@@ -571,22 +588,23 @@ class _FarmerReportBarterState extends State<FarmerReportBarter> {
                                             widget.cBarangay,
                                             widget.cMunicipality,
                                             widget.iName,
-                                            widget.iValue,
+                                            double.tryParse(widget.iValue)!,
                                             widget.iUrl,
                                             widget.lName,
                                             widget.lId,
-                                            widget.lValue
-                                            widget.l
-
-                                            /*
-                                            listingQuan,
-                                            listingStatus,
-                                            listingUrl,
-                                            isResolved,
-                                            farmerDisputeStatus,
-                                            farmerDisputeText,
-                                            farmerDisputeUrl,*/
-                                          );*/
+                                            widget.lValue,
+                                            widget.lUrl,
+                                            false,
+                                            "PROCESSING",
+                                            controllers.farmerDisputeTextController.text,
+                                            reportUrl,
+                                            widget.deductFarm,
+                                            widget.deductCons,
+                                            widget.average,
+                                            widget.pFee,
+                                            widget.transactionTime,
+                                          );
+                                          showSuccessMessage();
                                         },
                                         child: Padding(
                                           padding: EdgeInsets.only(top: 3.sp, bottom: 3.sp),
@@ -618,6 +636,25 @@ class _FarmerReportBarterState extends State<FarmerReportBarter> {
                 ],
               ),
             ),
+    );
+  }
+
+/*A message that will be shown  */
+  void showSuccessMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.normal),
+          content: poppinsText2(
+            "Your dispute report has been recorded, FarmSwap will resolve this inconvenience as soon as possible, Thank you!",
+            Colors.black,
+            15.sp,
+            FontWeight.normal,
+          ),
+          /*Mag redirect ko diri soon sa side kung diin mabutang ang mga reported disputes*/
+        );
+      },
     );
   }
 }

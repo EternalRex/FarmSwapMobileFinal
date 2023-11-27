@@ -24,6 +24,7 @@ class BarterTransactionModel {
     required this.listingUrl,
     required this.itemUrl,
     required this.consumserLastName,
+    required this.isDisputed,
   });
 
   /*Farmer Details */
@@ -57,6 +58,7 @@ class BarterTransactionModel {
   double deductConsumerCoins;
   String percentage;
   DateTime acceptDate;
+  bool isDisputed;
 
   Map<String, dynamic> toMap() {
     return {
@@ -84,6 +86,7 @@ class BarterTransactionModel {
       'listingUrl': listingUrl,
       'farmerLname': farmerLastName,
       'consumerLname': consumserLastName,
+      'isDisputed': isDisputed,
     };
   }
 }

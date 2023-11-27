@@ -3,6 +3,7 @@ import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/model
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/model/farmer/barter_dispute_model.dart';
 
 class SaveFBarterDispute {
+  /*Method that save the barter dispute to the database */
   Future<void> addFBarterDispute(
     /*Farmer Details */
     String farmerName,
@@ -27,13 +28,16 @@ class SaveFBarterDispute {
     String listingName,
     String listingId,
     String listingPrice,
-    String listingQuan,
-    String listingStatus,
     String listingUrl,
     bool isResolved,
     String farmerDisputeStatus,
     String farmerDisputeText,
     String farmerDisputeUrl,
+    double deductedFSwapCoins,
+    double deductedCSwapCoins,
+    double average,
+    String percentage,
+    DateTime transactionTime,
   ) async {
     final fBarterDispute = BarterDisputeModel(
       farmerName: farmerName,
@@ -59,9 +63,12 @@ class SaveFBarterDispute {
       listingId: listingId,
       listingName: listingName,
       listingPrice: listingPrice,
-      listingQuan: listingQuan,
-      listingStatus: listingStatus,
       listingUrl: listingUrl,
+      deductedFarmerCoins: deductedFSwapCoins,
+      deductedConsumerCoins: deductedCSwapCoins,
+      averageValue: average,
+      percentage: percentage,
+      transactionDate: transactionTime,
     );
 
     String disputeId = 'DISPUTE';
@@ -74,6 +81,28 @@ class SaveFBarterDispute {
         .doc(finalId)
         .collection('fBarterDispute')
         .add(fBarterDispute.toMap());
+  }
+
+  /*Querry that will update the decline field to false */
+  Future<void> updateDisputed(String listid, String itemUrl, farmerId, consumerId) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('sample_BarterTransactions')
+        .where('listingid', isEqualTo: listid)
+        .where('itemUrl', isEqualTo: itemUrl)
+        .where('farmerid', isEqualTo: farmerId)
+        .where('consumerid', isEqualTo: consumerId)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentReference docRef = querySnapshot.docs.first.reference;
+      try {
+        await docRef.update({'isDisputed': true});
+      } catch (e) {
+        print("Empty document para ma update ang selected property$e");
+      }
+    } else {
+      throw Exception("Indexing Problem");
+    }
   }
 }
 

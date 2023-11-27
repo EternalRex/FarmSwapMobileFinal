@@ -57,8 +57,8 @@ class _GetFarmerBartersState extends State<GetFarmerBarters> {
     String consumerbarangay = barter['consumerbarangay'];
     String consumermunisipyo = barter['consumermunisipyo'];
     String consumername = barter['consumername'];
-    String deductionConsu = barter['deductedConsumerCoins'].toString();
-    String deductionFarm = barter['deductedFarmerCoins'].toString();
+    double deductionConsu = (barter['deductedConsumerCoins'] as num).toDouble();
+    double deductionFarm = (barter['deductedFarmerCoins'] as num).toDouble();
     String farmerLname = barter['farmerLname'];
     String farmerUname = barter['farmerUname'];
     String farmerbarangay = barter['farmerbarangay'];
@@ -72,6 +72,8 @@ class _GetFarmerBartersState extends State<GetFarmerBarters> {
     String listingname = barter['listingname'];
     String listingvalue = barter['listingvalue'].toString();
     String percentageFee = barter['percentageFee'];
+    double averageValue = (barter["averagevalue"] as num).toDouble();
+    bool disputed = barter["isDisputed"];
 
     //Extracts a timestamp called 'Activity Date' from the document.
     Timestamp dateTimestamp = document['transactionDate'];
@@ -83,147 +85,154 @@ class _GetFarmerBartersState extends State<GetFarmerBarters> {
     String dateFinal = DateFormat('MM/dd/yyyy   HH:mm:ss').format(dateTime);
 
     //displaying a single row in a list
-    return ListTile(
-      title: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: shadow,
-              blurRadius: 2,
-              offset: const Offset(0, 1),
+    if (disputed == false) {
+      return ListTile(
+        title: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
             ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 50.h,
-                          width: 50.h,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            image: DecorationImage(
-                              image: CachedNetworkImageProvider(barter['itemUrl']),
-                              fit: BoxFit.fill,
+            boxShadow: [
+              BoxShadow(
+                color: shadow,
+                blurRadius: 2,
+                offset: const Offset(0, 1),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 50.h,
+                            width: 50.h,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              image: DecorationImage(
+                                image: CachedNetworkImageProvider(barter['itemUrl']),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 5),
-                              child: Text(
-                                barter['itemname'],
-                                style: Poppins.contentText.copyWith(color: const Color(0xFF09051B)),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 5),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    barter['consumerbarangay'],
-                                    style: Poppins.detailsText
-                                        .copyWith(color: const Color(0xFF09051B)),
-                                  ),
-                                  Text(
-                                    ',',
-                                    style: Poppins.detailsText
-                                        .copyWith(color: const Color(0xFF09051B)),
-                                  ),
-                                  SizedBox(
-                                    width: 2.h,
-                                  ),
-                                  Text(
-                                    barter['consumermunisipyo'],
-                                    style: Poppins.detailsText
-                                        .copyWith(color: const Color(0xFF09051B)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Text(
-                              barter['listingname'],
-                              style: Poppins.buttonText.copyWith(color: const Color(0xFF09051B)),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => FarmerReportBarter(
-                                  cBarangay: consumerbarangay,
-                                  cLname: consumerLname,
-                                  cMunicipality: consumermunisipyo,
-                                  cName: consumername,
-                                  cUname: consumerUname,
-                                  deductFarm: deductionFarm,
-                                  deductCons: deductionConsu,
-                                  fBarangay: farmerbarangay,
-                                  fLname: farmerLname,
-                                  fMunicipality: farmermunicipality,
-                                  fName: farmername,
-                                  lName: listingname,
-                                  fUname: farmerUname,
-                                  iName: itemname,
-                                  iUrl: itemUrl,
-                                  iValue: itemvalue,
-                                  lId: listingid,
-                                  lValue: listingvalue,
-                                  lUrl: listingUrl,
-                                  pFee: percentageFee,
-                                  consumerId: consumerId,
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Text(
+                                  barter['itemname'],
+                                  style:
+                                      Poppins.contentText.copyWith(color: const Color(0xFF09051B)),
                                 ),
                               ),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.report_rounded,
-                            color: Colors.red,
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      barter['consumerbarangay'],
+                                      style: Poppins.detailsText
+                                          .copyWith(color: const Color(0xFF09051B)),
+                                    ),
+                                    Text(
+                                      ',',
+                                      style: Poppins.detailsText
+                                          .copyWith(color: const Color(0xFF09051B)),
+                                    ),
+                                    SizedBox(
+                                      width: 2.h,
+                                    ),
+                                    Text(
+                                      barter['consumermunisipyo'],
+                                      style: Poppins.detailsText
+                                          .copyWith(color: const Color(0xFF09051B)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                barter['listingname'],
+                                style: Poppins.buttonText.copyWith(color: const Color(0xFF09051B)),
+                              ),
+                            ],
                           ),
-                          iconSize: 30,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => FarmerReportBarter(
+                                    cBarangay: consumerbarangay,
+                                    cLname: consumerLname,
+                                    cMunicipality: consumermunisipyo,
+                                    cName: consumername,
+                                    cUname: consumerUname,
+                                    deductFarm: deductionFarm,
+                                    deductCons: deductionConsu,
+                                    fBarangay: farmerbarangay,
+                                    fLname: farmerLname,
+                                    fMunicipality: farmermunicipality,
+                                    fName: farmername,
+                                    lName: listingname,
+                                    fUname: farmerUname,
+                                    iName: itemname,
+                                    iUrl: itemUrl,
+                                    iValue: itemvalue,
+                                    lId: listingid,
+                                    lValue: listingvalue,
+                                    lUrl: listingUrl,
+                                    pFee: percentageFee,
+                                    consumerId: consumerId,
+                                    average: averageValue,
+                                    transactionTime: dateTime,
+                                  ),
+                                ),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.report_rounded,
+                              color: Colors.red,
+                            ),
+                            iconSize: 30,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }
 
