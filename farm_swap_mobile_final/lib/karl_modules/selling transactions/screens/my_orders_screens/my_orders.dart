@@ -2,10 +2,14 @@ import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/get_my_order.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
+import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../clare_modules/pages/consumer_cart/screens/consumer_cart.dart';
 
 class MyOrders extends StatefulWidget {
   const MyOrders({super.key});
@@ -24,6 +28,8 @@ class _MyOrdersState extends State<MyOrders> {
 
   @override
   Widget build(BuildContext context) {
+    String userType =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -59,7 +65,17 @@ class _MyOrdersState extends State<MyOrders> {
           Padding(
             padding: const EdgeInsets.only(right: 15),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                if (userType == "CONSUMER") {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const ConsumerCartOrders();
+                      },
+                    ),
+                  );
+                }
+              },
               icon: const Icon(FontAwesomeIcons.cartShopping),
               iconSize: 30.sp,
             ),
