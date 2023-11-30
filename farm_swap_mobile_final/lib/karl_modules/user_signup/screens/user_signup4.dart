@@ -218,7 +218,7 @@ class _UserPersonalDetailsRegistration3State
                                 );
                               }
                             },
-                            child: const FarmSwapGreenBtn(text: "Next"),
+                            child: const FarmSwapGreenBtnNew(text: "Next"),
                           ),
                         ],
                       ),

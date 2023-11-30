@@ -13,13 +13,15 @@ class UserProfilePhotoDisplay extends StatefulWidget {
   const UserProfilePhotoDisplay({super.key});
 
   @override
-  State<UserProfilePhotoDisplay> createState() => _UserProfilePhotoDisplayState();
+  State<UserProfilePhotoDisplay> createState() =>
+      _UserProfilePhotoDisplayState();
 }
 
 class _UserProfilePhotoDisplayState extends State<UserProfilePhotoDisplay> {
   @override
   Widget build(BuildContext context) {
-    String userRole = Provider.of<UserTypeProvider>(context, listen: false).getUserType;
+    String userRole =
+        Provider.of<UserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -42,7 +44,8 @@ class _UserProfilePhotoDisplayState extends State<UserProfilePhotoDisplay> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset("assets/karl_assets/images/farmer.png"),
+                              Image.asset(
+                                  "assets/karl_assets/images/farmer.png"),
                               /*Header text */
                               poppinsText(
                                 "Farmer Registration",
@@ -81,10 +84,10 @@ class _UserProfilePhotoDisplayState extends State<UserProfilePhotoDisplay> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(RouteManager.userDetailsRegister8);
+                                  Navigator.of(context).pushNamed(
+                                      RouteManager.userDetailsRegister8);
                                 },
-                                child: const FarmSwapGreenBtn(text: "Next"),
+                                child: const FarmSwapGreenBtnNew(text: "Next"),
                               ),
                             ],
                           ),
@@ -100,7 +103,8 @@ class _UserProfilePhotoDisplayState extends State<UserProfilePhotoDisplay> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset("assets/karl_assets/images/consumer.png"),
+                              Image.asset(
+                                  "assets/karl_assets/images/consumer.png"),
                               /*Header text */
                               poppinsText(
                                 "Consumer Registration",
@@ -139,10 +143,10 @@ class _UserProfilePhotoDisplayState extends State<UserProfilePhotoDisplay> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(RouteManager.userDetailsRegister8);
+                                  Navigator.of(context).pushNamed(
+                                      RouteManager.userDetailsRegister8);
                                 },
-                                child: const FarmSwapGreenBtn(text: "Next"),
+                                child: const FarmSwapGreenBtnNew(text: "Next"),
                               ),
                             ],
                           ),

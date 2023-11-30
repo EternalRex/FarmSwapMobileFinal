@@ -1,3 +1,4 @@
+import 'package:farm_swap_mobile_final/clare_modules/pages/consumer_cart/screens/consumer_cart.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_barter_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_sell_promotions.dart';
@@ -7,6 +8,7 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/sell_dashb
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
 import 'package:farm_swap_mobile_final/provider/dashboard_type_provider.dart';
+import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -31,6 +33,8 @@ class ActiveDashboard extends StatelessWidget {
     String dashboardType =
         Provider.of<DashboardTypeProvider>(context, listen: false)
             .getDashboardType;
+    String userType =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -64,14 +68,24 @@ class ActiveDashboard extends StatelessWidget {
         ),
         actions: [
           /*Shoppping cart button */
-            Padding(
-              padding: const EdgeInsets.only(right: 15),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(FontAwesomeIcons.cartShopping),
-                iconSize: 30.sp,
-              ),
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {
+                if (userType == "CONSUMER") {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const ConsumerCartOrders();
+                      },
+                    ),
+                  );
+                }
+              },
+              icon: const Icon(FontAwesomeIcons.cartShopping),
+              iconSize: 30.sp,
             ),
+          ),
         ],
       ),
       /*End of appbar */
@@ -148,9 +162,9 @@ class ActiveDashboard extends StatelessWidget {
           ),
           border: Border.all(color: farmSwapTitlegreen),
           borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(15.0),
-              topRight: Radius.circular(15.0),
-            ),
+            topLeft: Radius.circular(15.0),
+            topRight: Radius.circular(15.0),
+          ),
           boxShadow: [
             BoxShadow(
               color: shadow,

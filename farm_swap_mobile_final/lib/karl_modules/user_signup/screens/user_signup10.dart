@@ -13,7 +13,8 @@ class UserRegisterEndPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String userRole = Provider.of<UserTypeProvider>(context, listen: false).getUserType;
+    String userRole =
+        Provider.of<UserTypeProvider>(context, listen: false).getUserType;
 
     return Scaffold(
       body: SafeArea(
@@ -63,7 +64,7 @@ class UserRegisterEndPage extends StatelessWidget {
                             width: 250.sp,
                             height: 100.sp,
                             child: poppinsText(
-                              "Farmer account application is being reveiwed, Please wait for 1-2 days. Thank you for joining FarmSwap",
+                              "Farmer account application is being reviewed, Please wait for 1-2 days. Thank you for joining FarmSwap",
                               Colors.black,
                               12.sp,
                               FontWeight.bold,
@@ -71,9 +72,10 @@ class UserRegisterEndPage extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.of(context).pushNamed(RouteManager.userloginselection);
+                              Navigator.of(context)
+                                  .pushNamed(RouteManager.userloginselection);
                             },
-                            child: const FarmSwapGreenBtn(text: "Finish"),
+                            child: const FarmSwapGreenBtnNew(text: "Finish"),
                           ),
                         ],
                       ),
@@ -83,6 +85,7 @@ class UserRegisterEndPage extends StatelessWidget {
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           /*Congratulatins icon */
                           SizedBox(
@@ -107,20 +110,24 @@ class UserRegisterEndPage extends StatelessWidget {
                           ),
                           /*Subtitle indicatino account is under review */
                           SizedBox(
-                            width: 250.sp,
-                            height: 100.sp,
+                            width: 280.sp,
+                            height: 50.sp,
                             child: poppinsText(
-                              "Consumer account registration is successfull!. Thank you for joining FarmSwap",
+                              "Consumer account registration is successful! Thank you for joining FarmSwap.",
                               Colors.black,
                               12.sp,
                               FontWeight.bold,
                             ),
                           ),
+                          SizedBox(
+                            height: 10.sp,
+                          ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.of(context).pushNamed(RouteManager.userloginselection);
+                              Navigator.of(context)
+                                  .pushNamed(RouteManager.userloginselection);
                             },
-                            child: const FarmSwapGreenBtn(text: "Finish"),
+                            child: const FarmSwapGreenBtnNew(text: "Finish"),
                           ),
                         ],
                       ),

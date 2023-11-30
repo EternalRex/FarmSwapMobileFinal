@@ -2,6 +2,7 @@ import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_all_selling_details.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/save_order.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
@@ -350,7 +351,9 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
         child: const ConsumerBuyingNavBar(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          //back to selling details
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

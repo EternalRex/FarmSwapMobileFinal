@@ -15,8 +15,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/colors.dart';
 
-class DashBoardAllSellDetails extends StatefulWidget {
-  const DashBoardAllSellDetails({
+class DashBoardAllBestProductsDetails extends StatefulWidget {
+  const DashBoardAllBestProductsDetails({
     super.key,
     required this.imageUrl,
     required this.listingname,
@@ -56,11 +56,12 @@ class DashBoardAllSellDetails extends StatefulWidget {
   final String listingId;
 
   @override
-  State<DashBoardAllSellDetails> createState() =>
-      _DashBoardAllSellDetailsState();
+  State<DashBoardAllBestProductsDetails> createState() =>
+      _DashBoardAllBestProductsDetailsState();
 }
 
-class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
+class _DashBoardAllBestProductsDetailsState
+    extends State<DashBoardAllBestProductsDetails> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
