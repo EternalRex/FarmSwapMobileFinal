@@ -100,7 +100,7 @@ class _UserPersonalDetailsRegistration5State
                             Navigator.of(context)
                                 .pushNamed(RouteManager.userDetailsRegister6);
                           },
-                          child: const FarmSwapGreenBtn(text: "Next"),
+                          child: const FarmSwapGreenBtnNew(text: "Next"),
                         ),
                       ],
                     ),

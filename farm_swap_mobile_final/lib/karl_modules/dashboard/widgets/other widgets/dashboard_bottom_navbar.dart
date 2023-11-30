@@ -25,7 +25,8 @@ class DashboardButtomNavBar extends StatelessWidget {
                     .setDashboardType("BARTER");
                 Navigator.of(context).pushNamed(RouteManager.activeDashboard);
               },
-              child: poppinsText("Barter", Colors.white, 20.sp, FontWeight.bold),
+              child:
+                  poppinsText("Barter", Colors.white, 20.sp, FontWeight.bold),
             ),
           ),
           SizedBox(
@@ -36,10 +37,11 @@ class DashboardButtomNavBar extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 /* Set nato ang value sa provider to SALE kung kani na text button ang e click*/
-                Provider.of<DashboardTypeProvider>(context, listen: false).setDashboardType("SALE");
+                Provider.of<DashboardTypeProvider>(context, listen: false)
+                    .setDashboardType("SALE");
                 Navigator.of(context).pushNamed(RouteManager.activeDashboard);
               },
-              child: poppinsText("Sale", Colors.white, 20.sp, FontWeight.bold),
+              child: poppinsText("Sell", Colors.white, 20.sp, FontWeight.bold),
             ),
           ),
           SizedBox(
@@ -50,7 +52,8 @@ class DashboardButtomNavBar extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 /* Set nato ang value sa provider to BEST kung kani na text button ang e click*/
-                Provider.of<DashboardTypeProvider>(context, listen: false).setDashboardType("BEST");
+                Provider.of<DashboardTypeProvider>(context, listen: false)
+                    .setDashboardType("BEST");
                 Navigator.of(context).pushNamed(RouteManager.activeDashboard);
               },
               child: poppinsText("Best", Colors.white, 20.sp, FontWeight.bold),

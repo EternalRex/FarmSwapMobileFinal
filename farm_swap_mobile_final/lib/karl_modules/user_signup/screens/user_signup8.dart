@@ -89,7 +89,7 @@ class _UserPersonalDetailsRegistration7State
                                   Navigator.of(context)
                                       .pushNamed(RouteManager.userprofilephoto);
                                 },
-                                child: const FarmSwapGreenBtn(text: "Next"),
+                                child: const FarmSwapGreenBtnNew(text: "Next"),
                               ),
                             ],
                           ),
@@ -145,7 +145,7 @@ class _UserPersonalDetailsRegistration7State
                               Navigator.of(context)
                                   .pushNamed(RouteManager.userprofilephoto);
                             },
-                            child: const FarmSwapGreenBtn(text: "Next"),
+                            child: const FarmSwapGreenBtnNew(text: "Next"),
                           ),
                         ],
                       ),

@@ -126,12 +126,12 @@ class _UserPersonalDetailsRegistrationState
                         ),
                         /*Login btn with register email and password in authentication function */
                         GestureDetector(
+                          child: const FarmSwapGreenBtnNew(
+                            text: "Next",
+                          ),
                           onTap: () {
                             _registerEmailPassword();
                           },
-                          child: const FarmSwapGreenBtn(
-                            text: "Next",
-                          ),
                         ),
                       ]),
                 ),
