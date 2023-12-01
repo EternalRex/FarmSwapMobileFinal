@@ -28,7 +28,10 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collectionGroup('barter').where('promoted', isEqualTo: true).snapshots(),
+      stream: _firestore
+          .collectionGroup('barter')
+          .where('promoted', isEqualTo: true)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
@@ -42,7 +45,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
               },
               options: CarouselOptions(
                 aspectRatio: 16 / 9,
-                viewportFraction: 0.9,
+                viewportFraction: 0.99,
                 initialPage: 0,
                 enableInfiniteScroll: true,
                 autoPlay: true,
@@ -113,66 +116,90 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
     String farmerid = data["farmerId"];
 
     /*Actual design of widget to be returned */
-    return Padding(
-      padding: EdgeInsets.all(8.0.sp),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
-              return DashboardPromotedProductDetails(
-                listingId: id,
-                imageUrl: imageUrl,
-                listingname: listingname,
-                listingPrice: listingPrice,
-                prefItem: prefItem,
-                promoted: promoted,
-                listingCategory: listingCategory,
-                listingDisc: listingDisc,
-                farmerName: farmerName,
-                farmerLname: farmerLname,
-                farmerMunicipality: farmerMunicipality,
-                farmerBarangay: farmerBarangay,
-                farmerUsername: farmerUsername,
-                startTime: finalStartDate,
-                endTime: finalEndDate,
-                listingQuan: listingQuan,
-                listingStatus: listingStatus,
-                farmerId: farmerid,
-              );
-            },
-          ));
-        },
-        child: Row(
-          children: [
-            Container(
-              padding: EdgeInsets.all(15.sp),
-              height: 100.h,
-              width: 100.w,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20.sp),
-                ),
-                /*PUTTING BOX SHADOW ON THE CONTAINER */
-                image: DecorationImage(
-                  image: CachedNetworkImageProvider(imageUrl),
-                  fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) {
+            return DashboardPromotedProductDetails(
+              listingId: id,
+              imageUrl: imageUrl,
+              listingname: listingname,
+              listingPrice: listingPrice,
+              prefItem: prefItem,
+              promoted: promoted,
+              listingCategory: listingCategory,
+              listingDisc: listingDisc,
+              farmerName: farmerName,
+              farmerLname: farmerLname,
+              farmerMunicipality: farmerMunicipality,
+              farmerBarangay: farmerBarangay,
+              farmerUsername: farmerUsername,
+              startTime: finalStartDate,
+              endTime: finalEndDate,
+              listingQuan: listingQuan,
+              listingStatus: listingStatus,
+              farmerId: farmerid,
+            );
+          },
+        ));
+      },
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 39, 107, 163),
+              Color.fromARGB(255, 48, 175, 192),
+              Color.fromARGB(255, 99, 176, 102),
+            ],
+            begin: Alignment.centerRight,
+            end: Alignment.centerLeft,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.all(15.sp),
+                height: 100.h,
+                width: 100.w,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20.sp),
+                  ),
+                  /*PUTTING BOX SHADOW ON THE CONTAINER */
+                  image: DecorationImage(
+                    image: CachedNetworkImageProvider(imageUrl),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: 15.sp,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                poppinsText(listingname, Colors.black, 20.sp, FontWeight.w500),
-                poppinsText("Barter With: $prefItem", Colors.black, 10.sp, FontWeight.normal),
-                poppinsText(
-                    "Available Until: $finalEndDate", Colors.black, 10.sp, FontWeight.normal),
-              ],
-            ),
-          ],
+              SizedBox(
+                width: 15.sp,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  poppinsText(
+                      listingname, Colors.white, 20.sp, FontWeight.w800),
+                  poppinsText("Barter With: $prefItem", Colors.white, 10.sp,
+                      FontWeight.normal),
+                  poppinsText("Available Until: $finalEndDate", Colors.white,
+                      10.sp, FontWeight.normal),
+                ],
+              ),
+              SizedBox(
+                width: 15.sp,
+              ),
+              Image.asset(
+                'assets/karl_assets/images/banner.png',
+                height: 70.h,
+                width: 70.w,
+              ),
+            ],
+          ),
         ),
       ),
     );
