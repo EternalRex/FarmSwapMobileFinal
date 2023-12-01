@@ -256,38 +256,33 @@ class _ConsumerCartState extends State<ConsumerCart> {
                         if (totalDouble == 1) {
                           showInvalidMessage();
                         } else {
-                          /*A condition that checks if the consumer has enough wallet balance to pay the price once the
-                        farmer confirms the buy */
-                          if (consWallet >= totalDouble) {
-                            /*Actual saving of data */
-                            cart.saveCartOrder(
-                              consName,
-                              consLName,
-                              consUname,
-                              consId,
-                              consBarangay,
-                              consMunicipality,
-                              widget.farmerName,
-                              widget.farmerLName,
-                              widget.farmerUname,
-                              widget.farmerId,
-                              widget.farmerBarangay,
-                              widget.farmerMunicipal,
-                              widget.listingName,
-                              widget.listingId,
-                              widget.listingPrice,
-                              widget.listingQuan,
-                              kilogramdDouble,
-                              totalDouble,
-                              DateTime.now(),
-                              false,
-                              widget.listingStatus,
-                              widget.imageUrl,
-                            );
-                            showSuccessMessage();
-                          } else {
-                            showNotWalletBalanceMessage();
-                          }
+                          //this will save directly to the cart order
+                          /*Actual saving of data */
+                          cart.saveCartOrder(
+                            consName,
+                            consLName,
+                            consUname,
+                            consId,
+                            consBarangay,
+                            consMunicipality,
+                            widget.farmerName,
+                            widget.farmerLName,
+                            widget.farmerUname,
+                            widget.farmerId,
+                            widget.farmerBarangay,
+                            widget.farmerMunicipal,
+                            widget.listingName,
+                            widget.listingId,
+                            widget.listingPrice,
+                            widget.listingQuan,
+                            kilogramdDouble,
+                            totalDouble,
+                            DateTime.now(),
+                            false,
+                            widget.listingStatus,
+                            widget.imageUrl,
+                          );
+                          showSuccessMessage();
                         }
                       },
                       child: poppinsText("Add to cart", farmSwapTitlegreen,

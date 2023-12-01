@@ -265,7 +265,7 @@ class _UserPersonalDetailsRegistration2State
                             );
                           }
                         },
-                        child: const FarmSwapGreenBtn(
+                        child: const FarmSwapGreenBtnNew(
                           text: "Next",
                         ),
                       ),

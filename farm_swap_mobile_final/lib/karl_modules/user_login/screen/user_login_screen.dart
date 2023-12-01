@@ -255,8 +255,8 @@ na function */
                                               const EdgeInsets.only(top: 20),
                                           child: TextButton(
                                             onPressed: () {
-                                              Navigator.of(context)
-                                                  .pushNamed("");
+                                              Navigator.of(context).pushNamed(
+                                                  RouteManager.forgotpassword);
                                             },
                                             child: Text(
                                               "Forgot Password",

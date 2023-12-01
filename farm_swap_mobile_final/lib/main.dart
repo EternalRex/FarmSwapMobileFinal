@@ -39,11 +39,14 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           /*Registering all the providers being used */
           providers: [
-            ChangeNotifierProvider(create: (context) => FarmerAccounStatusProvider()),
+            ChangeNotifierProvider(
+                create: (context) => FarmerAccounStatusProvider()),
             ChangeNotifierProvider(create: (context) => UserTypeProvider()),
             ChangeNotifierProvider(create: (context) => UserDetailsProvider()),
-            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
-            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(
+                create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(
+                create: (context) => LoginUserTypeProvider()),
             ChangeNotifierProvider(create: (context) => ListingPageProvider()),
             /*Registering povider for update farmer details account dropdown hint */
             ChangeNotifierProvider(

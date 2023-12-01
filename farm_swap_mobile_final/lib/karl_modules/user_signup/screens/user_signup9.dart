@@ -100,22 +100,27 @@ class _UserPersonalDetailsRegistration8State
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                IconButton(
-                                  onPressed: () {
-                                    _selectDate();
-                                  },
-                                  icon: Icon(
-                                    Icons.calendar_month,
-                                    size: 80.sp,
-                                    color: farmSwapSmoothGreen,
+                                SizedBox(
+                                  height: 80.h,
+                                  width: 90.w,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      _selectDate();
+                                    },
+                                    icon: Icon(
+                                      Icons.calendar_month,
+                                      size: 80.sp,
+                                      color: farmSwapSmoothGreen,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 40.sp,
+                                  width: 5.sp,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 29),
+                                  padding: const EdgeInsets.only(top: 10),
                                   child: Container(
                                     width: 200.sp,
                                     height: 50.sp,
@@ -148,22 +153,27 @@ class _UserPersonalDetailsRegistration8State
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                IconButton(
-                                  onPressed: () {
-                                    _selectDate2();
-                                  },
-                                  icon: Icon(
-                                    Icons.calendar_month,
-                                    size: 80.sp,
-                                    color: farmSwapSmoothGreen,
+                                SizedBox(
+                                  height: 80.h,
+                                  width: 90.w,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      _selectDate2();
+                                    },
+                                    icon: Icon(
+                                      Icons.calendar_month,
+                                      size: 80.sp,
+                                      color: farmSwapSmoothGreen,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 40.sp,
+                                  width: 5.sp,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 29),
+                                  padding: const EdgeInsets.only(top: 10),
                                   child: Container(
                                     width: 200.sp,
                                     height: 50.sp,
@@ -192,7 +202,7 @@ class _UserPersonalDetailsRegistration8State
                             ),
                           ),
                           SizedBox(
-                            height: 40.sp,
+                            height: 25.sp,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -230,7 +240,7 @@ class _UserPersonalDetailsRegistration8State
                                 );
                               }
                             },
-                            child: const FarmSwapGreenBtn(text: "Next"),
+                            child: const FarmSwapGreenBtnNew(text: "Next"),
                           ),
                         ],
                       ),
@@ -257,22 +267,27 @@ class _UserPersonalDetailsRegistration8State
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                IconButton(
-                                  onPressed: () {
-                                    _selectDate();
-                                  },
-                                  icon: Icon(
-                                    Icons.calendar_month,
-                                    size: 80.sp,
-                                    color: farmSwapSmoothGreen,
+                                SizedBox(
+                                  height: 80.h,
+                                  width: 90.w,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      _selectDate();
+                                    },
+                                    icon: Icon(
+                                      Icons.calendar_month,
+                                      size: 80.sp,
+                                      color: farmSwapSmoothGreen,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 40.sp,
+                                  width: 5.sp,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 29),
+                                  padding: const EdgeInsets.only(top: 10),
                                   child: Container(
                                     width: 200.sp,
                                     height: 50.sp,
@@ -305,22 +320,27 @@ class _UserPersonalDetailsRegistration8State
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                IconButton(
-                                  onPressed: () {
-                                    _selectDate2();
-                                  },
-                                  icon: Icon(
-                                    Icons.calendar_month,
-                                    size: 80.sp,
-                                    color: farmSwapSmoothGreen,
+                                SizedBox(
+                                  height: 80.h,
+                                  width: 90.w,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      _selectDate2();
+                                    },
+                                    icon: Icon(
+                                      Icons.calendar_month,
+                                      size: 80.sp,
+                                      color: farmSwapSmoothGreen,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 40.sp,
+                                  width: 5.sp,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 29),
+                                  padding: const EdgeInsets.only(top: 10),
                                   child: Container(
                                     width: 200.sp,
                                     height: 50.sp,
@@ -349,7 +369,7 @@ class _UserPersonalDetailsRegistration8State
                             ),
                           ),
                           SizedBox(
-                            height: 40.sp,
+                            height: 25.sp,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -386,7 +406,7 @@ class _UserPersonalDetailsRegistration8State
                                 );
                               }
                             },
-                            child: const FarmSwapGreenBtn(text: "Next"),
+                            child: const FarmSwapGreenBtnNew(text: "Next"),
                           ),
                         ],
                       ),
