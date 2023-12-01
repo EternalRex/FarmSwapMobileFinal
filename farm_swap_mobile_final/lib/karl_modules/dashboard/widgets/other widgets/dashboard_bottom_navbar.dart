@@ -15,6 +15,7 @@ class DashboardButtomNavBar extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: 13.sp, right: 13.sp),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             width: 100.w,
@@ -30,7 +31,7 @@ class DashboardButtomNavBar extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 10.w,
+            width: 30.w,
           ),
           SizedBox(
             width: 100.w,
@@ -44,9 +45,7 @@ class DashboardButtomNavBar extends StatelessWidget {
               child: poppinsText("Sell", Colors.white, 20.sp, FontWeight.bold),
             ),
           ),
-          SizedBox(
-            width: 10.w,
-          ),
+          /*
           SizedBox(
             width: 100.w,
             child: TextButton(
@@ -59,6 +58,7 @@ class DashboardButtomNavBar extends StatelessWidget {
               child: poppinsText("Best", Colors.white, 20.sp, FontWeight.bold),
             ),
           ),
+          */
         ],
       ),
     );

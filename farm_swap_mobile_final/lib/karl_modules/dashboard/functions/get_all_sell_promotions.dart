@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_all_selling_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -20,7 +21,10 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collectionGroup('sell').where('promoted', isEqualTo: true).snapshots(),
+      stream: _firestore
+          .collectionGroup('sell')
+          .where('promoted', isEqualTo: true)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
@@ -80,7 +84,7 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
 
     /*This Date conversion is for the promotion date */
     Timestamp timestamp3 = data["promotionDate"];
-    DateTime promotedDate = timestamp3.toDate();
+    DateTime promotedTime = timestamp3.toDate();
 
     /*Firebase data assigned to variables for easy use */
     /*Firebase data assigned to variables for easy use */
@@ -97,12 +101,39 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
     String farmerMunicipality = data["farmerMunicipality"];
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
+    String farmerId = data["farmerId"];
+    String listingId = document.id;
+
     /*Actual design of widget to be returned */
     return Padding(
       padding: EdgeInsets.all(8.0.sp),
       child: GestureDetector(
         onTap: () {
-          print("Hi");
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return DashBoardAllSellDetails(
+                  imageUrl: imageUrl,
+                  listingname: listingname,
+                  listingPrice: listingPrice,
+                  promoted: promoted,
+                  listingCategory: listingCategory,
+                  listingDisc: listingDisc,
+                  farmerName: farmerName,
+                  farmerLname: farmerLname,
+                  farmerMunicipality: farmerMunicipality,
+                  farmerBarangay: farmerBarangay,
+                  farmerUsername: farmerUsername,
+                  startTime: finalStartDate,
+                  endTime: finalEndDate,
+                  listingQuan: listingQuan,
+                  listingStatus: listingStatus,
+                  farmerId: farmerId,
+                  listingId: listingId,
+                );
+              },
+            ),
+          );
         },
         child: Row(
           children: [
@@ -129,10 +160,10 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 poppinsText(listingname, Colors.black, 20.sp, FontWeight.w500),
-                poppinsText(
-                    "$listingPrice only  per kilogrm", Colors.black, 10.sp, FontWeight.normal),
-                poppinsText(
-                    "Available Until: $finalEndDate", Colors.black, 10.sp, FontWeight.normal),
+                poppinsText("$listingPrice only  per kilogrm", Colors.black,
+                    10.sp, FontWeight.normal),
+                poppinsText("Available Until: $finalEndDate", Colors.black,
+                    10.sp, FontWeight.normal),
               ],
             ),
           ],
