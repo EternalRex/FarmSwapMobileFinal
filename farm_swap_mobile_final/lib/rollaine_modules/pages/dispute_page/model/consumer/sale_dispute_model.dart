@@ -1,98 +1,114 @@
 class SaleDisputeModel {
   SaleDisputeModel({
-    required this.addedAmnt,
-    required this.cBarangay,
-    required this.cLname,
-    required this.cMunicipality,
-    required this.cName,
-    required this.cUrl,
-    required this.cUname,
-    required this.cId,
-    required this.deductFarm,
-    required this.fBarangay,
-    required this.fLname,
-    required this.fMunicipality,
-    required this.fName,
-    required this.fUrl,
-    required this.fUname,
-    required this.fId,
-    required this.lName,
-    required this.lId,
-    required this.lPrice,
-    required this.lQuan,
-    required this.lStatus,
-    required this.lUrl,
-    required this.pPrice,
-    required this.pQuan,
-    required this.disputeDateFile,
+    /*Require farmer details */
+    required this.farmerUrl,
+    required this.farmerName,
+    required this.farmerLName,
+    required this.farmerUname,
+    required this.farmerId,
+    required this.farmerMuniciplaity,
+    required this.farmerBarangay,
+    /*Require consumer details */
+    required this.consumerUrl,
+    required this.consumerName,
+    required this.consumerLName,
+    required this.consumerUname,
+    required this.consumerId,
+    required this.consumerMuniciplaity,
+    required this.consumerBarangay,
+    /*Require listing details */
+    required this.listingUrl,
+    required this.listingId,
+    required this.listingName,
+    required this.listingQuan,
+    required this.listingPrice,
+    /*require purchase details*/
+    required this.purchasePrice,
+    required this.purchaseQuantity,
+    required this.purchaseSwapCoinsPay,
+    /*Transaction details*/
+    required this.isDisputed,
+    required this.transactionDate,
+    /*Dispute Details */
+    required this.disputeStatus,
+    required this.disputeUrl,
+    required this.disputeText,
+    required this.disputeDate,
     required this.isResolved,
-    required this.consumerDisputeStatus,
-    required this.consumerDisputeText,
-    required this.consumerDisputeUrl,
   });
 
-  double addedAmnt;
-  String cBarangay;
-  String cLname;
-  String cMunicipality;
-  String cName;
-  String cUrl;
-  String cUname;
-  String cId;
-  String deductFarm;
-  String fBarangay;
-  String fLname;
-  String fMunicipality;
-  String fName;
-  String fUrl;
-  String fUname;
-  String fId;
-  String lName;
-  String lId;
-  String lPrice;
-  String lQuan;
-  String lStatus;
-  String lUrl;
-  double pPrice;
-  double pQuan;
+  /*Farmer details*/
+  String farmerUrl;
+  String farmerName;
+  String farmerLName;
+  String farmerUname;
+  String farmerId;
+  String farmerMuniciplaity;
+  String farmerBarangay;
 
-  DateTime disputeDateFile;
+  /*Consumer Details*/
+  String consumerUrl;
+  String consumerName;
+  String consumerLName;
+  String consumerUname;
+  String consumerId;
+  String consumerMuniciplaity;
+  String consumerBarangay;
+
+  /*listing details */
+  String listingId;
+  String listingUrl;
+  String listingName;
+  double listingPrice;
+  double listingQuan;
+
+  /*Purchase details*/
+  double purchaseQuantity;
+  double purchasePrice;
+  double purchaseSwapCoinsPay;
+
+  /*Transaction details*/
+  bool isDisputed;
   bool isResolved;
-  String consumerDisputeStatus;
-  String consumerDisputeText;
-  String consumerDisputeUrl;
+  DateTime transactionDate;
+
+/*Dispute details */
+  String disputeStatus;
+  String disputeUrl;
+  String disputeText;
+  DateTime disputeDate;
 
   Map<String, dynamic> toMap() {
     return {
-      'addedAmnt': addedAmnt,
-      'cBarangay': cBarangay,
-      'cLname': cLname,
-      'cMunicipality': cMunicipality,
-      'cName': cName,
-      'cUrl': cUrl,
-      'cUname': cUname,
-      'cId': cId,
-      'deductFarm': deductFarm,
-      'fBarangay': fBarangay,
-      'fLname': fLname,
-      'fMunicipality': fMunicipality,
-      'fName': fName,
-      'fUrl': fUrl,
-      'fUname': fUname,
-      'fId': fId,
-      'lName': lName,
-      'lId': lId,
-      'lPrice': lPrice,
-      'lQuan': lQuan,
-      'lStatus': lStatus,
-      'lUrl': lUrl,
-      'pPrice': pPrice,
-      'pQuan': pQuan,
-      'disputeDateFile': disputeDateFile,
+      'farmerUrl': farmerUrl,
+      'farmerName': farmerName,
+      'farmerLName': farmerLName,
+      'farmerUname': farmerUname,
+      'farmerId': farmerId,
+      'farmerMuniciplaity': farmerMuniciplaity,
+      'farmerBarangay': farmerBarangay,
+      'consumerUrl': consumerUrl,
+      'consumerName': consumerName,
+      'consumerLName': consumerLName,
+      'consumerUname': consumerUname,
+      'consumerId': consumerId,
+      'consumerMuniciplaity': consumerMuniciplaity,
+      'consumerBarangay': consumerBarangay,
+      'listingId': listingId,
+      'listingUrl': listingUrl,
+      'listingName': listingName,
+      'listingPrice': listingPrice,
+      'listingQuan': listingQuan,
+      'purchaseQuantity': purchaseQuantity,
+      'purchasePrice': purchasePrice,
+      'purchaseSwapCoinsPay': purchaseSwapCoinsPay,
+      'isDisputed': isDisputed,
+      'transactionDate': transactionDate,
+      'disputeStatus': disputeStatus,
+      'disputeUrl': disputeUrl,
+      'disputeText': disputeText,
+      'disputeDate': disputeDate,
       'isResolved': isResolved,
-      'consumerDisputeStatus': consumerDisputeStatus,
-      'consumerDisputeText': consumerDisputeText,
-      'consumerDisputeUrl': consumerDisputeUrl,
     };
   }
 }

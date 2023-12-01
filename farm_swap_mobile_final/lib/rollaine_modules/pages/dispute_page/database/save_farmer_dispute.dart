@@ -115,7 +115,8 @@ class SaveFSaleDispute {
     String cName,
     String cUrl,
     String cUname,
-    String deductFarm,
+    String cid,
+    double deductFarm,
     String fBarangay,
     String fLname,
     String fMunicipality,
@@ -125,8 +126,8 @@ class SaveFSaleDispute {
     String fId,
     String lName,
     String lId,
-    String lPrice,
-    String lQuan,
+    double lPrice,
+    double lQuan,
     String lStatus,
     String lUrl,
     double pPrice,
@@ -135,38 +136,45 @@ class SaveFSaleDispute {
     String consumerDisputeStatus,
     String consumerDisputeText,
     String consumerDisputeUrl,
+    DateTime transactionDate,
   ) async {
     final fSaleDispute = SaleDisputeModel(
-        addedAmnt: addedAmnt,
-        cBarangay: cBarangay,
-        cLname: cLname,
-        cMunicipality: cMunicipality,
-        cName: cName,
-        cUrl: cUrl,
-        cUname: cUname,
-        deductFarm: deductFarm,
-        fBarangay: fBarangay,
-        fLname: fLname,
-        fMunicipality: fMunicipality,
-        fName: fName,
-        fUrl: fUrl,
-        fUname: fUname,
-        fId: fId,
-        lName: lName,
-        lId: lId,
-        lPrice: lPrice,
-        lQuan: lQuan,
-        lStatus: lStatus,
-        lUrl: lUrl,
-        pPrice: pPrice,
-        pQuan: pQuan,
-        disputeDateFile: DateTime.now(),
-        isResolved: isResolved,
-        consumerDisputeStatus: 'PENDING',
-        consumerDisputeText: consumerDisputeText,
-        consumerDisputeUrl: consumerDisputeUrl);
+      /*Farmer Details */
+      farmerUrl: fUrl,
+      farmerName: fName,
+      farmerLName: fLname,
+      farmerUname: fUname,
+      farmerId: fId,
+      farmerMuniciplaity: fMunicipality,
+      farmerBarangay: fBarangay,
+      /*Consumer Details */
+      consumerUrl: cUrl,
+      consumerName: cName,
+      consumerLName: cLname,
+      consumerUname: cUname,
+      consumerId: cid,
+      consumerMuniciplaity: cMunicipality,
+      consumerBarangay: cBarangay,
+      /*Listing Details */
+      listingUrl: lUrl,
+      listingId: lId,
+      listingName: lName,
+      listingQuan: lQuan,
+      listingPrice: lPrice,
+      /*Purchase Details */
+      purchasePrice: pPrice,
+      purchaseQuantity: pQuan,
+      purchaseSwapCoinsPay: deductFarm,
+      /*Transaction Details */
+      isDisputed: false,
+      transactionDate: transactionDate,
+      disputeStatus: consumerDisputeStatus,
+      disputeText: consumerDisputeText,
+      disputeUrl: consumerDisputeUrl,
+      disputeDate: DateTime.now(),
+    );
 
-    String disputeId = 'DISPUTE';
+    String disputeId = 'DISPUTESALE';
     String finalId = '$disputeId$fId';
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -176,5 +184,26 @@ class SaveFSaleDispute {
         .doc(finalId)
         .collection('fSaleDispute')
         .add(fSaleDispute.toMap());
+  }
+
+/*Querry that will update the isdisputed field to true field to false */
+  Future<void> updateDisputedSelling(String listid, farmerId, consumerId) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('sample_SellingTransactions')
+        .where('listingId', isEqualTo: listid)
+        .where('farmerId', isEqualTo: farmerId)
+        .where('consId', isEqualTo: consumerId)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentReference docRef = querySnapshot.docs.first.reference;
+      try {
+        await docRef.update({'isDisputed': true});
+      } catch (e) {
+        print("Empty document para ma update ang selected property$e");
+      }
+    } else {
+      throw Exception("Indexing Problem");
+    }
   }
 }

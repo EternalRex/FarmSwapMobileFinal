@@ -1,27 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/farmer_done_report_details.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/farmer_done_sell_report_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
-class GetFarmerDoneBarterReports extends StatefulWidget {
-  const GetFarmerDoneBarterReports({super.key});
+class GetFarmerDoneSellReports extends StatefulWidget {
+  const GetFarmerDoneSellReports({super.key});
 
   @override
-  State<GetFarmerDoneBarterReports> createState() => _GetFarmerDoneBarterReportsState();
+  State<GetFarmerDoneSellReports> createState() => _GetFarmerDoneSellReportsState();
 }
 
-class _GetFarmerDoneBarterReportsState extends State<GetFarmerDoneBarterReports> {
+class _GetFarmerDoneSellReportsState extends State<GetFarmerDoneSellReports> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
-          .collectionGroup('fBarterDispute')
+          .collectionGroup('fSaleDispute')
           .where('farmerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-          .orderBy('disputeDateFile', descending: true)
+          .orderBy('disputeDate', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -36,12 +36,6 @@ class _GetFarmerDoneBarterReportsState extends State<GetFarmerDoneBarterReports>
                 .map((document) => _buildFCompleteBarterListItems(document))
                 .toList(),
           );
-          /* return ListView(
-              scrollDirection: Axis.vertical,
-              children: snapshot.data!.docs
-                  .map<Widget>((document) => _buildFCompleteBarterListItems(document))
-                  .toList(),
-            ); */
         } else {
           return const Center(
             child: Text("No Reports Yet"),
@@ -53,52 +47,54 @@ class _GetFarmerDoneBarterReportsState extends State<GetFarmerDoneBarterReports>
 
   Widget _buildFCompleteBarterListItems(DocumentSnapshot documentSnapshot) {
     Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+
 /*
+
 Ako lang sa ni e comment kat wa man nako ni ma need, kung sa future mag need sa farmer details, pwde
 rani e uncomment
     /*Farmer Details */
+    String farmerUrl = data['farmerUrl'];
     String farmerName = data['farmerName'];
     String farmerId = data['farmerId'];
-    String farmerLastName = data['farmerLname'];
+    String farmerLastName = data['farmerLName'];
     String farmerUname = data['farmerUname'];
     String farmerBarangay = data['farmerBarangay'];
-    String farmerMunicipality = data['farmerMunicipality'];*/
+    String farmerMunicipality = data['farmerMuniciplaity'];*/
 
     /*Consumer Details */
+    String consumerUrl = data["consumerUrl"];
     String consumerName = data['consumerName'];
     String consumerId = data['consumerId'];
     String consumerUname = data['consumerUname'];
-    String consumserLastName = data['consumerLname'];
+    String consumserLastName = data['consumerLName'];
     String consumerBarangay = data['consumerBarangay'];
-    String consumerMunicipality = data['consumerMunicipality'];
+    String consumerMunicipality = data['consumerMuniciplaity'];
 
-    /*Item details */
-    String itemName = data['itemName'];
-
-    double itemValue = (data['itemValue'] as num).toDouble();
-
-    String itemUrl = data['itemUrl'];
+    /*listing details */
     String listingName = data['listingName'];
     String listingId = data['listingId'];
-    String listingPrice = data['listingPrice'];
+    double listingPrice = (data['listingPrice'] as num).toDouble();
     String listingUrl = data['listingUrl'];
-    bool isResolved = data['isResolved'];
-    String farmerDisputeStatus = data['farmerDisputeStatus'];
-    String farmerDisputeText = data['farmerDisputeText'];
-    String farmerDisputeUrl = data['farmerDisputeUrl'];
-    double deductedFarmerCoins = (data['deductedFarmerCoins'] as num).toDouble();
-    double deductedConsumerCoins = (data['deductedConsumerCoins'] as num).toDouble();
-    double averageValue = (data['valueRange'] as num).toDouble();
-    String percentage = data['percentageFee'];
-    Timestamp transactionDate = data['transactionDate'];
-    Timestamp disputeDateFile = data['disputeDateFile'];
+    double listinQuan = (data['listingQuan'] as num).toDouble();
 
-    /*Converting date time into String valuue */
-    DateTime tansacDate = transactionDate.toDate();
-    String finalTransacDate = DateFormat('dd-MM-yyyy').format(tansacDate);
+    double purchaseQuan = (data['purchaseQuantity'] as num).toDouble();
+    double purchasePrice = (data['purchasePrice'] as num).toDouble();
+    double swapCoinsPay = (data['purchaseSwapCoinsPay'] as num).toDouble();
+    bool isDisputed = data['isDisputed'];
 
-    DateTime reportDate = disputeDateFile.toDate();
-    String finalReportDate = DateFormat('dd-MM-yyyy').format(reportDate);
+    /*Transaction date */
+    Timestamp transDate = data['transactionDate'];
+    DateTime transDate2 = transDate.toDate();
+    String transDate3 = DateFormat('dd-MM-yyyy').format(transDate2);
+
+    /*Dispute date */
+    Timestamp disputeDate = data['disputeDate'];
+    DateTime disputeDate2 = disputeDate.toDate();
+    String disputeDate3 = DateFormat('dd-MM-yyyy').format(disputeDate2);
+
+    String disputeStatus = data['disputeStatus'];
+    String disputeUrl = data['disputeUrl'];
+    String disputeText = data['disputeText'];
 
     return Padding(
       padding: EdgeInsets.all(8.0.sp),
@@ -108,32 +104,30 @@ rani e uncomment
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return FarmerDoneReportsDetails(
+                return FarmerDoneSellReportDetails(
+                  consumerUrl: consumerUrl,
                   consumerName: consumerName,
                   consumerId: consumerId,
                   consumerUname: consumerUname,
                   consumserLastName: consumserLastName,
                   consumerBarangay: consumerBarangay,
                   consumerMunicipality: consumerMunicipality,
-                  itemName: itemName,
-                  itemValue: itemValue,
-                  itemUrl: itemUrl,
                   listingName: listingName,
                   listingId: listingId,
                   listingPrice: listingPrice,
                   listingUrl: listingUrl,
-                  isResolved: isResolved,
-                  farmerDisputeStatus: farmerDisputeStatus,
-                  farmerDisputeText: farmerDisputeText,
-                  farmerDisputeUrl: farmerDisputeUrl,
-                  deductedFarmerCoins: deductedFarmerCoins,
-                  deductedConsumerCoins: deductedConsumerCoins,
-                  averageValue: averageValue,
-                  percentage: percentage,
-                  transactionDate: tansacDate,
-                  disputeDateFile: reportDate,
-                  trnsactionDateString: finalTransacDate,
-                  disputeDateFileString: finalReportDate,
+                  listinQuan: listinQuan,
+                  purchaseQuan: purchaseQuan,
+                  purchasePrice: purchasePrice,
+                  swapCoinsPay: swapCoinsPay,
+                  isDisputed: isDisputed,
+                  transDate2: transDate2,
+                  disputeDate2: disputeDate2,
+                  disputeStatus: disputeStatus,
+                  disputeUrl: disputeUrl,
+                  disputeText: disputeText,
+                  disputeDate3: disputeDate3,
+                  transDate3: transDate3,
                 );
               },
             ),
@@ -160,7 +154,7 @@ rani e uncomment
             child: Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(itemUrl),
+                  backgroundImage: NetworkImage(listingUrl),
                   radius: 50.r,
                 ),
                 SizedBox(
@@ -185,7 +179,7 @@ rani e uncomment
                           FontWeight.normal,
                         ),
                         poppinsText2(
-                          finalReportDate,
+                          transDate3,
                           Colors.black54,
                           13.sp,
                           FontWeight.normal,

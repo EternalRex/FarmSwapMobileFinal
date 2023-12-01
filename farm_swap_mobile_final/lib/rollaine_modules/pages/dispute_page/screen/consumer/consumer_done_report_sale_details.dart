@@ -1,46 +1,62 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
+import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/farmer_dispute_page_navbar.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/consumer_dispute_page_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FarmerDoneReportsDetails extends StatefulWidget {
-  const FarmerDoneReportsDetails({
+class ConsumerDoneReportSellDetails extends StatefulWidget {
+  const ConsumerDoneReportSellDetails({
     super.key,
+    required this.farmerUrl,
+    required this.farmerName,
+    required this.farmerId,
+    required this.farmerLastName,
+    required this.farmerUname,
+    required this.farmerBarangay,
+    required this.farmerMunicipality,
+    /*Consumer Details */
+    required this.consumerUrl,
     required this.consumerName,
     required this.consumerId,
     required this.consumerUname,
     required this.consumserLastName,
     required this.consumerBarangay,
     required this.consumerMunicipality,
-
-    /*Item details */
-    required this.itemName,
-    required this.itemValue,
-    required this.itemUrl,
+    /*Listing details*/
     required this.listingName,
     required this.listingId,
     required this.listingPrice,
     required this.listingUrl,
+    required this.listinQuan,
+    /*purchase Details*/
+    required this.purchaseQuan,
+    required this.purchasePrice,
+    required this.swapCoinsPay,
+    required this.isConsumerDisputed,
+    /*Listing details */
+    required this.transDate2,
+    required this.transDate3String,
+    required this.disputeStatus,
+    required this.disputeText,
+    required this.disputeUrl,
+    required this.disputeDate2,
+    required this.disputeDate3,
     required this.isResolved,
-    required this.farmerDisputeStatus,
-    required this.farmerDisputeText,
-    required this.farmerDisputeUrl,
-    required this.deductedFarmerCoins,
-    required this.deductedConsumerCoins,
-    required this.averageValue,
-    required this.percentage,
-    required this.transactionDate,
-    required this.disputeDateFile,
-    required this.trnsactionDateString,
-    required this.disputeDateFileString,
   });
 
+  final String farmerUrl;
+  final String farmerName;
+  final String farmerId;
+  final String farmerLastName;
+  final String farmerUname;
+  final String farmerBarangay;
+  final String farmerMunicipality;
+
   /*Consumer Details */
+  final String consumerUrl;
   final String consumerName;
   final String consumerId;
   final String consumerUname;
@@ -48,32 +64,35 @@ class FarmerDoneReportsDetails extends StatefulWidget {
   final String consumerBarangay;
   final String consumerMunicipality;
 
-  /*Item details */
-  final String itemName;
-  final double itemValue;
-  final String itemUrl;
+  /*listing details */
   final String listingName;
   final String listingId;
-  final String listingPrice;
+  final double listingPrice;
   final String listingUrl;
+  final double listinQuan;
+
+  final double purchaseQuan;
+  final double purchasePrice;
+  final double swapCoinsPay;
+  final bool isConsumerDisputed;
+
+  final DateTime transDate2;
+  final String transDate3String;
+
+  /*Dispute date */
+  final DateTime disputeDate2;
+  final String disputeDate3;
+
+  final String disputeStatus;
+  final String disputeUrl;
+  final String disputeText;
   final bool isResolved;
-  final String farmerDisputeStatus;
-  final String farmerDisputeText;
-  final String farmerDisputeUrl;
-  final double deductedFarmerCoins;
-  final double deductedConsumerCoins;
-  final double averageValue;
-  final String percentage;
-  final DateTime transactionDate;
-  final DateTime disputeDateFile;
-  final String trnsactionDateString;
-  final String disputeDateFileString;
 
   @override
-  State<FarmerDoneReportsDetails> createState() => _FarmerDoneReportsDetailsState();
+  State<ConsumerDoneReportSellDetails> createState() => _ConsumerDoneReportSellDetailsState();
 }
 
-class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
+class _ConsumerDoneReportSellDetailsState extends State<ConsumerDoneReportSellDetails> {
   /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -82,15 +101,14 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
-  ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
-  String consumerProfilePic = '';
-
   @override
   void initState() {
     super.initState();
-    getConsumerPic();
+    getFarmerPic();
   }
 
+  ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+  String farmerProfilePic = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,7 +151,7 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
         /*Container nga nag lokop sa tibook center page */
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: 1800.h,
+          height: 1980.h,
           decoration: const BoxDecoration(color: Colors.white),
           /*Column na mag display sa content sa center page vertically */
           child: Column(
@@ -170,7 +188,7 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
                       SizedBox(
                         width: 100.w,
                         child: Icon(
-                          Icons.compare_arrows_rounded,
+                          Icons.attach_money,
                           size: 100.sp,
                           color: farmSwapTitlegreen,
                         ),
@@ -185,7 +203,7 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
                             Radius.circular(10),
                           ),
                           image: DecorationImage(
-                            image: NetworkImage(widget.itemUrl),
+                            image: NetworkImage(widget.consumerUrl),
                             fit: BoxFit.fill,
                           ),
                           boxShadow: [
@@ -204,6 +222,7 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
               SizedBox(
                 height: 30.h,
               ),
+              /*
               /*The item name and listing name */
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -354,6 +373,83 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
               poppinsText2("Transaction fee percentage", Colors.black54, 15.sp, FontWeight.normal),
               SizedBox(
                 height: 30.h,
+              ),*/
+              /*Listing Name */
+              poppinsText2(widget.listingName, Colors.black, 20.sp, FontWeight.w500),
+              const Divider(),
+              poppinsText2("Listing Name", Colors.black54, 15.sp, FontWeight.normal),
+              SizedBox(
+                height: 10.h,
+              ),
+              poppinsText2(widget.purchaseQuan.toString(), Colors.black, 20.sp, FontWeight.w500),
+              const Divider(),
+              poppinsText2(
+                  "Number of kilograms purchased", Colors.black54, 15.sp, FontWeight.normal),
+              SizedBox(
+                height: 10.h,
+              ),
+              poppinsText2(widget.listingPrice.toString(), Colors.black, 20.sp, FontWeight.w500),
+              const Divider(),
+              poppinsText2("Price per kilogram", Colors.black54, 15.sp, FontWeight.normal),
+              SizedBox(
+                height: 10.h,
+              ),
+              /*Total price payed */
+              poppinsText2(widget.purchasePrice.toString(), Colors.black, 20.sp, FontWeight.w500),
+              const Divider(),
+              poppinsText2("Total paid price", Colors.black54, 15.sp, FontWeight.normal),
+              SizedBox(
+                height: 10.h,
+              ),
+              /*Transaction range*/
+              /*Condition to check of what is the value range */
+              (widget.purchasePrice < 10000)
+                  ? poppinsText2("1 - 10K", Colors.black, 20.sp, FontWeight.normal)
+                  : (widget.purchasePrice > 10000 && widget.purchasePrice <= 30000)
+                      ? poppinsText2("11K - 30K", Colors.black, 20.sp, FontWeight.normal)
+                      : (widget.purchasePrice > 30000 && widget.purchasePrice <= 60000)
+                          ? poppinsText2("31K - 60K", Colors.black, 20.sp, FontWeight.normal)
+                          : (widget.purchasePrice > 60000 && widget.purchasePrice <= 100000)
+                              ? poppinsText2("61K - 99K", Colors.black, 20.sp, FontWeight.normal)
+                              : poppinsText2(
+                                  "abov 100K",
+                                  Colors.black,
+                                  20.sp,
+                                  FontWeight.normal,
+                                ),
+              poppinsText2("Value range", Colors.black54, 15.sp, FontWeight.normal),
+              const Divider(),
+              /*This is for the transaction fee percentage*/
+              (widget.purchasePrice < 10000)
+                  ? poppinsText2("2% transaction fee", Colors.black, 20.sp, FontWeight.normal)
+                  : (widget.purchasePrice > 10000 && widget.purchasePrice <= 30000)
+                      ? poppinsText2("4% transaction fee", Colors.black, 20.sp, FontWeight.normal)
+                      : (widget.purchasePrice > 30000 && widget.purchasePrice <= 60000)
+                          ? poppinsText2(
+                              "6% transaction fee", Colors.black, 20.sp, FontWeight.normal)
+                          : (widget.purchasePrice > 60000 && widget.purchasePrice <= 100000)
+                              ? poppinsText2(
+                                  "8% transaction fee", Colors.black, 20.sp, FontWeight.normal)
+                              : poppinsText2(
+                                  "10% transaction fee",
+                                  Colors.black,
+                                  20.sp,
+                                  FontWeight.normal,
+                                ),
+              poppinsText2("Value range", Colors.black54, 15.sp, FontWeight.normal),
+              const Divider(),
+              /*Swap coins transaction fee */
+              poppinsText2(widget.swapCoinsPay.toString(), Colors.black, 20.sp, FontWeight.w500),
+              const Divider(),
+              poppinsText2("Swap coins transaction fee", Colors.black54, 15.sp, FontWeight.normal),
+              SizedBox(
+                height: 10.h,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              SizedBox(
+                height: 30.h,
               ),
               /*The picture proof of the report */
               Container(
@@ -365,7 +461,7 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
                     Radius.circular(10),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage(widget.farmerDisputeUrl),
+                    image: NetworkImage(widget.disputeUrl),
                     fit: BoxFit.fill,
                   ),
                   boxShadow: [
@@ -385,8 +481,7 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
               /*Mao ni ang report or ang reklamo */
               SizedBox(
                 width: 300.w,
-                child:
-                    poppinsText2(widget.farmerDisputeText, Colors.black, 15.sp, FontWeight.normal),
+                child: poppinsText2(widget.disputeText, Colors.black, 15.sp, FontWeight.normal),
               ),
               const Divider(),
               poppinsText2("Actual Report", Colors.black54, 15.sp, FontWeight.normal),
@@ -397,7 +492,7 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
               SizedBox(
                 width: 300.w,
                 child: poppinsText2(
-                  widget.disputeDateFileString,
+                  widget.disputeDate3,
                   Colors.black,
                   15.sp,
                   FontWeight.normal,
@@ -411,7 +506,7 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
 
               /*Picture of the consumer */
               CircleAvatar(
-                backgroundImage: NetworkImage(consumerProfilePic),
+                backgroundImage: NetworkImage(farmerProfilePic),
                 radius: 90.r,
               ),
               const Divider(),
@@ -444,7 +539,7 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
                 height: 50.h,
               ),
               /*Indication of the report status */
-              (widget.farmerDisputeStatus == "PENDING")
+              (widget.disputeStatus == "PENDING")
                   ? Container(
                       width: MediaQuery.of(context).size.width,
                       height: 50.h,
@@ -523,16 +618,16 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
             ),
           ],
         ),
-        child: const FarmerBarterDisputesNavBar(),
+        child: const ConsumerDisputePageNavBar(),
       ),
     );
   }
 
   /*Getting the picture of the consumer*/
-  Future<void> getConsumerPic() async {
-    String profurl = await consumerDetails.getConsumerProfilePhotoWithParameter(widget.consumerId);
+  Future<void> getFarmerPic() async {
+    String profurl = await farmerDetails.getFarmerUserProfilePhotoWithParameter(widget.farmerId);
     setState(() {
-      consumerProfilePic = profurl;
+      farmerProfilePic = profurl;
     });
   }
 }

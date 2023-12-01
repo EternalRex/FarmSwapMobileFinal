@@ -1,20 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/get_consumer_accepted_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/functions/get_farmer_transactions.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/farmer_dispute_page_navbar.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/consumer/get_consumer_done_reports_barter.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/consumer/get_consumer_done_sale_barter.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/consumer_dispute_page_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
-class FarmerDisputePage extends StatefulWidget {
-  const FarmerDisputePage({super.key});
+class ConsumerDoneReportBarter extends StatefulWidget {
+  const ConsumerDoneReportBarter({super.key});
 
   @override
-  State<FarmerDisputePage> createState() => _FarmerDisputePageState();
+  State<ConsumerDoneReportBarter> createState() => _ConsumerDoneReportBarterState();
 }
 
-class _FarmerDisputePageState extends State<FarmerDisputePage> {
+class _ConsumerDoneReportBarterState extends State<ConsumerDoneReportBarter> {
   /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,7 +35,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
         title: Row(
           children: [
             poppinsText(
-              "Transactions",
+              "Reports",
               Colors.white,
               20.sp,
               FontWeight.bold,
@@ -86,7 +90,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
-                        'Completed Barters',
+                        'Barter Reports',
                         style: Poppins.farmerName.copyWith(
                           color: greenDark,
                         ),
@@ -96,7 +100,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
                       child: SizedBox(
                         height: 320.h,
                         width: MediaQuery.of(context).size.width,
-                        child: const GetFarmerBarters(),
+                        child: const GetBarterDoneReports(),
                       ),
                     ),
                   ],
@@ -126,7 +130,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
-                        'Completed Sales',
+                        'Sale Reports',
                         style: Poppins.farmerName.copyWith(
                           color: greenDark,
                         ),
@@ -136,7 +140,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
                       child: SizedBox(
                         height: 320.h,
                         width: MediaQuery.of(context).size.width,
-                        child: const GetFarmerSales(),
+                        child: const GetConsumerSellDoneReports(),
                       ),
                     ),
                   ],
@@ -167,7 +171,7 @@ class _FarmerDisputePageState extends State<FarmerDisputePage> {
             ),
           ],
         ),
-        child: const FarmerBarterDisputesNavBar(),
+        child: const ConsumerDisputePageNavBar(),
       ),
     );
   }

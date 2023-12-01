@@ -1,13 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/functions/get_consumer_transactions.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/consumer_dispute_page_navbar.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/farmer_dispute_page_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 
 class ConsumerDisputePage extends StatefulWidget {
   const ConsumerDisputePage({super.key});
@@ -48,11 +46,10 @@ class _ConsumerDisputePageState extends State<ConsumerDisputePage> {
         ),
       ),
       drawer: const DashBoardDrawer(),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Padding(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
               padding: const EdgeInsets.all(5.0),
               child: Container(
                 height: 375.h,
@@ -83,7 +80,7 @@ class _ConsumerDisputePageState extends State<ConsumerDisputePage> {
                     ),
                     SingleChildScrollView(
                       child: SizedBox(
-                        height: 260.h,
+                        height: 320.h,
                         width: MediaQuery.of(context).size.width,
                         child: const GetConsumerBarters(),
                       ),
@@ -92,10 +89,7 @@ class _ConsumerDisputePageState extends State<ConsumerDisputePage> {
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
+            Padding(
               padding: const EdgeInsets.all(5.0),
               child: Container(
                 height: 375.h,
@@ -126,7 +120,7 @@ class _ConsumerDisputePageState extends State<ConsumerDisputePage> {
                     ),
                     SingleChildScrollView(
                       child: SizedBox(
-                        height: 260.h,
+                        height: 320.h,
                         width: MediaQuery.of(context).size.width,
                         child: const GetConsumerSales(),
                       ),
@@ -135,13 +129,18 @@ class _ConsumerDisputePageState extends State<ConsumerDisputePage> {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-      /*bottomNavigationBar: Container(
-        height: 55.h,
-        width: MediaQuery.of(context).size.width,
+      bottomNavigationBar: Container(
+        height: 60.sp,
         decoration: BoxDecoration(
+          color: greenNormal,
+          image: const DecorationImage(
+            image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+            fit: BoxFit.cover,
+          ),
+          border: Border.all(color: farmSwapTitlegreen),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(15.0),
             topRight: Radius.circular(15.0),
@@ -153,15 +152,9 @@ class _ConsumerDisputePageState extends State<ConsumerDisputePage> {
               spreadRadius: 2.0,
             ),
           ],
-          color: greenNormal,
-          image: const DecorationImage(
-            image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
-            fit: BoxFit.cover,
-          ),
-          border: Border.all(color: farmSwapTitlegreen),
         ),
-        child: const DisputeNavBar(),
-      ),*/
+        child: const ConsumerDisputePageNavBar(),
+      ),
     );
   }
 }

@@ -80,6 +80,7 @@ class _GetConsumerUnselectedState extends State<GetConsumerUnselected> {
     String farmerUname = data["farmerUname"];
     String farmerBarangay = data["farmerBaranggay"];
     String farmerMunisipyo = data["farmerMunisipyo"];
+    bool isBarteredOut = data['isBarteredOut'];
 
 /*Bid time conversion*/
     Timestamp bidtime = data["itemBidTime"];
@@ -137,6 +138,7 @@ class _GetConsumerUnselectedState extends State<GetConsumerUnselected> {
                       selected: selected,
                       completed: isCompleted,
                       isConsCompleted: isConsComplete,
+                      isBarteredOut: isBarteredOut,
                     );
                   },
                 ),
@@ -243,6 +245,7 @@ class _GetConsumerUnselectedState extends State<GetConsumerUnselected> {
                               selected: selected,
                               completed: isCompleted,
                               isConsCompleted: isConsComplete,
+                              isBarteredOut: isBarteredOut,
                             );
                           },
                         ),

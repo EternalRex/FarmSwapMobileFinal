@@ -7,6 +7,7 @@ import 'package:farm_swap_mobile_final/common/upload_image_functions.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/controllers/farmer/barter_dispute_controller.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/database/save_farmer_dispute.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/farmer_done_reports.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/label/farmer_dispute_label.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/textfield/barter_dispute_txtfield.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
@@ -653,6 +654,20 @@ class _FarmerReportBarterState extends State<FarmerReportBarter> {
             FontWeight.normal,
           ),
           /*Mag redirect ko diri soon sa side kung diin mabutang ang mga reported disputes*/
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const FarmerDoneReports();
+                    },
+                  ),
+                );
+              },
+              child: poppinsText("Continue", farmSwapTitlegreen, 17.sp, FontWeight.normal),
+            ),
+          ],
         );
       },
     );

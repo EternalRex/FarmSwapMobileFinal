@@ -4,6 +4,7 @@ import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_farmer_reviews/display_farmer_review.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/place_order_screens/buy_order_1.dart';
 import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
@@ -56,8 +57,7 @@ class DashBoardAllSellDetails extends StatefulWidget {
   final String listingId;
 
   @override
-  State<DashBoardAllSellDetails> createState() =>
-      _DashBoardAllSellDetailsState();
+  State<DashBoardAllSellDetails> createState() => _DashBoardAllSellDetailsState();
 }
 
 class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
@@ -79,8 +79,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
 
   @override
   Widget build(BuildContext context) {
-    String userRole =
-        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String userRole = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -98,8 +97,7 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -166,439 +164,433 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                         color: Colors.white,
                       ),
                       /*The column that holds everything inline */
-                      child: Column(
-                        children: [
-                          /*Row for the best deals caption */
-                          Padding(
-                            padding: EdgeInsets.only(left: 40.sp, top: 20.sp),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: farmSwapSmoothGreen,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(30.sp),
-                                      )),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.sp),
-                                    child: poppinsText(
-                                      "Fresh Deals",
-                                      darkGreen,
-                                      13.sp,
-                                      FontWeight.w300,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            /*Row for the best deals caption */
+                            Padding(
+                              padding: EdgeInsets.only(left: 40.sp, top: 20.sp),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: farmSwapSmoothGreen,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(30.sp),
+                                        )),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.sp),
+                                      child: poppinsText(
+                                        "Fresh Deals",
+                                        darkGreen,
+                                        13.sp,
+                                        FontWeight.w300,
+                                      ),
                                     ),
+                                  ),
+                                  SizedBox(
+                                    width: 80.sp,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: orangeLightActive,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(30.sp),
+                                        )),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.sp),
+                                      child: poppinsText(
+                                        "Best Quality",
+                                        orangeDark,
+                                        13.sp,
+                                        FontWeight.w300,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            Column(
+                              /*For the lsiting name */
+                              children: [
+                                poppinsText(
+                                  widget.listingname,
+                                  Colors.black,
+                                  25.sp,
+                                  FontWeight.bold,
+                                ),
+                                SizedBox(
+                                  height: 5.sp,
+                                ),
+                                /*For discription */
+                                SizedBox(
+                                  width: 300.w,
+                                  child: Text(
+                                    widget.listingDisc,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 11.sp,
+                                      color: Colors.black,
+                                      fontFamily: GoogleFonts.poppins().fontFamily,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+                                /*Diri ang condtion kung pila ang e display s arating depende sa pula ka value ang stars */
+                                (rating <= 1)
+                                    ? Icon(
+                                        Icons.star,
+                                        color: darkGreen,
+                                      )
+                                    : (rating > 1 && rating <= 2)
+                                        ? Center(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.star,
+                                                  color: darkGreen,
+                                                ),
+                                                Icon(
+                                                  Icons.star,
+                                                  color: darkGreen,
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : (rating > 2 && rating <= 3)
+                                            ? Center(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.star,
+                                                      color: darkGreen,
+                                                    ),
+                                                    Icon(
+                                                      Icons.star,
+                                                      color: darkGreen,
+                                                    ),
+                                                    Icon(
+                                                      Icons.star,
+                                                      color: darkGreen,
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            : (rating > 3 && rating <= 4)
+                                                ? Center(
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: darkGreen,
+                                                        ),
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: darkGreen,
+                                                        ),
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: darkGreen,
+                                                        ),
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: darkGreen,
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )
+                                                : (rating > 4 && rating <= 5)
+                                                    ? Center(
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment.center,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.star,
+                                                              color: darkGreen,
+                                                            ),
+                                                            Icon(
+                                                              Icons.star,
+                                                              color: darkGreen,
+                                                            ),
+                                                            Icon(
+                                                              Icons.star,
+                                                              color: darkGreen,
+                                                            ),
+                                                            Icon(
+                                                              Icons.star,
+                                                              color: darkGreen,
+                                                            ),
+                                                            Icon(
+                                                              Icons.star,
+                                                              color: darkGreen,
+                                                            )
+                                                          ],
+                                                        ),
+                                                      )
+                                                    : Container(),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                /*Row for the location */
+                                Padding(
+                                  padding: EdgeInsets.only(left: 30.sp),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        FontAwesomeIcons.locationPin,
+                                        color: farmSwapTitlegreen,
+                                        size: 20.sp,
+                                      ),
+                                      SizedBox(
+                                        width: 15.w,
+                                      ),
+                                      poppinsText(
+                                        "${widget.farmerBarangay} "
+                                        " ${widget.farmerMunicipality}, Cebu, Philippines",
+                                        Colors.black54,
+                                        13.sp,
+                                        FontWeight.normal,
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 80.sp,
+                                  height: 13.h,
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: orangeLightActive,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(30.sp),
-                                      )),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.sp),
-                                    child: poppinsText(
-                                      "Best Quality",
-                                      orangeDark,
-                                      13.sp,
-                                      FontWeight.w300,
-                                    ),
+                                /*Row for the quantity */
+                                Padding(
+                                  padding: EdgeInsets.only(left: 30.sp),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        FontAwesomeIcons.weightHanging,
+                                        color: farmSwapTitlegreen,
+                                        size: 20.sp,
+                                      ),
+                                      SizedBox(
+                                        width: 15.w,
+                                      ),
+                                      poppinsText(
+                                        "${widget.listingQuan} kilograms in total",
+                                        Colors.black54,
+                                        13.sp,
+                                        FontWeight.normal,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          Column(
-                            /*For the lsiting name */
-                            children: [
-                              poppinsText(
-                                widget.listingname,
-                                Colors.black,
-                                25.sp,
-                                FontWeight.bold,
-                              ),
-                              SizedBox(
-                                height: 5.sp,
-                              ),
-                              /*For discription */
-                              SizedBox(
-                                width: 300.w,
-                                child: Text(
-                                  widget.listingDisc,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 11.sp,
-                                    color: Colors.black,
-                                    fontFamily:
-                                        GoogleFonts.poppins().fontFamily,
-                                    fontWeight: FontWeight.normal,
+                                SizedBox(
+                                  height: 13.h,
+                                ),
+                                /*For for equivalent price */
+                                Padding(
+                                  padding: EdgeInsets.only(left: 30.sp),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        FontAwesomeIcons.tag,
+                                        color: farmSwapTitlegreen,
+                                        size: 20.sp,
+                                      ),
+                                      SizedBox(
+                                        width: 15.w,
+                                      ),
+                                      poppinsText(
+                                        "${widget.listingPrice} pesos per kilo",
+                                        Colors.black54,
+                                        13.sp,
+                                        FontWeight.normal,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              /*Diri ang condtion kung pila ang e display s arating depende sa pula ka value ang stars */
-                              (rating <= 1)
-                                  ? Icon(
-                                      Icons.star,
-                                      color: darkGreen,
-                                    )
-                                  : (rating > 1 && rating <= 2)
-                                      ? Center(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                color: darkGreen,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: darkGreen,
-                                              ),
-                                            ],
+                                SizedBox(
+                                  height: 13.h,
+                                ),
+                                /*For for equivalent price */
+                                Padding(
+                                  padding: EdgeInsets.only(left: 30.sp),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        FontAwesomeIcons.calendar,
+                                        color: farmSwapTitlegreen,
+                                        size: 20.sp,
+                                      ),
+                                      SizedBox(
+                                        width: 15.w,
+                                      ),
+                                      poppinsText(
+                                        "Available until ${widget.endTime} only",
+                                        Colors.black54,
+                                        13.sp,
+                                        FontWeight.normal,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 13.h,
+                                ),
+                                /*IF ang user kay consumer mo display ang mga button
+                                  else container ray mo display walay buttons*/
+                                (userRole == "CONSUMER")
+                                    ? Column(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              /*Pasa nato ang mga needed na data sa pag place sa order */
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return ConsumerBuyPart1(
+                                                      farmerName: widget.farmerName,
+                                                      farmerId: widget.farmerId,
+                                                      farmerLName: widget.farmerLname,
+                                                      farmerUname: widget.farmerUsername,
+                                                      farmerBarangay: widget.farmerBarangay,
+                                                      farmerMunicipal: widget.farmerMunicipality,
+                                                      listingName: widget.listingname,
+                                                      listingUrl: widget.imageUrl,
+                                                      listingPrice: widget.listingPrice,
+                                                      listingQuan: widget.listingQuan,
+                                                      listingId: widget.listingId,
+                                                      listingStatus: widget.listingStatus,
+                                                      imageUrl: widget.imageUrl,
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                            child: const FarmSwapGreenBtnNew(text: "Buy"),
                                           ),
-                                        )
-                                      : (rating > 2 && rating <= 3)
-                                          ? Center(
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: darkGreen,
-                                                  ),
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: darkGreen,
-                                                  ),
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: darkGreen,
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          : (rating > 3 && rating <= 4)
-                                              ? Center(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.star,
-                                                        color: darkGreen,
-                                                      ),
-                                                      Icon(
-                                                        Icons.star,
-                                                        color: darkGreen,
-                                                      ),
-                                                      Icon(
-                                                        Icons.star,
-                                                        color: darkGreen,
-                                                      ),
-                                                      Icon(
-                                                        Icons.star,
-                                                        color: darkGreen,
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              : (rating > 4 && rating <= 5)
-                                                  ? Center(
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: darkGreen,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: darkGreen,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: darkGreen,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: darkGreen,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: darkGreen,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    )
-                                                  : Container(),
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                              /*Row for the location */
-                              Padding(
-                                padding: EdgeInsets.only(left: 30.sp),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.locationPin,
-                                      color: farmSwapTitlegreen,
-                                      size: 20.sp,
-                                    ),
-                                    SizedBox(
-                                      width: 15.w,
-                                    ),
-                                    poppinsText(
-                                      "${widget.farmerBarangay} "
-                                      " ${widget.farmerMunicipality}, Cebu, Philippines",
-                                      Colors.black54,
-                                      13.sp,
-                                      FontWeight.normal,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 13.h,
-                              ),
-                              /*Row for the quantity */
-                              Padding(
-                                padding: EdgeInsets.only(left: 30.sp),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.weightHanging,
-                                      color: farmSwapTitlegreen,
-                                      size: 20.sp,
-                                    ),
-                                    SizedBox(
-                                      width: 15.w,
-                                    ),
-                                    poppinsText(
-                                      "${widget.listingQuan} kilograms in total",
-                                      Colors.black54,
-                                      13.sp,
-                                      FontWeight.normal,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 13.h,
-                              ),
-                              /*For for equivalent price */
-                              Padding(
-                                padding: EdgeInsets.only(left: 30.sp),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.tag,
-                                      color: farmSwapTitlegreen,
-                                      size: 20.sp,
-                                    ),
-                                    SizedBox(
-                                      width: 15.w,
-                                    ),
-                                    poppinsText(
-                                      "${widget.listingPrice} pesos per kilo",
-                                      Colors.black54,
-                                      13.sp,
-                                      FontWeight.normal,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 13.h,
-                              ),
-                              /*For for equivalent price */
-                              Padding(
-                                padding: EdgeInsets.only(left: 30.sp),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.calendar,
-                                      color: farmSwapTitlegreen,
-                                      size: 20.sp,
-                                    ),
-                                    SizedBox(
-                                      width: 15.w,
-                                    ),
-                                    poppinsText(
-                                      "Available until ${widget.endTime} only",
-                                      Colors.black54,
-                                      13.sp,
-                                      FontWeight.normal,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 13.h,
-                              ),
-                              /*IF ang user kay consumer mo display ang mga button
-                                else container ray mo display walay buttons*/
-                              (userRole == "CONSUMER")
-                                  ? Column(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            /*Pasa nato ang mga needed na data sa pag place sa order */
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) {
-                                                  return ConsumerBuyPart1(
-                                                    farmerName:
-                                                        widget.farmerName,
-                                                    farmerId: widget.farmerId,
-                                                    farmerLName:
-                                                        widget.farmerLname,
-                                                    farmerUname:
-                                                        widget.farmerUsername,
-                                                    farmerBarangay:
-                                                        widget.farmerBarangay,
-                                                    farmerMunicipal: widget
-                                                        .farmerMunicipality,
-                                                    listingName:
-                                                        widget.listingname,
-                                                    listingUrl: widget.imageUrl,
-                                                    listingPrice:
-                                                        widget.listingPrice,
-                                                    listingQuan:
-                                                        widget.listingQuan,
-                                                    listingId: widget.listingId,
-                                                    listingStatus:
-                                                        widget.listingStatus,
-                                                    imageUrl: widget.imageUrl,
-                                                  );
-                                                },
-                                              ),
+                                          SizedBox(
+                                            height: 15.h,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              /*Pasa nato ang mga needed na data sa pag place sa order */
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return ConsumerCart(
+                                                      farmerName: widget.farmerName,
+                                                      farmerId: widget.farmerId,
+                                                      farmerLName: widget.farmerLname,
+                                                      farmerUname: widget.farmerUsername,
+                                                      farmerBarangay: widget.farmerBarangay,
+                                                      farmerMunicipal: widget.farmerMunicipality,
+                                                      listingName: widget.listingname,
+                                                      listingUrl: widget.imageUrl,
+                                                      listingPrice: widget.listingPrice,
+                                                      listingQuan: widget.listingQuan,
+                                                      listingId: widget.listingId,
+                                                      listingStatus: widget.listingStatus,
+                                                      imageUrl: widget.imageUrl,
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                            child: const FarmSwapOrangeBtn(text: "Add to Cart"),
+                                          ),
+                                          SizedBox(
+                                            height: 15.h,
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return DisplayFarmerReviews(
+                                                      farmerId: widget.farmerId,
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                            child: poppinsText(
+                                                "Reviews", orangeDark, 15.sp, FontWeight.w500),
+                                          ),
+                                        ],
+                                      )
+                                    : Container(),
+                                /*
+                                if (userRole == "CONSUMER")
+                                  GestureDetector(
+                                    onTap: () {
+                                      /*Pasa nato ang mga needed na data sa pag place sa order */
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return ConsumerBuyPart1(
+                                              farmerName: widget.farmerName,
+                                              farmerId: widget.farmerId,
+                                              farmerLName: widget.farmerLname,
+                                              farmerUname: widget.farmerUsername,
+                                              farmerBarangay: widget.farmerBarangay,
+                                              farmerMunicipal: widget.farmerMunicipality,
+                                              listingName: widget.listingname,
+                                              listingUrl: widget.imageUrl,
+                                              listingPrice: widget.listingPrice,
+                                              listingQuan: widget.listingQuan,
+                                              listingId: widget.listingId,
+                                              listingStatus: widget.listingStatus,
+                                              imageUrl: widget.imageUrl,
                                             );
                                           },
-                                          child: const FarmSwapGreenBtnNew(
-                                              text: "Buy"),
                                         ),
-                                        SizedBox(
-                                          height: 15.h,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            /*Pasa nato ang mga needed na data sa pag place sa order */
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) {
-                                                  return ConsumerCart(
-                                                    farmerName:
-                                                        widget.farmerName,
-                                                    farmerId: widget.farmerId,
-                                                    farmerLName:
-                                                        widget.farmerLname,
-                                                    farmerUname:
-                                                        widget.farmerUsername,
-                                                    farmerBarangay:
-                                                        widget.farmerBarangay,
-                                                    farmerMunicipal: widget
-                                                        .farmerMunicipality,
-                                                    listingName:
-                                                        widget.listingname,
-                                                    listingUrl: widget.imageUrl,
-                                                    listingPrice:
-                                                        widget.listingPrice,
-                                                    listingQuan:
-                                                        widget.listingQuan,
-                                                    listingId: widget.listingId,
-                                                    listingStatus:
-                                                        widget.listingStatus,
-                                                    imageUrl: widget.imageUrl,
-                                                  );
-                                                },
-                                              ),
+                                      );
+                                    },
+                                    child: const FarmSwapGreenBtn(text: "Buy"),
+                                  )
+                                else
+                                  Container(),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                if (userRole == "CONSUMER")
+                                  GestureDetector(
+                                    onTap: () {
+                                      /*Pasa nato ang mga needed na data sa pag place sa order */
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return ConsumerBuyPart1(
+                                              farmerName: widget.farmerName,
+                                              farmerId: widget.farmerId,
+                                              farmerLName: widget.farmerLname,
+                                              farmerUname: widget.farmerUsername,
+                                              farmerBarangay: widget.farmerBarangay,
+                                              farmerMunicipal: widget.farmerMunicipality,
+                                              listingName: widget.listingname,
+                                              listingUrl: widget.imageUrl,
+                                              listingPrice: widget.listingPrice,
+                                              listingQuan: widget.listingQuan,
+                                              listingId: widget.listingId,
+                                              listingStatus: widget.listingStatus,
+                                              imageUrl: widget.imageUrl,
                                             );
                                           },
-                                          child: const FarmSwapOrangeBtn(
-                                              text: "Add to Cart"),
-                                        )
-                                      ],
-                                    )
-                                  : Container(),
-                              /*
-                              if (userRole == "CONSUMER")
-                                GestureDetector(
-                                  onTap: () {
-                                    /*Pasa nato ang mga needed na data sa pag place sa order */
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return ConsumerBuyPart1(
-                                            farmerName: widget.farmerName,
-                                            farmerId: widget.farmerId,
-                                            farmerLName: widget.farmerLname,
-                                            farmerUname: widget.farmerUsername,
-                                            farmerBarangay: widget.farmerBarangay,
-                                            farmerMunicipal: widget.farmerMunicipality,
-                                            listingName: widget.listingname,
-                                            listingUrl: widget.imageUrl,
-                                            listingPrice: widget.listingPrice,
-                                            listingQuan: widget.listingQuan,
-                                            listingId: widget.listingId,
-                                            listingStatus: widget.listingStatus,
-                                            imageUrl: widget.imageUrl,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: const FarmSwapGreenBtn(text: "Buy"),
-                                )
-                              else
-                                Container(),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              if (userRole == "CONSUMER")
-                                GestureDetector(
-                                  onTap: () {
-                                    /*Pasa nato ang mga needed na data sa pag place sa order */
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return ConsumerBuyPart1(
-                                            farmerName: widget.farmerName,
-                                            farmerId: widget.farmerId,
-                                            farmerLName: widget.farmerLname,
-                                            farmerUname: widget.farmerUsername,
-                                            farmerBarangay: widget.farmerBarangay,
-                                            farmerMunicipal: widget.farmerMunicipality,
-                                            listingName: widget.listingname,
-                                            listingUrl: widget.imageUrl,
-                                            listingPrice: widget.listingPrice,
-                                            listingQuan: widget.listingQuan,
-                                            listingId: widget.listingId,
-                                            listingStatus: widget.listingStatus,
-                                            imageUrl: widget.imageUrl,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: const FarmSwapOrangeBtn(text: "Add to Cart"),
-                                )
-                              else
-                                Container(),*/
-                            ],
-                          )
-                        ],
+                                        ),
+                                      );
+                                    },
+                                    child: const FarmSwapOrangeBtn(text: "Add to Cart"),
+                                  )
+                                else
+                                  Container(),*/
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

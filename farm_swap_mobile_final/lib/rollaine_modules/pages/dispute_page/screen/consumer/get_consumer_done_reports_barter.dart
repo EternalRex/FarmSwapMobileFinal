@@ -1,26 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/farmer_done_report_details.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/consumer/consumer_done_report_barter_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
-class GetFarmerDoneBarterReports extends StatefulWidget {
-  const GetFarmerDoneBarterReports({super.key});
+class GetBarterDoneReports extends StatefulWidget {
+  const GetBarterDoneReports({super.key});
 
   @override
-  State<GetFarmerDoneBarterReports> createState() => _GetFarmerDoneBarterReportsState();
+  State<GetBarterDoneReports> createState() => _GetBarterDoneReportsState();
 }
 
-class _GetFarmerDoneBarterReportsState extends State<GetFarmerDoneBarterReports> {
+class _GetBarterDoneReportsState extends State<GetBarterDoneReports> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
-          .collectionGroup('fBarterDispute')
-          .where('farmerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .collectionGroup('cBarterDispute')
+          .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .orderBy('disputeDateFile', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
@@ -53,16 +53,13 @@ class _GetFarmerDoneBarterReportsState extends State<GetFarmerDoneBarterReports>
 
   Widget _buildFCompleteBarterListItems(DocumentSnapshot documentSnapshot) {
     Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-/*
-Ako lang sa ni e comment kat wa man nako ni ma need, kung sa future mag need sa farmer details, pwde
-rani e uncomment
-    /*Farmer Details */
+
     String farmerName = data['farmerName'];
     String farmerId = data['farmerId'];
     String farmerLastName = data['farmerLname'];
     String farmerUname = data['farmerUname'];
     String farmerBarangay = data['farmerBarangay'];
-    String farmerMunicipality = data['farmerMunicipality'];*/
+    String farmerMunicipality = data['farmerMunicipality'];
 
     /*Consumer Details */
     String consumerName = data['consumerName'];
@@ -74,18 +71,22 @@ rani e uncomment
 
     /*Item details */
     String itemName = data['itemName'];
-
     double itemValue = (data['itemValue'] as num).toDouble();
-
     String itemUrl = data['itemUrl'];
+
+    /*Listing name */
     String listingName = data['listingName'];
     String listingId = data['listingId'];
     String listingPrice = data['listingPrice'];
     String listingUrl = data['listingUrl'];
+
+    /*Dispute details */
     bool isResolved = data['isResolved'];
     String farmerDisputeStatus = data['farmerDisputeStatus'];
     String farmerDisputeText = data['farmerDisputeText'];
     String farmerDisputeUrl = data['farmerDisputeUrl'];
+
+    /*Transaction details */
     double deductedFarmerCoins = (data['deductedFarmerCoins'] as num).toDouble();
     double deductedConsumerCoins = (data['deductedConsumerCoins'] as num).toDouble();
     double averageValue = (data['valueRange'] as num).toDouble();
@@ -108,13 +109,13 @@ rani e uncomment
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return FarmerDoneReportsDetails(
-                  consumerName: consumerName,
-                  consumerId: consumerId,
-                  consumerUname: consumerUname,
-                  consumserLastName: consumserLastName,
-                  consumerBarangay: consumerBarangay,
-                  consumerMunicipality: consumerMunicipality,
+                return ConsumerDoneReportBarterDetails(
+                  farmerName: farmerName,
+                  farmerId: farmerId,
+                  farmerUname: farmerUname,
+                  farmerLastName: farmerLastName,
+                  farmerBarangay: farmerBarangay,
+                  farmerMunicipality: farmerMunicipality,
                   itemName: itemName,
                   itemValue: itemValue,
                   itemUrl: itemUrl,
@@ -173,7 +174,7 @@ rani e uncomment
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         poppinsText2(
-                          "$consumerName $consumserLastName ($consumerUname)",
+                          "$farmerName $farmerLastName ($farmerUname)",
                           Colors.black,
                           13.sp,
                           FontWeight.normal,

@@ -29,6 +29,8 @@ class SellTransactionModel {
     required this.addedFarmerWalletAmount,
     required this.decutedFarmerSwapCoins,
     required this.tranasctinDate,
+    required this.isDisputed,
+    required this.isConsumerDisputed,
   });
 
   //Consumer Details
@@ -69,6 +71,8 @@ class SellTransactionModel {
   double addedFarmerWalletAmount;
   double decutedFarmerSwapCoins;
   DateTime tranasctinDate;
+  bool isDisputed;
+  bool isConsumerDisputed;
 
   Map<String, dynamic> toMap() {
     return {
@@ -100,6 +104,8 @@ class SellTransactionModel {
       'addedFarmerWalletAmnt': addedFarmerWalletAmount,
       'deductedFarmerSwapCoins': decutedFarmerSwapCoins,
       'transactionDate': tranasctinDate,
+      'isDisputed': isDisputed,
+      'isConsumerDisputed': isConsumerDisputed,
     };
   }
 }

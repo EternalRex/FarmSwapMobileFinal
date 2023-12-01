@@ -285,7 +285,7 @@ class _GetFarmerSalesState extends State<GetFarmerSales> {
     String consName = sell['consName'];
     String consProfileUrl = sell['consProfileUrl'];
     String consUname = sell['consUname'];
-    String deductFarmer = sell['deductedFarmerSwapCoins'].toString();
+    double deductFarmer = (sell['deductedFarmerSwapCoins'] as num).toDouble();
     String farmerBarangay = sell['farmerBarangay'];
     String farmerLname = sell['farmerLname'];
     String farmerMunicipality = sell['farmerMunicipality'];
@@ -298,17 +298,20 @@ class _GetFarmerSalesState extends State<GetFarmerSales> {
     String listingQuan = sell['listingQuan'];
     String listingStatus = sell['listingStatus'];
     String listingUrl = sell['listingUrl'];
-    String purchasePrice = sell['purchasePrice'].toString();
-    String purchaseQuan = sell['purchaseQuan'].toString();
+    double purchasePrice = (sell['purchasePrice'] as num).toDouble();
+    double purchaseQuan = (sell['purchaseQuan'] as num).toDouble();
+    String consumerId = sell['consId'];
+    String farmerId = sell['farmerId'];
+    bool isDisputed = sell['isDisputed'];
 
     //Extracts a timestamp called 'Activity Date' from the document.
     Timestamp dateTimestamp = document['transactionDate'];
 
     //Converts this timestamp to a DateTime object.
-    DateTime dateTime = dateTimestamp.toDate();
+    DateTime dateTimeTransac = dateTimestamp.toDate();
 
     //Formats the DateTime as a string in the 'MM/DD/yyyy HH:mm:ss' format
-    String transact = DateFormat('MM/dd/yyyy   HH:mm:ss').format(dateTime);
+    String transact = DateFormat('MM/dd/yyyy   HH:mm:ss').format(dateTimeTransac);
 
     //Extracts a timestamp called 'Activity Date' from the document.
     Timestamp purchaseTimestamp = document['purchaseTime'];
@@ -319,146 +322,157 @@ class _GetFarmerSalesState extends State<GetFarmerSales> {
     //Formats the DateTime as a string in the 'MM/DD/yyyy HH:mm:ss' format
     String purchaseDate = DateFormat('MM/dd/yyyy   HH:mm:ss').format(purchaseTime);
 
-    //displaying a single row in a list
-    return ListTile(
-      title: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
+    if (isDisputed == false) {
+//displaying a single row in a list
+      return ListTile(
+        title: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: shadow,
+                blurRadius: 2,
+                offset: const Offset(0, 1),
+              ),
+            ],
           ),
-          boxShadow: [
-            BoxShadow(
-              color: shadow,
-              blurRadius: 2,
-              offset: const Offset(0, 1),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 50.h,
-                          width: 50.w,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            image: DecorationImage(
-                              image: CachedNetworkImageProvider(sell['consProfileUrl']),
-                              fit: BoxFit.fill,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 50.h,
+                            width: 50.w,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              image: DecorationImage(
+                                image: CachedNetworkImageProvider(sell['consProfileUrl']),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 5),
-                              child: Text(
-                                sell['consName'] + ' ' + sell['consLName'],
-                                style: Poppins.contentText.copyWith(color: const Color(0xFF09051B)),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Text(
+                                  sell['consName'] + ' ' + sell['consLName'],
+                                  style:
+                                      Poppins.contentText.copyWith(color: const Color(0xFF09051B)),
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 5),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    sell['consBaranay'],
-                                    style: Poppins.detailsText
-                                        .copyWith(color: const Color(0xFF09051B)),
-                                  ),
-                                  Text(
-                                    ',',
-                                    style: Poppins.detailsText
-                                        .copyWith(color: const Color(0xFF09051B)),
-                                  ),
-                                  const SizedBox(
-                                    width: 2,
-                                  ),
-                                  Text(
-                                    sell['consMunicipality'],
-                                    style: Poppins.detailsText
-                                        .copyWith(color: const Color(0xFF09051B)),
-                                  ),
-                                ],
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      sell['consBaranay'],
+                                      style: Poppins.detailsText
+                                          .copyWith(color: const Color(0xFF09051B)),
+                                    ),
+                                    Text(
+                                      ',',
+                                      style: Poppins.detailsText
+                                          .copyWith(color: const Color(0xFF09051B)),
+                                    ),
+                                    const SizedBox(
+                                      width: 2,
+                                    ),
+                                    Text(
+                                      sell['consMunicipality'],
+                                      style: Poppins.detailsText
+                                          .copyWith(color: const Color(0xFF09051B)),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Text(
-                              transact,
-                              style: Poppins.buttonText.copyWith(color: const Color(0xFF09051B)),
-                            ),
-                          ],
-                        )
-                      ],
+                              Text(
+                                transact,
+                                style: Poppins.buttonText.copyWith(color: const Color(0xFF09051B)),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
                                   builder: (context) => FarmerDisputeSale(
-                                      addedAmnt: addedAmount,
-                                      cBarangay: consBaranay,
-                                      cLname: consLName,
-                                      cMunicipality: consMunicipality,
-                                      cName: consName,
-                                      cUrl: consProfileUrl,
-                                      cUname: consUname,
-                                      deductFarm: deductFarmer,
-                                      fBarangay: farmerBarangay,
-                                      fLname: farmerLname,
-                                      fMunicipality: farmerMunicipality,
-                                      fName: farmerName,
-                                      fUname: farmerUname,
-                                      fUrl: farmerProfileUrl,
-                                      lId: listingId,
-                                      lName: listingName,
-                                      lPrice: listingPrice,
-                                      lQuan: listingQuan,
-                                      lStatus: listingStatus,
-                                      lUrl: listingUrl,
-                                      pPrice: purchasePrice,
-                                      pQuan: purchaseQuan)),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.report_rounded,
-                            color: Colors.red,
+                                    addedAmnt: addedAmount,
+                                    cBarangay: consBaranay,
+                                    cLname: consLName,
+                                    cMunicipality: consMunicipality,
+                                    cName: consName,
+                                    cUrl: consProfileUrl,
+                                    cUname: consUname,
+                                    deductFarm: deductFarmer,
+                                    fBarangay: farmerBarangay,
+                                    fLname: farmerLname,
+                                    fMunicipality: farmerMunicipality,
+                                    fName: farmerName,
+                                    fUname: farmerUname,
+                                    fUrl: farmerProfileUrl,
+                                    lId: listingId,
+                                    lName: listingName,
+                                    lPrice: listingPrice,
+                                    lQuan: listingQuan,
+                                    lStatus: listingStatus,
+                                    lUrl: listingUrl,
+                                    pPrice: purchasePrice,
+                                    pQuan: purchaseQuan,
+                                    consId: consumerId,
+                                    farmerId: farmerId,
+                                    transactionDate: dateTimeTransac,
+                                    transactionDateString: transact,
+                                  ),
+                                ),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.report_rounded,
+                              color: Colors.red,
+                            ),
+                            iconSize: 30,
                           ),
-                          iconSize: 30,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }

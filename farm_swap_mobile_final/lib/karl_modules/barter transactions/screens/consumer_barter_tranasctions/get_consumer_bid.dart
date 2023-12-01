@@ -56,6 +56,7 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
     bool selected = data["selected"];
     bool isCompleted = data["completed"];
     bool isConsComplete = data["consumerCompleted"];
+    bool isBarteredOut = data['isBarteredOut'];
 
     /*Listing data*/
     String listingId = data["listingId"];
@@ -128,6 +129,7 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
                       selected: selected,
                       completed: isCompleted,
                       isConsCompleted: isConsComplete,
+                      isBarteredOut: isBarteredOut,
                     );
                   },
                 ),
@@ -234,6 +236,7 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
                               selected: selected,
                               completed: isCompleted,
                               isConsCompleted: isConsComplete,
+                              isBarteredOut: isBarteredOut,
                             );
                           },
                         ),

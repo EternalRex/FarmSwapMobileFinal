@@ -1,22 +1,22 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
+import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/farmer_dispute_page_navbar.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/consumer_dispute_page_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FarmerDoneReportsDetails extends StatefulWidget {
-  const FarmerDoneReportsDetails({
+class ConsumerDoneReportBarterDetails extends StatefulWidget {
+  const ConsumerDoneReportBarterDetails({
     super.key,
-    required this.consumerName,
-    required this.consumerId,
-    required this.consumerUname,
-    required this.consumserLastName,
-    required this.consumerBarangay,
-    required this.consumerMunicipality,
+    required this.farmerName,
+    required this.farmerId,
+    required this.farmerUname,
+    required this.farmerLastName,
+    required this.farmerBarangay,
+    required this.farmerMunicipality,
 
     /*Item details */
     required this.itemName,
@@ -41,12 +41,12 @@ class FarmerDoneReportsDetails extends StatefulWidget {
   });
 
   /*Consumer Details */
-  final String consumerName;
-  final String consumerId;
-  final String consumerUname;
-  final String consumserLastName;
-  final String consumerBarangay;
-  final String consumerMunicipality;
+  final String farmerName;
+  final String farmerId;
+  final String farmerUname;
+  final String farmerLastName;
+  final String farmerBarangay;
+  final String farmerMunicipality;
 
   /*Item details */
   final String itemName;
@@ -70,11 +70,11 @@ class FarmerDoneReportsDetails extends StatefulWidget {
   final String disputeDateFileString;
 
   @override
-  State<FarmerDoneReportsDetails> createState() => _FarmerDoneReportsDetailsState();
+  State<ConsumerDoneReportBarterDetails> createState() => _ConsumerDoneReportBarterDetailsState();
 }
 
-class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
-  /*Creating a scafoold key so that we can open a drawer that is built from another class */
+class _ConsumerDoneReportBarterDetailsState extends State<ConsumerDoneReportBarterDetails> {
+/*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -82,13 +82,13 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
-  ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
-  String consumerProfilePic = '';
+  ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+  String farmerProfilePic = '';
 
   @override
   void initState() {
     super.initState();
-    getConsumerPic();
+    getFarmerPic();
   }
 
   @override
@@ -411,35 +411,35 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
 
               /*Picture of the consumer */
               CircleAvatar(
-                backgroundImage: NetworkImage(consumerProfilePic),
+                backgroundImage: NetworkImage(farmerProfilePic),
                 radius: 90.r,
               ),
               const Divider(),
-              poppinsText2("Reported Consumer Profile", Colors.black54, 15.sp, FontWeight.normal),
+              poppinsText2("Reported Farmer Profile", Colors.black54, 15.sp, FontWeight.normal),
               SizedBox(
                 height: 20.h,
               ),
               /*Name of the consumer*/
               poppinsText2(
-                "${widget.consumerName} ${widget.consumserLastName} (${widget.consumerUname}) ",
+                "${widget.farmerName} ${widget.farmerLastName} (${widget.farmerUname}) ",
                 Colors.black,
                 20.sp,
                 FontWeight.normal,
               ),
               const Divider(),
-              poppinsText2("Reported Consumer name", Colors.black54, 15.sp, FontWeight.normal),
+              poppinsText2("Reported Farmer name", Colors.black54, 15.sp, FontWeight.normal),
               SizedBox(
                 height: 20.h,
               ),
               /*location of customer */
               poppinsText2(
-                " Barangay ${widget.consumerBarangay}, ${widget.consumerMunicipality}",
+                " Barangay ${widget.farmerBarangay}, ${widget.farmerMunicipality}",
                 Colors.black,
                 20.sp,
                 FontWeight.normal,
               ),
               const Divider(),
-              poppinsText2("Reported Consumer Location", Colors.black54, 15.sp, FontWeight.normal),
+              poppinsText2("Reported Farmer Location", Colors.black54, 15.sp, FontWeight.normal),
               SizedBox(
                 height: 50.h,
               ),
@@ -523,16 +523,16 @@ class _FarmerDoneReportsDetailsState extends State<FarmerDoneReportsDetails> {
             ),
           ],
         ),
-        child: const FarmerBarterDisputesNavBar(),
+        child: const ConsumerDisputePageNavBar(),
       ),
     );
   }
 
   /*Getting the picture of the consumer*/
-  Future<void> getConsumerPic() async {
-    String profurl = await consumerDetails.getConsumerProfilePhotoWithParameter(widget.consumerId);
+  Future<void> getFarmerPic() async {
+    String profurl = await farmerDetails.getFarmerUserProfilePhotoWithParameter(widget.farmerId);
     setState(() {
-      consumerProfilePic = profurl;
+      farmerProfilePic = profurl;
     });
   }
 }

@@ -249,6 +249,8 @@ class UpdateConfirmedOrder {
       addedFarmerWalletAmount: addedFarmerWalletAmount,
       decutedFarmerSwapCoins: decutedFarmerSwapCoins,
       tranasctinDate: tranasctinDate,
+      isDisputed: false,
+      isConsumerDisputed: false,
     );
 
     FirebaseFirestore.instance

@@ -3,6 +3,7 @@ import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/get_farmer_done_barter_reports.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/get_farmer_done_sell_reports.dart';
 import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/farmer_dispute_page_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,7 +69,7 @@ class _FarmerDoneReportsState extends State<FarmerDoneReports> {
               child: Container(
                 height: 375.h,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Colors.white,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(5),
                   ),
@@ -108,7 +109,7 @@ class _FarmerDoneReportsState extends State<FarmerDoneReports> {
               child: Container(
                 height: 375.h,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Colors.white,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(5),
                   ),
@@ -136,7 +137,7 @@ class _FarmerDoneReportsState extends State<FarmerDoneReports> {
                       child: SizedBox(
                         height: 320.h,
                         width: MediaQuery.of(context).size.width,
-                        child: Text("Hi"),
+                        child: const GetFarmerDoneSellReports(),
                       ),
                     ),
                   ],
