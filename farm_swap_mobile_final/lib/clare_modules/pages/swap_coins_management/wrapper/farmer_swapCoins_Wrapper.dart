@@ -68,7 +68,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                           ),
                           SizedBox(
                             child: Text(
-                              '₱${data['swapcoins']}',
+                              '₱${data['swapcoins'].toStringAsFixed(2)}',
                               style: Poppins.number.copyWith(
                                 color: const Color(0xFFFFFFFF),
                               ),

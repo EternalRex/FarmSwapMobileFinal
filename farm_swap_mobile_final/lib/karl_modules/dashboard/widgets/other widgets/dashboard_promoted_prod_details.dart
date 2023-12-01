@@ -5,6 +5,7 @@ import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screen
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_farmer_reviews/display_farmer_review.dart';
 import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -403,6 +404,21 @@ class _DashboardPromotedProductDetailsState
                                       : showInvalidMessage();
                                 },
                                 child: const FarmSwapGreenBtn(text: "Barter"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return DisplayFarmerReviews(
+                                          farmerId: widget.farmerId,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: poppinsText("Reviews", orangeDark, 15.sp,
+                                    FontWeight.w500),
                               ),
                             ],
                           )
