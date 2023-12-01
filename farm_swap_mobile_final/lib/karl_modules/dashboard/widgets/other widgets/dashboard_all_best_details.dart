@@ -21,20 +21,15 @@ class DashBoardAllBestProductsDetails extends StatefulWidget {
     required this.imageUrl,
     required this.listingname,
     required this.listingPrice,
-    required this.promoted,
     required this.listingCategory,
-    required this.listingDisc,
+    required this.listingDesc,
     required this.farmerName,
     required this.farmerLname,
-    required this.farmerMunicipality,
-    required this.farmerBarangay,
-    required this.farmerUsername,
+    required this.farmerAddress,
     required this.startTime,
     required this.endTime,
     required this.listingQuan,
     required this.listingStatus,
-    required this.farmerId,
-    required this.listingId,
   });
 
   final String imageUrl;
@@ -42,18 +37,13 @@ class DashBoardAllBestProductsDetails extends StatefulWidget {
   final String listingPrice;
   final String listingQuan;
   final String listingStatus;
-  final bool promoted;
   final String listingCategory;
-  final String listingDisc;
+  final String listingDesc;
   final String farmerName;
   final String farmerLname;
-  final String farmerMunicipality;
-  final String farmerBarangay;
-  final String farmerUsername;
+  final String farmerAddress;
   final String startTime;
   final String endTime;
-  final String farmerId;
-  final String listingId;
 
   @override
   State<DashBoardAllBestProductsDetails> createState() =>
@@ -75,7 +65,6 @@ class _DashBoardAllBestProductsDetailsState
   @override
   void initState() {
     super.initState();
-    farmeRating();
   }
 
   @override
@@ -232,7 +221,7 @@ class _DashBoardAllBestProductsDetailsState
                               SizedBox(
                                 width: 300.w,
                                 child: Text(
-                                  widget.listingDisc,
+                                  widget.listingDesc,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 11.sp,
@@ -361,8 +350,7 @@ class _DashBoardAllBestProductsDetailsState
                                       width: 15.w,
                                     ),
                                     poppinsText(
-                                      "${widget.farmerBarangay} "
-                                      " ${widget.farmerMunicipality}, Cebu, Philippines",
+                                      "${widget.farmerAddress} , Cebu, Philippines",
                                       Colors.black54,
                                       13.sp,
                                       FontWeight.normal,
@@ -450,153 +438,6 @@ class _DashBoardAllBestProductsDetailsState
                               ),
                               /*IF ang user kay consumer mo display ang mga button
                                 else container ray mo display walay buttons*/
-                              (userRole == "CONSUMER")
-                                  ? Column(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            /*Pasa nato ang mga needed na data sa pag place sa order */
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) {
-                                                  return ConsumerBuyPart1(
-                                                    farmerName:
-                                                        widget.farmerName,
-                                                    farmerId: widget.farmerId,
-                                                    farmerLName:
-                                                        widget.farmerLname,
-                                                    farmerUname:
-                                                        widget.farmerUsername,
-                                                    farmerBarangay:
-                                                        widget.farmerBarangay,
-                                                    farmerMunicipal: widget
-                                                        .farmerMunicipality,
-                                                    listingName:
-                                                        widget.listingname,
-                                                    listingUrl: widget.imageUrl,
-                                                    listingPrice:
-                                                        widget.listingPrice,
-                                                    listingQuan:
-                                                        widget.listingQuan,
-                                                    listingId: widget.listingId,
-                                                    listingStatus:
-                                                        widget.listingStatus,
-                                                    imageUrl: widget.imageUrl,
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                          },
-                                          child: const FarmSwapGreenBtnNew(
-                                              text: "Buy"),
-                                        ),
-                                        SizedBox(
-                                          height: 15.h,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            /*Pasa nato ang mga needed na data sa pag place sa order */
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) {
-                                                  return ConsumerCart(
-                                                    farmerName:
-                                                        widget.farmerName,
-                                                    farmerId: widget.farmerId,
-                                                    farmerLName:
-                                                        widget.farmerLname,
-                                                    farmerUname:
-                                                        widget.farmerUsername,
-                                                    farmerBarangay:
-                                                        widget.farmerBarangay,
-                                                    farmerMunicipal: widget
-                                                        .farmerMunicipality,
-                                                    listingName:
-                                                        widget.listingname,
-                                                    listingUrl: widget.imageUrl,
-                                                    listingPrice:
-                                                        widget.listingPrice,
-                                                    listingQuan:
-                                                        widget.listingQuan,
-                                                    listingId: widget.listingId,
-                                                    listingStatus:
-                                                        widget.listingStatus,
-                                                    imageUrl: widget.imageUrl,
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                          },
-                                          child: const FarmSwapOrangeBtn(
-                                              text: "Add to Cart"),
-                                        )
-                                      ],
-                                    )
-                                  : Container(),
-                              /*
-                              if (userRole == "CONSUMER")
-                                GestureDetector(
-                                  onTap: () {
-                                    /*Pasa nato ang mga needed na data sa pag place sa order */
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return ConsumerBuyPart1(
-                                            farmerName: widget.farmerName,
-                                            farmerId: widget.farmerId,
-                                            farmerLName: widget.farmerLname,
-                                            farmerUname: widget.farmerUsername,
-                                            farmerBarangay: widget.farmerBarangay,
-                                            farmerMunicipal: widget.farmerMunicipality,
-                                            listingName: widget.listingname,
-                                            listingUrl: widget.imageUrl,
-                                            listingPrice: widget.listingPrice,
-                                            listingQuan: widget.listingQuan,
-                                            listingId: widget.listingId,
-                                            listingStatus: widget.listingStatus,
-                                            imageUrl: widget.imageUrl,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: const FarmSwapGreenBtn(text: "Buy"),
-                                )
-                              else
-                                Container(),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              if (userRole == "CONSUMER")
-                                GestureDetector(
-                                  onTap: () {
-                                    /*Pasa nato ang mga needed na data sa pag place sa order */
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return ConsumerBuyPart1(
-                                            farmerName: widget.farmerName,
-                                            farmerId: widget.farmerId,
-                                            farmerLName: widget.farmerLname,
-                                            farmerUname: widget.farmerUsername,
-                                            farmerBarangay: widget.farmerBarangay,
-                                            farmerMunicipal: widget.farmerMunicipality,
-                                            listingName: widget.listingname,
-                                            listingUrl: widget.imageUrl,
-                                            listingPrice: widget.listingPrice,
-                                            listingQuan: widget.listingQuan,
-                                            listingId: widget.listingId,
-                                            listingStatus: widget.listingStatus,
-                                            imageUrl: widget.imageUrl,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: const FarmSwapOrangeBtn(text: "Add to Cart"),
-                                )
-                              else
-                                Container(),*/
                             ],
                           )
                         ],
@@ -607,21 +448,6 @@ class _DashBoardAllBestProductsDetailsState
               ),
             ),
           ),
-          /*Navbar areea */
-          /*Expanded(
-            flex: 2,
-            child: Container(
-              decoration: BoxDecoration(
-                color: greenNormal,
-                image: const DecorationImage(
-                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
-                  fit: BoxFit.cover,
-                ),
-                border: Border.all(color: farmSwapTitlegreen),
-              ),
-              child: const DashboardButtomNavBar(),
-            ),
-          ),*/
         ],
       ),
       bottomNavigationBar: Container(
@@ -664,13 +490,6 @@ class _DashBoardAllBestProductsDetailsState
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
-  }
-
-  Future<void> farmeRating() async {
-    double rate = await farmerDetails.getFarmerRating(widget.farmerId);
-    setState(() {
-      rating = rate;
-    });
   }
 
   void showInvalidMessage() {

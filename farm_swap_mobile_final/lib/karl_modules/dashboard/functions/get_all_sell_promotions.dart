@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_all_selling_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -83,7 +84,7 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
 
     /*This Date conversion is for the promotion date */
     Timestamp timestamp3 = data["promotionDate"];
-    DateTime promotedDate = timestamp3.toDate();
+    DateTime promotedTime = timestamp3.toDate();
 
     /*Firebase data assigned to variables for easy use */
     /*Firebase data assigned to variables for easy use */
@@ -100,10 +101,37 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
     String farmerMunicipality = data["farmerMunicipality"];
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
+    String farmerId = data["farmerId"];
+    String listingId = document.id;
+
     /*Actual design of widget to be returned */
     return GestureDetector(
       onTap: () {
-        print("Hi");
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return DashBoardAllSellDetails(
+                imageUrl: imageUrl,
+                listingname: listingname,
+                listingPrice: listingPrice,
+                promoted: promoted,
+                listingCategory: listingCategory,
+                listingDisc: listingDisc,
+                farmerName: farmerName,
+                farmerLname: farmerLname,
+                farmerMunicipality: farmerMunicipality,
+                farmerBarangay: farmerBarangay,
+                farmerUsername: farmerUsername,
+                startTime: finalStartDate,
+                endTime: finalEndDate,
+                listingQuan: listingQuan,
+                listingStatus: listingStatus,
+                farmerId: farmerId,
+                listingId: listingId,
+              );
+            },
+          ),
+        );
       },
       child: Container(
         decoration: const BoxDecoration(
