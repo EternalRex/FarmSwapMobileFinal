@@ -54,7 +54,7 @@ class UpdateFields {
     Navigator.of(context).pushNamed(RouteManager.farmeraccountmanagement);
   }
 
-  //the function update email address field is the same process as what the other function does
+  /*the function update email address field is the same process as what the other function does
   Future<void> updateEmailField(
       BuildContext context, String? updatedata, String userid) async {
     await updateRetrieve.getUpdateDocId(userid);
@@ -73,7 +73,7 @@ class UpdateFields {
     await documentref.update(updateFiled);
     Navigator.of(context).pushNamed(RouteManager.farmeraccountmanagement);
   }
-
+ */
   //the function update password field is the same process as what the other function does
   Future<void> updatePasswordField(
       BuildContext context, String? updatedata, String userid) async {

@@ -14,17 +14,20 @@ class UserProfilePhotoRegistration extends StatefulWidget {
   const UserProfilePhotoRegistration({super.key});
 
   @override
-  State<UserProfilePhotoRegistration> createState() => _UserProfilePhotoRegistrationState();
+  State<UserProfilePhotoRegistration> createState() =>
+      _UserProfilePhotoRegistrationState();
 }
 
-class _UserProfilePhotoRegistrationState extends State<UserProfilePhotoRegistration> {
+class _UserProfilePhotoRegistrationState
+    extends State<UserProfilePhotoRegistration> {
   /*Initializing the upload picture class */
   final UploadImageFunctions _uploadImage = UploadImageFunctions();
   String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
-    String userRole = Provider.of<UserTypeProvider>(context, listen: false).getUserType;
+    String userRole =
+        Provider.of<UserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -67,17 +70,26 @@ class _UserProfilePhotoRegistrationState extends State<UserProfilePhotoRegistrat
                           /*This is for picking image in the gallery */
                           GestureDetector(
                             onTap: () async {
-                              imageUrl = await _uploadImage.uploadImageToFirebaseGallery();
+                              // Start loading state
+                              _showLoadingDialog(context);
+                              imageUrl = await _uploadImage
+                                  .uploadImageToFirebaseGallery();
+                              // End loading state
                               // ignore: use_build_context_synchronously
-                              Provider.of<UserDetailsProvider>(context, listen: false)
+                              Navigator.pop(context);
+                              // ignore: use_build_context_synchronously
+                              Provider.of<UserDetailsProvider>(context,
+                                      listen: false)
                                   .setProfilPicture(imageUrl.toString());
                               // ignore: use_build_context_synchronously
-                              Navigator.of(context).pushNamed(RouteManager.displayuserprofilePhoto);
+                              Navigator.of(context).pushNamed(
+                                  RouteManager.displayuserprofilePhoto);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
                               width: 200.sp,
-                              imagePath: "assets/karl_assets/images/Gallery.svg",
+                              imagePath:
+                                  "assets/karl_assets/images/Gallery.svg",
                               title: "From Gallery",
                             ),
                           ),
@@ -87,12 +99,20 @@ class _UserProfilePhotoRegistrationState extends State<UserProfilePhotoRegistrat
                           /*This is for picking image in the camera */
                           GestureDetector(
                             onTap: () async {
-                              imageUrl = await _uploadImage.uploadImageToFirebaseCamera();
+                              // Start loading state
+                              _showLoadingDialog(context);
+                              imageUrl = await _uploadImage
+                                  .uploadImageToFirebaseCamera();
+                              // End loading state
                               // ignore: use_build_context_synchronously
-                              Provider.of<UserDetailsProvider>(context, listen: false)
+                              Navigator.pop(context);
+                              // ignore: use_build_context_synchronously
+                              Provider.of<UserDetailsProvider>(context,
+                                      listen: false)
                                   .setProfilPicture(imageUrl.toString());
                               // ignore: use_build_context_synchronously
-                              Navigator.of(context).pushNamed(RouteManager.displayuserprofilePhoto);
+                              Navigator.of(context).pushNamed(
+                                  RouteManager.displayuserprofilePhoto);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
@@ -133,17 +153,26 @@ class _UserProfilePhotoRegistrationState extends State<UserProfilePhotoRegistrat
                           /*This is for picking image in the gallery */
                           GestureDetector(
                             onTap: () async {
-                              imageUrl = await _uploadImage.uploadImageToFirebaseGallery();
+                              // Start loading state
+                              _showLoadingDialog(context);
+                              imageUrl = await _uploadImage
+                                  .uploadImageToFirebaseGallery();
+                              // End loading state
                               // ignore: use_build_context_synchronously
-                              Provider.of<UserDetailsProvider>(context, listen: false)
+                              Navigator.pop(context);
+                              // ignore: use_build_context_synchronously
+                              Provider.of<UserDetailsProvider>(context,
+                                      listen: false)
                                   .setProfilPicture(imageUrl.toString());
                               // ignore: use_build_context_synchronously
-                              Navigator.of(context).pushNamed(RouteManager.displayuserprofilePhoto);
+                              Navigator.of(context).pushNamed(
+                                  RouteManager.displayuserprofilePhoto);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
                               width: 200.sp,
-                              imagePath: "assets/karl_assets/images/Gallery.svg",
+                              imagePath:
+                                  "assets/karl_assets/images/Gallery.svg",
                               title: "From Gallery",
                             ),
                           ),
@@ -153,12 +182,20 @@ class _UserProfilePhotoRegistrationState extends State<UserProfilePhotoRegistrat
                           /*This is for picking image in the camera */
                           GestureDetector(
                             onTap: () async {
-                              imageUrl = await _uploadImage.uploadImageToFirebaseCamera();
+                              // Start loading state
+                              _showLoadingDialog(context);
+                              imageUrl = await _uploadImage
+                                  .uploadImageToFirebaseCamera();
+                              // End loading state
                               // ignore: use_build_context_synchronously
-                              Provider.of<UserDetailsProvider>(context, listen: false)
+                              Navigator.pop(context);
+                              // ignore: use_build_context_synchronously
+                              Provider.of<UserDetailsProvider>(context,
+                                      listen: false)
                                   .setProfilPicture(imageUrl.toString());
                               // ignore: use_build_context_synchronously
-                              Navigator.of(context).pushNamed(RouteManager.displayuserprofilePhoto);
+                              Navigator.of(context).pushNamed(
+                                  RouteManager.displayuserprofilePhoto);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
@@ -174,6 +211,28 @@ class _UserProfilePhotoRegistrationState extends State<UserProfilePhotoRegistrat
           ],
         ),
       ),
+    );
+  }
+
+  // Display loading dialog
+  // ignore: unused_element
+  Future<void> _showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.greenAccent,
+              ),
+              SizedBox(width: 16),
+              Text("Uploading..."),
+            ],
+          ),
+        );
+      },
     );
   }
 }

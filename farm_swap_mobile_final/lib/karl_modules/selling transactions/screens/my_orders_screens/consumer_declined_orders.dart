@@ -4,7 +4,6 @@ import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/scree
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ConsumerDeclinedOrders extends StatefulWidget {
   const ConsumerDeclinedOrders({super.key});
@@ -53,17 +52,6 @@ class _ConsumerDeclinedOrdersState extends State<ConsumerDeclinedOrders> {
           },
           icon: const Icon(Icons.menu),
         ),
-        actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
-          ),
-        ],
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(

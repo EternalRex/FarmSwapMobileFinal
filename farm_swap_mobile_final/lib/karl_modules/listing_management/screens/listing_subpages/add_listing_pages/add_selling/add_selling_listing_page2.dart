@@ -104,9 +104,14 @@ class _AddActualSellingListingDetails2State
                           /*For the pick image in gallery */
                           GestureDetector(
                             onTap: () async {
+                              // Start loading state
+                              _showLoadingDialog(context);
                               /*Calling the function that will select an image from gallery and assign its download url to a variable */
                               String? url =
                                   await upload.uploadImageToFirebaseGallery();
+
+                              // End loading state
+                              Navigator.pop(context);
                               /*Putting the value of url inside our provider */
                               Provider.of<SellListingDetailsProvider>(context,
                                       listen: false)
@@ -128,9 +133,14 @@ class _AddActualSellingListingDetails2State
                           /*This is for picking image in the camera */
                           GestureDetector(
                             onTap: () async {
+                              // Start loading state
+                              _showLoadingDialog(context);
                               /*Calling the function that will select an image from camera and assign its download url to a variable */
                               String? url =
                                   await upload.uploadImageToFirebaseCamera();
+
+                              // End loading state
+                              Navigator.pop(context);
                               /*Putting the value of url inside our provider */
                               Provider.of<SellListingDetailsProvider>(context,
                                       listen: false)
@@ -171,6 +181,27 @@ class _AddActualSellingListingDetails2State
           ),
         ],
       ),
+    );
+  }
+
+  // Display loading dialog
+  Future<void> _showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.greenAccent,
+              ),
+              SizedBox(width: 16),
+              Text("Uploading..."),
+            ],
+          ),
+        );
+      },
     );
   }
 }

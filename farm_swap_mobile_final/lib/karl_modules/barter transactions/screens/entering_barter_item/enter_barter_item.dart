@@ -8,7 +8,6 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_sell_promotions.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/provider/bartering_item_details_provider.dart';
-import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -401,7 +400,7 @@ class _EnterToBarterItemState extends State<EnterToBarterItem> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+          Navigator.pop(context);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

@@ -58,7 +58,7 @@ class _AddActualSellingListingDetails3State
         ),
       ),
       /*The drawer class */
-      drawer: DashBoardDrawer(),
+      drawer: const DashBoardDrawer(),
       body: Column(
         children: [
           /*Expanded for the contents */

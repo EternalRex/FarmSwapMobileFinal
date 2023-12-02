@@ -92,6 +92,8 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                         GestureDetector(
                                           // ignore: duplicate_ignore
                                           onTap: () async {
+                                            // Start loading state
+                                            _showLoadingDialog(context);
                                             await updatePicture
                                                 .uploadImageToFirebaseGallery();
                                             Navigator.of(context)
@@ -120,6 +122,8 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                                         /*This is for picking image in the camera */
                                         GestureDetector(
                                           onTap: () async {
+                                            // Start loading state
+                                            _showLoadingDialog(context);
                                             await updatePicture
                                                 .uploadImageToFirebaseCamera();
                                             Navigator.of(context)
@@ -1166,6 +1170,27 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
     );
   }
 
+  // Display loading dialog
+  Future<void> _showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.greenAccent,
+              ),
+              SizedBox(width: 16),
+              Text("Uploading..."),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   //create a variable for updatedValue and selectedValue
   String? updatedValue;
   String? selectedValue;
@@ -1192,7 +1217,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
               content: DropdownButton<String>(
                 value: selectedValue,
                 items: [
-                  //first menu item email address
+                  /*first menu item email address
                   DropdownMenuItem(
                     value: "email",
                     child: GestureDetector(
@@ -1284,6 +1309,7 @@ class _ReadConsumerProfileState extends State<ReadConsumerProfile> {
                               });
                         }),
                   ),
+                  */
                   //second menu item password
                   DropdownMenuItem(
                     value: "password",
