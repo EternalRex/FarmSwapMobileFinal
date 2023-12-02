@@ -84,6 +84,7 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
 
     /*This Date conversion is for the promotion date */
     Timestamp timestamp3 = data["promotionDate"];
+    // ignore: unused_local_variable
     DateTime promotedTime = timestamp3.toDate();
 
     /*Firebase data assigned to variables for easy use */

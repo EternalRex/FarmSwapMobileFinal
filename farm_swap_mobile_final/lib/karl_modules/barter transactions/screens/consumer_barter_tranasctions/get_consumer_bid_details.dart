@@ -119,7 +119,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -132,8 +133,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
           },
           icon: const Icon(Icons.menu),
         ),
-        actions: [
-          /*Shoppping cart button */
+        /*actions: [
+          Shoppping cart button 
           Padding(
             padding: const EdgeInsets.only(right: 15),
             child: IconButton(
@@ -142,7 +143,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
               iconSize: 30.sp,
             ),
           ),
-        ],
+        ],*/
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(
@@ -258,7 +259,9 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                             width: 130.w,
                             decoration: BoxDecoration(
                               /*The color of the container will change to green when it is the bid that is selected by farmer */
-                              color: (widget.selected == true) ? Colors.green : Colors.red,
+                              color: (widget.selected == true)
+                                  ? Colors.green
+                                  : Colors.red,
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(30),
                               ),
@@ -272,7 +275,9 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                             ),
                             child: Center(
                               child: poppinsText(
-                                (widget.selected == true) ? "SELECTED" : "WAITING...",
+                                (widget.selected == true)
+                                    ? "SELECTED"
+                                    : "WAITING...",
                                 Colors.white,
                                 15.sp,
                                 FontWeight.w500,
@@ -308,8 +313,10 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                                             farmerId: widget.farmerid,
                                             farmerName: widget.farmername,
                                             farmerUname: widget.farmeruname,
-                                            farmerBarangay: widget.farmerbarangay,
-                                            farmerMunicipality: widget.farmermunicipal,
+                                            farmerBarangay:
+                                                widget.farmerbarangay,
+                                            farmerMunicipality:
+                                                widget.farmermunicipal,
                                             consumerId: consid,
                                             consumerFname: consName,
                                             consumerLname: consLname,
@@ -577,7 +584,9 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                 ],
               ),
             ),*/
-            (widget.isBarteredOut == true && widget.selected == false && widget.completed == false)
+            (widget.isBarteredOut == true &&
+                    widget.selected == false &&
+                    widget.completed == false)
                 ? Container()
                 : (widget.isConsCompleted == true)
                     /*If completed the ang transaction so wala nay completed og disupute na button meaning
@@ -585,7 +594,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                     ? Container()
                     /*Kung dli pa marked as completed ang transaction so naay button na choices na pwde e label as completed or e dispute lang ang transaction */
                     : Padding(
-                        padding: EdgeInsets.only(right: 10.sp, left: 10.sp, bottom: 10.sp),
+                        padding: EdgeInsets.only(
+                            right: 10.sp, left: 10.sp, bottom: 10.sp),
                         child: Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -600,7 +610,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                                   } else {
                                     /*E update nato ang field na consuemerCompleted to true */
                                     update.updateConsumerIsCompeleted(
-                                        widget.listId, FirebaseAuth.instance.currentUser!.uid);
+                                        widget.listId,
+                                        FirebaseAuth.instance.currentUser!.uid);
                                     /*Re routign to this page to show the updated value effect*/
                                     MaterialPageRoute(
                                       builder: (context) {
@@ -610,7 +621,10 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                                   }
                                 },
                                 child: poppinsText(
-                                    "Completed", farmSwapTitlegreen, 15.sp, FontWeight.normal),
+                                    "Completed",
+                                    farmSwapTitlegreen,
+                                    15.sp,
+                                    FontWeight.normal),
                               ),
                               SizedBox(
                                 width: 30.w,
@@ -632,8 +646,10 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                                             farmerName: widget.farmername,
                                             farmerLname: widget.farmerlname,
                                             farmerUname: widget.farmeruname,
-                                            farmerBarangay: widget.farmerbarangay,
-                                            farmerMunicipal: widget.farmermunicipal,
+                                            farmerBarangay:
+                                                widget.farmerbarangay,
+                                            farmerMunicipal:
+                                                widget.farmermunicipal,
                                             consId: consid,
                                             consName: consName,
                                             consUname: consUname,
@@ -648,7 +664,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                                     );
                                   }
                                 },
-                                child: poppinsText("Review", orangeDark, 15.sp, FontWeight.normal),
+                                child: poppinsText("Review", orangeDark, 15.sp,
+                                    FontWeight.normal),
                               ),
                             ],
                           ),
@@ -657,57 +674,74 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
             SizedBox(
               height: 20.h,
             ),
-            poppinsText2(widget.itemname, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(
+                widget.itemname, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
             poppinsText2("Item Name", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(widget.itemDisc, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(
+                widget.itemDisc, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2("Item Discription", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2(
+                "Item Discription", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(widget.itemVal, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(
+                widget.itemVal, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2("Estimated Item Value", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2("Estimated Item Value", Colors.black54, 15.sp,
+                FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(widget.itemquan, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(
+                widget.itemquan, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2("Number of Items", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2(
+                "Number of Items", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(widget.itemCond, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(
+                widget.itemCond, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2("Condition of Item", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2(
+                "Condition of Item", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(widget.listName, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(
+                widget.listName, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2("Farmer Product Name", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2("Farmer Product Name", Colors.black54, 15.sp,
+                FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2("${widget.listPrice} pesos", Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2("${widget.listPrice} pesos", Colors.black, 20.sp,
+                FontWeight.normal),
             const Divider(),
-            poppinsText2("Estimated product price", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2("Estimated product price", Colors.black54, 15.sp,
+                FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2("${widget.listQuan} kilograms", Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2("${widget.listQuan} kilograms", Colors.black, 20.sp,
+                FontWeight.normal),
             const Divider(),
-            poppinsText2("Product Quantity", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2(
+                "Product Quantity", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(widget.farmeruname, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(
+                widget.farmeruname, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2("Farmer Username", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2(
+                "Farmer Username", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
@@ -718,7 +752,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
               FontWeight.normal,
             ),
             const Divider(),
-            poppinsText2("Farmer Location", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2(
+                "Farmer Location", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
@@ -874,7 +909,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                                 ],
                               ),
             const Divider(),
-            poppinsText2("Farmer Rating", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2(
+                "Farmer Rating", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
@@ -905,7 +941,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Invalid Operation", Colors.red, 20.sp, FontWeight.w500),
+          title: poppinsText(
+              "Invalid Operation", Colors.red, 20.sp, FontWeight.w500),
           content: poppinsText(
             "You can only perform this operation  when your bid status is SELECTED by the FARMER, as of now it is WAITING...",
             Colors.black,
@@ -915,7 +952,8 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(RouteManager.consumerbidListings);
+                Navigator.of(context)
+                    .pushNamed(RouteManager.consumerbidListings);
               },
               child: Text(
                 "Back",

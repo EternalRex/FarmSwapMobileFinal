@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_all_barter_details.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_all_selling_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,10 +11,12 @@ class DashBoardGetAllSellListings extends StatefulWidget {
   const DashBoardGetAllSellListings({super.key});
 
   @override
-  State<DashBoardGetAllSellListings> createState() => _DashBoardGetAllSellListingsState();
+  State<DashBoardGetAllSellListings> createState() =>
+      _DashBoardGetAllSellListingsState();
 }
 
-class _DashBoardGetAllSellListingsState extends State<DashBoardGetAllSellListings> {
+class _DashBoardGetAllSellListingsState
+    extends State<DashBoardGetAllSellListings> {
   final _firestore = FirebaseFirestore.instance;
 
   @override
@@ -28,13 +29,16 @@ class _DashBoardGetAllSellListingsState extends State<DashBoardGetAllSellListing
             final barterLists = snapshot.data!.docs;
             // Filtering the barterLists based on listingStatus
             final filteredBarterLists = barterLists.where((document) {
-              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+              Map<String, dynamic> data =
+                  document.data() as Map<String, dynamic>;
               String listingStatus = data["listingstatus"];
-              return listingStatus == "ACTIVE" || listingStatus == "REACTIVATED";
+              return listingStatus == "ACTIVE" ||
+                  listingStatus == "REACTIVATED";
             }).toList();
 
             return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
               itemCount: filteredBarterLists.length,
               itemBuilder: (context, index) {
                 return accesspromotionDoc(filteredBarterLists[index]);
@@ -62,6 +66,7 @@ class _DashBoardGetAllSellListingsState extends State<DashBoardGetAllSellListing
 
     /*This Date conversion is for the promotion date */
     Timestamp timestamp3 = data["promotionDate"];
+    // ignore: unused_local_variable
     DateTime promotedTime = timestamp3.toDate();
 
     /*Firebase data assigned to variables for easy use */

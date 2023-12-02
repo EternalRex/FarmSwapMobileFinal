@@ -29,13 +29,16 @@ class _DashBoardGetAllBarterListingsState
             final barterLists = snapshot.data!.docs;
             // Filtering the barterLists based on listingStatus
             final filteredBarterLists = barterLists.where((document) {
-              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+              Map<String, dynamic> data =
+                  document.data() as Map<String, dynamic>;
               String listingStatus = data["listingstatus"];
-              return listingStatus == "ACTIVE" || listingStatus == "REACTIVATED";
+              return listingStatus == "ACTIVE" ||
+                  listingStatus == "REACTIVATED";
             }).toList();
 
             return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
               itemCount: filteredBarterLists.length,
               itemBuilder: (context, index) {
                 return accesspromotionDoc(filteredBarterLists[index]);
@@ -63,6 +66,7 @@ class _DashBoardGetAllBarterListingsState
 
     /*This Date conversion is for the promotion date */
     Timestamp timestamp3 = data["promotionDate"];
+    // ignore: unused_local_variable
     DateTime promotedTime = timestamp3.toDate();
 
     /*Firebase data assigned to variables for easy use */

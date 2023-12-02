@@ -13,16 +13,19 @@ class GetConsumerConfirmedOrderes extends StatefulWidget {
   const GetConsumerConfirmedOrderes({super.key});
 
   @override
-  State<GetConsumerConfirmedOrderes> createState() => _GetConsumerConfirmedOrderesState();
+  State<GetConsumerConfirmedOrderes> createState() =>
+      _GetConsumerConfirmedOrderesState();
 }
 
-class _GetConsumerConfirmedOrderesState extends State<GetConsumerConfirmedOrderes> {
+class _GetConsumerConfirmedOrderesState
+    extends State<GetConsumerConfirmedOrderes> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collectionGroup("sellbuy")
-          .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('consumerId',
+              isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .where('selected', isEqualTo: true)
           .where('confirmed', isEqualTo: true)
           .orderBy('purchaseDate', descending: true)
@@ -89,12 +92,15 @@ class _GetConsumerConfirmedOrderesState extends State<GetConsumerConfirmedOrdere
     /*Confirmed time conversion */
     Timestamp confirmedTime = data["confirmedDate"];
     DateTime newConfirmedTime = confirmedTime.toDate();
-    String finalConfirmedTime = DateFormat('yyyy-MM-dd').format(newConfirmedTime);
+    String finalConfirmedTime =
+        DateFormat('yyyy-MM-dd').format(newConfirmedTime);
 
     /*Completed time conversion */
+    // ignore: unused_local_variable
     Timestamp completedTime = data["confirmedDate"];
     DateTime newCompletedTime = confirmedTime.toDate();
-    String finalCompletedTime = DateFormat('yyyy-MM-dd').format(newCompletedTime);
+    String finalCompletedTime =
+        DateFormat('yyyy-MM-dd').format(newCompletedTime);
 
     if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATED") &&
         (confirmed == true &&

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/database/farmer_notif_query.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/farmer_notif_bid/provider/farmer_notif_provider.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
@@ -12,6 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class ConsumerFarmerActualChat extends StatefulWidget {
   const ConsumerFarmerActualChat({
@@ -48,7 +51,8 @@ class ConsumerFarmerActualChat extends StatefulWidget {
   final String listingId;
 
   @override
-  State<ConsumerFarmerActualChat> createState() => _ConsumerFarmerActualChatState();
+  State<ConsumerFarmerActualChat> createState() =>
+      _ConsumerFarmerActualChatState();
 }
 
 class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
@@ -68,6 +72,8 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
   ConsumerProfilePhotQuerry consumerPhoto = ConsumerProfilePhotQuerry();
   FarmerProfilePhotoQuerry farmerPhoto = FarmerProfilePhotoQuerry();
+  FarmerNotificationQuerry farmernotif = FarmerNotificationQuerry();
+  String senderId = FirebaseAuth.instance.currentUser!.uid;
 
   /*Properites-variables */
   String farmerProfileUrl = "";
@@ -77,7 +83,8 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
   void sendMessage() async {
     print("mao ni consumer id ${widget.consumerId}");
     String message = chatController.text;
-    await chatQuery.sendMessageConsumer(widget.farmerId, widget.listingId, message);
+    await chatQuery.sendMessageConsumer(
+        widget.farmerId, widget.listingId, message);
     chatController.clear();
   }
 
@@ -100,7 +107,8 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
             width: 300.sp,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                image: const AssetImage(
+                    "assets/karl_assets/images/appbarpattern.png"),
                 fit: BoxFit.cover,
                 scale: 100.0.sp,
               ),
@@ -194,7 +202,8 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
     return Row(
       children: [
         Expanded(
-            child: ChatInputTxtField(controller: chatController, hintText: "Enter message....")),
+            child: ChatInputTxtField(
+                controller: chatController, hintText: "Enter message....")),
         const SizedBox(
           width: 7,
         ),
@@ -204,6 +213,18 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
             onPressed: () {
               print("Message sent");
               sendMessage();
+              //NOTIFICATION FOR ACCEPT BID
+              farmernotif.sendNotification(
+                senderId,
+                widget.farmerId,
+                "You have a message from",
+                widget.consumerFname,
+                widget.consumerLname,
+                DateTime.now(),
+                "MESSAGE",
+              );
+              Provider.of<FarmerNotificationProvider>(context, listen: false)
+                  .setIncrement(widget.farmerId);
             },
             icon: const Icon(
               Icons.send,
@@ -219,7 +240,8 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
 actual qurry is in the querry class*/
   Widget buildUserMessageList() {
     return StreamBuilder(
-      stream: chatQuery.getChatMessages(widget.farmerId, FirebaseAuth.instance.currentUser!.uid),
+      stream: chatQuery.getChatMessages(
+          widget.farmerId, FirebaseAuth.instance.currentUser!.uid),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
@@ -241,9 +263,10 @@ actual qurry is in the querry class*/
 /*This methods access the properties and its value of each document that is baing passed here*/
   Widget accessDocumentContents(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    var messageAlignment = (data["senderId"] != FirebaseAuth.instance.currentUser!.uid)
-        ? Alignment.topLeft
-        : Alignment.topRight;
+    var messageAlignment =
+        (data["senderId"] != FirebaseAuth.instance.currentUser!.uid)
+            ? Alignment.topLeft
+            : Alignment.topRight;
 
     /*Converting the date into string*/
     Timestamp timeSTMP = data["time"];
@@ -253,12 +276,14 @@ actual qurry is in the querry class*/
     return Container(
       alignment: messageAlignment,
       child: Column(
-        crossAxisAlignment: (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
-            ? CrossAxisAlignment.end
-            : CrossAxisAlignment.start,
-        mainAxisAlignment: (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
-            ? MainAxisAlignment.end
-            : MainAxisAlignment.start,
+        crossAxisAlignment:
+            (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
+                ? CrossAxisAlignment.end
+                : CrossAxisAlignment.start,
+        mainAxisAlignment:
+            (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
         children: [
           Text(
             finalDate,
@@ -275,14 +300,16 @@ actual qurry is in the querry class*/
 /*Mga functions rani nga mag pull out sa profile url sa consumer*/
   Future<void> getFarmerProfilePic() async {
     print("Mao ni farmer id ${widget.farmerId}");
-    String profileUrl = await farmerPhoto.getFarmerProfilePhoto(widget.farmerId);
+    String profileUrl =
+        await farmerPhoto.getFarmerProfilePhoto(widget.farmerId);
     setState(() {
       farmerProfileUrl = profileUrl;
     });
   }
 
   Future<void> getProfilePic() async {
-    String profileUrl = await consumerPhoto.getConsumerProfilePhoto(widget.consumerId);
+    String profileUrl =
+        await consumerPhoto.getConsumerProfilePhoto(widget.consumerId);
     print("mao ni profile url $profileUrl");
     setState(() {
       consumerProfileUrl = profileUrl;

@@ -320,6 +320,7 @@ class _EnterToBarterItemState extends State<EnterToBarterItem> {
                           Provider.of<BartertingItemDetailsProvider>(context,
                                   listen: false)
                               .setFarmerId(widget.farmerId);
+                          print(widget.farmerId);
                           Provider.of<BartertingItemDetailsProvider>(context,
                                   listen: false)
                               .setFarmerFname(widget.farmerFNameNeed);
@@ -354,6 +355,7 @@ class _EnterToBarterItemState extends State<EnterToBarterItem> {
                           Provider.of<BartertingItemDetailsProvider>(context,
                                   listen: false)
                               .setConsumerMunisipyo(cMunicipality);
+
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
                               return UploadBarterItemPicture(

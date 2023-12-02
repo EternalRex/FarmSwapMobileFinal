@@ -10,10 +10,12 @@ class FarmerBarterTransactionMainPage extends StatefulWidget {
   const FarmerBarterTransactionMainPage({super.key});
 
   @override
-  State<FarmerBarterTransactionMainPage> createState() => _FarmerBarterTransactionMainPageState();
+  State<FarmerBarterTransactionMainPage> createState() =>
+      _FarmerBarterTransactionMainPageState();
 }
 
-class _FarmerBarterTransactionMainPageState extends State<FarmerBarterTransactionMainPage> {
+class _FarmerBarterTransactionMainPageState
+    extends State<FarmerBarterTransactionMainPage> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -42,7 +44,8 @@ class _FarmerBarterTransactionMainPageState extends State<FarmerBarterTransactio
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -55,17 +58,6 @@ class _FarmerBarterTransactionMainPageState extends State<FarmerBarterTransactio
           },
           icon: const Icon(Icons.menu),
         ),
-        actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
-          ),
-        ],
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(

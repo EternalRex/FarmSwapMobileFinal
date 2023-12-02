@@ -1,10 +1,6 @@
-import 'package:farm_swap_mobile_final/clare_modules/pages/consumer_cart/screens/cart_order.dart';
-import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/label/wallet_textfield_label.dart';
-import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
-import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/place_order_screens/buy_order_1.dart';
 import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +65,7 @@ class _DashBoardAllBestProductsDetailsState
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     String userRole =
         Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
 

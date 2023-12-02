@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/consumer_notif_bid/provider/consumer_notif_provider.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/database/consumer_notif_query.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
@@ -11,12 +13,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class FarmerConsumerActualChat extends StatefulWidget {
   const FarmerConsumerActualChat({
     super.key,
     required this.farmerId,
     required this.farmerName,
+    required this.farmerLName,
     required this.farmerUname,
     required this.farmerBarangay,
     required this.farmerMunicipality,
@@ -32,6 +36,7 @@ class FarmerConsumerActualChat extends StatefulWidget {
 
   final String farmerId;
   final String farmerName;
+  final String farmerLName;
   final String farmerUname;
   final String farmerBarangay;
   final String farmerMunicipality;
@@ -47,7 +52,8 @@ class FarmerConsumerActualChat extends StatefulWidget {
   final String listingId;
 
   @override
-  State<FarmerConsumerActualChat> createState() => _FarmerConsumerActualChatState();
+  State<FarmerConsumerActualChat> createState() =>
+      _FarmerConsumerActualChatState();
 }
 
 class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
@@ -66,6 +72,8 @@ class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
   FarmerConsumerChatQuery chatQuery = FarmerConsumerChatQuery();
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
   ConsumerProfilePhotQuerry consumerPhoto = ConsumerProfilePhotQuerry();
+  ConsumerNotificationQuerry consumerNotif = ConsumerNotificationQuerry();
+  String senderId = FirebaseAuth.instance.currentUser!.uid;
 
   /*Properites-variables */
   String farmerProfileUrl = "";
@@ -102,7 +110,8 @@ class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -132,17 +141,6 @@ class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
           },
           icon: const Icon(Icons.menu),
         ),
-        actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_back_ios_new_rounded),
-              iconSize: 30.sp,
-            ),
-          ),
-        ],
       ),
       drawer: const DashBoardDrawer(),
       body: Column(
@@ -189,19 +187,35 @@ class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
   }
 
   Widget buildMessageInput() {
+    String firstname = widget.farmerName;
+    String lastname = widget.farmerLName;
     return Row(
       children: [
         Expanded(
-            child: ChatInputTxtField(controller: chatController, hintText: "Enter message....")),
+            child: ChatInputTxtField(
+                controller: chatController, hintText: "Enter message....")),
         const SizedBox(
           width: 7,
         ),
         CircleAvatar(
           backgroundColor: farmSwapTitlegreen,
           child: IconButton(
-            onPressed: () {
+            onPressed: () async {
               print("Message sent");
               sendMessage();
+              //NOTIFICATION FOR ACCEPT BID
+              consumerNotif.sendNotification(
+                senderId,
+                widget.consumerId,
+                "You have a message from",
+                firstname,
+                lastname,
+                DateTime.now(),
+                "MESSAGE",
+              );
+              Provider.of<ConsumerNotificationProvider>(context, listen: false)
+                  .setIncrement(widget.consumerId);
+              print(firstname);
             },
             icon: const Icon(
               Icons.send,
@@ -217,7 +231,8 @@ class _FarmerConsumerActualChatState extends State<FarmerConsumerActualChat> {
 actual qurry is in the querry class*/
   Widget buildUserMessageList() {
     return StreamBuilder(
-      stream: chatQuery.getChatMessages(FirebaseAuth.instance.currentUser!.uid, widget.consumerId),
+      stream: chatQuery.getChatMessages(
+          FirebaseAuth.instance.currentUser!.uid, widget.consumerId),
       builder: (context, snapshot) {
         /* if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -254,9 +269,10 @@ actual qurry is in the querry class*/
 /*This methods access the properties and its value of each document that is baing passed here*/
   Widget accessDocumentContents(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    var messageAlignment = (data["senderId"] != FirebaseAuth.instance.currentUser!.uid)
-        ? Alignment.topLeft
-        : Alignment.topRight;
+    var messageAlignment =
+        (data["senderId"] != FirebaseAuth.instance.currentUser!.uid)
+            ? Alignment.topLeft
+            : Alignment.topRight;
 
     /*Converting the date into string*/
     Timestamp timeSTMP = data["time"];
@@ -266,12 +282,14 @@ actual qurry is in the querry class*/
     return Container(
       alignment: messageAlignment,
       child: Column(
-        crossAxisAlignment: (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
-            ? CrossAxisAlignment.end
-            : CrossAxisAlignment.start,
-        mainAxisAlignment: (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
-            ? MainAxisAlignment.end
-            : MainAxisAlignment.start,
+        crossAxisAlignment:
+            (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
+                ? CrossAxisAlignment.end
+                : CrossAxisAlignment.start,
+        mainAxisAlignment:
+            (data["senderId"] == FirebaseAuth.instance.currentUser!.uid)
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
         children: [
           Text(
             finalDate,
@@ -294,7 +312,8 @@ actual qurry is in the querry class*/
   }
 
   Future<void> getConsumerProfilePic() async {
-    String profileUrl = await consumerPhoto.getConsumerProfilePhoto(widget.consumerId);
+    String profileUrl =
+        await consumerPhoto.getConsumerProfilePhoto(widget.consumerId);
     print("mao ni profile url $profileUrl");
     setState(() {
       consumerProfileUrl = profileUrl;

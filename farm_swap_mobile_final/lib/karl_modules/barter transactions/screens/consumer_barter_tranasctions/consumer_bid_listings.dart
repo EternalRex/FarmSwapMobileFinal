@@ -1,3 +1,4 @@
+import 'package:farm_swap_mobile_final/clare_modules/pages/consumer_cart/screens/consumer_cart.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/consumer_bid_navbar.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/get_consumer_bid.dart';
@@ -43,7 +44,8 @@ class _ConsumerBidListingsState extends State<ConsumerBidListings> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -56,17 +58,6 @@ class _ConsumerBidListingsState extends State<ConsumerBidListings> {
           },
           icon: const Icon(Icons.menu),
         ),
-        actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
-          ),
-        ],
       ),
       drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(

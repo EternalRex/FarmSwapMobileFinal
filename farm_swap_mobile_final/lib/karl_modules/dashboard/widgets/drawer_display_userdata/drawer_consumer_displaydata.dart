@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/consumer_notif_bid/provider/consumer_notif_provider.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/consumer_notif_bid/screen/consumer_notif_bid.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 /*E access niya ang data from the sample_ConsumerUsers gamit ang value sa document id na gipasa
 sa constructor. nya iya e display ang data na iya na pullout */
@@ -73,7 +76,17 @@ class _DrawerDisplayConsumerDataState extends State<DrawerDisplayConsumerData> {
                     height: 5.sp,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Provider.of<ConsumerNotificationProvider>(context,
+                              listen: false)
+                          .decrementNotif();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const ConsumerNotificationsBid(),
+                        ),
+                      );
+                    },
                     child: Container(
                       width: 100.w,
                       height: 20.h,
@@ -93,14 +106,33 @@ class _DrawerDisplayConsumerDataState extends State<DrawerDisplayConsumerData> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            FontAwesomeIcons.solidBell,
-                            size: 15.sp,
-                            color: Colors.green,
+                          Stack(
+                            children: [
+                              Icon(
+                                FontAwesomeIcons.solidBell,
+                                size: 20.sp,
+                                color: Colors.green,
+                              ),
+                              Positioned(
+                                right: 0,
+                                child: Consumer<ConsumerNotificationProvider>(
+                                  builder: (context, value, child) {
+                                    String notifCount = value.getNotifNum();
+                                    print("notif : $notifCount");
+                                    return Text(
+                                      notifCount,
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
+                          SizedBox(width: 5.w),
                           Text(
                             "Notifications",
                             style:

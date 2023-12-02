@@ -1,8 +1,11 @@
 // ignore_for_file: use_build_context_synchronously, unused_local_variable
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/database/farmer_notif_query.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/farmer_notif_bid/provider/farmer_notif_provider.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
+import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_orders.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
@@ -12,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../database/checkout_order.dart';
 
@@ -42,6 +46,11 @@ class _GetMyCartOrdersState extends State<GetMyCartOrders> {
 
   //creating an instance for getting the consumer balance
   ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
+  ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+
+  //instance of farmer notif query
+  FarmerNotificationQuerry farmernotif = FarmerNotificationQuerry();
+  String senderId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -205,8 +214,7 @@ class _GetMyCartOrdersState extends State<GetMyCartOrders> {
                                 "Are you sure you want to proceed check out? \nNote: This will place the order directly."),
                             actions: [
                               TextButton(
-                                onPressed: () {
-                                  //this will save the data to cart
+                                onPressed: () async {
                                   Navigator.of(context).pop();
                                   // Iterate over selected indices and save the corresponding orders
                                   selectedIndicesByFarmer
@@ -258,6 +266,22 @@ class _GetMyCartOrdersState extends State<GetMyCartOrders> {
                                       bool selected = data["selected"];
                                       bool declined = data["declined"];
 
+                                      /*NOTIFICATION FOR ACCEPT BID*/
+                                      farmernotif.sendNotification(
+                                        senderId,
+                                        fId,
+                                        "You have an order from",
+                                        cFName,
+                                        cLname,
+                                        DateTime.now(),
+                                        "BUY_ORDER",
+                                      );
+                                      Provider.of<FarmerNotificationProvider>(
+                                              context,
+                                              listen: false)
+                                          .setIncrement(fId);
+
+                                      //this will save data in to the order database
                                       checkout.saveCartOrder(
                                         cFName,
                                         cLname,
@@ -284,6 +308,7 @@ class _GetMyCartOrdersState extends State<GetMyCartOrders> {
                                       );
                                     }
                                   });
+
                                   //this will show if the order is success
                                   showDialog(
                                     context: context,

@@ -37,12 +37,12 @@ class _ConsumerUnacceptedBidState extends State<ConsumerUnacceptedBid> {
             SizedBox(
               width: 20.w,
             ),
-            /*Shoppping cart button */
+            /*Shoppping cart button 
             IconButton(
               onPressed: () {},
               icon: const Icon(FontAwesomeIcons.cartShopping),
               iconSize: 30.sp,
-            ),
+            ),*/
           ],
         ),
         automaticallyImplyLeading: false,
@@ -52,7 +52,8 @@ class _ConsumerUnacceptedBidState extends State<ConsumerUnacceptedBid> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),

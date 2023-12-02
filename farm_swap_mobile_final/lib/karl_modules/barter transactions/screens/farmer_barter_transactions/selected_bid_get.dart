@@ -62,6 +62,7 @@ class _GetSelectedBidState extends State<GetSelectedBid> {
   Widget accessDocumentContents(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
 
+    // ignore: unused_local_variable
     String listingStatus = data["listingStatus"];
 
     /*Item Data */

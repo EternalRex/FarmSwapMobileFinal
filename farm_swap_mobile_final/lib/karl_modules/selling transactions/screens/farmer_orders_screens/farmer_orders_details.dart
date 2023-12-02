@@ -1,3 +1,5 @@
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/consumer_notif_bid/provider/consumer_notif_provider.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/database/consumer_notif_query.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
@@ -12,10 +14,12 @@ import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/scree
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/accept_order_btn.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/deny_order_btn.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/farmer_selling_navbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class FarmerOrderDetails extends StatefulWidget {
   const FarmerOrderDetails({
@@ -99,7 +103,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
   ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
   UpdateConfirmedOrder updateStatus = UpdateConfirmedOrder();
-  ComputeSellDeductibleSwapCoins deductibleSP = ComputeSellDeductibleSwapCoins();
+  ComputeSellDeductibleSwapCoins deductibleSP =
+      ComputeSellDeductibleSwapCoins();
   UpdateConfirmedOrder updateConfirm = UpdateConfirmedOrder();
 
   int finalRating = 0;
@@ -121,6 +126,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
     getFarmerWalletBalance();
   }
 
+  ConsumerNotificationQuerry consumernotif = ConsumerNotificationQuerry();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,7 +146,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -175,7 +183,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
               height: 200.h,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                image: DecorationImage(image: NetworkImage(widget.imageUrl), fit: BoxFit.cover),
+                image: DecorationImage(
+                    image: NetworkImage(widget.imageUrl), fit: BoxFit.cover),
               ),
             ),
             SizedBox(
@@ -244,15 +253,18 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                                   return FarmerConsumerActualChat(
                                     farmerId: widget.farmerId,
                                     farmerName: widget.farmerName,
+                                    farmerLName: widget.farmerLName,
                                     farmerUname: widget.farmerUname,
                                     farmerBarangay: widget.farmerBarangay,
-                                    farmerMunicipality: widget.farmerMunicipality,
+                                    farmerMunicipality:
+                                        widget.farmerMunicipality,
                                     consumerId: widget.consId,
                                     consumerFname: widget.consName,
                                     consumerLname: widget.consLName,
                                     consumerUname: widget.consUname,
                                     consumerBarangay: widget.consBarangay,
-                                    consumerMunicipality: widget.consMunicipality,
+                                    consumerMunicipality:
+                                        widget.consMunicipality,
                                     listingId: widget.listingId,
                                     listingName: widget.listingName,
                                   );
@@ -452,7 +464,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                 children: [
                   SizedBox(
                     width: 150.w,
-                    child: poppinsText("Purchase Quantity", Colors.black, 15.sp, FontWeight.normal),
+                    child: poppinsText("Purchase Quantity", Colors.black, 15.sp,
+                        FontWeight.normal),
                   ),
                   SizedBox(
                     width: 30.w,
@@ -477,7 +490,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                 children: [
                   SizedBox(
                     width: 150.w,
-                    child: poppinsText("Total Price", Colors.black, 15.sp, FontWeight.normal),
+                    child: poppinsText(
+                        "Total Price", Colors.black, 15.sp, FontWeight.normal),
                   ),
                   SizedBox(
                     width: 30.w,
@@ -502,7 +516,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                 children: [
                   SizedBox(
                     width: 150.w,
-                    child: poppinsText("Order Date", Colors.black, 15.sp, FontWeight.normal),
+                    child: poppinsText(
+                        "Order Date", Colors.black, 15.sp, FontWeight.normal),
                   ),
                   SizedBox(
                     width: 30.w,
@@ -527,7 +542,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                 children: [
                   SizedBox(
                     width: 150.w,
-                    child: poppinsText("Order Status", Colors.black, 15.sp, FontWeight.normal),
+                    child: poppinsText(
+                        "Order Status", Colors.black, 15.sp, FontWeight.normal),
                   ),
                   SizedBox(
                     width: 30.w,
@@ -535,11 +551,16 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                   ),
                   SizedBox(
                     width: 150.w,
-                    child: (widget.isConfirmed == true && widget.declined == false)
-                        ? poppinsText("Confirmed", Colors.green, 15.sp, FontWeight.normal)
-                        : (widget.isConfirmed == false && widget.declined == true)
-                            ? poppinsText("Declined", Colors.red, 15.sp, FontWeight.normal)
-                            : poppinsText("Waiting...", Colors.blue, 15.sp, FontWeight.normal),
+                    child: (widget.isConfirmed == true &&
+                            widget.declined == false)
+                        ? poppinsText(
+                            "Confirmed", Colors.green, 15.sp, FontWeight.normal)
+                        : (widget.isConfirmed == false &&
+                                widget.declined == true)
+                            ? poppinsText("Declined", Colors.red, 15.sp,
+                                FontWeight.normal)
+                            : poppinsText("Waiting...", Colors.blue, 15.sp,
+                                FontWeight.normal),
                   ),
                 ],
               ),
@@ -551,7 +572,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                 children: [
                   SizedBox(
                     width: 150.w,
-                    child: poppinsText("Completed", Colors.black, 15.sp, FontWeight.normal),
+                    child: poppinsText(
+                        "Completed", Colors.black, 15.sp, FontWeight.normal),
                   ),
                   SizedBox(
                     width: 30.w,
@@ -561,7 +583,9 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                     width: 150.w,
                     child: poppinsText(
                       widget.isCompletedPurchase.toString(),
-                      (widget.isCompletedPurchase == true) ? farmSwapTitlegreen : Colors.red,
+                      (widget.isCompletedPurchase == true)
+                          ? farmSwapTitlegreen
+                          : Colors.red,
                       15.sp,
                       FontWeight.normal,
                     ),
@@ -582,16 +606,18 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                           onTap: () {
                             computeSwapCoinsDeduction();
                             /*Computing the remaining swapcoins of farmer */
-                            double finalDeductSp = farmerSwapCoins - swapCoinsToDeduct;
+                            double finalDeductSp =
+                                farmerSwapCoins - swapCoinsToDeduct;
                             /*Computing the remaining wallet balance of consumer */
-                            double remainingBalance =
-                                consumerWalletBalance - widget.purchaseTotalPrice;
+                            double remainingBalance = consumerWalletBalance -
+                                widget.purchaseTotalPrice;
                             /*Computing the new farmer wallet balance adding the purchase price amount */
                             double farmerAddedBalance =
                                 farmerWalletBalance + widget.purchaseTotalPrice;
                             /*Computing the remaining listing kilograms*/
                             double remainKilogram =
-                                double.parse(widget.listingQuantity) - widget.purchaseQuantity;
+                                double.parse(widget.listingQuantity) -
+                                    widget.purchaseQuantity;
                             computeTransactionFeePercent();
                             /*If farmer has suffecient swap coins*/
                             if (farmerSwapCoins > swapCoinsToDeduct) {
@@ -602,6 +628,26 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                                 farmerAddedBalance,
                                 remainKilogram,
                               );
+                              String senderId =
+                                  FirebaseAuth.instance.currentUser!.uid;
+                              String id = widget.consId;
+                              String fname = widget.consName;
+                              String lname = widget.consLName;
+
+                              /*NOTIFICATION FOR ACCEPT BID*/
+                              consumernotif.sendNotification(
+                                senderId,
+                                id,
+                                "Your buy order is accepted from",
+                                fname,
+                                lname,
+                                DateTime.now(),
+                                "ACCEPTED_ORDER",
+                              );
+
+                              Provider.of<ConsumerNotificationProvider>(context,
+                                      listen: false)
+                                  .setIncrement(id);
                             } else {
                               /*If not enough swap coins */
                               showNotNotEnoughSwapCoins();
@@ -615,8 +661,28 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                         GestureDetector(
                           onTap: () {
                             /*Updates the denied field */
-                            updateConfirm.updateOrderDenied(widget.listingId, widget.consId);
+                            updateConfirm.updateOrderDenied(
+                                widget.listingId, widget.consId);
                             showDeclineMessage();
+                            String senderId =
+                                FirebaseAuth.instance.currentUser!.uid;
+                            String id = widget.consId;
+                            String fname = widget.consName;
+                            String lname = widget.consLName;
+                            /*NOTIFICATION FOR ACCEPT BID*/
+                            consumernotif.sendNotification(
+                              senderId,
+                              id,
+                              "Your buy order is declined from",
+                              fname,
+                              lname,
+                              DateTime.now(),
+                              "DECLINED_ORDER",
+                            );
+
+                            Provider.of<ConsumerNotificationProvider>(context,
+                                    listen: false)
+                                .setIncrement(id);
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) {
@@ -638,7 +704,10 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                               width: 141,
                               decoration: BoxDecoration(
                                 gradient: const LinearGradient(
-                                  colors: [Color(0xFFFE0000), Color(0xFFD83F31)],
+                                  colors: [
+                                    Color(0xFFFE0000),
+                                    Color(0xFFD83F31)
+                                  ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                 ),
@@ -672,7 +741,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                                     child: Text(
                                       "Done",
                                       style: TextStyle(
-                                        fontFamily: GoogleFonts.poppins().fontFamily,
+                                        fontFamily:
+                                            GoogleFonts.poppins().fontFamily,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w900,
                                         color: Colors.white,
@@ -692,7 +762,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                                       farmerLname: widget.farmerLName,
                                       farmerUname: widget.farmerUname,
                                       farmerBarangay: widget.farmerBarangay,
-                                      farmerMunicipal: widget.farmerMunicipality,
+                                      farmerMunicipal:
+                                          widget.farmerMunicipality,
                                       consId: widget.consId,
                                       consName: widget.consName,
                                       consUname: widget.consUname,
@@ -710,7 +781,10 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                                 width: 145,
                                 decoration: BoxDecoration(
                                   gradient: const LinearGradient(
-                                    colors: [Color(0xFFFE0000), Color(0xFFD83F31)],
+                                    colors: [
+                                      Color(0xFFFE0000),
+                                      Color(0xFFD83F31)
+                                    ],
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
                                   ),
@@ -729,7 +803,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                                   padding: EdgeInsets.all(10.sp),
                                   child: Center(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Icon(
                                           Icons.star_border,
@@ -806,7 +881,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
 
 /*Get consumer profile photo */
   Future<void> getConsumerDetails() async {
-    String consPhoto = await consumerDetails.getConsumerProfilePhotoWithParameter(widget.consId);
+    String consPhoto = await consumerDetails
+        .getConsumerProfilePhotoWithParameter(widget.consId);
     setState(() {
       consumerPhoto = consPhoto;
     });
@@ -832,7 +908,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
 
   /*Function that will get the wallet balance of Consumers */
   Future<void> getConsumerWalletBalance() async {
-    double wallet = await consumerDetails.getWalletBalanceWithParameter(widget.consId);
+    double wallet =
+        await consumerDetails.getWalletBalanceWithParameter(widget.consId);
     setState(() {
       consumerWalletBalance = wallet;
     });
@@ -856,7 +933,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
 
   /*This function will  calculate the deductible swap coins*/
   void computeSwapCoinsDeduction() {
-    double swapCoins = deductibleSP.computeDeductibleSwapCoins(widget.purchaseTotalPrice);
+    double swapCoins =
+        deductibleSP.computeDeductibleSwapCoins(widget.purchaseTotalPrice);
     setState(() {
       swapCoinsToDeduct = swapCoins;
     });
@@ -871,13 +949,14 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
   }
 
 /*A confirmation message that has butttons where the actual saving of data is made */
-  void showConfirmedMessage(
-      double finalDeductSp, remainingConsumerBalance, farmerBalance, remainKilogram) {
+  void showConfirmedMessage(double finalDeductSp, remainingConsumerBalance,
+      farmerBalance, remainKilogram) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
+          title:
+              poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
           content: poppinsText(
             "Your will be deducted $swapCoinsToDeduct swap coins for a $transactionFee of the total amount of ${widget.purchaseTotalPrice}",
             Colors.black,
@@ -890,16 +969,20 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                 TextButton(
                   onPressed: () {
                     /*Update the selected and confirmed field */
-                    updateConfirm.updateOrderConfirmed(widget.listingId, widget.consId);
+                    updateConfirm.updateOrderConfirmed(
+                        widget.listingId, widget.consId);
                     /*Update for the remaining swapcoins */
-                    updateConfirm.updateFarmerSwapCoins(widget.farmerId, finalDeductSp);
+                    updateConfirm.updateFarmerSwapCoins(
+                        widget.farmerId, finalDeductSp);
                     /*Updating the consumer wallet balance for his/her remaining balance*/
                     updateConfirm.updateConsumerWalletBalance(
                         widget.consId, remainingConsumerBalance);
                     /*Sending the payed purchase amount to farmers wallet */
-                    updateConfirm.updateFarmerWalletBalance(widget.farmerId, farmerBalance);
+                    updateConfirm.updateFarmerWalletBalance(
+                        widget.farmerId, farmerBalance);
                     /*Update the remaining balance of the listing kilograms*/
-                    updateConfirm.updateRemainingListingQuantity(widget.imageUrl, remainKilogram);
+                    updateConfirm.updateRemainingListingQuantity(
+                        widget.imageUrl, remainKilogram);
                     /*Saving the transaction to the database */
                     updateConfirm.addSellingTransaction(
                       consumerPhoto,
@@ -941,7 +1024,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                       ),
                     );
                   },
-                  child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.normal),
+                  child: poppinsText(
+                      "Continue", farmSwapTitlegreen, 20.sp, FontWeight.normal),
                 ),
                 TextButton(
                   onPressed: () {
@@ -953,7 +1037,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                       ),
                     );
                   },
-                  child: poppinsText("Cancel", Colors.red, 20.sp, FontWeight.normal),
+                  child: poppinsText(
+                      "Cancel", Colors.red, 20.sp, FontWeight.normal),
                 ),
               ],
             ),
@@ -995,7 +1080,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
+          title:
+              poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
           content: poppinsText(
             "Order was declined successfully",
             Colors.black,
@@ -1013,7 +1099,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
+          title:
+              poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
           content: const Text(
             "This listing will be removed from the confirmed orders, In case of dispute for this transaction, go to Dispute Page",
             textAlign: TextAlign.center,
@@ -1026,7 +1113,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      updateConfirm.updateOrderCompletedFarmer(widget.listingId, widget.consId);
+                      updateConfirm.updateOrderCompletedFarmer(
+                          widget.listingId, widget.consId);
                       /*Butngan ni diri og navigator padong sa dispute page for now e balik lang sa nako sa confirmed page*/
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -1036,7 +1124,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                         ),
                       );
                     },
-                    child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+                    child: poppinsText(
+                        "Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
                   ),
                   SizedBox(
                     width: 20.w,
@@ -1051,7 +1140,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                         ),
                       );
                     },
-                    child: poppinsText("Cancel", Colors.red, 20.sp, FontWeight.w500),
+                    child: poppinsText(
+                        "Cancel", Colors.red, 20.sp, FontWeight.w500),
                   ),
                 ],
               ),

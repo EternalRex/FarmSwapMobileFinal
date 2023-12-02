@@ -87,12 +87,15 @@ class _GetDeclinedFarmerOdersState extends State<GetDeclinedFarmerOders> {
     /*Confirmed time conversion */
     Timestamp confirmedTime = data["confirmedDate"];
     DateTime newConfirmedTime = confirmedTime.toDate();
-    String finalConfirmedTime = DateFormat('yyyy-MM-dd').format(newConfirmedTime);
+    String finalConfirmedTime =
+        DateFormat('yyyy-MM-dd').format(newConfirmedTime);
 
     /*Completed time conversion */
+    // ignore: unused_local_variable
     Timestamp completedTime = data["confirmedDate"];
     DateTime newCompletedTime = confirmedTime.toDate();
-    String finalCompletedTime = DateFormat('yyyy-MM-dd').format(newCompletedTime);
+    String finalCompletedTime =
+        DateFormat('yyyy-MM-dd').format(newCompletedTime);
 
     if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATED") &&
         (confirmed == false && selected == false && declined == true)) {

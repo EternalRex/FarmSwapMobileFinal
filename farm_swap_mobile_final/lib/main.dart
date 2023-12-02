@@ -1,3 +1,5 @@
+import "package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/consumer_notif_bid/provider/consumer_notif_provider.dart";
+import "package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/farmer_notif_bid/provider/farmer_notif_provider.dart";
 import "package:farm_swap_mobile_final/firebase_initializations_options.dart";
 import "package:farm_swap_mobile_final/provider/barter_listing_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/bartering_item_details_provider.dart";
@@ -78,6 +80,12 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (context) => CompletedTransactionProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => FarmerNotificationProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => ConsumerNotificationProvider(),
             ),
           ],
           builder: (context, child) {

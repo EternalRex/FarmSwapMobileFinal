@@ -1,3 +1,5 @@
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/database/farmer_notif_query.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/farmer_notif_bid/provider/farmer_notif_provider.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/green_btn.dart';
@@ -10,6 +12,7 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/functions/get_all_
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/provider/bartering_item_details_provider.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,15 +20,21 @@ import 'package:provider/provider.dart';
 
 class EnterToBarterItem3 extends StatefulWidget {
   const EnterToBarterItem3(
-      {super.key, required this.itemValue, required this.listingValue});
+      {super.key,
+      required this.itemValue,
+      required this.listingValue,
+      required this.farmerId});
   final double? itemValue;
   final double? listingValue;
+  final String farmerId;
 
   @override
   State<EnterToBarterItem3> createState() => _EnterToBarterItem3State();
 }
 
 class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
+  String consumerFirstname = '';
+  String consumerLastname = '';
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,8 +46,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
 /*Instance of other classes */
   SaveBarterBid bid = SaveBarterBid();
   ComputeDeductibleSwapCoins compute = ComputeDeductibleSwapCoins();
-  ListinGetConsumerDetails consumerdetails = ListinGetConsumerDetails();
-
+  String consumerId = FirebaseAuth.instance.currentUser!.uid;
+  FarmerNotificationQuerry farmerQuery = FarmerNotificationQuerry();
 /*Variables*/
   double? average = 0;
   double? swapcoins = 0;
@@ -49,8 +58,11 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
   void initState() {
     super.initState();
     getSwapCoins();
+    getConsumerFname();
+    getConsumerLastName();
   }
 
+  ListinGetConsumerDetails consumerdetails = ListinGetConsumerDetails();
   @override
   Widget build(BuildContext context) {
     print("${consumerSwapCoins.toString()}");
@@ -302,6 +314,10 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                 /*Will Save the biddings to the database */
                 TextButton(
                   onPressed: () {
+                    String farmerId =
+                        Provider.of<BartertingItemDetailsProvider>(context,
+                                listen: false)
+                            .getFarmerId;
                     bid.saveBarterBid(
                       Provider.of<BartertingItemDetailsProvider>(context,
                               listen: false)
@@ -380,6 +396,18 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                       false,
                     );
                     //notification here
+                    farmerQuery.sendNotification(
+                      consumerId,
+                      farmerId,
+                      "You have a bid to barter from ",
+                      consumerFirstname,
+                      consumerLastname,
+                      DateTime.now(),
+                      "BARTER BID",
+                    );
+                    Provider.of<FarmerNotificationProvider>(context,
+                            listen: false)
+                        .setIncrement(farmerId);
 
                     showDoneMessage();
                   },
@@ -447,6 +475,21 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
     double swapCoins = await consumerdetails.getSwapCoins();
     setState(() {
       consumerSwapCoins = swapCoins.toInt();
+    });
+  }
+
+//getting the consumer name
+  Future<void> getConsumerFname() async {
+    String firstname = await consumerdetails.getConsumerFirstname();
+    setState(() {
+      consumerFirstname = firstname;
+    });
+  }
+
+  Future<void> getConsumerLastName() async {
+    String lastname = await consumerdetails.getConsumerLastName();
+    setState(() {
+      consumerLastname = lastname;
     });
   }
 }

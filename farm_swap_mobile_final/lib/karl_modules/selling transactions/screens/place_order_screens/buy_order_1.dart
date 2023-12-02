@@ -1,8 +1,9 @@
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/database/farmer_notif_query.dart';
+import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/farmer_notif_bid/provider/farmer_notif_provider.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_all_selling_details.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/save_order.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class ConsumerBuyPart1 extends StatefulWidget {
   const ConsumerBuyPart1({
@@ -71,6 +73,10 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
   double kilogramdDouble = 1;
   String totalString = "Total Price";
   double totalDouble = 1;
+
+  FarmerNotificationQuerry farmernotif = FarmerNotificationQuerry();
+  //for notif
+  String senderId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   void initState() {
@@ -256,6 +262,19 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                           /*A condition that checks if the consumer has enough wallet balance to pay the price once the
                         farmer confirms the buy */
                           if (consWallet >= totalDouble) {
+                            //NOTIFICATION FOR ACCEPT BID
+                            farmernotif.sendNotification(
+                              senderId,
+                              widget.farmerId,
+                              "You have an order from",
+                              consName,
+                              consLName,
+                              DateTime.now(),
+                              "BUY_ORDER",
+                            );
+                            Provider.of<FarmerNotificationProvider>(context,
+                                    listen: false)
+                                .setIncrement(widget.farmerId);
                             /*Actual saving of data */
                             buy.saveBuyOrder(
                               consName,
@@ -281,6 +300,7 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                               widget.listingStatus,
                               widget.imageUrl,
                             );
+
                             showSuccessMessage();
                           } else {
                             showNotWalletBalanceMessage();

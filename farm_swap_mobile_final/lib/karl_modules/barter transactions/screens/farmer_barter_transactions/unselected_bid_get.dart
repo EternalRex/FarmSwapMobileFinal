@@ -61,6 +61,7 @@ class _GetUnselectedBidState extends State<GetUnselectedBid> {
   Widget accessDocumentContents(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
 
+    // ignore: unused_local_variable
     String listingStatus = data["listingStatus"];
 
     /*Item Data */

@@ -14,7 +14,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class UploadBarterItemPicture extends StatefulWidget {
-  const UploadBarterItemPicture({super.key, required this.itemvalue2, required this.listingvalue2});
+  const UploadBarterItemPicture({
+    super.key,
+    required this.itemvalue2,
+    required this.listingvalue2,
+  });
   final double? itemvalue2;
   final double? listingvalue2;
 
@@ -35,7 +39,8 @@ class UploadBarterItemPicture extends StatefulWidget {
   final String farmerId = '';
 
   @override
-  State<UploadBarterItemPicture> createState() => _UploadBarterItemPictureState();
+  State<UploadBarterItemPicture> createState() =>
+      _UploadBarterItemPictureState();
 }
 
 class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
@@ -52,6 +57,9 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
 
   @override
   Widget build(BuildContext context) {
+    String farmerId =
+        Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+            .getFarmerId;
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -68,7 +76,8 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -140,14 +149,19 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                       /*For the pick image in gallery */
                       GestureDetector(
                         onTap: () async {
-                          String? picUrl = await upload.uploadImageToFirebaseGallery();
+                          String? picUrl =
+                              await upload.uploadImageToFirebaseGallery();
                           // ignore: use_build_context_synchronously
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setItemUrl(picUrl.toString());
+
+                          print(farmerId);
                           // ignore: use_build_context_synchronously
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
                               return EnterToBarterItem3(
+                                farmerId: farmerId,
                                 itemValue: widget.itemvalue2,
                                 listingValue: widget.listingvalue2,
                               );
@@ -167,16 +181,21 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                       /*This is for picking image in the camera */
                       GestureDetector(
                         onTap: () async {
-                          String? picUrl = await upload.uploadImageToFirebaseCamera();
+                          String? picUrl =
+                              await upload.uploadImageToFirebaseCamera();
                           // ignore: use_build_context_synchronously
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setItemUrl(
                             picUrl.toString(),
                           );
+
+                          print(farmerId);
                           // ignore: use_build_context_synchronously
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
                               return EnterToBarterItem3(
+                                farmerId: farmerId,
                                 itemValue: widget.itemvalue2,
                                 listingValue: widget.listingvalue2,
                               );
