@@ -1,14 +1,20 @@
 import "package:farm_swap_mobile_final/common/colors.dart";
+import "package:farm_swap_mobile_final/common/consumer_individual_details.dart";
 import "package:farm_swap_mobile_final/common/farmer_individual_details.dart";
 import "package:farm_swap_mobile_final/common/green_btn.dart";
 import "package:farm_swap_mobile_final/common/poppins_text.dart";
+import "package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/consumer_profile_photoquery.dart";
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/entering_barter_item/enter_barter_item.dart';
 import "package:farm_swap_mobile_final/karl_modules/dashboard/screens/active_dashboard.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart";
+import "package:farm_swap_mobile_final/karl_modules/profile%20views/database/save_farmer_profile_views.dart";
 import "package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_farmer_reviews/display_farmer_review.dart";
+import "package:farm_swap_mobile_final/provider/farmer_profile_visits_report_provider.dart";
 import "package:farm_swap_mobile_final/provider/login_usertype_provider.dart";
+import "package:farm_swap_mobile_final/rollaine_modules/pages/wallet_page/widgets/label/consumer_txtfield_label.dart";
 import "package:farm_swap_mobile_final/routes/routes.dart";
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
@@ -71,18 +77,24 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
   }
 
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
+  ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
+  CountFarmerProfileVisitsQuerry profileVisit = CountFarmerProfileVisitsQuerry();
   double rating = 0;
+  String consUname = "";
+  String consUrl = "";
 
   @override
   void initState() {
     super.initState();
     farmerRating();
+    if (Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType == "CONSUMER") {
+      getConsumerDetails();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     String loginUserType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
-
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -501,7 +513,16 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                             child: const FarmSwapGreenBtn(text: "Barter"),
                                           ),
                                           TextButton(
-                                            onPressed: () {
+                                            onPressed: () async {
+                                              /*Detect the user viewer and count is a profile views*/
+                                              profileVisit.counstFarmerProfileVisit(
+                                                widget.farmerId,
+                                                FirebaseAuth.instance.currentUser!.uid,
+                                                DateTime.now(),
+                                                consUname,
+                                                consUrl,
+                                              );
+                                              /*Push to Review Page */
                                               Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                   builder: (context) {
@@ -673,6 +694,15 @@ sa other farmers gamit ang farmer account */
     double rate = await farmerDetails.getFarmerRating(widget.farmerId);
     setState(() {
       rating = rate;
+    });
+  }
+
+  Future<void> getConsumerDetails() async {
+    String uname = await consumerDetails.getUname();
+    String url = await consumerDetails.getConsumerProfilePhoto();
+    setState(() {
+      consUname = uname;
+      consUrl = url;
     });
   }
 }

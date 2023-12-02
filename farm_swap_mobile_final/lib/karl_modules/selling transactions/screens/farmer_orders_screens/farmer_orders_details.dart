@@ -4,6 +4,8 @@ import 'package:farm_swap_mobile_final/common/farmer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
+import 'package:farm_swap_mobile_final/karl_modules/profile%20views/database/save_consumer_profile_views.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_consumer_reviews/display_consumer_review.dart';
 import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/farmer_consumer_selling_rating.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/update_confirmed.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/functions/compute_sell_deductible_swapcoins.dart';
@@ -12,6 +14,7 @@ import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/scree
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/accept_order_btn.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/deny_order_btn.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/farmer_selling_navbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -97,6 +100,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
   }
 
   ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
+  CountConsumerProfileVisitsQuerry consProfileVisits = CountConsumerProfileVisitsQuerry();
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
   UpdateConfirmedOrder updateStatus = UpdateConfirmedOrder();
   ComputeSellDeductibleSwapCoins deductibleSP = ComputeSellDeductibleSwapCoins();
@@ -272,6 +276,30 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
             ),
             SizedBox(
               height: 10.h,
+            ),
+            SizedBox(
+              child: TextButton(
+                onPressed: () async {
+                  /*Profile visits count */
+                  consProfileVisits.counstFarmerProfileVisit(
+                    widget.consId,
+                    FirebaseAuth.instance.currentUser!.uid,
+                    DateTime.now(),
+                    widget.farmerUname,
+                    farmerPhoto,
+                  );
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DisplayConsumerReview(
+                          consumerId: widget.consId,
+                        );
+                      },
+                    ),
+                  );
+                },
+                child: poppinsText("Reviews", orangeDark, 15.sp, FontWeight.w500),
+              ),
             ),
             poppinsText(
               "${widget.consName} ${widget.consLName} (${widget.consUname})",
@@ -1031,7 +1059,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
-                            return const ConfirmedOrders();
+                            return const FarmerOrdersList();
                           },
                         ),
                       );

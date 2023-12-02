@@ -3,6 +3,7 @@ import "package:farm_swap_mobile_final/provider/barter_listing_details_provider.
 import "package:farm_swap_mobile_final/provider/bartering_item_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/completed_bartertransaction_provider.dart";
 import "package:farm_swap_mobile_final/provider/dashboard_type_provider.dart";
+import "package:farm_swap_mobile_final/provider/farmer_profile_visits_report_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_addcategory_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_page_provider.dart";
 import "package:farm_swap_mobile_final/provider/login_usertype_provider.dart";
@@ -39,14 +40,11 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           /*Registering all the providers being used */
           providers: [
-            ChangeNotifierProvider(
-                create: (context) => FarmerAccounStatusProvider()),
+            ChangeNotifierProvider(create: (context) => FarmerAccounStatusProvider()),
             ChangeNotifierProvider(create: (context) => UserTypeProvider()),
             ChangeNotifierProvider(create: (context) => UserDetailsProvider()),
-            ChangeNotifierProvider(
-                create: (context) => LoginUserTypeProvider()),
-            ChangeNotifierProvider(
-                create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
             ChangeNotifierProvider(create: (context) => ListingPageProvider()),
             /*Registering povider for update farmer details account dropdown hint */
             ChangeNotifierProvider(
@@ -78,6 +76,11 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (context) => CompletedTransactionProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) {
+                FarmerProfileVisitsProvider();
+              },
             ),
           ],
           builder: (context, child) {
