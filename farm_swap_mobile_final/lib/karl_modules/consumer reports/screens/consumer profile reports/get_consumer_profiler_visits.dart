@@ -1,25 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
-class GetFarmerProfileVisits extends StatefulWidget {
-  const GetFarmerProfileVisits({super.key});
+class GetConsumerProfileVisits extends StatefulWidget {
+  const GetConsumerProfileVisits({super.key});
 
   @override
-  State<GetFarmerProfileVisits> createState() => _GetFarmerProfileVisitsState();
+  State<GetConsumerProfileVisits> createState() => _GetConsumerProfileVisitsState();
 }
 
-class _GetFarmerProfileVisitsState extends State<GetFarmerProfileVisits> {
+class _GetConsumerProfileVisitsState extends State<GetConsumerProfileVisits> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
-          .collectionGroup('fProfileVisits')
+          .collectionGroup('cProfileVisits')
+          /*This is conusmerid suppose to be but i failed to rename it in database so i leave it as it is */
           .where('farmerid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .orderBy('viewDate', descending: true)
           .snapshots(),
@@ -52,8 +52,8 @@ class _GetFarmerProfileVisitsState extends State<GetFarmerProfileVisits> {
 
   Widget accessDocumentContents(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    String consUname = data['consumerUname'];
-    String consUrl = data['consumerUrl'];
+    String viwerUname = data['viewerUname'];
+    String viewersUrl = data['viewerUrl'];
     Timestamp time = data['viewDate'];
     DateTime viewDate = time.toDate();
     String viewDateString = DateFormat('dd-MM-yyyyy').format(viewDate);
@@ -82,7 +82,7 @@ class _GetFarmerProfileVisitsState extends State<GetFarmerProfileVisits> {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(consUrl),
+                backgroundImage: NetworkImage(viewersUrl),
                 radius: 40.r,
               ),
               SizedBox(
@@ -91,7 +91,7 @@ class _GetFarmerProfileVisitsState extends State<GetFarmerProfileVisits> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  poppinsText3(consUname, Colors.black, 20.sp, FontWeight.w400),
+                  poppinsText3(viwerUname, Colors.black, 20.sp, FontWeight.w400),
                   poppinsText3(viewDateString, Colors.black54, 15.sp, FontWeight.normal),
                 ],
               ),

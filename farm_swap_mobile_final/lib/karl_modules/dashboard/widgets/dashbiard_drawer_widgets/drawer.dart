@@ -18,6 +18,7 @@ import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_communication.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_dashboard.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_dispute.dart";
+import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_reports.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_review_rating.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_swapcoins.dart";
 import "package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashboard_consumer_drawer_widgets/drawer_consumer_wallet.dart";
@@ -159,6 +160,9 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                 ),
                 const ListTile(
                   title: ConsumerReviewandRatingOption(),
+                ),
+                const ListTile(
+                  title: CustomerReportsPages(),
                 ),
                 const Spacer(),
                 ListTile(

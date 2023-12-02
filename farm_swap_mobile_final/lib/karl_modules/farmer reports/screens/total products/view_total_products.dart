@@ -382,7 +382,7 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
     });
   }
 
-/*Getting the total number of bartered products */
+/*Getting the total number of selling products */
   Future<void> countSoldListings() async {
     int totalListings = 0;
 
