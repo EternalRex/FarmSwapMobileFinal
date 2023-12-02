@@ -64,7 +64,7 @@ class _ReadConsumerSwapCoinsState extends State<ReadConsumerSwapCoins> {
                             height: 5.h,
                           ),
                           Text(
-                            '₱ ${data['swapcoins']}',
+                            '₱${data['swapcoins'].toStringAsFixed(2)}',
                             style: Poppins.number.copyWith(
                               color: const Color(0xFFFFFFFF),
                             ),

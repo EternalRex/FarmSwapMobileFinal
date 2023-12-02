@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /*E access niya ang data from the sample_ConsumerUsers gamit ang value sa document id na gipasa
 sa constructor. nya iya e display ang data na iya na pullout */
@@ -29,48 +31,87 @@ class _DrawerDisplayConsumerDataState extends State<DrawerDisplayConsumerData> {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
-          return Column(
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
+              CircleAvatar(
+                backgroundImage:
+                    CachedNetworkImageProvider("${data["profilePhoto"]}"),
+                radius: 60.w,
+              ),
+              SizedBox(
+                width: 15.sp,
+              ),
+              Column(
                 children: [
-                  CircleAvatar(
-                    backgroundImage:
-                        CachedNetworkImageProvider("${data["profilePhoto"]}"),
-                    radius: 50.w,
+                  poppinsText(
+                    "${data["userName"]}",
+                    Colors.black,
+                    20.sp,
+                    FontWeight.w700,
                   ),
                   SizedBox(
-                    width: 15.sp,
+                    height: 5.sp,
                   ),
-                  Column(
-                    children: [
-                      poppinsText(
-                        "${data["userName"]}",
-                        Colors.black,
-                        20.sp,
-                        FontWeight.w700,
+                  poppinsText(
+                    "${data["contactnum"]}",
+                    Colors.black,
+                    12.sp,
+                    FontWeight.w700,
+                  ),
+                  SizedBox(
+                    height: 5.sp,
+                  ),
+                  poppinsText(
+                    "${data["userRole"]}",
+                    Colors.black,
+                    10.sp,
+                    FontWeight.w700,
+                  ),
+                  SizedBox(
+                    height: 5.sp,
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 100.w,
+                      height: 20.h,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        color: Colors.white,
+                        /*PUTTING BOX SHADOW ON THE CONTAINER */
+                        boxShadow: [
+                          BoxShadow(
+                            color: shadow,
+                            blurRadius: 2,
+                            offset: const Offset(1, -5),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 10.sp,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.solidBell,
+                            size: 15.sp,
+                            color: Colors.green,
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Text(
+                            "Notifications",
+                            style:
+                                TextStyle(fontSize: 11.sp, color: Colors.green),
+                          ),
+                        ],
                       ),
-                      poppinsText(
-                        "${data["contactnum"]}",
-                        Colors.black,
-                        12.sp,
-                        FontWeight.w700,
-                      ),
-                      SizedBox(
-                        width: 10.sp,
-                      ),
-                      poppinsText(
-                        "${data["userRole"]}",
-                        Colors.black,
-                        10.sp,
-                        FontWeight.w700,
-                      ),
-                    ],
+                    ),
                   ),
                 ],
-              )
+              ),
             ],
           );
         } else {
