@@ -145,19 +145,6 @@ class _GetFarmerBartersState extends State<GetFarmerBarters> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      barter['consumerbarangay'],
-                                      style: Poppins.detailsText
-                                          .copyWith(color: const Color(0xFF09051B)),
-                                    ),
-                                    Text(
-                                      ',',
-                                      style: Poppins.detailsText
-                                          .copyWith(color: const Color(0xFF09051B)),
-                                    ),
-                                    SizedBox(
-                                      width: 2.h,
-                                    ),
-                                    Text(
                                       barter['consumermunisipyo'],
                                       style: Poppins.detailsText
                                           .copyWith(color: const Color(0xFF09051B)),
@@ -382,19 +369,6 @@ class _GetFarmerSalesState extends State<GetFarmerSales> {
                                 padding: const EdgeInsets.only(bottom: 5),
                                 child: Row(
                                   children: [
-                                    Text(
-                                      sell['consBaranay'],
-                                      style: Poppins.detailsText
-                                          .copyWith(color: const Color(0xFF09051B)),
-                                    ),
-                                    Text(
-                                      ',',
-                                      style: Poppins.detailsText
-                                          .copyWith(color: const Color(0xFF09051B)),
-                                    ),
-                                    const SizedBox(
-                                      width: 2,
-                                    ),
                                     Text(
                                       sell['consMunicipality'],
                                       style: Poppins.detailsText
