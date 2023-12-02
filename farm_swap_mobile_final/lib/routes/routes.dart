@@ -86,6 +86,8 @@ class RouteManager {
   static const farmerdisputepage = "/farmerdisputepage";
   static const consumerdisputepage = "/consumerdisputepage";
   static const forgotpassword = "/forgotpassword";
+  static const signup1 = "/signup1";
+  static const login1 = "/login1";
 
 /*Route method */
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -237,6 +239,14 @@ class RouteManager {
       case forgotpassword:
         return MaterialPageRoute(
             builder: (context) => const UserForgotPassword());
+
+      case signup1:
+        return MaterialPageRoute(
+            builder: (context) => const UserSignUpScreen());
+
+      case login1:
+        return MaterialPageRoute(
+            builder: (context) => const UserTypeLoginSelection());
 
       default:
         throw const FormatException("Warning!!! Page Routing Problem");

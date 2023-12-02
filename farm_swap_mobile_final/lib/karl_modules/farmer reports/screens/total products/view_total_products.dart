@@ -77,55 +77,57 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
         child: Column(
           children: [
             /*For barter products */
-            Padding(
-              padding: EdgeInsets.all(10.sp),
+            Center(
               child: Column(
                 children: [
-                  Container(
-                    width: 300.w,
-                    height: 200.h,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(5),
-                      ),
-                      /*PUTTING BOX SHADOW ON THE CONTAINER */
-                      boxShadow: [
-                        BoxShadow(
-                          color: shadow,
-                          blurRadius: 2,
-                          offset: const Offset(1, 5),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      width: 300.w,
+                      height: 200.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(5),
                         ),
-                      ],
-                    ),
-                    child: (forbarter == 0)
-                        ? Center(
-                            child: poppinsText(
-                              'No Barter Listings',
-                              Colors.black,
-                              20.sp,
-                              FontWeight.bold,
-                            ),
-                          )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: poppinsText(
-                                  forbarter.toString(),
-                                  farmSwapTitlegreen,
-                                  40.sp,
-                                  FontWeight.bold,
-                                ),
-                              ),
-                              poppinsText(
-                                "Barter Listings",
-                                Colors.black54,
+                        /*PUTTING BOX SHADOW ON THE CONTAINER */
+                        boxShadow: [
+                          BoxShadow(
+                            color: shadow,
+                            blurRadius: 2,
+                            offset: const Offset(1, 5),
+                          ),
+                        ],
+                      ),
+                      child: (forbarter == 0)
+                          ? Center(
+                              child: poppinsText(
+                                'No Barter Listings',
+                                Colors.black,
                                 20.sp,
                                 FontWeight.bold,
                               ),
-                            ],
-                          ),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: poppinsText(
+                                    forbarter.toString(),
+                                    farmSwapTitlegreen,
+                                    40.sp,
+                                    FontWeight.bold,
+                                  ),
+                                ),
+                                poppinsText(
+                                  "Barter Listings",
+                                  Colors.black54,
+                                  20.sp,
+                                  FontWeight.bold,
+                                ),
+                              ],
+                            ),
+                    ),
                   ),
                   /*For sellign products */
                   Padding(

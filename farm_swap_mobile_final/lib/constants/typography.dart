@@ -74,4 +74,9 @@ class Poppins {
     fontWeight: FontWeight.w700,
     fontSize: 12,
   );
+  static TextStyle terms = const TextStyle(
+    fontFamily: poppins,
+    fontWeight: FontWeight.w300,
+    fontSize: 12,
+  );
 }
