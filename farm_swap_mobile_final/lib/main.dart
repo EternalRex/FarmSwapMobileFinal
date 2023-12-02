@@ -5,6 +5,7 @@ import "package:farm_swap_mobile_final/provider/barter_listing_details_provider.
 import "package:farm_swap_mobile_final/provider/bartering_item_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/completed_bartertransaction_provider.dart";
 import "package:farm_swap_mobile_final/provider/dashboard_type_provider.dart";
+import "package:farm_swap_mobile_final/provider/farmer_profile_visits_report_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_addcategory_provider.dart";
 import "package:farm_swap_mobile_final/provider/listing_page_provider.dart";
 import "package:farm_swap_mobile_final/provider/login_usertype_provider.dart";
@@ -86,6 +87,11 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (context) => ConsumerNotificationProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) {
+                FarmerProfileVisitsProvider();
+              },
             ),
           ],
           builder: (context, child) {

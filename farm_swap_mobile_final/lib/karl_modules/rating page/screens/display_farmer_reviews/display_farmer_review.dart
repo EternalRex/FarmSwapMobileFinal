@@ -35,6 +35,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
   ListinGetFarmerDetails farmerDetails2 = ListinGetFarmerDetails();
   int finalRating = 0;
   int finalRating2 = 0;
+  double finalRating3 = 0;
 
   @override
   void initState() {
@@ -88,7 +89,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
               child: Column(
                 children: [
                   poppinsText2(
-                    "$finalRating",
+                    "$finalRating3",
                     Colors.white,
                     30.sp,
                     FontWeight.w500,
@@ -225,25 +226,40 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
                                         ),
                                       ],
                                     )
-                                  : Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.white,
-                                          size: 25.sp,
+                                  : (finalRating >= 1 && finalRating < 2)
+                                      ? Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.white,
+                                              size: 25.sp,
+                                            ),
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            poppinsText2(
+                                              "(1/5)",
+                                              Colors.white,
+                                              13.sp,
+                                              FontWeight.normal,
+                                            ),
+                                          ],
+                                        )
+                                      : Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 10.w,
+                                            ),
+                                            poppinsText2(
+                                              "(0/5)",
+                                              Colors.white,
+                                              13.sp,
+                                              FontWeight.normal,
+                                            ),
+                                          ],
                                         ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        poppinsText2(
-                                          "(1/5)",
-                                          Colors.white,
-                                          13.sp,
-                                          FontWeight.normal,
-                                        ),
-                                      ],
-                                    ),
                   poppinsText(
                     "Overall Rating",
                     Colors.white,
@@ -316,10 +332,12 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
       double rating = await farmerDetails2.getFarmerRating(widget.farmerId.toString());
       setState(() {
         finalRating = rating.toInt();
+        finalRating3 = rating.roundToDouble();
       });
     } else {
       double rating = await farmerDetails2.getFarmerRating(FirebaseAuth.instance.currentUser!.uid);
       setState(() {
+        finalRating3 = rating;
         finalRating = rating.toInt();
       });
     }

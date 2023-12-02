@@ -1,4 +1,3 @@
-import 'package:farm_swap_mobile_final/clare_modules/pages/consumer_cart/screens/consumer_cart.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/consumer_bid_navbar.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/get_consumer_bid.dart';
@@ -6,7 +5,6 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ConsumerBidListings extends StatefulWidget {
   const ConsumerBidListings({super.key});

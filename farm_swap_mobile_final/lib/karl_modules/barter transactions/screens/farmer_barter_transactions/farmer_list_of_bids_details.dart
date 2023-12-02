@@ -13,12 +13,15 @@ import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screen
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/farmer_consumer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/listing_management/database/archive_update.dart';
+import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_consumer_reviews/display_consumer_review.dart';
 import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/farmer_consumer_barter_rating.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../../../profile views/database/save_consumer_profile_views.dart';
 
 class FarmerListOfBidsDetils extends StatefulWidget {
   const FarmerListOfBidsDetils({
@@ -89,6 +92,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
+  CountConsumerProfileVisitsQuerry consProfileVisits =
+      CountConsumerProfileVisitsQuerry();
   BarterTransactionDatabase transaction = BarterTransactionDatabase();
   ComputeDeductibleSwapCoins compute = ComputeDeductibleSwapCoins();
   UpdateSelectedBarterBid updateSelected = UpdateSelectedBarterBid();
@@ -110,13 +115,17 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
   double farmerSwapCoins = 0;
   String percentValue = "";
   double consSwapCoins = 0;
+  String farmerPhoto = "";
   int finalRating = 0;
+  String farmerPhoto2 = "";
+  String farmerUname2 = "";
 
   //for notif
   String consumerId = "";
   @override
   void initState() {
     super.initState();
+    farmerProfileUname();
     getFarmerDetails();
     farmersSwapCoins();
     getConsumersSwapCoins();
@@ -369,6 +378,31 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                       ),
                     ],
                   ),
+            SizedBox(
+              child: TextButton(
+                onPressed: () async {
+                  /*Profile visits count */
+                  consProfileVisits.counstFarmerProfileVisit(
+                    widget.consid,
+                    FirebaseAuth.instance.currentUser!.uid,
+                    DateTime.now(),
+                    farmerUname2,
+                    farmerPhoto2,
+                  );
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DisplayConsumerReview(
+                          consumerId: widget.consid,
+                        );
+                      },
+                    ),
+                  );
+                },
+                child:
+                    poppinsText("Reviews", orangeDark, 15.sp, FontWeight.w500),
+              ),
+            ),
             SizedBox(
               height: 15.h,
             ),
@@ -1037,6 +1071,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
     String fid = await farmerDetails.getFarmerUserId();
     String fbarangay = await farmerDetails.getBaranggay();
     String fmunicipality = await farmerDetails.getMunicipalityFirstname();
+    String photo = await farmerDetails.getFarmerUserProfilePhoto();
     setState(() {
       farmerFname = fname;
       farmerLname = lname;
@@ -1044,6 +1079,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
       farmerId = fid;
       farmerBaranggay = fbarangay;
       farmerMunicipality = fmunicipality;
+      farmerPhoto = photo;
     });
 /*
     if (_isMounted) {
@@ -1403,5 +1439,14 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
         );
       },
     );
+  }
+
+  Future<void> farmerProfileUname() async {
+    String uname = await farmerDetails.getUname();
+    String url = await farmerDetails.getFarmerUserProfilePhoto();
+    setState(() {
+      farmerPhoto2 = url;
+      farmerUname2 = uname;
+    });
   }
 }

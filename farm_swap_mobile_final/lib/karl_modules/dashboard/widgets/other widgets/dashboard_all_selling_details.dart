@@ -1,13 +1,17 @@
 import 'package:farm_swap_mobile_final/clare_modules/pages/consumer_cart/screens/cart_order.dart';
 import 'package:farm_swap_mobile_final/clare_modules/pages/farmer_wallet_management/widgets/label/wallet_textfield_label.dart';
+import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/green_btn.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/other%20widgets/dashboard_bottom_navbar.dart';
+import 'package:farm_swap_mobile_final/karl_modules/profile%20views/database/save_farmer_profile_views.dart';
 import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_farmer_reviews/display_farmer_review.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/place_order_screens/buy_order_1.dart';
+import 'package:farm_swap_mobile_final/provider/farmer_profile_visits_report_provider.dart';
 import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -63,24 +67,30 @@ class DashBoardAllSellDetails extends StatefulWidget {
 class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  CountFarmerProfileVisitsQuerry countFVisits = CountFarmerProfileVisitsQuerry();
+  ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
 
   /*A function for opening a drawer using the scaffold key */
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
   }
 
-  double rating = 0;
-
   @override
   void initState() {
     super.initState();
     farmeRating();
+    if (Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType == "CONSUMER") {
+      getConsumerDetails();
+    }
   }
+
+  double rating = 0;
+  String consUname = "";
+  String consUrl = "";
 
   @override
   Widget build(BuildContext context) {
     String userRole = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
-
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -506,7 +516,14 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
                                             height: 15.h,
                                           ),
                                           TextButton(
-                                            onPressed: () {
+                                            onPressed: () async {
+                                              /*Putting the profile visits */
+                                              countFVisits.counstFarmerProfileVisit(
+                                                  widget.farmerId,
+                                                  FirebaseAuth.instance.currentUser!.uid,
+                                                  DateTime.now(),
+                                                  consUname,
+                                                  consUrl);
                                               Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                   builder: (context) {
@@ -686,5 +703,14 @@ class _DashBoardAllSellDetailsState extends State<DashBoardAllSellDetails> {
         );
       },
     );
+  }
+
+  Future<void> getConsumerDetails() async {
+    String uname = await consumerDetails.getUname();
+    String url = await consumerDetails.getConsumerProfilePhoto();
+    setState(() {
+      consUname = uname;
+      consUrl = url;
+    });
   }
 }

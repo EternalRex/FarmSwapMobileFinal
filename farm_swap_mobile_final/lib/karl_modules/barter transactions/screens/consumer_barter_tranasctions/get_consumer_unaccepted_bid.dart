@@ -24,7 +24,8 @@ class _GetConsumerUnselectedState extends State<GetConsumerUnselected> {
     return StreamBuilder(
       stream: firestore
           .collectionGroup('barterbids')
-          .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('consumerId',
+              isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .orderBy('itemBidTime', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
@@ -71,6 +72,7 @@ class _GetConsumerUnselectedState extends State<GetConsumerUnselected> {
     String listingName = data["listingName"];
     String listingQuan = data["listingQuantity"].toString();
     String listingPrice = data["listingPrice"].toString();
+    // ignore: unused_local_variable
     String listStatus = data["listingStatus"];
 
     /*Consumer data*/

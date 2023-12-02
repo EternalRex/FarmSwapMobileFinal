@@ -4,7 +4,6 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FarmerBarterTransactionMainPage extends StatefulWidget {
   const FarmerBarterTransactionMainPage({super.key});

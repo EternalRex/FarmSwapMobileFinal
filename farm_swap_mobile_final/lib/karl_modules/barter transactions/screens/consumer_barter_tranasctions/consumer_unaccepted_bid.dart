@@ -5,7 +5,6 @@ import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screen
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ConsumerUnacceptedBid extends StatefulWidget {
   const ConsumerUnacceptedBid({super.key});

@@ -22,7 +22,8 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collectionGroup('barterbids')
-          .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('consumerId',
+              isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .orderBy('itemBidTime', descending: false)
           .snapshots(),
       builder: (context, snapshot) {
@@ -63,6 +64,7 @@ class _GetConsumerBidsState extends State<GetConsumerBids> {
     String listingName = data["listingName"];
     String listingQuan = data["listingQuantity"].toString();
     String listingPrice = data["listingPrice"].toString();
+    // ignore: unused_local_variable
     String listStatus = data["listingStatus"];
 
     /*Consumer data*/
