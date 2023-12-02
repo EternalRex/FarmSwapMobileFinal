@@ -5,7 +5,6 @@ import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/widget
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SelectedBids extends StatefulWidget {
   const SelectedBids({
@@ -48,12 +47,6 @@ class _SelectedBidsState extends State<SelectedBids> {
             SizedBox(
               width: 20.w,
             ),
-            /*Shoppping cart button */
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -63,7 +56,8 @@ class _SelectedBidsState extends State<SelectedBids> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),

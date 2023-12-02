@@ -61,12 +61,12 @@ class _MyOrdersState extends State<MyOrders> {
           icon: const Icon(Icons.menu),
         ),
         actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {
-                if (userType == "CONSUMER") {
+          if (userType == "CONSUMER")
+            /*Shoppping cart button */
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: IconButton(
+                onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {
@@ -74,12 +74,11 @@ class _MyOrdersState extends State<MyOrders> {
                       },
                     ),
                   );
-                }
-              },
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
+                },
+                icon: const Icon(FontAwesomeIcons.cartShopping),
+                iconSize: 30.sp,
+              ),
             ),
-          ),
         ],
       ),
       /*End of appbar */

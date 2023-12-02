@@ -4,10 +4,12 @@ import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
+import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../database/save_cart_order.dart';
 
@@ -80,6 +82,8 @@ class _ConsumerCartState extends State<ConsumerCart> {
 
   @override
   Widget build(BuildContext context) {
+    String userRole =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -111,15 +115,24 @@ class _ConsumerCartState extends State<ConsumerCart> {
           icon: const Icon(Icons.menu),
         ),
         actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
+          if (userRole == "CONSUMER")
+            /*Shoppping cart button */
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const ConsumerCartOrders();
+                      },
+                    ),
+                  );
+                },
+                icon: const Icon(FontAwesomeIcons.cartShopping),
+                iconSize: 30.sp,
+              ),
             ),
-          ),
         ],
       ),
       /*End of appbar */
@@ -349,7 +362,9 @@ class _ConsumerCartState extends State<ConsumerCart> {
         child: const ConsumerBuyingNavBar(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/common/upload_image_functions.dart';
@@ -149,15 +151,19 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                       /*For the pick image in gallery */
                       GestureDetector(
                         onTap: () async {
+                          // Start loading state
+                          _showLoadingDialog(context);
+
                           String? picUrl =
                               await upload.uploadImageToFirebaseGallery();
-                          // ignore: use_build_context_synchronously
+
+                          // End loading state
+                          Navigator.pop(context);
                           Provider.of<BartertingItemDetailsProvider>(context,
                                   listen: false)
                               .setItemUrl(picUrl.toString());
 
                           print(farmerId);
-                          // ignore: use_build_context_synchronously
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
                               return EnterToBarterItem3(
@@ -181,9 +187,12 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                       /*This is for picking image in the camera */
                       GestureDetector(
                         onTap: () async {
+                          // Start loading state
+                          _showLoadingDialog(context);
                           String? picUrl =
                               await upload.uploadImageToFirebaseCamera();
-                          // ignore: use_build_context_synchronously
+                          // End loading state
+                          Navigator.pop(context);
                           Provider.of<BartertingItemDetailsProvider>(context,
                                   listen: false)
                               .setItemUrl(
@@ -191,7 +200,6 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                           );
 
                           print(farmerId);
-                          // ignore: use_build_context_synchronously
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
                               return EnterToBarterItem3(
@@ -266,6 +274,27 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+
+  // Display loading dialog
+  Future<void> _showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.greenAccent,
+              ),
+              SizedBox(width: 16),
+              Text("Uploading..."),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -6,7 +6,6 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_
 import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_farmer_reviews/get_farmer_reviews.dart';
 import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/display_farmer_reviews/get_farmer_reviews2.dart';
 import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
-import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +44,8 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
 
   @override
   Widget build(BuildContext context) {
-    String userType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String userType =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -62,7 +62,8 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -203,7 +204,8 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
                                 )
                               : (finalRating < 3 && finalRating >= 2)
                                   ? Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Icon(
                                           Icons.star,
@@ -228,7 +230,8 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
                                     )
                                   : (finalRating >= 1 && finalRating < 2)
                                       ? Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             Icon(
                                               Icons.star,
@@ -247,7 +250,8 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
                                           ],
                                         )
                                       : Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             SizedBox(
                                               width: 10.w,
@@ -309,7 +313,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
       ),*/
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+          Navigator.pop(context);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -327,15 +331,18 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
   }
 
   Future<void> getFarmerRating() async {
-    String userType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String userType =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     if (userType == "CONSUMER") {
-      double rating = await farmerDetails2.getFarmerRating(widget.farmerId.toString());
+      double rating =
+          await farmerDetails2.getFarmerRating(widget.farmerId.toString());
       setState(() {
         finalRating = rating.toInt();
         finalRating3 = rating.roundToDouble();
       });
     } else {
-      double rating = await farmerDetails2.getFarmerRating(FirebaseAuth.instance.currentUser!.uid);
+      double rating = await farmerDetails2
+          .getFarmerRating(FirebaseAuth.instance.currentUser!.uid);
       setState(() {
         finalRating3 = rating;
         finalRating = rating.toInt();

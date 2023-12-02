@@ -76,8 +76,13 @@ class _UserPersonalDetailsRegistration6State
                           /*This is for picking image in the gallery */
                           GestureDetector(
                             onTap: () async {
+                              // Start loading state
+                              _showLoadingDialog(context);
                               imageUrl = await _uploadImage
                                   .uploadImageToFirebaseGallery();
+                              // End loading state
+                              // ignore: use_build_context_synchronously
+                              Navigator.pop(context);
                               // ignore: use_build_context_synchronously
                               Provider.of<UserDetailsProvider>(context,
                                       listen: false)
@@ -100,8 +105,13 @@ class _UserPersonalDetailsRegistration6State
                           /*This is for picking image in the camera */
                           GestureDetector(
                             onTap: () async {
+                              // Start loading state
+                              _showLoadingDialog(context);
                               imageUrl = await _uploadImage
                                   .uploadImageToFirebaseCamera();
+                              // End loading state
+                              // ignore: use_build_context_synchronously
+                              Navigator.pop(context);
                               // ignore: use_build_context_synchronously
                               Provider.of<UserDetailsProvider>(context,
                                       listen: false)
@@ -150,8 +160,13 @@ class _UserPersonalDetailsRegistration6State
                           /*This is for picking image in the gallery */
                           GestureDetector(
                             onTap: () async {
+                              // Start loading state
+                              _showLoadingDialog(context);
                               imageUrl = await _uploadImage
                                   .uploadImageToFirebaseGallery();
+                              // End loading state
+                              // ignore: use_build_context_synchronously
+                              Navigator.pop(context);
                               // ignore: use_build_context_synchronously
                               Provider.of<UserDetailsProvider>(context,
                                       listen: false)
@@ -174,8 +189,13 @@ class _UserPersonalDetailsRegistration6State
                           /*This is for picking image in the camera */
                           GestureDetector(
                             onTap: () async {
+                              // Start loading state
+                              _showLoadingDialog(context);
                               imageUrl = await _uploadImage
                                   .uploadImageToFirebaseCamera();
+                              // End loading state
+                              // ignore: use_build_context_synchronously
+                              Navigator.pop(context);
                               // ignore: use_build_context_synchronously
                               Provider.of<UserDetailsProvider>(context,
                                       listen: false)
@@ -198,6 +218,28 @@ class _UserPersonalDetailsRegistration6State
           ],
         ),
       ),
+    );
+  }
+
+  // Display loading dialog
+  // ignore: unused_element
+  Future<void> _showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.greenAccent,
+              ),
+              SizedBox(width: 16),
+              Text("Uploading..."),
+            ],
+          ),
+        );
+      },
     );
   }
 }

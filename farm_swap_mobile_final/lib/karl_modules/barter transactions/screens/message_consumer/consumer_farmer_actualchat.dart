@@ -146,6 +146,7 @@ class _ConsumerFarmerActualChatState extends State<ConsumerFarmerActualChat> {
                 onPressed: () {
                   print("Wa na focus");
                   unfocus();
+                  Navigator.pop(context);
                 },
                 icon: const Icon(Icons.arrow_back_ios_new_rounded),
                 iconSize: 30.sp,

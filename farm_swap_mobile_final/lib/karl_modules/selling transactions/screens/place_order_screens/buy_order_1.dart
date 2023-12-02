@@ -1,3 +1,4 @@
+import 'package:farm_swap_mobile_final/clare_modules/pages/consumer_cart/screens/consumer_cart.dart';
 import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/database/farmer_notif_query.dart';
 import 'package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/farmer_notif_bid/provider/farmer_notif_provider.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
@@ -7,6 +8,7 @@ import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/save_order.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
+import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -86,6 +88,8 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
 
   @override
   Widget build(BuildContext context) {
+    String userRole =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -117,15 +121,24 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
           icon: const Icon(Icons.menu),
         ),
         actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
+          if (userRole == "CONSUMER")
+            /*Shoppping cart button */
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const ConsumerCartOrders();
+                      },
+                    ),
+                  );
+                },
+                icon: const Icon(FontAwesomeIcons.cartShopping),
+                iconSize: 30.sp,
+              ),
             ),
-          ),
         ],
       ),
       /*End of appbar */
@@ -372,7 +385,7 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //back to selling details
+          Navigator.pop(context);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

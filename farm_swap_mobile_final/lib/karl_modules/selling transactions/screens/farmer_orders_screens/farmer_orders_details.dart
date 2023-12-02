@@ -103,7 +103,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
   }
 
   ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
-  CountConsumerProfileVisitsQuerry consProfileVisits = CountConsumerProfileVisitsQuerry();
+  CountConsumerProfileVisitsQuerry consProfileVisits =
+      CountConsumerProfileVisitsQuerry();
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
   UpdateConfirmedOrder updateStatus = UpdateConfirmedOrder();
   ComputeSellDeductibleSwapCoins deductibleSP =
@@ -163,17 +164,6 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
           },
           icon: const Icon(Icons.menu),
         ),
-        actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
-          ),
-        ],
       ),
       /*End of appbar */
       /*Displaying the drawer */
@@ -309,7 +299,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                     ),
                   );
                 },
-                child: poppinsText("Reviews", orangeDark, 15.sp, FontWeight.w500),
+                child:
+                    poppinsText("Reviews", orangeDark, 15.sp, FontWeight.w500),
               ),
             ),
             poppinsText(
@@ -592,7 +583,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                 ],
               ),
             ),
-            /*Row for completed */
+            /*Row for completed 
             Padding(
               padding: EdgeInsets.all(10.sp),
               child: Row(
@@ -620,6 +611,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                 ],
               ),
             ),
+            */
             /*Row for accept and deny btn */
             Padding(
               padding: EdgeInsets.all(10.sp),
@@ -628,6 +620,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                       widget.isConfirmed == false &&
                       widget.declined == false)
                   ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         GestureDetector(
                           onTap: () {
@@ -725,6 +719,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                   : (widget.selected == true && widget.isConfirmed == true)
                       /*Kung confirmed gani si order mao ni mga buttons na mo display */
                       ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
                               height: 50,

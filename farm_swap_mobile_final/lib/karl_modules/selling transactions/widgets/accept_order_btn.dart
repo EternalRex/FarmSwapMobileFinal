@@ -30,16 +30,13 @@ class AcceptOrderBtn extends StatelessWidget {
         ],
       ),
       child: Center(
-        child: TextButton(
-          onPressed: () {},
-          child: Text(
-            text,
-            style: TextStyle(
-              fontFamily: GoogleFonts.poppins().fontFamily,
-              fontSize: 16,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-            ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontFamily: GoogleFonts.poppins().fontFamily,
+            fontSize: 16,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
           ),
         ),
       ),

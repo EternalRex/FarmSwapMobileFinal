@@ -63,7 +63,7 @@ class _AddListingPageInputDetailsState
         ),
       ),
       /*The drawer class */
-      drawer: DashBoardDrawer(),
+      drawer: const DashBoardDrawer(),
       body: Column(
         children: [
           /*Expanded for the contents */

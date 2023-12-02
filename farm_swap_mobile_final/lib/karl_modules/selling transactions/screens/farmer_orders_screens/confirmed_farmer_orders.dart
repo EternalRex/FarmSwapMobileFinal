@@ -5,7 +5,6 @@ import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widge
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ConfirmedOrders extends StatefulWidget {
   const ConfirmedOrders({super.key});
@@ -40,7 +39,8 @@ class _ConfirmedOrdersState extends State<ConfirmedOrders> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -53,17 +53,6 @@ class _ConfirmedOrdersState extends State<ConfirmedOrders> {
           },
           icon: const Icon(Icons.menu),
         ),
-        actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
-          ),
-        ],
       ),
       /*End of appbar */
       /*Displaying the drawer */

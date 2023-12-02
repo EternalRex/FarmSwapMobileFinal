@@ -92,6 +92,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     /*This is for picking image in the gallery */
                                     GestureDetector(
                                       onTap: () async {
+                                        // Start loading state
+                                        _showLoadingDialog(context);
                                         await updatePicture
                                             .uploadImageToFirebaseGallery();
                                         Navigator.of(context)
@@ -115,6 +117,8 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                                     /*This is for picking image in the camera */
                                     GestureDetector(
                                       onTap: () async {
+                                        // Start loading state
+                                        _showLoadingDialog(context);
                                         await updatePicture
                                             .uploadImageToFirebaseCamera();
                                         Navigator.of(context)
@@ -1087,6 +1091,27 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
     );
   }
 
+  // Display loading dialog
+  Future<void> _showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.greenAccent,
+              ),
+              SizedBox(width: 16),
+              Text("Uploading..."),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   //create a variable for updatedValue and selectedValue
   String? updatedValue;
   String? selectedValue;
@@ -1113,7 +1138,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
               content: DropdownButton<String>(
                 value: selectedValue,
                 items: [
-                  //first menu item email address
+                  /*first menu item email address
                   DropdownMenuItem(
                     value: "email",
                     child: GestureDetector(
@@ -1205,6 +1230,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                               });
                         }),
                   ),
+                  */
                   //second menu item password
                   DropdownMenuItem(
                     value: "password",

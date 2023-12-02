@@ -138,17 +138,6 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
           },
           icon: const Icon(Icons.menu),
         ),
-        actions: [
-          /*Shoppping cart button */
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.cartShopping),
-              iconSize: 30.sp,
-            ),
-          ),
-        ],
       ),
       /*End of appbar */
       /*Displaying the drawer */
@@ -223,29 +212,35 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                   child: IconButton(
                     onPressed: () {
                       /*A condition that says the consumer cant use the chat functionality once the farmer declines the */
-                      (widget.declined == true)
-                          ? showCantDoChatMessage()
-                          :
-                          /*Messaging function*/
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) {
-                                return ConsumerFarmerActualChat(
-                                  farmerId: widget.farmerId,
-                                  farmerName: widget.farmerName,
-                                  farmerUname: widget.farmerUname,
-                                  farmerBarangay: widget.farmerBarangay,
-                                  farmerMunicipality: widget.farmerMunicipality,
-                                  consumerId: widget.consId,
-                                  consumerFname: widget.consName,
-                                  consumerLname: widget.consLName,
-                                  consumerUname: widget.consUname,
-                                  consumerBarangay: widget.consBarangay,
-                                  consumerMunicipality: widget.consMunicipality,
-                                  listingId: widget.listingId,
-                                  listingName: widget.listingName,
-                                );
-                              },
-                            ));
+                      if (widget.declined == true) {
+                        showCantDoChatMessage();
+                      }
+                      //if farmer is waiting then this message will show
+                      else if (widget.isConfirmed == false) {
+                        showCantDoChatMessage1();
+                      }
+                      //if it is not declined and waiting this will be directed to chat
+                      else {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return ConsumerFarmerActualChat(
+                              farmerId: widget.farmerId,
+                              farmerName: widget.farmerName,
+                              farmerUname: widget.farmerUname,
+                              farmerBarangay: widget.farmerBarangay,
+                              farmerMunicipality: widget.farmerMunicipality,
+                              consumerId: widget.consId,
+                              consumerFname: widget.consName,
+                              consumerLname: widget.consLName,
+                              consumerUname: widget.consUname,
+                              consumerBarangay: widget.consBarangay,
+                              consumerMunicipality: widget.consMunicipality,
+                              listingId: widget.listingId,
+                              listingName: widget.listingName,
+                            );
+                          },
+                        ));
+                      }
                     },
                     icon: Icon(
                       FontAwesomeIcons.facebookMessenger,
@@ -456,7 +451,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 ],
               ),
             ),
-/*Total price and it value */
+            /*Total price and it value */
             Padding(
               padding: EdgeInsets.all(10.sp),
               child: Row(
@@ -539,7 +534,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 ],
               ),
             ),
-            /*Row for completed */
+            /*Row for completed
             Padding(
               padding: EdgeInsets.all(10.sp),
               child: Row(
@@ -567,6 +562,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 ],
               ),
             ),
+             */
             /*If dli pa gani accepted or confirmed ang order ni consumer, wala say mark as done ang transaction display lang ang container */
             (widget.selected == true && widget.isConfirmed == true)
                 ?
@@ -604,7 +600,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                                 ],
                               ),
                               child: Padding(
-                                padding: EdgeInsets.all(10.sp),
+                                padding: EdgeInsets.all(8.sp),
                                 child: Center(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -823,6 +819,23 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
           title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.w500),
           content: poppinsText(
             "You cannot message the farmer because your order was declined",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+        );
+      },
+    );
+  }
+
+  void showCantDoChatMessage1() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.w500),
+          content: poppinsText(
+            "You cannot message the farmer please wait farmer to confirm your order.",
             Colors.black,
             13.sp,
             FontWeight.normal,

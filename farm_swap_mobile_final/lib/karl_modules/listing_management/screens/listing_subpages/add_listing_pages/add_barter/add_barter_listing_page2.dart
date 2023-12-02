@@ -18,10 +18,12 @@ class AddActualBarterListingDetails2 extends StatefulWidget {
   const AddActualBarterListingDetails2({super.key});
 
   @override
-  State<AddActualBarterListingDetails2> createState() => _AddActualBarterListingDetails2State();
+  State<AddActualBarterListingDetails2> createState() =>
+      _AddActualBarterListingDetails2State();
 }
 
-class _AddActualBarterListingDetails2State extends State<AddActualBarterListingDetails2> {
+class _AddActualBarterListingDetails2State
+    extends State<AddActualBarterListingDetails2> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -44,7 +46,8 @@ class _AddActualBarterListingDetails2State extends State<AddActualBarterListingD
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -100,20 +103,29 @@ class _AddActualBarterListingDetails2State extends State<AddActualBarterListingD
                           /*For the pick image in gallery */
                           GestureDetector(
                             onTap: () async {
+                              // Start loading state
+                              _showLoadingDialog(context);
+
                               /*Trigirring the funtion nga mo open sa gallery nya kwaon nato ang
                               download url sa image from this function*/
-                              String? url = await upload.uploadImageToFirebaseGallery();
+                              String? url =
+                                  await upload.uploadImageToFirebaseGallery();
+
+                              // End loading state
+                              Navigator.pop(context);
                               /* e butang nato ang url sa atong provider para gamiton unya*/
-                              Provider.of<BarterListingDetailsProvider>(context, listen: false)
+                              Provider.of<BarterListingDetailsProvider>(context,
+                                      listen: false)
                                   .setPhotoUrl(url.toString());
                               /*Nextpage na dayon ez app */
-                              Navigator.of(context)
-                                  .pushNamed(RouteManager.addbarterlisttingdetails3);
+                              Navigator.of(context).pushNamed(
+                                  RouteManager.addbarterlisttingdetails3);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
                               width: 200.sp,
-                              imagePath: "assets/karl_assets/images/Gallery.svg",
+                              imagePath:
+                                  "assets/karl_assets/images/Gallery.svg",
                               title: "From Gallery",
                             ),
                           ),
@@ -123,15 +135,23 @@ class _AddActualBarterListingDetails2State extends State<AddActualBarterListingD
                           /*This is for picking image in the camera */
                           GestureDetector(
                             onTap: () async {
+                              // Start loading state
+                              _showLoadingDialog(context);
+
                               /*Trigirring the funtion nga mo open sa camera nya kwaon nato ang
                               download url sa image from this function*/
-                              String? url = await upload.uploadImageToFirebaseGallery();
+                              String? url =
+                                  await upload.uploadImageToFirebaseCamera();
+
+                              // End loading state
+                              Navigator.pop(context);
                               /* e butang nato ang url sa atong provider para gamiton unya*/
-                              Provider.of<BarterListingDetailsProvider>(context, listen: false)
+                              Provider.of<BarterListingDetailsProvider>(context,
+                                      listen: false)
                                   .setPhotoUrl(url.toString());
                               /*Nextpage na dayon ez app */
-                              Navigator.of(context)
-                                  .pushNamed(RouteManager.addbarterlisttingdetails3);
+                              Navigator.of(context).pushNamed(
+                                  RouteManager.addbarterlisttingdetails3);
                             },
                             child: CustomPicturePicker(
                               height: MediaQuery.of(context).size.height,
@@ -155,7 +175,8 @@ class _AddActualBarterListingDetails2State extends State<AddActualBarterListingD
               decoration: BoxDecoration(
                 color: greenNormal,
                 image: const DecorationImage(
-                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  image:
+                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: farmSwapTitlegreen),
@@ -181,6 +202,27 @@ class _AddActualBarterListingDetails2State extends State<AddActualBarterListingD
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+
+  // Display loading dialog
+  Future<void> _showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.greenAccent,
+              ),
+              SizedBox(width: 16),
+              Text("Uploading..."),
+            ],
+          ),
+        );
+      },
     );
   }
 }
