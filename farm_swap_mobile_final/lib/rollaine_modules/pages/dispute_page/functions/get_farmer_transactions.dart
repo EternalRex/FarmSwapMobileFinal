@@ -147,7 +147,6 @@ class _GetFarmerBartersState extends State<GetFarmerBarters> {
                                 child: Row(
                                   children: [
                                     Text(
-<<<<<<< HEAD
                                       barter['consumerbarangay'],
                                       style: Poppins.detailsText.copyWith(
                                           color: const Color(0xFF09051B)),
@@ -161,8 +160,6 @@ class _GetFarmerBartersState extends State<GetFarmerBarters> {
                                       width: 2.h,
                                     ),
                                     Text(
-=======
->>>>>>> dd9c46f0c5ff8c6a62429b2cd869581bdbb08b53
                                       barter['consumermunisipyo'],
                                       style: Poppins.detailsText.copyWith(
                                           color: const Color(0xFF09051B)),
@@ -393,7 +390,6 @@ class _GetFarmerSalesState extends State<GetFarmerSales> {
                                 child: Row(
                                   children: [
                                     Text(
-<<<<<<< HEAD
                                       sell['consBaranay'],
                                       style: Poppins.detailsText.copyWith(
                                           color: const Color(0xFF09051B)),
@@ -407,8 +403,6 @@ class _GetFarmerSalesState extends State<GetFarmerSales> {
                                       width: 2,
                                     ),
                                     Text(
-=======
->>>>>>> dd9c46f0c5ff8c6a62429b2cd869581bdbb08b53
                                       sell['consMunicipality'],
                                       style: Poppins.detailsText.copyWith(
                                           color: const Color(0xFF09051B)),
