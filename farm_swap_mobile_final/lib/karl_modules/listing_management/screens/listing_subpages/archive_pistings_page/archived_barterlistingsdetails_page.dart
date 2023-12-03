@@ -284,7 +284,7 @@ class _ArchivedBarterListingDetailsState extends State<ArchivedBarterListingDeta
                                       poppinsText(
                                         widget.prefItem,
                                         Colors.black,
-                                        15.sp,
+                                        13.sp,
                                         FontWeight.normal,
                                       ),
                                     ],

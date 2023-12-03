@@ -1,3 +1,4 @@
+import 'package:farm_swap_mobile_final/karl_modules/communication/screens/consumer%20chat/consumer_admin_chat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer_options_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +25,15 @@ class ConsumerCommunicationManagementBtn extends StatelessWidget {
               width: 10.w,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const ConsumerAdminChat();
+                    },
+                  ),
+                );
+              },
               child: DashBoardTxt(
                 myText: "Communication",
                 myColor: const Color(0xFF09041B),

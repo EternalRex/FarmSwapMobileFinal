@@ -1,23 +1,21 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
-import 'package:farm_swap_mobile_final/karl_modules/communication/screens/farmer_chat_admin_actual.dart';
+import 'package:farm_swap_mobile_final/karl_modules/communication/screens/consumer%20chat/consumer_admin_actual_chat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/communication/widgets/chat_text.dart';
-import 'package:farm_swap_mobile_final/karl_modules/communication/widgets/chatpage_bottom_navbar.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FarmerMainChatScreen extends StatefulWidget {
-  const FarmerMainChatScreen({super.key});
+class ConsumerAdminChat extends StatefulWidget {
+  const ConsumerAdminChat({super.key});
 
   @override
-  State<FarmerMainChatScreen> createState() => _FarmerMainChatScreenState();
+  State<ConsumerAdminChat> createState() => _ConsumerAdminChatState();
 }
 
-class _FarmerMainChatScreenState extends State<FarmerMainChatScreen> {
-/*Creating a scafoold key so that we can open a drawer that is built from another class */
+class _ConsumerAdminChatState extends State<ConsumerAdminChat> {
+  /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /*A function for opening a drawer using the scaffold key */
@@ -42,7 +40,7 @@ class _FarmerMainChatScreenState extends State<FarmerMainChatScreen> {
             ),
           ),
         ),
-        title: const Text("Chat Main Page"),
+        title: const Text("Admin Chat"),
         leading: IconButton(
           onPressed: () {
             /*Opening the drawer */
@@ -158,12 +156,11 @@ class _FarmerMainChatScreenState extends State<FarmerMainChatScreen> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return FarmerAdminActualChat(
-                adminId: adminId,
-                adminUname: adminFname,
-                adminProfUrl: adminUrl,
-                adminEmail: adminEmail,
-              );
+              return ConsumerAdminActualChat(
+                  adminId: adminId,
+                  adminUname: adminFname,
+                  adminProfUrl: adminUrl,
+                  adminEmail: adminEmail);
             },
           ),
         );
