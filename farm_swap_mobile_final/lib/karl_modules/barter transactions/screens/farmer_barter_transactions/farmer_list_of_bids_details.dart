@@ -150,26 +150,28 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
             SizedBox(
               width: 60.w,
             ),
-            /*Back cart button */
-            IconButton(
-              onPressed: () {
-                getFarmerDetails();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => FarmerListOfBids(
-                      farmerUname: farmerUname,
-                      farmerId: farmerId,
-                      listingId: widget.listId,
-                      listingUrl: widget.listUrl,
-                    ),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.arrow_back_ios),
-              iconSize: 30.sp,
-            ),
           ],
         ),
+        actions: [
+          /*Back cart button */
+          IconButton(
+            onPressed: () {
+              getFarmerDetails();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => FarmerListOfBids(
+                    farmerUname: farmerUname,
+                    farmerId: farmerId,
+                    listingId: widget.listId,
+                    listingUrl: widget.listUrl,
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(Icons.arrow_back_ios),
+            iconSize: 30.sp,
+          ),
+        ],
         automaticallyImplyLeading: false,
         backgroundColor: greenNormal,
         flexibleSpace: Container(
@@ -881,8 +883,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                             }
                           },
                           child: Container(
-                            height: 50,
-                            width: 135,
+                            height: 50.h,
+                            width: 135.w,
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
                                 colors: [Color(0xFF53E78B), Color(0xFF14BE77)],
@@ -957,8 +959,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                             }
                           },
                           child: Container(
-                            height: 50,
-                            width: 135,
+                            height: 50.h,
+                            width: 135.w,
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
                                 colors: [Color(0xFFFE0000), Color(0xFFD83F31)],

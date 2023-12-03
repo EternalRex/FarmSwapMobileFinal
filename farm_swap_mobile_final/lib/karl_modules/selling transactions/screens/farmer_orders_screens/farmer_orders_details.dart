@@ -723,8 +723,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              height: 50,
-                              width: 141,
+                              height: 50.h,
+                              width: 141.w,
                               decoration: BoxDecoration(
                                 gradient: const LinearGradient(
                                   colors: [
@@ -800,8 +800,8 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                                 ));
                               },
                               child: Container(
-                                height: 50,
-                                width: 145,
+                                height: 50.h,
+                                width: 165.w,
                                 decoration: BoxDecoration(
                                   gradient: const LinearGradient(
                                     colors: [
@@ -834,7 +834,7 @@ class _FarmerOrderDetailsState extends State<FarmerOrderDetails> {
                                           color: Colors.white,
                                         ),
                                         poppinsText(
-                                          "Rate Farmer",
+                                          "Rate Consumer",
                                           Colors.white,
                                           15.sp,
                                           FontWeight.normal,

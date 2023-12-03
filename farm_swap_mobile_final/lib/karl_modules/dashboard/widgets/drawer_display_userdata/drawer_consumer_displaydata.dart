@@ -89,7 +89,7 @@ class _DrawerDisplayConsumerDataState extends State<DrawerDisplayConsumerData> {
                     },
                     child: Container(
                       width: 100.w,
-                      height: 20.h,
+                      height: 25.h,
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10)),
@@ -99,7 +99,7 @@ class _DrawerDisplayConsumerDataState extends State<DrawerDisplayConsumerData> {
                           BoxShadow(
                             color: shadow,
                             blurRadius: 2,
-                            offset: const Offset(1, -5),
+                            offset: const Offset(1, 5),
                           ),
                         ],
                       ),
