@@ -165,7 +165,8 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                       child: Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.sp, vertical: 10.sp),
                             child: Text(
                               'Sold Transaction Details',
                               style: TextStyle(
@@ -183,7 +184,8 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10.sp, right: 10.sp, bottom: 5.sp),
+                    padding: EdgeInsets.only(
+                        left: 10.sp, right: 10.sp, bottom: 5.sp),
                     child: Container(
                       height: 545.h,
                       width: 350.w,
@@ -191,7 +193,10 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(6),
                         boxShadow: [
-                          BoxShadow(color: shadow, blurRadius: 2, offset: const Offset(0, 1))
+                          BoxShadow(
+                              color: shadow,
+                              blurRadius: 2,
+                              offset: const Offset(0, 1))
                         ],
                       ),
                       child: SingleChildScrollView(
@@ -207,7 +212,8 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                     child: Padding(
                                       padding: EdgeInsets.all(5.0.sp),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Padding(
                                             padding: EdgeInsets.all(5.0.sp),
@@ -215,9 +221,12 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                               height: 174.h,
                                               width: 330.w,
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(10),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                                 image: DecorationImage(
-                                                  image: CachedNetworkImageProvider(widget.cUrl),
+                                                  image:
+                                                      CachedNetworkImageProvider(
+                                                          widget.cUrl),
                                                   fit: BoxFit.fill,
                                                 ),
                                               ),
@@ -228,48 +237,60 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                             child: Column(
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsets.all(5.0.sp),
+                                                  padding:
+                                                      EdgeInsets.all(5.0.sp),
                                                   child: Text(
                                                     '${widget.cName}'
                                                     ' '
                                                     '${widget.cLname}'
                                                     ' '
                                                     '(${widget.cUname})',
-                                                    style: Poppins.farmerName.copyWith(
-                                                      color: const Color(0xFF09041B),
+                                                    style: Poppins.farmerName
+                                                        .copyWith(
+                                                      color: const Color(
+                                                          0xFF09041B),
                                                     ),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsets.all(5.0.sp),
+                                                  padding:
+                                                      EdgeInsets.all(5.0.sp),
                                                   child: Text(
                                                     '${widget.cBarangay}'
                                                     ', '
                                                     '${widget.cMunicipality}',
-                                                    style: Poppins.adminName.copyWith(
-                                                      color: const Color(0xFF09041B),
+                                                    style: Poppins.adminName
+                                                        .copyWith(
+                                                      color: const Color(
+                                                          0xFF09041B),
                                                     ),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsets.all(5.0.sp),
+                                                  padding:
+                                                      EdgeInsets.all(5.0.sp),
                                                   child: Text(
                                                     'Quantity:'
                                                     ' '
                                                     '${widget.pQuan}',
-                                                    style: Poppins.adminName.copyWith(
-                                                      color: const Color(0xFF09041B),
+                                                    style: Poppins.adminName
+                                                        .copyWith(
+                                                      color: const Color(
+                                                          0xFF09041B),
                                                     ),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsets.all(5.0.sp),
+                                                  padding:
+                                                      EdgeInsets.all(5.0.sp),
                                                   child: Text(
                                                     'Price:'
                                                     ' '
                                                     '${widget.pPrice}',
-                                                    style: Poppins.adminName.copyWith(
-                                                      color: const Color(0xFF09041B),
+                                                    style: Poppins.adminName
+                                                        .copyWith(
+                                                      color: const Color(
+                                                          0xFF09041B),
                                                     ),
                                                   ),
                                                 ),
@@ -299,9 +320,11 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                           height: 174.h,
                                           width: 330.w,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             image: DecorationImage(
-                                              image: CachedNetworkImageProvider(widget.fUrl),
+                                              image: CachedNetworkImageProvider(
+                                                  widget.fUrl),
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -319,8 +342,10 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                                 '${widget.fLname}'
                                                 ' '
                                                 '(${widget.fUname})',
-                                                style: Poppins.farmerName.copyWith(
-                                                  color: const Color(0xFF09041B),
+                                                style:
+                                                    Poppins.farmerName.copyWith(
+                                                  color:
+                                                      const Color(0xFF09041B),
                                                 ),
                                               ),
                                             ),
@@ -330,8 +355,10 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                                 '${widget.fBarangay}'
                                                 ', '
                                                 '${widget.fMunicipality}',
-                                                style: Poppins.adminName.copyWith(
-                                                  color: const Color(0xFF09041B),
+                                                style:
+                                                    Poppins.adminName.copyWith(
+                                                  color:
+                                                      const Color(0xFF09041B),
                                                 ),
                                               ),
                                             ),
@@ -341,8 +368,10 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                                 'Deducted sc/s:'
                                                 ' '
                                                 '${widget.deductFarm}',
-                                                style: Poppins.adminName.copyWith(
-                                                  color: const Color(0xFF09041B),
+                                                style:
+                                                    Poppins.adminName.copyWith(
+                                                  color:
+                                                      const Color(0xFF09041B),
                                                 ),
                                               ),
                                             ),
@@ -352,8 +381,10 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                                 'Added amount:'
                                                 ' '
                                                 '${widget.addedAmnt}',
-                                                style: Poppins.adminName.copyWith(
-                                                  color: const Color(0xFF09041B),
+                                                style:
+                                                    Poppins.adminName.copyWith(
+                                                  color:
+                                                      const Color(0xFF09041B),
                                                 ),
                                               ),
                                             ),
@@ -381,9 +412,11 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                           height: 200,
                                           width: 330,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             image: DecorationImage(
-                                              image: CachedNetworkImageProvider(widget.lUrl),
+                                              image: CachedNetworkImageProvider(
+                                                  widget.lUrl),
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -399,7 +432,8 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(top: 5.sp, bottom: 15.sp),
+                                        padding: EdgeInsets.only(
+                                            top: 5.sp, bottom: 15.sp),
                                         child: Text(
                                           'Quantity:'
                                           ' '
@@ -445,7 +479,8 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                   Padding(
                                     padding: EdgeInsets.all(5.0.sp),
                                     child: SaleDisputeTxtField(
-                                      controller: controllers.consumerDisputeTextController,
+                                      controller: controllers
+                                          .consumerDisputeTextController,
                                       enabled: true,
                                       label: Text(
                                         'Report',
@@ -467,8 +502,8 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
 
                                   //container kung asa ma display ang uploaded pic
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 70, vertical: 10),
                                     child: Container(
                                       height: 360.h,
                                       width: 200.w,
@@ -493,10 +528,13 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                               width: 170.w,
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
-                                                borderRadius: BorderRadius.circular(6),
-                                                border: Border.all(width: 2, color: greenDark),
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                border: Border.all(
+                                                    width: 2, color: greenDark),
                                                 image: DecorationImage(
-                                                  image: NetworkImage(reportUrl),
+                                                  image:
+                                                      NetworkImage(reportUrl),
                                                 ),
                                               ),
                                             ),
@@ -511,54 +549,75 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                               width: 100.w,
                                               child: DecoratedBox(
                                                 decoration: BoxDecoration(
-                                                    gradient: const LinearGradient(
+                                                    gradient:
+                                                        const LinearGradient(
                                                       begin: Alignment.topLeft,
-                                                      end: Alignment.bottomRight,
+                                                      end:
+                                                          Alignment.bottomRight,
                                                       colors: [
                                                         Color(0xFF53E78B),
                                                         Color(0xFF14BE77),
                                                       ],
                                                     ),
                                                     color: Colors.white,
-                                                    borderRadius: const BorderRadius.all(
+                                                    borderRadius:
+                                                        const BorderRadius.all(
                                                       Radius.circular(5),
                                                     ),
                                                     boxShadow: [
                                                       BoxShadow(
                                                         color: shadow,
                                                         blurRadius: 2,
-                                                        offset: const Offset(2, 5),
+                                                        offset:
+                                                            const Offset(2, 5),
                                                       ),
                                                     ]),
                                                 child: ElevatedButton(
-                                                  style: ElevatedButton.styleFrom(
-                                                    backgroundColor: Colors.transparent,
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Colors.transparent,
                                                     disabledForegroundColor:
-                                                        Colors.transparent.withOpacity(0.38),
+                                                        Colors.transparent
+                                                            .withOpacity(0.38),
                                                     disabledBackgroundColor:
-                                                        Colors.transparent.withOpacity(0.12),
-                                                    shadowColor: Colors.transparent,
+                                                        Colors.transparent
+                                                            .withOpacity(0.12),
+                                                    shadowColor:
+                                                        Colors.transparent,
                                                   ),
                                                   onPressed: () async {
+                                                    // Start loading state
+                                                    _showLoadingDialog(context);
                                                     /*Selecting and uploading photo */
-                                                    String? url =
-                                                        await upload.uploadImageToFirebaseGallery();
+                                                    String? url = await upload
+                                                        .uploadImageToFirebaseGallery();
                                                     setState(() {
-                                                      reportUrl = url.toString();
+                                                      reportUrl =
+                                                          url.toString();
                                                     });
+
+                                                    // End loading state
+                                                    // ignore: use_build_context_synchronously
+                                                    Navigator.pop(context);
                                                   },
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsets.only(top: 3, bottom: 3),
+                                                        const EdgeInsets.only(
+                                                            top: 3, bottom: 3),
                                                     child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
                                                       children: [
                                                         Text(
                                                           'Upload',
-                                                          style: GoogleFonts.poppins(
+                                                          style: GoogleFonts
+                                                              .poppins(
                                                             color: Colors.white,
                                                             fontSize: 15.sp,
-                                                            fontWeight: FontWeight.w700,
+                                                            fontWeight:
+                                                                FontWeight.w700,
                                                             letterSpacing: 0.50,
                                                           ),
                                                         ),
@@ -600,8 +659,10 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.transparent,
-                                      disabledForegroundColor: Colors.transparent.withOpacity(0.38),
-                                      disabledBackgroundColor: Colors.transparent.withOpacity(0.12),
+                                      disabledForegroundColor:
+                                          Colors.transparent.withOpacity(0.38),
+                                      disabledBackgroundColor:
+                                          Colors.transparent.withOpacity(0.12),
                                       shadowColor: Colors.transparent,
                                     ),
                                     onPressed: () {
@@ -644,16 +705,19 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                                         /*Dispute details */
                                         false,
                                         "PENDING",
-                                        controllers.consumerDisputeTextController.text,
+                                        controllers
+                                            .consumerDisputeTextController.text,
                                         reportUrl,
                                         widget.transDate,
                                       );
                                       showSuccessMessage();
                                     },
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top: 3, bottom: 3),
+                                      padding: const EdgeInsets.only(
+                                          top: 3, bottom: 3),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             'SUBMIT',
@@ -681,12 +745,35 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
     );
   }
 
+  // Display loading dialog
+  // ignore: unused_element
+  Future<void> _showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.greenAccent,
+              ),
+              SizedBox(width: 16),
+              Text("Uploading..."),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void showSuccessMessage() {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.normal),
+          title:
+              poppinsText("Information", Colors.blue, 20.sp, FontWeight.normal),
           content: poppinsText2(
             "Your dispute report has been recorded, FarmSwap will resolve this inconvenience as soon as possible, Thank you!",
             Colors.black,
@@ -705,7 +792,8 @@ class _ConsumerDisputeSaleState extends State<ConsumerDisputeSale> {
                   ),
                 );
               },
-              child: poppinsText("Continue", farmSwapTitlegreen, 17.sp, FontWeight.normal),
+              child: poppinsText(
+                  "Continue", farmSwapTitlegreen, 17.sp, FontWeight.normal),
             ),
           ],
         );
