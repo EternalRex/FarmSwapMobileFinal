@@ -100,105 +100,109 @@ rani e uncomment
     DateTime reportDate = disputeDateFile.toDate();
     String finalReportDate = DateFormat('dd-MM-yyyy').format(reportDate);
 
-    return Padding(
-      padding: EdgeInsets.all(8.0.sp),
-      child: GestureDetector(
-        onTap: () {
-          /*Redirect to the page that displays the whole details of the report*/
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return FarmerDoneReportsDetails(
-                  consumerName: consumerName,
-                  consumerId: consumerId,
-                  consumerUname: consumerUname,
-                  consumserLastName: consumserLastName,
-                  consumerBarangay: consumerBarangay,
-                  consumerMunicipality: consumerMunicipality,
-                  itemName: itemName,
-                  itemValue: itemValue,
-                  itemUrl: itemUrl,
-                  listingName: listingName,
-                  listingId: listingId,
-                  listingPrice: listingPrice,
-                  listingUrl: listingUrl,
-                  isResolved: isResolved,
-                  farmerDisputeStatus: farmerDisputeStatus,
-                  farmerDisputeText: farmerDisputeText,
-                  farmerDisputeUrl: farmerDisputeUrl,
-                  deductedFarmerCoins: deductedFarmerCoins,
-                  deductedConsumerCoins: deductedConsumerCoins,
-                  averageValue: averageValue,
-                  percentage: percentage,
-                  transactionDate: tansacDate,
-                  disputeDateFile: reportDate,
-                  trnsactionDateString: finalTransacDate,
-                  disputeDateFileString: finalReportDate,
-                );
-              },
-            ),
-          );
-        },
-        child: Container(
-          height: 100.h,
-          width: 10.w,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: shadow,
-                blurRadius: 2,
-                offset: const Offset(0, 1),
+    if (farmerDisputeStatus == 'PENDING') {
+      return Padding(
+        padding: EdgeInsets.all(8.0.sp),
+        child: GestureDetector(
+          onTap: () {
+            /*Redirect to the page that displays the whole details of the report*/
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return FarmerDoneReportsDetails(
+                    consumerName: consumerName,
+                    consumerId: consumerId,
+                    consumerUname: consumerUname,
+                    consumserLastName: consumserLastName,
+                    consumerBarangay: consumerBarangay,
+                    consumerMunicipality: consumerMunicipality,
+                    itemName: itemName,
+                    itemValue: itemValue,
+                    itemUrl: itemUrl,
+                    listingName: listingName,
+                    listingId: listingId,
+                    listingPrice: listingPrice,
+                    listingUrl: listingUrl,
+                    isResolved: isResolved,
+                    farmerDisputeStatus: farmerDisputeStatus,
+                    farmerDisputeText: farmerDisputeText,
+                    farmerDisputeUrl: farmerDisputeUrl,
+                    deductedFarmerCoins: deductedFarmerCoins,
+                    deductedConsumerCoins: deductedConsumerCoins,
+                    averageValue: averageValue,
+                    percentage: percentage,
+                    transactionDate: tansacDate,
+                    disputeDateFile: reportDate,
+                    trnsactionDateString: finalTransacDate,
+                    disputeDateFileString: finalReportDate,
+                  );
+                },
               ),
-            ],
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(8.sp),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(itemUrl),
-                  radius: 50.r,
-                ),
-                SizedBox(
-                  width: 20.w,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        poppinsText2(
-                          "$consumerName $consumserLastName ($consumerUname)",
-                          Colors.black,
-                          13.sp,
-                          FontWeight.normal,
-                        ),
-                        poppinsText2(
-                          "Reported User",
-                          Colors.black54,
-                          13.sp,
-                          FontWeight.normal,
-                        ),
-                        poppinsText2(
-                          finalReportDate,
-                          Colors.black54,
-                          13.sp,
-                          FontWeight.normal,
-                        ),
-                      ],
-                    ),
-                  ],
+            );
+          },
+          child: Container(
+            height: 100.h,
+            width: 10.w,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: shadow,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1),
                 ),
               ],
             ),
+            child: Padding(
+              padding: EdgeInsets.all(8.sp),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(itemUrl),
+                    radius: 50.r,
+                  ),
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          poppinsText2(
+                            "$consumerName $consumserLastName ($consumerUname)",
+                            Colors.black,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                          poppinsText2(
+                            "Reported User",
+                            Colors.black54,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                          poppinsText2(
+                            finalReportDate,
+                            Colors.black54,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }
