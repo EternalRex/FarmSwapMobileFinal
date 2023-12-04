@@ -97,23 +97,48 @@ Widget _buildNotificationLists() {
         .collectionGroup('farmernotifications')
         .snapshots(),
     builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.active) {
-        if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-          return ListView(
-            children: snapshot.data!.docs
-                .map<Widget>((document) => _accessItemList(document))
-                .toList(),
-          );
-        } else {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(
+          child: SizedBox(
+            width: 50,
+            height: 50,
+            child: CircularProgressIndicator(
+              color: greenNormalHover,
+            ),
+          ),
+        );
+      } else if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      } else {
+        final logs = snapshot.data!.docs;
+
+        if (logs.isEmpty) {
           return const Center(
-            child: Text("No notifications for now"),
+            child: Text('No notifications available!'),
           );
         }
-      } else {
-        return SizedBox(
-          width: 10.w,
-          height: 10.h,
-          child: const CircularProgressIndicator(color: Colors.lightGreen),
+
+        // This will sort the documents based on the 'dateTime' field
+        logs.sort((a, b) {
+          var dateTimeA = a['notifDate'];
+          var dateTimeB = b['notifDate'];
+
+          //This will check if the dateTime field is a Timestamp and convert to DateTime
+          if (dateTimeA is Timestamp) {
+            dateTimeA = dateTimeA.toDate();
+          }
+
+          if (dateTimeB is Timestamp) {
+            dateTimeB = dateTimeB.toDate();
+          }
+          // this will perform the descending order base on the date and its time
+          return (dateTimeB as DateTime).compareTo(dateTimeA as DateTime);
+        });
+
+        return ListView(
+          children: logs.map<Widget>((document) {
+            return _accessItemList(document);
+          }).toList(),
         );
       }
     },

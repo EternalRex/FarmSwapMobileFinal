@@ -5,7 +5,6 @@ import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screen
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/consumer_selling_rating_farmer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/database/update_confirmed.dart';
-import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/farmer_orders_screens/confirmed_farmer_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/consumer_confirmed_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/screens/my_orders_screens/my_orders.dart';
 import 'package:farm_swap_mobile_final/karl_modules/selling%20transactions/widgets/consumer_buying_navbar.dart';
@@ -780,7 +779,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
-                          return const ConfirmedOrders();
+                          return const MyOrders();
                         },
                       ),
                     );

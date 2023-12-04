@@ -457,7 +457,7 @@ class _ConsumerBuyPart1State extends State<ConsumerBuyPart1> {
                     ),
                   );
                 },
-                child: const Text("Go to Cart"))
+                child: const Text("Go to Orders"))
           ],
         );
       },

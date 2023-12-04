@@ -82,7 +82,7 @@ class _EnterToBarterItemState extends State<EnterToBarterItem> {
     FontWeight.normal,
   );
   Text itemDiscLabel = poppinsText(
-    "Enter item discription",
+    "Enter item description",
     Colors.black45,
     15.sp,
     FontWeight.normal,
