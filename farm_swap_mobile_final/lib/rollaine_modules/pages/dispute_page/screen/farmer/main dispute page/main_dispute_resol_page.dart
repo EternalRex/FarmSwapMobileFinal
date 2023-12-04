@@ -1,21 +1,25 @@
-import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/constants/typography.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/consumer/get_consumer_done_reports_barter.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/consumer/get_consumer_done_sale_barter.dart';
-import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/consumer_dispute_page_navbar.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/f_barter_resolutions/get_f_barter_penalties.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/f_barter_resolutions/get_f_barter_resol.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/f_sell_resolutions/get_f_sell_penalties.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/screen/farmer/f_sell_resolutions/get_f_sell_resol.dart';
+import 'package:farm_swap_mobile_final/rollaine_modules/pages/dispute_page/widget/navbar/farmer_dispute_page_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ConsumerDoneReportBarter extends StatefulWidget {
-  const ConsumerDoneReportBarter({super.key});
+import '../../../../../../common/colors.dart';
+
+class FarmerBarterSaleResolutionDisplay extends StatefulWidget {
+  const FarmerBarterSaleResolutionDisplay({super.key});
 
   @override
-  State<ConsumerDoneReportBarter> createState() => _ConsumerDoneReportBarterState();
+  State<FarmerBarterSaleResolutionDisplay> createState() =>
+      _FarmerBarterSaleResolutionDisplayState();
 }
 
-class _ConsumerDoneReportBarterState extends State<ConsumerDoneReportBarter> {
+class _FarmerBarterSaleResolutionDisplayState extends State<FarmerBarterSaleResolutionDisplay> {
   /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -24,7 +28,6 @@ class _ConsumerDoneReportBarterState extends State<ConsumerDoneReportBarter> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -32,7 +35,7 @@ class _ConsumerDoneReportBarterState extends State<ConsumerDoneReportBarter> {
         title: Row(
           children: [
             poppinsText(
-              "Reports",
+              "Resolutions",
               Colors.white,
               20.sp,
               FontWeight.bold,
@@ -87,7 +90,7 @@ class _ConsumerDoneReportBarterState extends State<ConsumerDoneReportBarter> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
-                        'Barter Reports',
+                        'My Barter Resolutions',
                         style: Poppins.farmerName.copyWith(
                           color: greenDark,
                         ),
@@ -97,7 +100,7 @@ class _ConsumerDoneReportBarterState extends State<ConsumerDoneReportBarter> {
                       child: SizedBox(
                         height: 320.h,
                         width: MediaQuery.of(context).size.width,
-                        child: const GetBarterDoneReports(),
+                        child: const GetFarmerBarterResolution(),
                       ),
                     ),
                   ],
@@ -127,7 +130,7 @@ class _ConsumerDoneReportBarterState extends State<ConsumerDoneReportBarter> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
-                        'Sale Reports',
+                        'My Sale Resolutions',
                         style: Poppins.farmerName.copyWith(
                           color: greenDark,
                         ),
@@ -137,7 +140,88 @@ class _ConsumerDoneReportBarterState extends State<ConsumerDoneReportBarter> {
                       child: SizedBox(
                         height: 320.h,
                         width: MediaQuery.of(context).size.width,
-                        child: const GetConsumerSellDoneReports(),
+                        child: const GetFarmerSellingResolution(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            /*For the penalties received*/
+            Padding(
+              padding: EdgeInsets.all(5.0.sp),
+              child: Container(
+                height: 375.h,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                  //Box shadow of container
+                  boxShadow: [
+                    BoxShadow(
+                      color: shadow,
+                      blurRadius: 2,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        'My Barter Penalties',
+                        style: Poppins.farmerName.copyWith(
+                          color: greenDark,
+                        ),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      child: SizedBox(
+                        height: 320.h,
+                        width: MediaQuery.of(context).size.width,
+                        child: const GetFBarterPenalties(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5.0.sp),
+              child: Container(
+                height: 375.h,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                  //Box shadow of container
+                  boxShadow: [
+                    BoxShadow(
+                      color: shadow,
+                      blurRadius: 2,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        'My Sell Penalties',
+                        style: Poppins.farmerName.copyWith(
+                          color: greenDark,
+                        ),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      child: SizedBox(
+                        height: 320.h,
+                        width: MediaQuery.of(context).size.width,
+                        child: const GetFSellPenalties(),
                       ),
                     ),
                   ],
@@ -168,7 +252,7 @@ class _ConsumerDoneReportBarterState extends State<ConsumerDoneReportBarter> {
             ),
           ],
         ),
-        child: const ConsumerDisputePageNavBar(),
+        child: const FarmerBarterDisputesNavBar(),
       ),
     );
   }

@@ -96,103 +96,107 @@ rani e uncomment
     String disputeUrl = data['disputeUrl'];
     String disputeText = data['disputeText'];
 
-    return Padding(
-      padding: EdgeInsets.all(8.0.sp),
-      child: GestureDetector(
-        onTap: () {
-          /*Redirect to the page that displays the whole details of the report*/
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return FarmerDoneSellReportDetails(
-                  consumerUrl: consumerUrl,
-                  consumerName: consumerName,
-                  consumerId: consumerId,
-                  consumerUname: consumerUname,
-                  consumserLastName: consumserLastName,
-                  consumerBarangay: consumerBarangay,
-                  consumerMunicipality: consumerMunicipality,
-                  listingName: listingName,
-                  listingId: listingId,
-                  listingPrice: listingPrice,
-                  listingUrl: listingUrl,
-                  listinQuan: listinQuan,
-                  purchaseQuan: purchaseQuan,
-                  purchasePrice: purchasePrice,
-                  swapCoinsPay: swapCoinsPay,
-                  isDisputed: isDisputed,
-                  transDate2: transDate2,
-                  disputeDate2: disputeDate2,
-                  disputeStatus: disputeStatus,
-                  disputeUrl: disputeUrl,
-                  disputeText: disputeText,
-                  disputeDate3: disputeDate3,
-                  transDate3: transDate3,
-                );
-              },
-            ),
-          );
-        },
-        child: Container(
-          height: 100.h,
-          width: 10.w,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: shadow,
-                blurRadius: 2,
-                offset: const Offset(0, 1),
+    if (disputeStatus == "PENDING") {
+      return Padding(
+        padding: EdgeInsets.all(8.0.sp),
+        child: GestureDetector(
+          onTap: () {
+            /*Redirect to the page that displays the whole details of the report*/
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return FarmerDoneSellReportDetails(
+                    consumerUrl: consumerUrl,
+                    consumerName: consumerName,
+                    consumerId: consumerId,
+                    consumerUname: consumerUname,
+                    consumserLastName: consumserLastName,
+                    consumerBarangay: consumerBarangay,
+                    consumerMunicipality: consumerMunicipality,
+                    listingName: listingName,
+                    listingId: listingId,
+                    listingPrice: listingPrice,
+                    listingUrl: listingUrl,
+                    listinQuan: listinQuan,
+                    purchaseQuan: purchaseQuan,
+                    purchasePrice: purchasePrice,
+                    swapCoinsPay: swapCoinsPay,
+                    isDisputed: isDisputed,
+                    transDate2: transDate2,
+                    disputeDate2: disputeDate2,
+                    disputeStatus: disputeStatus,
+                    disputeUrl: disputeUrl,
+                    disputeText: disputeText,
+                    disputeDate3: disputeDate3,
+                    transDate3: transDate3,
+                  );
+                },
               ),
-            ],
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(8.sp),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(listingUrl),
-                  radius: 50.r,
-                ),
-                SizedBox(
-                  width: 20.w,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        poppinsText2(
-                          "$consumerName $consumserLastName ($consumerUname)",
-                          Colors.black,
-                          13.sp,
-                          FontWeight.normal,
-                        ),
-                        poppinsText2(
-                          "Reported User",
-                          Colors.black54,
-                          13.sp,
-                          FontWeight.normal,
-                        ),
-                        poppinsText2(
-                          transDate3,
-                          Colors.black54,
-                          13.sp,
-                          FontWeight.normal,
-                        ),
-                      ],
-                    ),
-                  ],
+            );
+          },
+          child: Container(
+            height: 100.h,
+            width: 10.w,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: shadow,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1),
                 ),
               ],
             ),
+            child: Padding(
+              padding: EdgeInsets.all(8.sp),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(listingUrl),
+                    radius: 50.r,
+                  ),
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          poppinsText2(
+                            "$consumerName $consumserLastName ($consumerUname)",
+                            Colors.black,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                          poppinsText2(
+                            "Reported User",
+                            Colors.black54,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                          poppinsText2(
+                            transDate3,
+                            Colors.black54,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }
