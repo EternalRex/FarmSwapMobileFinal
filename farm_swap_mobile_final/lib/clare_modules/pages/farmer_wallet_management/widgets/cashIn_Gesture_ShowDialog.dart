@@ -482,6 +482,8 @@ class _CashInPageState extends State<CashInPage> {
                                             /*This is for picking image in the gallery */
                                             GestureDetector(
                                               onTap: () async {
+                                                // Start loading state
+                                                _showLoadingDialog(context);
                                                 // Call the function to select an image from gallery
                                                 selectImageGallery();
 
@@ -504,6 +506,8 @@ class _CashInPageState extends State<CashInPage> {
                                             /*This is for picking image in the camera */
                                             GestureDetector(
                                               onTap: () async {
+                                                // Start loading state
+                                                _showLoadingDialog(context);
                                                 // Call the function to select an image from camera
                                                 selectImageCamera();
 
@@ -824,6 +828,27 @@ class _CashInPageState extends State<CashInPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+
+  // Display loading dialog
+  Future<void> _showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.greenAccent,
+              ),
+              SizedBox(width: 16),
+              Text("Uploading..."),
+            ],
+          ),
+        );
+      },
     );
   }
 

@@ -483,6 +483,8 @@ class _CashInFormState extends State<CashInForm> {
                                             /*This is for picking image in the gallery */
                                             GestureDetector(
                                               onTap: () async {
+                                                // Start loading state
+                                                _showLoadingDialog(context);
                                                 // Call the function to select an image from gallery
                                                 selectImageGallery();
 
@@ -505,6 +507,8 @@ class _CashInFormState extends State<CashInForm> {
                                             /*This is for picking image in the camera */
                                             GestureDetector(
                                               onTap: () async {
+                                                // Start loading state
+                                                _showLoadingDialog(context);
                                                 // Call the function to select an image from camera
                                                 selectImageCamera();
 
@@ -809,7 +813,7 @@ class _CashInFormState extends State<CashInForm> {
                 ],
               ),
             ),
-            floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushNamed(RouteManager.consumerwallet);
         },
@@ -825,6 +829,27 @@ class _CashInFormState extends State<CashInForm> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+
+  // Display loading dialog
+  Future<void> _showLoadingDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(
+                color: Colors.greenAccent,
+              ),
+              SizedBox(width: 16),
+              Text("Uploading..."),
+            ],
+          ),
+        );
+      },
     );
   }
 

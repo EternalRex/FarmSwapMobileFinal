@@ -95,111 +95,115 @@ rani e uncomment Farmer Details */
     String disputeText = data['disputeText'];
     bool isResolved = data['isResolved'];
 
-    return Padding(
-      padding: EdgeInsets.all(8.0.sp),
-      child: GestureDetector(
-        onTap: () {
-          /*Redirect to the page that displays the whole details of the report*/
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return ConsumerDoneReportSellDetails(
-                  farmerUrl: farmerUrl,
-                  farmerName: farmerName,
-                  farmerId: farmerId,
-                  farmerLastName: farmerLastName,
-                  farmerUname: farmerUname,
-                  farmerBarangay: farmerBarangay,
-                  farmerMunicipality: farmerMunicipality,
-                  consumerUrl: consumerUrl,
-                  consumerName: consumerName,
-                  consumerId: consumerId,
-                  consumerUname: consumerUname,
-                  consumserLastName: consumserLastName,
-                  consumerBarangay: consumerBarangay,
-                  consumerMunicipality: consumerMunicipality,
-                  listingName: listingName,
-                  listingId: listingId,
-                  listingPrice: listingPrice,
-                  listingUrl: listingUrl,
-                  listinQuan: listinQuan,
-                  purchaseQuan: purchaseQuan,
-                  purchasePrice: purchasePrice,
-                  swapCoinsPay: swapCoinsPay,
-                  isConsumerDisputed: isConsumerDisputed,
-                  transDate2: transDate2,
-                  transDate3String: transDate3,
-                  disputeStatus: disputeStatus,
-                  disputeText: disputeText,
-                  disputeUrl: disputeUrl,
-                  disputeDate2: disputeDate2,
-                  disputeDate3: disputeDate3,
-                  isResolved: isResolved,
-                );
-              },
-            ),
-          );
-        },
-        child: Container(
-          height: 100.h,
-          width: 10.w,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: shadow,
-                blurRadius: 2,
-                offset: const Offset(0, 1),
+    if (disputeStatus == 'PENDING') {
+      return Padding(
+        padding: EdgeInsets.all(8.0.sp),
+        child: GestureDetector(
+          onTap: () {
+            /*Redirect to the page that displays the whole details of the report*/
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return ConsumerDoneReportSellDetails(
+                    farmerUrl: farmerUrl,
+                    farmerName: farmerName,
+                    farmerId: farmerId,
+                    farmerLastName: farmerLastName,
+                    farmerUname: farmerUname,
+                    farmerBarangay: farmerBarangay,
+                    farmerMunicipality: farmerMunicipality,
+                    consumerUrl: consumerUrl,
+                    consumerName: consumerName,
+                    consumerId: consumerId,
+                    consumerUname: consumerUname,
+                    consumserLastName: consumserLastName,
+                    consumerBarangay: consumerBarangay,
+                    consumerMunicipality: consumerMunicipality,
+                    listingName: listingName,
+                    listingId: listingId,
+                    listingPrice: listingPrice,
+                    listingUrl: listingUrl,
+                    listinQuan: listinQuan,
+                    purchaseQuan: purchaseQuan,
+                    purchasePrice: purchasePrice,
+                    swapCoinsPay: swapCoinsPay,
+                    isConsumerDisputed: isConsumerDisputed,
+                    transDate2: transDate2,
+                    transDate3String: transDate3,
+                    disputeStatus: disputeStatus,
+                    disputeText: disputeText,
+                    disputeUrl: disputeUrl,
+                    disputeDate2: disputeDate2,
+                    disputeDate3: disputeDate3,
+                    isResolved: isResolved,
+                  );
+                },
               ),
-            ],
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(8.sp),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(listingUrl),
-                  radius: 50.r,
-                ),
-                SizedBox(
-                  width: 20.w,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        poppinsText2(
-                          "$farmerName $farmerLastName ($farmerUname)",
-                          Colors.black,
-                          13.sp,
-                          FontWeight.normal,
-                        ),
-                        poppinsText2(
-                          "Reported User",
-                          Colors.black54,
-                          13.sp,
-                          FontWeight.normal,
-                        ),
-                        poppinsText2(
-                          transDate3,
-                          Colors.black54,
-                          13.sp,
-                          FontWeight.normal,
-                        ),
-                      ],
-                    ),
-                  ],
+            );
+          },
+          child: Container(
+            height: 100.h,
+            width: 10.w,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: shadow,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1),
                 ),
               ],
             ),
+            child: Padding(
+              padding: EdgeInsets.all(8.sp),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(listingUrl),
+                    radius: 50.r,
+                  ),
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          poppinsText2(
+                            "$farmerName $farmerLastName ($farmerUname)",
+                            Colors.black,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                          poppinsText2(
+                            "Reported User",
+                            Colors.black54,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                          poppinsText2(
+                            transDate3,
+                            Colors.black54,
+                            13.sp,
+                            FontWeight.normal,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }

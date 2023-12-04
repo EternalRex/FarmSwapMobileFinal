@@ -31,28 +31,15 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
   //date controller
   TextEditingController dateController = TextEditingController();
 
-  //TextEditingControllers for the cash out diri nalang nako gibutang
-  TextEditingController userRoleController = TextEditingController();
-  TextEditingController userIdController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController contactNumberController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController proofController = TextEditingController();
-  TextEditingController amountController = TextEditingController();
-  TextEditingController requestController = TextEditingController();
-  TextEditingController statusController =
-      TextEditingController(text: "pending");
-
   // Dispose of the controllers
   @override
   void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
-    contactNumberController.dispose();
-    addressController.dispose();
+    controllers.firstNameController.dispose();
+    controllers.lastNameController.dispose();
+    controllers.contactNumberController.dispose();
+    controllers.addressController.dispose();
     dateController.dispose();
-    amountController.dispose();
+    controllers.amountController.dispose();
     super.dispose();
   }
 
@@ -135,7 +122,7 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
                       Expanded(
                         flex: 2,
                         child: WalletTextField(
-                          controller: firstNameController,
+                          controller: controllers.firstNameController,
                           enabled: true,
                           label: const Text("First Name"),
                         ),
@@ -170,7 +157,7 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
                       Expanded(
                         flex: 2,
                         child: WalletTextField(
-                          controller: lastNameController,
+                          controller: controllers.lastNameController,
                           enabled: true,
                           label: const Text("Last Name"),
                         ),
@@ -205,7 +192,7 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
                       Expanded(
                         flex: 2,
                         child: WalletTextField(
-                          controller: contactNumberController,
+                          controller: controllers.contactNumberController,
                           enabled: true,
                           label: const Text("Mobile Number"),
                         ),
@@ -240,7 +227,7 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
                       Expanded(
                         flex: 2,
                         child: WalletTextField(
-                          controller: addressController,
+                          controller: controllers.addressController,
                           enabled: true,
                           label: const Text("Address"),
                         ),
@@ -372,7 +359,7 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
                       Expanded(
                         flex: 2,
                         child: WalletTextField(
-                          controller: amountController,
+                          controller: controllers.amountController,
                           enabled: true,
                           label: const Text("Cash Out Amount"),
                         ),
@@ -611,16 +598,16 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
   Future<void> cashout() async {
     final userRole = controllers.userRoleController.text;
     final userId = FirebaseAuth.instance.currentUser!.uid;
-    final firstName = firstNameController.text;
-    final lastName = lastNameController.text;
-    final contactNumber = contactNumberController.text;
-    String address = addressController.text;
+    final firstName = controllers.firstNameController.text;
+    final lastName = controllers.lastNameController.text;
+    final contactNumber = controllers.contactNumberController.text;
+    String address = controllers.addressController.text;
 
     //fixed the time in the date
     String date = dateController.text;
     DateTime cashoutdate = DateFormat('MMMM d, y hh:mm a').parse(date);
 
-    final amount = double.parse(amountController.text);
+    final amount = double.parse(controllers.amountController.text);
     final status = controllers.statusController.text;
     String request = "cash out";
     String proofPayment = "";
@@ -652,7 +639,7 @@ class _CashOutGestureDialogState extends State<CashOutGestureDialog> {
         request,
         profilePhoto,
       );
-
+      print(profilePhoto);
       if (farmerwallet != null) {
         await walletfarmer.createUser(farmerwallet);
       } else {
