@@ -24,15 +24,13 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
 
     return FutureBuilder(
       future: reference.doc(widget.documentId).get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
+          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
 
           //creating a variable for the current user uid to pass sa builderlist
           final userId = FirebaseAuth.instance.currentUser!.uid;
@@ -71,6 +69,17 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                               ),
                             ),
                           ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
+                          SizedBox(
+                            child: Text(
+                              'Admin Number: 09473295941',
+                              style: Poppins.number.copyWith(
+                                color: const Color(0xFFFFFFFF),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -87,8 +96,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                       height: 40.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         shadows: [
                           BoxShadow(
                             color: shadow,
@@ -140,8 +148,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                       height: 40.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                         shadows: [
                           BoxShadow(
                             color: shadow,
@@ -229,8 +236,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                                   decoration: InputDecoration(
                                     contentPadding: const EdgeInsets.all(5),
                                     filled: true,
-                                    fillColor: const Color(0xFFF9A84D)
-                                        .withOpacity(0.10),
+                                    fillColor: const Color(0xFFF9A84D).withOpacity(0.10),
                                     border: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(10),
@@ -482,8 +488,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                     flex: 1,
                     child: Center(
                       child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 8, left: 25, bottom: 8),
+                        padding: const EdgeInsets.only(top: 8, left: 25, bottom: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -506,8 +511,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  padding: const EdgeInsets.only(top: 5, bottom: 5),
                                   child: Center(
                                     child: Text(
                                       "${document["status"]}",
@@ -706,8 +710,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                                 Expanded(
                                   flex: 1,
                                   child: Text(
-                                    "${document["firstname"]} " +
-                                        "${document["lastname"]} ",
+                                    "${document["firstname"]} " + "${document["lastname"]} ",
                                     style: Poppins.adminName.copyWith(
                                       color: const Color(0xFF09041B),
                                       fontSize: 15.sp,
@@ -855,8 +858,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                         TextButton(
                           child: const Text("Close"),
                           onPressed: () {
-                            Navigator.of(context)
-                                .pop(); // Close the second AlertDialog
+                            Navigator.of(context).pop(); // Close the second AlertDialog
                           },
                         ),
                       ],
@@ -928,8 +930,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                   flex: 1,
                   child: Center(
                     child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 8, left: 25, bottom: 8),
+                      padding: const EdgeInsets.only(top: 8, left: 25, bottom: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -952,8 +953,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                                 ),
                               ),
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
+                                padding: const EdgeInsets.only(top: 5, bottom: 5),
                                 child: Center(
                                   child: Text(
                                     "${document["status"]}",
@@ -1152,8 +1152,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                               Expanded(
                                 flex: 1,
                                 child: Text(
-                                  "${document["firstname"]} " +
-                                      "${document["lastname"]} ",
+                                  "${document["firstname"]} " + "${document["lastname"]} ",
                                   style: Poppins.adminName.copyWith(
                                     color: const Color(0xFF09041B),
                                     fontSize: 15.sp,
@@ -1301,8 +1300,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                       TextButton(
                         child: const Text("Close"),
                         onPressed: () {
-                          Navigator.of(context)
-                              .pop(); // Close the second AlertDialog
+                          Navigator.of(context).pop(); // Close the second AlertDialog
                         },
                       ),
                     ],

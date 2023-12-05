@@ -28,6 +28,7 @@ class _FarmerBarterSaleResolutionDisplayState extends State<FarmerBarterSaleReso
     _scaffoldKey.currentState?.openDrawer();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
