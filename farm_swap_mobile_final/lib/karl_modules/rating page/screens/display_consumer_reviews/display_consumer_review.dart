@@ -80,7 +80,7 @@ class _DisplayConsumerReviewState extends State<DisplayConsumerReview> {
         child: Column(
           children: [
             Container(
-              height: 100,
+              height: 110,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(color: darkGreen),
               child: Column(

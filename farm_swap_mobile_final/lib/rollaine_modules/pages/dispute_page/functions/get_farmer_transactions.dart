@@ -364,8 +364,7 @@ class _GetFarmerSalesState extends State<GetFarmerSales> {
                                 Radius.circular(10),
                               ),
                               image: DecorationImage(
-                                image: CachedNetworkImageProvider(
-                                    sell['listingUrl']),
+                                image: CachedNetworkImageProvider(sell['listingUrl']),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -380,9 +379,9 @@ class _GetFarmerSalesState extends State<GetFarmerSales> {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 5),
                                 child: Text(
-                                  sell['consName'] + ' ' + sell['consLName'],
-                                  style: Poppins.contentText
-                                      .copyWith(color: const Color(0xFF09051B)),
+                                  sell['listingName'],
+                                  style:
+                                      Poppins.contentText.copyWith(color: const Color(0xFF09051B)),
                                 ),
                               ),
                               Padding(
@@ -390,22 +389,9 @@ class _GetFarmerSalesState extends State<GetFarmerSales> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      sell['consBaranay'],
-                                      style: Poppins.detailsText.copyWith(
-                                          color: const Color(0xFF09051B)),
-                                    ),
-                                    Text(
-                                      ',',
-                                      style: Poppins.detailsText.copyWith(
-                                          color: const Color(0xFF09051B)),
-                                    ),
-                                    const SizedBox(
-                                      width: 2,
-                                    ),
-                                    Text(
-                                      sell['consMunicipality'],
-                                      style: Poppins.detailsText.copyWith(
-                                          color: const Color(0xFF09051B)),
+                                      sell['farmerBarangay'],
+                                      style: Poppins.detailsText
+                                          .copyWith(color: const Color(0xFF09051B)),
                                     ),
                                   ],
                                 ),

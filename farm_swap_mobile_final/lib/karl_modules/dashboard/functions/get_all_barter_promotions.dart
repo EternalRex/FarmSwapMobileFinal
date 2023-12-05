@@ -195,8 +195,8 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
               ),
               Image.asset(
                 'assets/karl_assets/images/banner.png',
-                height: 70.h,
-                width: 70.w,
+                height: 65.h,
+                width: 65.w,
               ),
             ],
           ),

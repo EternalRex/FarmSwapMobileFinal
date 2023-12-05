@@ -5,6 +5,7 @@ import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/update_barter_selectedproperty.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/consumer_accepted_bid.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/consumer_barter_tranasctions/consumer_bid_listings.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/message_consumer/consumer_farmer_actualchat.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/karl_modules/rating%20page/screens/consumer_rating_farmer_rating.dart';
@@ -610,12 +611,7 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
                                     update.updateConsumerIsCompeleted(
                                         widget.listId,
                                         FirebaseAuth.instance.currentUser!.uid);
-                                    /*Re routign to this page to show the updated value effect*/
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return const ConsumerSelectedBid();
-                                      },
-                                    );
+                                    showSuccessMessage();
                                   }
                                 },
                                 child: poppinsText(
@@ -917,7 +913,11 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteManager.consumerbidListings);
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) {
+              return const ConsumerBidListings();
+            },
+          ));
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -955,6 +955,42 @@ class _GetConsumerBidDetailsState extends State<GetConsumerBidDetails> {
               },
               child: Text(
                 "Back",
+                style: TextStyle(color: farmSwapTitlegreen),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showSuccessMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: poppinsText(
+              "Success", Colors.greenAccent, 20.sp, FontWeight.w500),
+          content: poppinsText(
+            "Successfully completed barter transaction.",
+            Colors.black,
+            13.sp,
+            FontWeight.normal,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                /*Re routign to this page to show the updated value effect*/
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const ConsumerSelectedBid();
+                    },
+                  ),
+                );
+              },
+              child: Text(
+                "Go to Barter Lists",
                 style: TextStyle(color: farmSwapTitlegreen),
               ),
             ),

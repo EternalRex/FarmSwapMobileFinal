@@ -271,6 +271,22 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
           actions: [
             TextButton(
               onPressed: () {
+                String farmerId = Provider.of<BartertingItemDetailsProvider>(
+                        context,
+                        listen: false)
+                    .getFarmerId;
+                //notification here
+                farmerQuery.sendNotification(
+                  consumerId,
+                  farmerId,
+                  "You have a bid to barter from ",
+                  consumerFirstname,
+                  consumerLastname,
+                  DateTime.now(),
+                  "BARTER_BID",
+                );
+                Provider.of<FarmerNotificationProvider>(context, listen: false)
+                    .setIncrement(farmerId);
                 Navigator.of(context).pushNamed(RouteManager.activeDashboard);
               },
               child: poppinsText(
@@ -302,10 +318,6 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                 /*Will Save the biddings to the database */
                 TextButton(
                   onPressed: () {
-                    String farmerId =
-                        Provider.of<BartertingItemDetailsProvider>(context,
-                                listen: false)
-                            .getFarmerId;
                     bid.saveBarterBid(
                       Provider.of<BartertingItemDetailsProvider>(context,
                               listen: false)
@@ -383,19 +395,6 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                           .getItemValue,
                       false,
                     );
-                    //notification here
-                    farmerQuery.sendNotification(
-                      consumerId,
-                      farmerId,
-                      "You have a bid to barter from ",
-                      consumerFirstname,
-                      consumerLastname,
-                      DateTime.now(),
-                      "BARTER BID",
-                    );
-                    Provider.of<FarmerNotificationProvider>(context,
-                            listen: false)
-                        .setIncrement(farmerId);
 
                     showDoneMessage();
                   },

@@ -1,4 +1,5 @@
 import "package:farm_swap_mobile_final/common/colors.dart";
+import 'package:cached_network_image/cached_network_image.dart';
 import "package:farm_swap_mobile_final/common/consumer_individual_details.dart";
 import "package:farm_swap_mobile_final/common/farmer_individual_details.dart";
 import "package:farm_swap_mobile_final/common/green_btn.dart";
@@ -149,7 +150,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         image: DecorationImage(
-                          image: NetworkImage(widget.imageUrl),
+                          image: CachedNetworkImageProvider(widget.imageUrl),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -468,7 +469,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                       poppinsText(
                                         "Preffered Item is ${widget.prefItem}",
                                         Colors.black54,
-                                        13.sp,
+                                        12.sp,
                                         FontWeight.normal,
                                       ),
                                     ],

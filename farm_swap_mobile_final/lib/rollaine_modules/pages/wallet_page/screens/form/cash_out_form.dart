@@ -30,28 +30,15 @@ class _CashOutFormState extends State<CashOutForm> {
   //date controller
   TextEditingController dateController = TextEditingController();
 
-  //TextEditingControllers for the cash out diri nalang nako gibutang
-  TextEditingController userRoleController = TextEditingController();
-  TextEditingController userIdController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController contactNumberController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController proofController = TextEditingController();
-  TextEditingController amountController = TextEditingController();
-  TextEditingController requestController = TextEditingController();
-  TextEditingController statusController =
-      TextEditingController(text: "PENDING");
-
   // Dispose of the controllers
   @override
   void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
-    contactNumberController.dispose();
-    addressController.dispose();
+    controllers.firstNameController.dispose();
+    controllers.lastNameController.dispose();
+    controllers.contactNumberController.dispose();
+    controllers.addressController.dispose();
     dateController.dispose();
-    amountController.dispose();
+    controllers.amountController.dispose();
     super.dispose();
   }
 
@@ -134,7 +121,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 2,
                         child: CWalletTextField(
-                          controller: firstNameController,
+                          controller: controllers.firstNameController,
                           enabled: true,
                           label: const Text("First Name"),
                         ),
@@ -169,7 +156,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 2,
                         child: CWalletTextField(
-                          controller: lastNameController,
+                          controller: controllers.lastNameController,
                           enabled: true,
                           label: const Text("Last Name"),
                         ),
@@ -204,7 +191,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 2,
                         child: CWalletTextField(
-                          controller: contactNumberController,
+                          controller: controllers.contactNumberController,
                           enabled: true,
                           label: const Text("Mobile Number"),
                         ),
@@ -239,7 +226,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 2,
                         child: CWalletTextField(
-                          controller: addressController,
+                          controller: controllers.addressController,
                           enabled: true,
                           label: const Text("Address"),
                         ),
@@ -371,7 +358,7 @@ class _CashOutFormState extends State<CashOutForm> {
                       Expanded(
                         flex: 2,
                         child: CWalletTextField(
-                          controller: amountController,
+                          controller: controllers.amountController,
                           enabled: true,
                           label: const Text("Cash Out Amount"),
                         ),
@@ -608,13 +595,13 @@ class _CashOutFormState extends State<CashOutForm> {
   Future<void> cashout() async {
     final userRole = controllers.userRoleController.text;
     final userId = FirebaseAuth.instance.currentUser!.uid;
-    final firstName = firstNameController.text;
-    final lastName = lastNameController.text;
-    final contactNumber = contactNumberController.text;
-    String address = addressController.text;
+    final firstName = controllers.firstNameController.text;
+    final lastName = controllers.lastNameController.text;
+    final contactNumber = controllers.contactNumberController.text;
+    String address = controllers.addressController.text;
     String date = dateController.text;
     DateTime cashoutdate = DateFormat('MMMM d, y hh:mm a').parse(date);
-    final amount = double.parse(amountController.text);
+    final amount = double.parse(controllers.amountController.text);
     final status = controllers.statusController.text;
     String request = "Cash Out";
     String proofPayment = "";
@@ -638,6 +625,7 @@ class _CashOutFormState extends State<CashOutForm> {
       request,
       profilePhoto,
     );
+    print(profilePhoto);
 
     if (consumerwallet != null) {
       await walletconsumer.createUser(consumerwallet);

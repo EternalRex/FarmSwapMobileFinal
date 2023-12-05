@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
@@ -24,7 +26,8 @@ class _GetConsumerBartersState extends State<GetConsumerBarters> {
     return StreamBuilder<QuerySnapshot>(
       stream: firestore
           .collection('sample_BarterTransactions')
-          .where('consumerid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+          .where('consumerid',
+              isEqualTo: FirebaseAuth.instance.currentUser?.uid)
           .orderBy('transactionDate', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
@@ -36,7 +39,8 @@ class _GetConsumerBartersState extends State<GetConsumerBarters> {
             return ListView(
               scrollDirection: Axis.vertical,
               children: snapshot.data!.docs
-                  .map<Widget>((document) => _buildCCompleteBarterListItems(document))
+                  .map<Widget>(
+                      (document) => _buildCCompleteBarterListItems(document))
                   .toList(),
             );
           }
@@ -120,7 +124,8 @@ class _GetConsumerBartersState extends State<GetConsumerBarters> {
                                 Radius.circular(10),
                               ),
                               image: DecorationImage(
-                                image: CachedNetworkImageProvider(barter['listingUrl']),
+                                image: CachedNetworkImageProvider(
+                                    barter['listingUrl']),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -136,8 +141,8 @@ class _GetConsumerBartersState extends State<GetConsumerBarters> {
                                 padding: const EdgeInsets.only(bottom: 5),
                                 child: Text(
                                   barter['listingname'],
-                                  style:
-                                      Poppins.contentText.copyWith(color: const Color(0xFF09051B)),
+                                  style: Poppins.contentText
+                                      .copyWith(color: const Color(0xFF09051B)),
                                 ),
                               ),
                               Padding(
@@ -146,15 +151,16 @@ class _GetConsumerBartersState extends State<GetConsumerBarters> {
                                   children: [
                                     Text(
                                       barter['farmermunicipality'],
-                                      style: Poppins.detailsText
-                                          .copyWith(color: const Color(0xFF09051B)),
+                                      style: Poppins.detailsText.copyWith(
+                                          color: const Color(0xFF09051B)),
                                     ),
                                   ],
                                 ),
                               ),
                               Text(
                                 barter['listingvalue'].toString(),
-                                style: Poppins.buttonText.copyWith(color: const Color(0xFF09051B)),
+                                style: Poppins.buttonText
+                                    .copyWith(color: const Color(0xFF09051B)),
                               ),
                             ],
                           ),
@@ -249,7 +255,8 @@ class _GetConsumerSalesState extends State<GetConsumerSales> {
             return ListView(
               scrollDirection: Axis.vertical,
               children: snapshot.data!.docs
-                  .map<Widget>((document) => _buildCCompleteSalesListItems(document))
+                  .map<Widget>(
+                      (document) => _buildCCompleteSalesListItems(document))
                   .toList(),
             );
           }
@@ -297,7 +304,8 @@ class _GetConsumerSalesState extends State<GetConsumerSales> {
     DateTime dateTimeTransac = dateTimestamp.toDate();
 
     //Formats the DateTime as a string in the 'MM/DD/yyyy HH:mm:ss' format
-    String transact = DateFormat('MM/dd/yyyy   HH:mm:ss').format(dateTimeTransac);
+    String transact =
+        DateFormat('MM/dd/yyyy   HH:mm:ss').format(dateTimeTransac);
 
     //Extracts a timestamp called 'Activity Date' from the document.
     Timestamp purchaseTimestamp = document['purchaseTime'];
@@ -306,7 +314,8 @@ class _GetConsumerSalesState extends State<GetConsumerSales> {
     DateTime purchaseTime = purchaseTimestamp.toDate();
 
     //Formats the DateTime as a string in the 'MM/DD/yyyy HH:mm:ss' format
-    String purchaseDate = DateFormat('MM/dd/yyyy   HH:mm:ss').format(purchaseTime);
+    String purchaseDate =
+        DateFormat('MM/dd/yyyy   HH:mm:ss').format(purchaseTime);
 
     bool isConsumerDisputed = sell['isConsumerDisputed'];
     if (isConsumerDisputed == false) {
@@ -345,7 +354,8 @@ class _GetConsumerSalesState extends State<GetConsumerSales> {
                                 Radius.circular(10),
                               ),
                               image: DecorationImage(
-                                image: CachedNetworkImageProvider(sell['farmerProfileUrl']),
+                                image: CachedNetworkImageProvider(
+                                    sell['listingUrl']),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -360,9 +370,11 @@ class _GetConsumerSalesState extends State<GetConsumerSales> {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 5),
                                 child: Text(
-                                  sell['farmerName'] + ' ' + sell['farmerLname'],
-                                  style:
-                                      Poppins.contentText.copyWith(color: const Color(0xFF09051B)),
+                                  sell['farmerName'] +
+                                      ' ' +
+                                      sell['farmerLname'],
+                                  style: Poppins.contentText
+                                      .copyWith(color: const Color(0xFF09051B)),
                                 ),
                               ),
                               Padding(
@@ -371,15 +383,16 @@ class _GetConsumerSalesState extends State<GetConsumerSales> {
                                   children: [
                                     Text(
                                       sell['farmerMunicipality'],
-                                      style: Poppins.detailsText
-                                          .copyWith(color: const Color(0xFF09051B)),
+                                      style: Poppins.detailsText.copyWith(
+                                          color: const Color(0xFF09051B)),
                                     ),
                                   ],
                                 ),
                               ),
                               Text(
                                 transact,
-                                style: Poppins.buttonText.copyWith(color: const Color(0xFF09051B)),
+                                style: Poppins.buttonText
+                                    .copyWith(color: const Color(0xFF09051B)),
                               ),
                             ],
                           )
