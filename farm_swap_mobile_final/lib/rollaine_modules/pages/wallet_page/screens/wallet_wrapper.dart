@@ -71,7 +71,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                           ),
                           Text(
                             'Admin Number: 09473295941',
-                            style: Poppins.number.copyWith(
+                            style: Poppins.userName.copyWith(
                               color: const Color(0xFFFFFFFF),
                             ),
                           ),

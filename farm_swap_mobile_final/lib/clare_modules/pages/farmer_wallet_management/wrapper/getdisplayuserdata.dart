@@ -75,7 +75,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                           SizedBox(
                             child: Text(
                               'Admin Number: 09473295941',
-                              style: Poppins.number.copyWith(
+                              style: Poppins.userName.copyWith(
                                 color: const Color(0xFFFFFFFF),
                               ),
                             ),
