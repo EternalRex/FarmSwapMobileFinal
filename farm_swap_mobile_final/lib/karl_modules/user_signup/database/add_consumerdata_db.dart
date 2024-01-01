@@ -20,9 +20,11 @@ class AddNewConsumerUserDb {
     DateTime rday,
     double balance,
     int rating,
+    String useremail,
+    String usergetid,
   ) async {
-    String userid = FirebaseAuth.instance.currentUser!.uid;
-    String? email = FirebaseAuth.instance.currentUser!.email;
+    String userid = usergetid;
+    String? email = useremail;
     String firstName = fname;
     String lastName = lname;
     String birthplace = bplace;

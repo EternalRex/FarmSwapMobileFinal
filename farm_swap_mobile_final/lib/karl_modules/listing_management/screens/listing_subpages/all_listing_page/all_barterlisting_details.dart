@@ -52,8 +52,7 @@ class BarterAllListingDetails extends StatefulWidget {
   final String fbarangay;
 
   @override
-  State<BarterAllListingDetails> createState() =>
-      _BarterAllListingDetailsState();
+  State<BarterAllListingDetails> createState() => _BarterAllListingDetailsState();
 }
 
 class _BarterAllListingDetailsState extends State<BarterAllListingDetails> {
@@ -98,8 +97,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -410,9 +408,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                                         width: 13.sp,
                                       ),
                                       poppinsText(
-                                        (widget.promoted == false)
-                                            ? "Not Promoted"
-                                            : "Promoted",
+                                        (widget.promoted == false) ? "Not Promoted" : "Promoted",
                                         Colors.black,
                                         15.sp,
                                         FontWeight.normal,
@@ -623,8 +619,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                 onPressed: () {
                   selectFieldToUpdate();
                 },
-                child: poppinsText(
-                    "Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+                child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
               ),
             ),
           ],
@@ -693,8 +688,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                   //adto nya tani e redirect sa swap coins page
                   Navigator.of(context).pushNamed(RouteManager.listingmainpage);
                 },
-                child: poppinsText(
-                    "Ok", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+                child: poppinsText("Ok", farmSwapTitlegreen, 20.sp, FontWeight.w500),
               ),
             ),
           ],
@@ -727,8 +721,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                 updatePromotion();
                 promotionSuccess();
               },
-              child: poppinsText(
-                  "Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+              child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
             ),
           ],
         );
@@ -852,8 +845,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
                 archiveListing();
                 successArchive();
               },
-              child: poppinsText(
-                  "Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+              child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
             ),
           ],
         );
@@ -884,8 +876,7 @@ actual promotion will happen, niya mag deduct napd ko here hehe */
               onPressed: () {
                 Navigator.of(context).pushNamed(RouteManager.listingmainpage);
               },
-              child: poppinsText(
-                  "Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
+              child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.w500),
             ),
           ],
         );

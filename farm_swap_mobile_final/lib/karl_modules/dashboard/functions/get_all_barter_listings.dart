@@ -11,34 +11,34 @@ class DashBoardGetAllBarterListings extends StatefulWidget {
   const DashBoardGetAllBarterListings({super.key});
 
   @override
-  State<DashBoardGetAllBarterListings> createState() =>
-      _DashBoardGetAllBarterListingsState();
+  State<DashBoardGetAllBarterListings> createState() => _DashBoardGetAllBarterListingsState();
 }
 
-class _DashBoardGetAllBarterListingsState
-    extends State<DashBoardGetAllBarterListings> {
+class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterListings> {
   final _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collectionGroup('barter').snapshots(),
+      stream: _firestore
+          .collectionGroup('barter')
+          .orderBy('listingStartTime', descending: true)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             final barterLists = snapshot.data!.docs;
             // Filtering the barterLists based on listingStatus
             final filteredBarterLists = barterLists.where((document) {
-              Map<String, dynamic> data =
-                  document.data() as Map<String, dynamic>;
+              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
               String listingStatus = data["listingstatus"];
-              return listingStatus == "ACTIVE" ||
-                  listingStatus == "REACTIVATED";
+              return listingStatus == "ACTIVE" || listingStatus == "REACTIVATED";
             }).toList();
 
+            double aspectRation = 164 / 180;
             return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, childAspectRatio: aspectRation, mainAxisSpacing: 2),
               itemCount: filteredBarterLists.length,
               itemBuilder: (context, index) {
                 return accesspromotionDoc(filteredBarterLists[index]);
@@ -74,8 +74,10 @@ class _DashBoardGetAllBarterListingsState
     String id = document.id;
     String imageUrl = data["listingpictureUrl"];
     String listingname = data["listingName"];
-    String listingPrice = data["listingprice"].toString();
-    String listingQuan = data["listingQuantity"].toString();
+    double listingPrice = (data["listingprice"] as num).toDouble();
+    String priceString = listingPrice.toStringAsFixed(2);
+    double listingQuan = (data["listingQuantity"] as num).toDouble();
+    String listingQuanString = listingQuan.toStringAsFixed(2);
     String listingStatus = data["listingstatus"];
     String prefItem = data["prefferedItem"];
     bool promoted = data["promoted"];
@@ -100,7 +102,7 @@ class _DashBoardGetAllBarterListingsState
                   itemId: id,
                   imageUrl: imageUrl,
                   listingname: listingname,
-                  listingPrice: listingPrice,
+                  listingPrice: priceString,
                   prefItem: prefItem,
                   promoted: promoted,
                   listingCategory: listingCategory,
@@ -112,7 +114,7 @@ class _DashBoardGetAllBarterListingsState
                   farmerUsername: farmerUsername,
                   startTime: finalStartDate,
                   endTime: finalEndDate,
-                  listingQuan: listingQuan,
+                  listingQuan: listingQuanString,
                   listingStatus: listingStatus,
                   farmerId: farmerid,
                 );
@@ -164,7 +166,7 @@ class _DashBoardGetAllBarterListingsState
                             listingname,
                             style: TextStyle(
                                 fontFamily: GoogleFonts.poppins().fontFamily,
-                                fontSize: 10.sp,
+                                fontSize: 12.sp,
                                 color: farmSwapTitlegreen,
                                 fontWeight: FontWeight.bold),
                             textAlign: TextAlign.left,
@@ -178,7 +180,7 @@ class _DashBoardGetAllBarterListingsState
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "$listingQuan kilograms",
+                            "$listingQuanString kilograms",
                             style: TextStyle(
                                 fontFamily: GoogleFonts.poppins().fontFamily,
                                 fontSize: 9.sp,
@@ -195,7 +197,24 @@ class _DashBoardGetAllBarterListingsState
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "$listingPrice value",
+                            "$priceString value",
+                            style: TextStyle(
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontSize: 9.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.sp),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            finalStartDate,
                             style: TextStyle(
                                 fontFamily: GoogleFonts.poppins().fontFamily,
                                 fontSize: 9.sp,

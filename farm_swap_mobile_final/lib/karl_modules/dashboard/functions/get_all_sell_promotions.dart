@@ -21,10 +21,7 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore
-          .collectionGroup('sell')
-          .where('promoted', isEqualTo: true)
-          .snapshots(),
+      stream: _firestore.collectionGroup('sell').where('promoted', isEqualTo: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
@@ -91,8 +88,10 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
     /*Firebase data assigned to variables for easy use */
     String imageUrl = data["listingpictureUrl"];
     String listingname = data["listingName"];
-    String listingPrice = data["listingprice"].toString();
-    String listingQuan = data["listingQuantity"].toString();
+    double listingPriceDouble = (data["listingprice"] as num).toDouble();
+    String listingPrice = listingPriceDouble.toStringAsFixed(2);
+    double listingQuanDouble = (data["listingQuantity"] as num).toDouble();
+    String listingQuan = listingQuanDouble.toStringAsFixed(2);
     String listingStatus = data["listingstatus"];
     bool promoted = data["promoted"];
     String listingCategory = data["listingcategory"];
@@ -173,12 +172,11 @@ class _GetAllSellPromotionsState extends State<GetAllSellPromotions> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  poppinsText(listingname, Colors.white, 20.sp, FontWeight.w800),
                   poppinsText(
-                      listingname, Colors.white, 20.sp, FontWeight.w800),
-                  poppinsText("$listingPrice only  per kilogrm", Colors.white,
-                      10.sp, FontWeight.normal),
-                  poppinsText("Available Until: $finalEndDate", Colors.white,
-                      10.sp, FontWeight.normal),
+                      "$listingPrice only  per kilogrm", Colors.white, 10.sp, FontWeight.normal),
+                  poppinsText(
+                      "Available Until: $finalEndDate", Colors.white, 10.sp, FontWeight.normal),
                 ],
               ),
               SizedBox(

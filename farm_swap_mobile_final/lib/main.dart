@@ -1,6 +1,7 @@
 import "package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/consumer_notif_bid/provider/consumer_notif_provider.dart";
 import "package:farm_swap_mobile_final/clare_modules/pages/user_notification_bid/farmer_notif_bid/provider/farmer_notif_provider.dart";
 import "package:farm_swap_mobile_final/firebase_initializations_options.dart";
+import "package:farm_swap_mobile_final/provider/account_number_provider.dart";
 import "package:farm_swap_mobile_final/provider/barter_listing_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/bartering_item_details_provider.dart";
 import "package:farm_swap_mobile_final/provider/completed_bartertransaction_provider.dart";
@@ -42,14 +43,11 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           /*Registering all the providers being used */
           providers: [
-            ChangeNotifierProvider(
-                create: (context) => FarmerAccounStatusProvider()),
+            ChangeNotifierProvider(create: (context) => FarmerAccounStatusProvider()),
             ChangeNotifierProvider(create: (context) => UserTypeProvider()),
             ChangeNotifierProvider(create: (context) => UserDetailsProvider()),
-            ChangeNotifierProvider(
-                create: (context) => LoginUserTypeProvider()),
-            ChangeNotifierProvider(
-                create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
+            ChangeNotifierProvider(create: (context) => LoginUserTypeProvider()),
             ChangeNotifierProvider(create: (context) => ListingPageProvider()),
             /*Registering povider for update farmer details account dropdown hint */
             ChangeNotifierProvider(
@@ -93,6 +91,9 @@ class MyApp extends StatelessWidget {
                 FarmerProfileVisitsProvider();
               },
             ),
+            ChangeNotifierProvider(
+              create: (context) => AccountNumberProvider(),
+            )
           ],
           builder: (context, child) {
             return const MaterialApp(

@@ -77,8 +77,10 @@ class _GetBarterPromotedListingsState extends State<GetBarterPromotedListings> {
     /*Firebase data assigned to variables for easy use */
     String imageUrl = data["listingpictureUrl"];
     String listingname = data["listingName"];
-    String listingPrice = data["listingprice"].toString();
-    String listingQuan = data["listingQuantity"].toString();
+    double listingPriceDouble = (data["listingprice"] as num).toDouble();
+    String listingPrice = listingPriceDouble.toStringAsFixed(2);
+    double listingQuanDouble = (data["listingQuantity"] as num).toDouble();
+    String listingQuan = listingQuanDouble.toStringAsFixed(2);
     String listingStatus = data["listingstatus"];
     String prefItem = data["prefferedItem"];
     bool promoted = data["promoted"];

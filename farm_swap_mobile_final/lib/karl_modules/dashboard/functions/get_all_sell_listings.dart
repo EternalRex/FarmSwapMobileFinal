@@ -11,34 +11,35 @@ class DashBoardGetAllSellListings extends StatefulWidget {
   const DashBoardGetAllSellListings({super.key});
 
   @override
-  State<DashBoardGetAllSellListings> createState() =>
-      _DashBoardGetAllSellListingsState();
+  State<DashBoardGetAllSellListings> createState() => _DashBoardGetAllSellListingsState();
 }
 
-class _DashBoardGetAllSellListingsState
-    extends State<DashBoardGetAllSellListings> {
+class _DashBoardGetAllSellListingsState extends State<DashBoardGetAllSellListings> {
   final _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collectionGroup('sell').snapshots(),
+      stream: _firestore
+          .collectionGroup('sell')
+          .orderBy('listingStartTime', descending: true)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             final barterLists = snapshot.data!.docs;
             // Filtering the barterLists based on listingStatus
             final filteredBarterLists = barterLists.where((document) {
-              Map<String, dynamic> data =
-                  document.data() as Map<String, dynamic>;
+              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
               String listingStatus = data["listingstatus"];
-              return listingStatus == "ACTIVE" ||
-                  listingStatus == "REACTIVATED";
+              return listingStatus == "ACTIVE" || listingStatus == "REACTIVATED";
             }).toList();
-
+            double aspectRatio = 164 / 180;
             return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: aspectRatio,
+              ),
               itemCount: filteredBarterLists.length,
               itemBuilder: (context, index) {
                 return accesspromotionDoc(filteredBarterLists[index]);
@@ -73,8 +74,10 @@ class _DashBoardGetAllSellListingsState
     /*Firebase data assigned to variables for easy use */
     String imageUrl = data["listingpictureUrl"];
     String listingname = data["listingName"];
-    String listingPrice = data["listingprice"].toString();
-    String listingQuan = data["listingQuantity"].toString();
+    double listingPrice = (data["listingprice"] as num).toDouble();
+    String listPriceString = listingPrice.toStringAsFixed(2);
+    double listingQuan = (data["listingQuantity"] as num).toDouble();
+    String listingQuanString = listingQuan.toStringAsFixed(2);
     String listingStatus = data["listingstatus"];
     bool promoted = data["promoted"];
     String listingCategory = data["listingcategory"];
@@ -99,7 +102,7 @@ class _DashBoardGetAllSellListingsState
                   return DashBoardAllSellDetails(
                     imageUrl: imageUrl,
                     listingname: listingname,
-                    listingPrice: listingPrice,
+                    listingPrice: listPriceString,
                     promoted: promoted,
                     listingCategory: listingCategory,
                     listingDisc: listingDisc,
@@ -110,7 +113,7 @@ class _DashBoardGetAllSellListingsState
                     farmerUsername: farmerUsername,
                     startTime: finalStartDate,
                     endTime: finalEndDate,
-                    listingQuan: listingQuan,
+                    listingQuan: listingQuanString,
                     listingStatus: listingStatus,
                     farmerId: farmerId,
                     listingId: listingId,
@@ -178,7 +181,7 @@ class _DashBoardGetAllSellListingsState
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "$listingQuan kilograms",
+                            "$listingQuanString kilograms",
                             style: TextStyle(
                                 fontFamily: GoogleFonts.poppins().fontFamily,
                                 fontSize: 9.sp,
@@ -195,7 +198,24 @@ class _DashBoardGetAllSellListingsState
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "$listingPrice value",
+                            "$listPriceString value",
+                            style: TextStyle(
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontSize: 9.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.sp),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            finalStartDate,
                             style: TextStyle(
                                 fontFamily: GoogleFonts.poppins().fontFamily,
                                 fontSize: 9.sp,

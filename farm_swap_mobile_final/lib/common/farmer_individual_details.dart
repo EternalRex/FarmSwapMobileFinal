@@ -142,5 +142,49 @@ class ListinGetFarmerDetails {
     return rating;
   }
 
+/*Get farmer birthday balance*/
+  Future<DateTime> getBirthDate() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    DateTime bday = (snapshot["birthdate"] as Timestamp).toDate();
+    return bday;
+  }
+
+/*Get farmer birthplace*/
+  Future<String> getBirthPlace() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    String bplace = snapshot['birthplace'];
+    return bplace;
+  }
+
+/*Get farmer id url*/
+  Future<String> getFarmerIDUrl() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    String idProof = snapshot['idProof'];
+    return idProof;
+  }
+
+  /*Get farmer id url*/
+  Future<String> getFarmerProfileUrl() async {
+    /*Mao ni buhaton para ma access nato ang properties sa document */
+    String documentId = await docId.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    DocumentSnapshot snapshot = await reference.doc(documentId).get();
+
+    String profileUrl = snapshot['profilePhoto'];
+    return profileUrl;
+  }
+
   //So pun e lang ni og method diri kung aduna pamoy ganahan na value na e pullout sa propert ni farmer
 }

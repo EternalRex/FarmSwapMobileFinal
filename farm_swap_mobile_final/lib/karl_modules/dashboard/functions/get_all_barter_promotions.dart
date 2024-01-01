@@ -28,10 +28,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore
-          .collectionGroup('barter')
-          .where('promoted', isEqualTo: true)
-          .snapshots(),
+      stream: _firestore.collectionGroup('barter').where('promoted', isEqualTo: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
@@ -101,8 +98,10 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
     String id = document.id;
     String imageUrl = data["listingpictureUrl"];
     String listingname = data["listingName"];
-    String listingPrice = data["listingprice"].toString();
-    String listingQuan = data["listingQuantity"].toString();
+    double listingPriceDouble = (data["listingprice"] as num).toDouble();
+    String listingPrice = listingPriceDouble.toStringAsFixed(2);
+    double listingQuanDouble = (data["listingQuantity"] as num).toDouble();
+    String listingQuan = listingQuanDouble.toStringAsFixed(2);
     String listingStatus = data["listingstatus"];
     String prefItem = data["prefferedItem"];
     bool promoted = data["promoted"];
@@ -182,12 +181,10 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  poppinsText(listingname, Colors.white, 20.sp, FontWeight.w800),
+                  poppinsText("Barter With: $prefItem", Colors.white, 10.sp, FontWeight.normal),
                   poppinsText(
-                      listingname, Colors.white, 20.sp, FontWeight.w800),
-                  poppinsText("Barter With: $prefItem", Colors.white, 10.sp,
-                      FontWeight.normal),
-                  poppinsText("Available Until: $finalEndDate", Colors.white,
-                      10.sp, FontWeight.normal),
+                      "Available Until: $finalEndDate", Colors.white, 10.sp, FontWeight.normal),
                 ],
               ),
               SizedBox(

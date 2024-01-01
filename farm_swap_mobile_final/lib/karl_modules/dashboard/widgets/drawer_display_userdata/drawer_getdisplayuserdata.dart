@@ -24,22 +24,19 @@ class DrawerDisplayUserData extends StatefulWidget {
 class _DrawerDisplayUserDataState extends State<DrawerDisplayUserData> {
   @override
   Widget build(BuildContext context) {
-    CollectionReference reference =
-        FirebaseFirestore.instance.collection("sample_FarmerUsers");
+    CollectionReference reference = FirebaseFirestore.instance.collection("sample_FarmerUsers");
 
     return FutureBuilder(
       future: reference.doc(widget.documentId).get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
+          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CircleAvatar(
-                backgroundImage:
-                    CachedNetworkImageProvider("${data["profilePhoto"]}"),
+                backgroundImage: CachedNetworkImageProvider("${data["profilePhoto"]}"),
                 radius: 60.w,
               ),
               SizedBox(
@@ -76,8 +73,7 @@ class _DrawerDisplayUserDataState extends State<DrawerDisplayUserData> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Provider.of<FarmerNotificationProvider>(context,
-                              listen: false)
+                      Provider.of<FarmerNotificationProvider>(context, listen: false)
                           .decrementNotif();
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -89,8 +85,7 @@ class _DrawerDisplayUserDataState extends State<DrawerDisplayUserData> {
                       width: 100.w,
                       height: 25.h,
                       decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
                         color: Colors.white,
                         /*PUTTING BOX SHADOW ON THE CONTAINER */
                         boxShadow: [
@@ -133,8 +128,7 @@ class _DrawerDisplayUserDataState extends State<DrawerDisplayUserData> {
                           SizedBox(width: 5.w),
                           Text(
                             "Notifications",
-                            style:
-                                TextStyle(fontSize: 11.sp, color: Colors.green),
+                            style: TextStyle(fontSize: 11.sp, color: Colors.green),
                           ),
                         ],
                       ),

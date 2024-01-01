@@ -1,4 +1,5 @@
 import 'package:farm_swap_mobile_final/karl_modules/user_login/database/update_onlinestatus.dart';
+import 'package:farm_swap_mobile_final/provider/account_number_provider.dart';
 import 'package:farm_swap_mobile_final/provider/login_usertype_provider.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,6 +34,8 @@ class Signout extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
+                Provider.of<AccountNumberProvider>(context, listen: false)
+                    .isManyAccountNumber(false);
                 /*Updating the online status to false depende kung kinsay ni login, farmer ba
                 or consumer so agad rajud tas value nga naa sa atong LoginUserTypeProvider*/
                 (userRole == "FARMER")

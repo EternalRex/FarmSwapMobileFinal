@@ -1,6 +1,7 @@
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/poppins_text.dart';
 import 'package:farm_swap_mobile_final/common/screen_util_sp_sizes.dart';
+import 'package:farm_swap_mobile_final/karl_modules/user_signup/screens/registration_2/registration2.dart';
 import 'package:farm_swap_mobile_final/provider/user_type_provider.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,14 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                       onTap: () {
                         /*Putting the value of Farmer inside a provider when this option is tapped to be used in another page */
                         Provider.of<UserTypeProvider>(context, listen: false).setUserType("Farmer");
-                        Navigator.of(context).pushNamed(RouteManager.userDetailsRegister);
+                        // Navigator.of(context).pushNamed(RouteManager.userDetailsRegister);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const Registration2();
+                            },
+                          ),
+                        );
                       },
                       child: Column(
                         children: [
@@ -86,7 +94,13 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                         /*Putting the value of Farmer inside a provider when this option is tapped to be used in another page */
                         Provider.of<UserTypeProvider>(context, listen: false)
                             .setUserType("Consumer");
-                        Navigator.of(context).pushNamed(RouteManager.userDetailsRegister);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const Registration2();
+                            },
+                          ),
+                        );
                       },
                       child: Column(
                         children: [

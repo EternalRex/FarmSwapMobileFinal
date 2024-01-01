@@ -18,12 +18,10 @@ class UserPersonalDetailsRegistration extends StatefulWidget {
   const UserPersonalDetailsRegistration({super.key});
 
   @override
-  State<UserPersonalDetailsRegistration> createState() =>
-      _UserPersonalDetailsRegistrationState();
+  State<UserPersonalDetailsRegistration> createState() => _UserPersonalDetailsRegistrationState();
 }
 
-class _UserPersonalDetailsRegistrationState
-    extends State<UserPersonalDetailsRegistration> {
+class _UserPersonalDetailsRegistrationState extends State<UserPersonalDetailsRegistration> {
 /*Instance of the controller class*/
   static TextEditingControllers controllers = TextEditingControllers();
 
@@ -38,8 +36,7 @@ class _UserPersonalDetailsRegistrationState
 
   @override
   Widget build(BuildContext context) {
-    String userRole =
-        Provider.of<UserTypeProvider>(context, listen: false).getUserType;
+    String userRole = Provider.of<UserTypeProvider>(context, listen: false).getUserType;
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -59,81 +56,77 @@ class _UserPersonalDetailsRegistrationState
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Center(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (userRole == "Farmer") ...[
-                          Image.asset(
-                            "assets/karl_assets/images/farmer.png",
-                            height: 270.sp,
-                          ),
-                          poppinsText(
-                            "Farmer Registration",
-                            farmSwapTitlegreen,
-                            20,
-                            FontWeight.w500,
-                          ),
-                        ],
-                        if (userRole != "Farmer") ...[
-                          Image.asset(
-                            "assets/karl_assets/images/consumer.png",
-                            height: 270.sp,
-                          ),
-                          poppinsText(
-                            "Consumer Registration",
-                            farmSwapTitlegreen,
-                            20,
-                            FontWeight.w500,
-                          ),
-                        ],
-                        SizedBox(
-                          height: 20.sp,
+                  child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    if (userRole == "Farmer") ...[
+                      Image.asset(
+                        "assets/karl_assets/images/farmer.png",
+                        height: 270.sp,
+                      ),
+                      poppinsText(
+                        "Farmer Registration",
+                        farmSwapTitlegreen,
+                        20,
+                        FontWeight.w500,
+                      ),
+                    ],
+                    if (userRole != "Farmer") ...[
+                      Image.asset(
+                        "assets/karl_assets/images/consumer.png",
+                        height: 270.sp,
+                      ),
+                      poppinsText(
+                        "Consumer Registration",
+                        farmSwapTitlegreen,
+                        20,
+                        FontWeight.w500,
+                      ),
+                    ],
+                    SizedBox(
+                      height: 20.sp,
+                    ),
+                    /*Email text field */
+                    FarmSwapTextField(
+                      controller: controllers.emailController,
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: farmSwapSmoothGreen,
+                      ),
+                      label: const Text("Enter email"),
+                      isPassword: false,
+                    ),
+                    SizedBox(
+                      height: 17.sp,
+                    ),
+                    /*Password Text Field */
+                    FarmSwapTextField(
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        color: farmSwapSmoothGreen,
+                      ),
+                      controller: controllers.passwordController,
+                      label: const Text("Enter Password"),
+                      isPassword: _isPasswordVisible,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                          color: const Color.fromARGB(255, 46, 184, 76),
                         ),
-                        /*Email text field */
-                        FarmSwapTextField(
-                          controller: controllers.emailController,
-                          prefixIcon: Icon(
-                            Icons.email,
-                            color: farmSwapSmoothGreen,
-                          ),
-                          label: const Text("Enter email"),
-                          isPassword: false,
-                        ),
-                        SizedBox(
-                          height: 17.sp,
-                        ),
-                        /*Password Text Field */
-                        FarmSwapTextField(
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            color: farmSwapSmoothGreen,
-                          ),
-                          controller: controllers.passwordController,
-                          label: const Text("Enter Password"),
-                          isPassword: _isPasswordVisible,
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _isPasswordVisible
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: const Color.fromARGB(255, 46, 184, 76),
-                            ),
-                            onPressed: _togglePasswordVisibility,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 17.sp,
-                        ),
-                        /*Login btn with register email and password in authentication function */
-                        GestureDetector(
-                          child: const FarmSwapGreenBtnNew(
-                            text: "Next",
-                          ),
-                          onTap: () {
-                            _registerEmailPassword();
-                          },
-                        ),
-                      ]),
+                        onPressed: _togglePasswordVisibility,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 17.sp,
+                    ),
+                    /*Login btn with register email and password in authentication function */
+                    GestureDetector(
+                      child: const FarmSwapGreenBtnNew(
+                        text: "Next",
+                      ),
+                      onTap: () {
+                        _registerEmailPassword();
+                      },
+                    ),
+                  ]),
                 ),
               ),
             ),
@@ -223,15 +216,13 @@ class _UserPersonalDetailsRegistrationState
 // Function to check if the email is valid
   bool isValidEmail(String email) {
     // This is the email validation logic
-    return RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
-        .hasMatch(email);
+    return RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$').hasMatch(email);
   }
 
 // Function to check if the email is available
   Future<bool> isEmailAvailable(String email) async {
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         // This is temporary just for checking email so provide a dummy password
         password: 'dummy password',
@@ -254,7 +245,6 @@ class _UserPersonalDetailsRegistrationState
     /*Password validation logic require at least 8 characters 
     and a combination of letters and numbers
     */
-    return password.length >= 8 &&
-        RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)').hasMatch(password);
+    return password.length >= 8 && RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)').hasMatch(password);
   }
 }

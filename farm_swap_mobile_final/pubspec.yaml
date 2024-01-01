@@ -74,6 +74,7 @@ flutter:
   assets:
     - assets/karl_assets/icons/
     - assets/karl_assets/images/
+    - assets/karl_assets/json/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
