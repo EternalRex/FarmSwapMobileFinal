@@ -40,6 +40,7 @@ class DashBoardAllBarterDetails extends StatefulWidget {
     required this.listingStatus,
     required this.itemId,
     required this.farmerId,
+    required this.listingTypeCategory,
   });
 
   final String imageUrl;
@@ -60,10 +61,10 @@ class DashBoardAllBarterDetails extends StatefulWidget {
   final String endTime;
   final String itemId;
   final String farmerId;
+  final String listingTypeCategory;
 
   @override
-  State<DashBoardAllBarterDetails> createState() =>
-      _DashBoardAllBarterDetailsState();
+  State<DashBoardAllBarterDetails> createState() => _DashBoardAllBarterDetailsState();
 }
 
 class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
@@ -77,8 +78,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
 
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
   ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
-  CountFarmerProfileVisitsQuerry profileVisit =
-      CountFarmerProfileVisitsQuerry();
+  CountFarmerProfileVisitsQuerry profileVisit = CountFarmerProfileVisitsQuerry();
   double rating = 0;
   String consUname = "";
   String consUrl = "";
@@ -87,17 +87,14 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
   void initState() {
     super.initState();
     farmerRating();
-    if (Provider.of<LoginUserTypeProvider>(context, listen: false)
-            .getUserType ==
-        "CONSUMER") {
+    if (Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType == "CONSUMER") {
       getConsumerDetails();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    String loginUserType =
-        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String loginUserType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -114,8 +111,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -242,8 +238,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                     style: TextStyle(
                                       fontSize: 11.sp,
                                       color: Colors.black,
-                                      fontFamily:
-                                          GoogleFonts.poppins().fontFamily,
+                                      fontFamily: GoogleFonts.poppins().fontFamily,
                                       fontWeight: FontWeight.normal,
                                     ),
                                   ),
@@ -257,8 +252,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                     : (rating > 1 && rating <= 2)
                                         ? Center(
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 Icon(
                                                   Icons.star,
@@ -274,8 +268,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                         : (rating > 2 && rating <= 3)
                                             ? Center(
                                                 child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     Icon(
                                                       Icons.star,
@@ -295,9 +288,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                             : (rating > 3 && rating <= 4)
                                                 ? Center(
                                                     child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
                                                       children: [
                                                         Icon(
                                                           Icons.star,
@@ -322,8 +313,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                                     ? Center(
                                                         child: Row(
                                                           mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
+                                                              MainAxisAlignment.center,
                                                           children: [
                                                             Icon(
                                                               Icons.star,
@@ -490,46 +480,34 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                                     /*So ato e pasa ang mga data ni listing ni farmer og item
                                             kay para magamit sa next class */
                                                     return EnterToBarterItem(
-                                                      listingIdNeed:
-                                                          widget.itemId,
-                                                      listingNameNeed:
-                                                          widget.listingname,
-                                                      listingDiscNeed:
-                                                          widget.listingDisc,
+                                                      listingIdNeed: widget.itemId,
+                                                      listingNameNeed: widget.listingname,
+                                                      listingDiscNeed: widget.listingDisc,
                                                       listingEquivalentPriceNeed:
                                                           widget.listingPrice,
-                                                      listingQuantityNeed:
-                                                          widget.listingQuan,
-                                                      listingStatusNeed:
-                                                          widget.listingStatus,
-                                                      farmerFNameNeed:
-                                                          widget.farmerName,
-                                                      farmerUnameNeed:
-                                                          widget.farmerUsername,
-                                                      farmerLnameNeed:
-                                                          widget.farmerLname,
-                                                      farmerBaranggayNeed:
-                                                          widget.farmerBarangay,
+                                                      listingQuantityNeed: widget.listingQuan,
+                                                      listingStatusNeed: widget.listingStatus,
+                                                      farmerFNameNeed: widget.farmerName,
+                                                      farmerUnameNeed: widget.farmerUsername,
+                                                      farmerLnameNeed: widget.farmerLname,
+                                                      farmerBaranggayNeed: widget.farmerBarangay,
                                                       farmerMunicaplityNeed:
-                                                          widget
-                                                              .farmerMunicipality,
+                                                          widget.farmerMunicipality,
                                                       farmerId: widget.farmerId,
+                                                      listingCategory: widget.listingTypeCategory,
                                                     );
                                                   },
                                                 ),
                                               );
                                             },
-                                            child: const FarmSwapGreenBtnNew(
-                                                text: "Barter"),
+                                            child: const FarmSwapGreenBtnNew(text: "Barter"),
                                           ),
                                           TextButton(
                                             onPressed: () async {
                                               /*Detect the user viewer and count is a profile views*/
-                                              profileVisit
-                                                  .counstFarmerProfileVisit(
+                                              profileVisit.counstFarmerProfileVisit(
                                                 widget.farmerId,
-                                                FirebaseAuth
-                                                    .instance.currentUser!.uid,
+                                                FirebaseAuth.instance.currentUser!.uid,
                                                 DateTime.now(),
                                                 consUname,
                                                 consUrl,
@@ -546,10 +524,7 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                               );
                                             },
                                             child: poppinsText(
-                                                "Reviews",
-                                                orangeDark,
-                                                15.sp,
-                                                FontWeight.w500),
+                                                "Reviews", orangeDark, 15.sp, FontWeight.w500),
                                           ),
                                         ],
                                       )
@@ -697,8 +672,7 @@ sa other farmers gamit ang farmer account */
                   ),
                 );
               },
-              child: poppinsText(
-                  "Back", farmSwapTitlegreen, 13.sp, FontWeight.w500),
+              child: poppinsText("Back", farmSwapTitlegreen, 13.sp, FontWeight.w500),
             ),
           ],
         );

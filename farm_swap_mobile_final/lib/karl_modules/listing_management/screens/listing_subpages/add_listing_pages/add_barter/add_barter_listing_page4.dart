@@ -18,12 +18,10 @@ class AddActualBarterListingDetails4 extends StatefulWidget {
   const AddActualBarterListingDetails4({super.key});
 
   @override
-  State<AddActualBarterListingDetails4> createState() =>
-      _AddActualBarterListingDetails4State();
+  State<AddActualBarterListingDetails4> createState() => _AddActualBarterListingDetails4State();
 }
 
-class _AddActualBarterListingDetails4State
-    extends State<AddActualBarterListingDetails4> {
+class _AddActualBarterListingDetails4State extends State<AddActualBarterListingDetails4> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 /*A function for opening a drawer using the scaffold key */
@@ -66,8 +64,7 @@ class _AddActualBarterListingDetails4State
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -146,8 +143,7 @@ class _AddActualBarterListingDetails4State
                                         height: 50.sp,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                          borderRadius: BorderRadius.circular(20),
                                           boxShadow: [
                                             BoxShadow(
                                               color: shadow,
@@ -183,9 +179,7 @@ class _AddActualBarterListingDetails4State
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Provider.of<BarterListingDetailsProvider>(
-                                          context,
-                                          listen: false)
+                                  Provider.of<BarterListingDetailsProvider>(context, listen: false)
                                       .setEndDate(endListingDate);
                                   showFinalData();
                                 },
@@ -208,8 +202,7 @@ class _AddActualBarterListingDetails4State
               decoration: BoxDecoration(
                 color: greenNormal,
                 image: const DecorationImage(
-                  image:
-                      AssetImage("assets/karl_assets/images/appbarpattern.png"),
+                  image: AssetImage("assets/karl_assets/images/appbarpattern.png"),
                   fit: BoxFit.cover,
                 ),
                 border: Border.all(color: farmSwapTitlegreen),
@@ -261,9 +254,7 @@ class _AddActualBarterListingDetails4State
   void showFinalData() {
 /*Converting the time*/
 
-    DateTime date =
-        Provider.of<BarterListingDetailsProvider>(context, listen: false)
-            .getEndDate;
+    DateTime date = Provider.of<BarterListingDetailsProvider>(context, listen: false).getEndDate;
     String finalDate = DateFormat('yyyy-MM-dd').format(date);
 
     showDialog(
@@ -424,37 +415,26 @@ class _AddActualBarterListingDetails4State
                   onTap: () {
                     /*Saving the data */
                     barterSave.saveBarteringListing(
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BarterListingDetailsProvider>(context, listen: false)
                           .getListingName,
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BarterListingDetailsProvider>(context, listen: false)
                           .getListingDisc,
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getquantity,
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getPrice,
+                      Provider.of<BarterListingDetailsProvider>(context, listen: false).getquantity,
+                      Provider.of<BarterListingDetailsProvider>(context, listen: false).getPrice,
                       "BARTER",
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getPhoto,
+                      Provider.of<BarterListingDetailsProvider>(context, listen: false).getPhoto,
                       firstname,
                       lastname,
                       municipality,
                       baranggay,
                       uname,
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BarterListingDetailsProvider>(context, listen: false)
                           .getPrefferedItem,
                       DateTime.now(),
-                      Provider.of<BarterListingDetailsProvider>(context,
-                              listen: false)
-                          .getEndDate,
+                      Provider.of<BarterListingDetailsProvider>(context, listen: false).getEndDate,
+                      Provider.of<BarterListingDetailsProvider>(context, listen: false).getCategory,
                     );
-                    Navigator.of(context)
-                        .pushNamed(RouteManager.listingmainpage);
+                    Navigator.of(context).pushNamed(RouteManager.listingmainpage);
                   },
                   child: const FarmSwapGreenBtn(text: "Listings"),
                 ),

@@ -29,6 +29,7 @@ class SellListingSaving {
     String farmerUname,
     DateTime start,
     DateTime end,
+    String listcategory,
   ) async {
     String userid = _firebaseAuth.currentUser!.uid;
 
@@ -53,6 +54,7 @@ class SellListingSaving {
       promotionDate: DateTime.now(),
       renewalDate: DateTime.now(),
       farmerId: userid,
+      category: listcategory,
     );
 
     /*Construkon nato ang id sa atong listing*/

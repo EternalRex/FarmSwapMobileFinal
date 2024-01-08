@@ -25,16 +25,22 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
   }
 
   int forbarter = 0;
+  int forbarterFruits = 0;
   int forSell = 0;
+  int forsellFruits = 0;
   int barteredProducts = 0;
+  int barteredFruitsProducts = 0;
   int soldProducts = 0;
 
   @override
   void initState() {
     super.initState();
     countBarterListings();
+    countBarterListingsFruits();
     countSellListings();
+    countSellListingsFruits();
     countBarteredListings();
+    countBarteredListingsFruits();
     countSoldListings();
   }
 
@@ -120,7 +126,56 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
                                   ),
                                 ),
                                 poppinsText(
-                                  "Barter Listings",
+                                  "Vegetable Barter Listings",
+                                  Colors.black54,
+                                  20.sp,
+                                  FontWeight.bold,
+                                ),
+                              ],
+                            ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      width: 300.w,
+                      height: 200.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                        /*PUTTING BOX SHADOW ON THE CONTAINER */
+                        boxShadow: [
+                          BoxShadow(
+                            color: shadow,
+                            blurRadius: 2,
+                            offset: const Offset(1, 5),
+                          ),
+                        ],
+                      ),
+                      child: (forbarterFruits == 0)
+                          ? Center(
+                              child: poppinsText(
+                                'No Barter Listings',
+                                Colors.black,
+                                20.sp,
+                                FontWeight.bold,
+                              ),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: poppinsText(
+                                    forbarterFruits.toString(),
+                                    farmSwapTitlegreen,
+                                    40.sp,
+                                    FontWeight.bold,
+                                  ),
+                                ),
+                                poppinsText(
+                                  "Fruit Barter Listings",
                                   Colors.black54,
                                   20.sp,
                                   FontWeight.bold,
@@ -170,7 +225,57 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
                                   ),
                                 ),
                                 poppinsText(
-                                  "Sell Listings",
+                                  "Vegetable Sell Listings",
+                                  Colors.black54,
+                                  20.sp,
+                                  FontWeight.bold,
+                                ),
+                              ],
+                            ),
+                    ),
+                  ),
+                  /*For sell fruits*/
+                  Padding(
+                    padding: EdgeInsets.all(10.sp),
+                    child: Container(
+                      width: 300.w,
+                      height: 200.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                        /*PUTTING BOX SHADOW ON THE CONTAINER */
+                        boxShadow: [
+                          BoxShadow(
+                            color: shadow,
+                            blurRadius: 2,
+                            offset: const Offset(1, 5),
+                          ),
+                        ],
+                      ),
+                      child: (forSell == 0)
+                          ? Center(
+                              child: poppinsText(
+                                'No Sell Listings',
+                                Colors.black,
+                                20.sp,
+                                FontWeight.bold,
+                              ),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: poppinsText(
+                                    forsellFruits.toString(),
+                                    farmSwapTitlegreen,
+                                    40.sp,
+                                    FontWeight.bold,
+                                  ),
+                                ),
+                                poppinsText(
+                                  "Fruit Sell Listings",
                                   Colors.black54,
                                   20.sp,
                                   FontWeight.bold,
@@ -219,8 +324,57 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
                                     FontWeight.bold,
                                   ),
                                 ),
+                                poppinsText2(
+                                  "Vegetable Barter Transactions",
+                                  Colors.black54,
+                                  20.sp,
+                                  FontWeight.bold,
+                                ),
+                              ],
+                            ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10.sp),
+                    child: Container(
+                      width: 300.w,
+                      height: 200.h,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                        /*PUTTING BOX SHADOW ON THE CONTAINER */
+                        boxShadow: [
+                          BoxShadow(
+                            color: shadow,
+                            blurRadius: 2,
+                            offset: const Offset(1, 5),
+                          ),
+                        ],
+                      ),
+                      child: (barteredProducts == 0)
+                          ? Center(
+                              child: poppinsText(
+                                'No Barter Transactions',
+                                Colors.black,
+                                20.sp,
+                                FontWeight.bold,
+                              ),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: poppinsText(
+                                    barteredFruitsProducts.toString(),
+                                    farmSwapTitlegreen,
+                                    40.sp,
+                                    FontWeight.bold,
+                                  ),
+                                ),
                                 poppinsText(
-                                  "Barter Transactions",
+                                  "Fruit Barter Transactions",
                                   Colors.black54,
                                   20.sp,
                                   FontWeight.bold,
@@ -312,7 +466,7 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
     );
   }
 
-  /*Counsting the number of posted products for barter*/
+  /*Counting the number of posted products for barter that are vegetables*/
   Future<void> countBarterListings() async {
     int totalListings = 0;
 
@@ -326,6 +480,7 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
       QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
           .collectionGroup('barter')
           .where('farmerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('listCategory', isEqualTo: "VEGETABLES")
           .get();
 
       totalListings = querySnapshot.size; // Get the number of documents in the subcollection
@@ -338,7 +493,34 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
     });
   }
 
-  /*Counsting the number of posted products for sell*/
+/*Counting the barter listing that are fruites */
+  Future<void> countBarterListingsFruits() async {
+    int totalListings = 0;
+
+    try {
+      /*QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+          .collection('sample_BarterListings') // Replace with your parent collection
+          .doc('your_parent_document_id') // Replace with your parent document ID
+          .collection('barter') // Subcollection name you want to count
+          .get();*/
+      /*Since isa raman ka collection group ang nag name og barter so kani lang na approach ako gamiton para shortcut */
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+          .collectionGroup('barter')
+          .where('farmerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('listCategory', isEqualTo: "FRUITS")
+          .get();
+
+      totalListings = querySnapshot.size; // Get the number of documents in the subcollection
+    } catch (e) {
+      print('Error counting barter listings: $e');
+    }
+
+    setState(() {
+      forbarterFruits = totalListings;
+    });
+  }
+
+  /*Counsting the number of posted products for vegetable sell*/
   Future<void> countSellListings() async {
     int totalListings = 0;
 
@@ -352,6 +534,7 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
       QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
           .collectionGroup('sell')
           .where('farmerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('listCategory', isEqualTo: "VEGETABLES")
           .get();
 
       totalListings = querySnapshot.size; // Get the number of documents in the subcollection
@@ -364,7 +547,34 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
     });
   }
 
-/*Getting the total number of bartered products */
+/*Count the number of posted Fruit products for sell */
+  Future<void> countSellListingsFruits() async {
+    int totalListings = 0;
+
+    try {
+      /*QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+          .collection('sample_BarterListings') // Replace with your parent collection
+          .doc('your_parent_document_id') // Replace with your parent document ID
+          .collection('barter') // Subcollection name you want to count
+          .get();*/
+      /*Since isa raman ka collection group ang nag name og barter so kani lang na approach ako gamiton para shortcut */
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+          .collectionGroup('sell')
+          .where('farmerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('listCategory', isEqualTo: "VEGETABLES")
+          .get();
+
+      totalListings = querySnapshot.size; // Get the number of documents in the subcollection
+    } catch (e) {
+      print('Error counting barter listings: $e');
+    }
+
+    setState(() {
+      forsellFruits = totalListings;
+    });
+  }
+
+/*Getting the total number of bartered products vegetables*/
   Future<void> countBarteredListings() async {
     int totalListings = 0;
 
@@ -372,6 +582,7 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
       QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
           .collection('sample_BarterTransactions')
           .where('farmerid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('listingCategory', isEqualTo: "VEGETABLES")
           .get();
 
       totalListings = querySnapshot.size; // Get the number of documents in the subcollection
@@ -381,6 +592,27 @@ class _TotalNumberofProductsState extends State<TotalNumberofProducts> {
 
     setState(() {
       barteredProducts = totalListings;
+    });
+  }
+
+/*Count the number of bartered fruit procucts*/
+  Future<void> countBarteredListingsFruits() async {
+    int totalListings = 0;
+
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+          .collection('sample_BarterTransactions')
+          .where('farmerid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('listingCategory', isEqualTo: "FRUITS")
+          .get();
+
+      totalListings = querySnapshot.size; // Get the number of documents in the subcollection
+    } catch (e) {
+      print('Error counting barter listings: $e');
+    }
+
+    setState(() {
+      barteredFruitsProducts = totalListings;
     });
   }
 

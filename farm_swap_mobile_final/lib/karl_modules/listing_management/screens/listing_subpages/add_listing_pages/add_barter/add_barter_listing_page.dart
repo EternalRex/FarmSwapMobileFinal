@@ -19,6 +19,8 @@ class AddActualBarterListingDetils extends StatefulWidget {
 
 class _AddActualBarterListingDetilsState extends State<AddActualBarterListingDetils> {
   AddBarterListingTextEditingControllers controllers = AddBarterListingTextEditingControllers();
+  List<String> myListingCategory = ["FRUITS", "VEGETABLES"];
+  String listinCategValue = "FRUITS";
 
   @override
   void dispose() {
@@ -148,6 +150,22 @@ class _AddActualBarterListingDetilsState extends State<AddActualBarterListingDet
                   SizedBox(
                     height: 5.sp,
                   ),
+                  /*A dropdown for listing category*/
+                  DropdownButton(
+                    hint: poppinsText("Listing Category", Colors.black, 13.sp, FontWeight.normal),
+                    value: listinCategValue,
+                    items: myListingCategory.map<DropdownMenuItem<String>>((String categ) {
+                      return DropdownMenuItem(
+                        value: categ,
+                        child: poppinsText(categ, Colors.black, 13.sp, FontWeight.normal),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        listinCategValue = value.toString();
+                      });
+                    },
+                  ),
                   GestureDetector(
                     /*Putting the values in the provider para gamiton nato later charot */
                     onTap: () {
@@ -165,6 +183,9 @@ class _AddActualBarterListingDetilsState extends State<AddActualBarterListingDet
 
                       Provider.of<BarterListingDetailsProvider>(context, listen: false)
                           .setPrefferedItem(controllers.prefferedController.text);
+
+                      Provider.of<BarterListingDetailsProvider>(context, listen: false)
+                          .setListingCategoru(listinCategValue);
 
                       Navigator.of(context).pushNamed(RouteManager.addbarterlisttingdetails2);
                     },

@@ -73,6 +73,8 @@ class _GetFarmerOrdersState extends State<GetFarmerOrders> {
 
     double purchasekilograms = (data["purchaseQuan"] as num).toDouble();
     double purchasePrice = (data["purchaseTotalPrice"] as num).toDouble();
+    String purchaseKilogramsString = purchasekilograms.toStringAsFixed(2);
+    String purchasePriceString = purchasePrice.toStringAsFixed(2);
     bool purchaseIsComplete = data["purchaseIsComplete"];
     bool confirmed = data["confirmed"];
     bool selected = data["selected"];
@@ -86,15 +88,13 @@ class _GetFarmerOrdersState extends State<GetFarmerOrders> {
     /*Confirmed time conversion */
     Timestamp confirmedTime = data["confirmedDate"];
     DateTime newConfirmedTime = confirmedTime.toDate();
-    String finalConfirmedTime =
-        DateFormat('yyyy-MM-dd').format(newConfirmedTime);
+    String finalConfirmedTime = DateFormat('yyyy-MM-dd').format(newConfirmedTime);
 
     /*Completed time conversion */
     // ignore: unused_local_variable
     Timestamp completedTime = data["confirmedDate"];
     DateTime newCompletedTime = confirmedTime.toDate();
-    String finalCompletedTime =
-        DateFormat('yyyy-MM-dd').format(newCompletedTime);
+    String finalCompletedTime = DateFormat('yyyy-MM-dd').format(newCompletedTime);
 
     if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATED") &&
         (confirmed == false && selected == false && declined == false)) {
@@ -151,6 +151,8 @@ class _GetFarmerOrdersState extends State<GetFarmerOrders> {
                       selected: selected,
                       declined: declined,
                       imageUrl: imageUrl,
+                      purchaseQuantityString: purchaseKilogramsString,
+                      purchasePriceString: purchasePriceString,
                     );
                   },
                 ),
@@ -199,7 +201,7 @@ class _GetFarmerOrdersState extends State<GetFarmerOrders> {
                     SizedBox(
                       width: 150.sp,
                       child: Text(
-                        "${purchasekilograms.toString()} kilograms",
+                        "$purchaseKilogramsString kilograms",
                         style: TextStyle(
                           fontSize: 13.sp,
                           color: Colors.black,
@@ -262,6 +264,8 @@ class _GetFarmerOrdersState extends State<GetFarmerOrders> {
                               selected: selected,
                               declined: declined,
                               imageUrl: imageUrl,
+                              purchaseQuantityString: purchaseKilogramsString,
+                              purchasePriceString: purchasePriceString,
                             );
                           },
                         ),

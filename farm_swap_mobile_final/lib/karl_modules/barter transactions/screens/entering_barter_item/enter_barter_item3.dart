@@ -18,14 +18,43 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class EnterToBarterItem3 extends StatefulWidget {
-  const EnterToBarterItem3(
-      {super.key,
-      required this.itemValue,
-      required this.listingValue,
-      required this.farmerId});
+  const EnterToBarterItem3({
+    super.key,
+    required this.itemValue,
+    required this.listingValue,
+    required this.farmerId,
+    required this.listingCategory,
+    required this.listingIdNeed,
+    required this.listingNameNeed,
+    required this.listingDiscNeed,
+    required this.listingEquivalentPriceNeed,
+    required this.listingQuantityNeed,
+    required this.listingStatusNeed,
+    required this.farmerFNameNeed,
+    required this.farmerLnameNeed,
+    required this.farmerUnameNeed,
+    required this.farmerMunicaplityNeed,
+    required this.farmerBaranggayNeed,
+  });
   final double? itemValue;
   final double? listingValue;
   final String farmerId;
+
+  /*The data we needed from the lisiting */
+  final String listingIdNeed;
+  final String listingNameNeed;
+  final String listingDiscNeed;
+  final String listingEquivalentPriceNeed;
+  final String listingQuantityNeed;
+  final String listingStatusNeed;
+
+/*The data that we need from farmer*/
+  final String farmerFNameNeed;
+  final String farmerLnameNeed;
+  final String farmerUnameNeed;
+  final String farmerBaranggayNeed;
+  final String farmerMunicaplityNeed;
+  final String listingCategory;
 
   @override
   State<EnterToBarterItem3> createState() => _EnterToBarterItem3State();
@@ -82,8 +111,7 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -206,8 +234,22 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => UploadBarterItemPicture(
-                  itemvalue2: widget.itemValue,
-                  listingvalue2: widget.listingValue),
+                itemvalue2: widget.itemValue,
+                listingvalue2: widget.listingValue,
+                farmerFNameNeed: widget.farmerFNameNeed,
+                farmerLnameNeed: widget.farmerLnameNeed,
+                farmerUnameNeed: widget.farmerUnameNeed,
+                farmerId: widget.farmerId,
+                farmerBaranggayNeed: widget.farmerBaranggayNeed,
+                farmerMunicaplityNeed: widget.farmerMunicaplityNeed,
+                listingCategory: widget.listingCategory,
+                listingDiscNeed: widget.listingDiscNeed,
+                listingEquivalentPriceNeed: widget.listingEquivalentPriceNeed,
+                listingIdNeed: widget.listingIdNeed,
+                listingNameNeed: widget.listingNameNeed,
+                listingQuantityNeed: widget.listingQuantityNeed,
+                listingStatusNeed: widget.listingStatusNeed,
+              ),
             ),
           );
         },
@@ -233,8 +275,7 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText(
-              "Invalid Operation", Colors.red, 17.sp, FontWeight.bold),
+          title: poppinsText("Invalid Operation", Colors.red, 17.sp, FontWeight.bold),
           content: poppinsText(
             "Not enough swapcoins. You need ${neededswapCoins.toString()}",
             Colors.black,
@@ -246,8 +287,7 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
               onPressed: () {
                 Navigator.of(context).pushNamed(RouteManager.activeDashboard);
               },
-              child:
-                  poppinsText("Ok", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: poppinsText("Ok", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );
@@ -271,10 +311,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
           actions: [
             TextButton(
               onPressed: () {
-                String farmerId = Provider.of<BartertingItemDetailsProvider>(
-                        context,
-                        listen: false)
-                    .getFarmerId;
+                String farmerId =
+                    Provider.of<BartertingItemDetailsProvider>(context, listen: false).getFarmerId;
                 //notification here
                 farmerQuery.sendNotification(
                   consumerId,
@@ -289,8 +327,7 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                     .setIncrement(farmerId);
                 Navigator.of(context).pushNamed(RouteManager.activeDashboard);
               },
-              child: poppinsText(
-                  "Finish", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: poppinsText("Finish", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );
@@ -304,8 +341,7 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title:
-              poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
+          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
           content: poppinsText(
             "This transaction has an average value of ${average.toString()}. The system will deduct $percent that is equal to ${swapcoins.toString()} swapCoins. Only when the bid is accepted, will the deduction happen",
             Colors.black,
@@ -319,81 +355,58 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                 TextButton(
                   onPressed: () {
                     bid.saveBarterBid(
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getFarmerUname,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getFarmerId,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getFarmerFname,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getFarmerLname,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getFarmerBrgy,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getFarmerMunisipyo,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getConsumerId,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getConsumerFname,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getConsumerLname,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getConsumerUname,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getConsumerBaranggay,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getConsumerMunisipyo,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getListingId,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getListingName,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getListDisc,
-                      double.parse(Provider.of<BartertingItemDetailsProvider>(
-                              context,
-                              listen: false)
-                          .getListingPrice),
-                      double.parse(Provider.of<BartertingItemDetailsProvider>(
-                              context,
-                              listen: false)
-                          .getListingQuan),
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      double.parse(
+                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                              .getListingPrice),
+                      double.parse(
+                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                              .getListingQuan),
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getListingStatus,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getItemName,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getItemDisc,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getItemCondition,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getItemQuantity,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
-                          .getItemUrl,
-                      Provider.of<BartertingItemDetailsProvider>(context,
-                              listen: false)
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false).getItemUrl,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                           .getItemValue,
                       false,
+                      Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          .getListingCategory,
                     );
 
                     showDoneMessage();
@@ -411,8 +424,7 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                 /*Will cancel the bidding */
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(RouteManager.activeDashboard);
+                    Navigator.of(context).pushNamed(RouteManager.activeDashboard);
                   },
                   child: poppinsText(
                     "Cancel",
@@ -431,8 +443,7 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
 
   /*Function that will compute the average value range */
   void computeAvaerage() {
-    double averageValue =
-        compute.averageValue(widget.listingValue!, widget.itemValue);
+    double averageValue = compute.averageValue(widget.listingValue!, widget.itemValue);
     setState(() {
       average = averageValue;
     });
@@ -450,8 +461,8 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
 /*Function that will compute the actual deductible swapcoins */
   void computeSwapCoins() {
     print("Computing the swap coins");
-    double deductibleCoins = compute.computeDeductibleSwapCoins(
-        widget.listingValue, widget.itemValue!);
+    double deductibleCoins =
+        compute.computeDeductibleSwapCoins(widget.listingValue, widget.itemValue!);
     setState(() {
       swapcoins = deductibleCoins;
     });

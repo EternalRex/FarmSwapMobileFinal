@@ -32,6 +32,8 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
           Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
 
           final userId = FirebaseAuth.instance.currentUser!.uid;
+          double balanceDouble = (data['balance'] as num).toDouble();
+          String finalBalance = balanceDouble.toStringAsFixed(2);
 
           return Column(
             children: [
@@ -61,7 +63,7 @@ class _ReadConsumerWalletState extends State<ReadConsumerWallet> {
                             height: 5.h,
                           ),
                           Text(
-                            '₱ ${data['balance']}',
+                            '₱ $finalBalance',
                             style: Poppins.number.copyWith(
                               color: const Color(0xFFFFFFFF),
                             ),

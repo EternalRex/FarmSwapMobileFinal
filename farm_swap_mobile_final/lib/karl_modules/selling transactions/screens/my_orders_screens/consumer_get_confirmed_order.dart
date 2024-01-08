@@ -13,19 +13,16 @@ class GetConsumerConfirmedOrderes extends StatefulWidget {
   const GetConsumerConfirmedOrderes({super.key});
 
   @override
-  State<GetConsumerConfirmedOrderes> createState() =>
-      _GetConsumerConfirmedOrderesState();
+  State<GetConsumerConfirmedOrderes> createState() => _GetConsumerConfirmedOrderesState();
 }
 
-class _GetConsumerConfirmedOrderesState
-    extends State<GetConsumerConfirmedOrderes> {
+class _GetConsumerConfirmedOrderesState extends State<GetConsumerConfirmedOrderes> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collectionGroup("sellbuy")
-          .where('consumerId',
-              isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .where('selected', isEqualTo: true)
           .where('confirmed', isEqualTo: true)
           .orderBy('purchaseDate', descending: true)
@@ -78,6 +75,8 @@ class _GetConsumerConfirmedOrderesState
 
     double purchasekilograms = (data["purchaseQuan"] as num).toDouble();
     double purchasePrice = (data["purchaseTotalPrice"] as num).toDouble();
+    String purchaseKilogramString = purchasekilograms.toStringAsFixed(2);
+    String purchasePriceString = purchasePrice.toStringAsFixed(2);
     bool purchaseIsComplete = data["purchaseIsComplete"];
     bool confirmed = data["confirmed"];
     bool selected = data["selected"];
@@ -92,15 +91,13 @@ class _GetConsumerConfirmedOrderesState
     /*Confirmed time conversion */
     Timestamp confirmedTime = data["confirmedDate"];
     DateTime newConfirmedTime = confirmedTime.toDate();
-    String finalConfirmedTime =
-        DateFormat('yyyy-MM-dd').format(newConfirmedTime);
+    String finalConfirmedTime = DateFormat('yyyy-MM-dd').format(newConfirmedTime);
 
     /*Completed time conversion */
     // ignore: unused_local_variable
     Timestamp completedTime = data["confirmedDate"];
     DateTime newCompletedTime = confirmedTime.toDate();
-    String finalCompletedTime =
-        DateFormat('yyyy-MM-dd').format(newCompletedTime);
+    String finalCompletedTime = DateFormat('yyyy-MM-dd').format(newCompletedTime);
 
     if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATED") &&
         (confirmed == true &&
@@ -161,6 +158,8 @@ class _GetConsumerConfirmedOrderesState
                       declined: declined,
                       imageUrl: imageUrl,
                       consumerCompleted: isConsumerComplete,
+                      purchaseQuantityString: purchaseKilogramString,
+                      purchasePriceString: purchasePriceString,
                     );
                   },
                 ),
@@ -209,7 +208,7 @@ class _GetConsumerConfirmedOrderesState
                     SizedBox(
                       width: 150.sp,
                       child: Text(
-                        "${purchasekilograms.toString()} kilograms",
+                        "$purchaseKilogramString kilograms",
                         style: TextStyle(
                           fontSize: 13.sp,
                           color: Colors.black,
@@ -273,6 +272,8 @@ class _GetConsumerConfirmedOrderesState
                               declined: declined,
                               imageUrl: imageUrl,
                               consumerCompleted: isConsumerComplete,
+                              purchaseQuantityString: purchaseKilogramString,
+                              purchasePriceString: purchasePriceString,
                             );
                           },
                         ),

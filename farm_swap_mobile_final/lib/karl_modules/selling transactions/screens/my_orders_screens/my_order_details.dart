@@ -43,6 +43,8 @@ class MyOrderDetails extends StatefulWidget {
     required this.declined,
     required this.imageUrl,
     required this.consumerCompleted,
+    required this.purchaseQuantityString,
+    required this.purchasePriceString,
   });
 
   /*Consumer Details */
@@ -80,6 +82,8 @@ class MyOrderDetails extends StatefulWidget {
   final bool declined;
   final String imageUrl;
   final bool consumerCompleted;
+  final String purchaseQuantityString;
+  final String purchasePriceString;
 
   @override
   State<MyOrderDetails> createState() => _MyOrderDetailsState();
@@ -123,8 +127,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -149,8 +152,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
               height: 200.h,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(widget.imageUrl), fit: BoxFit.cover),
+                image: DecorationImage(image: NetworkImage(widget.imageUrl), fit: BoxFit.cover),
               ),
             ),
             SizedBox(
@@ -431,8 +433,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 children: [
                   SizedBox(
                     width: 150.w,
-                    child: poppinsText("Purchase Quantity", Colors.black, 15.sp,
-                        FontWeight.normal),
+                    child: poppinsText("Purchase Quantity", Colors.black, 15.sp, FontWeight.normal),
                   ),
                   SizedBox(
                     width: 30.w,
@@ -441,7 +442,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                   SizedBox(
                     width: 150.w,
                     child: poppinsText(
-                      "${widget.purchaseQuantity} kg",
+                      "${widget.purchaseQuantityString} kg",
                       Colors.black,
                       15.sp,
                       FontWeight.normal,
@@ -457,8 +458,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 children: [
                   SizedBox(
                     width: 150.w,
-                    child: poppinsText(
-                        "Total Price", Colors.black, 15.sp, FontWeight.normal),
+                    child: poppinsText("Total Price", Colors.black, 15.sp, FontWeight.normal),
                   ),
                   SizedBox(
                     width: 30.w,
@@ -467,7 +467,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                   SizedBox(
                     width: 150.w,
                     child: poppinsText(
-                      "${widget.purchaseTotalPrice} pesos",
+                      "${widget.purchasePriceString} pesos",
                       Colors.black,
                       15.sp,
                       FontWeight.normal,
@@ -483,8 +483,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 children: [
                   SizedBox(
                     width: 150.w,
-                    child: poppinsText(
-                        "Order Date", Colors.black, 15.sp, FontWeight.normal),
+                    child: poppinsText("Order Date", Colors.black, 15.sp, FontWeight.normal),
                   ),
                   SizedBox(
                     width: 30.w,
@@ -509,8 +508,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 children: [
                   SizedBox(
                     width: 150.w,
-                    child: poppinsText(
-                        "Order Status", Colors.black, 15.sp, FontWeight.normal),
+                    child: poppinsText("Order Status", Colors.black, 15.sp, FontWeight.normal),
                   ),
                   SizedBox(
                     width: 30.w,
@@ -519,16 +517,11 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                   /*Condition ni nga atong ilisan ang text kung ma selected ma siya */
                   SizedBox(
                     width: 150.w,
-                    child: (widget.isConfirmed == true &&
-                            widget.declined == false)
-                        ? poppinsText(
-                            "Confirmed", Colors.green, 15.sp, FontWeight.normal)
-                        : (widget.isConfirmed == false &&
-                                widget.declined == true)
-                            ? poppinsText("Declined", Colors.red, 15.sp,
-                                FontWeight.normal)
-                            : poppinsText("Waiting...", Colors.blue, 15.sp,
-                                FontWeight.normal),
+                    child: (widget.isConfirmed == true && widget.declined == false)
+                        ? poppinsText("Confirmed", Colors.green, 15.sp, FontWeight.normal)
+                        : (widget.isConfirmed == false && widget.declined == true)
+                            ? poppinsText("Declined", Colors.red, 15.sp, FontWeight.normal)
+                            : poppinsText("Waiting...", Colors.blue, 15.sp, FontWeight.normal),
                   ),
                 ],
               ),
@@ -567,8 +560,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 ?
                 /*To Mark the transaction as done */
                 (widget.consumerCompleted == true)
-                    ? poppinsText("Transaction Marked as Done", Colors.red, 20,
-                        FontWeight.normal)
+                    ? poppinsText("Transaction Marked as Done", Colors.red, 20, FontWeight.normal)
                     : Column(
                         children: [
                           TextButton(
@@ -580,10 +572,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                               width: 145,
                               decoration: BoxDecoration(
                                 gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xFF53E78B),
-                                    Color(0xFF14BE77)
-                                  ],
+                                  colors: [Color(0xFF53E78B), Color(0xFF14BE77)],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                 ),
@@ -648,10 +637,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                               width: 145,
                               decoration: BoxDecoration(
                                 gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xFFFE0000),
-                                    Color(0xFFD83F31)
-                                  ],
+                                  colors: [Color(0xFFFE0000), Color(0xFFD83F31)],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                 ),
@@ -747,8 +733,8 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
 
   /*Function that will get the details of farmer */
   Future<void> getFarmerDetails() async {
-    String farmerProfile = await farmerDetails
-        .getFarmerUserProfilePhotoWithParameter(widget.farmerId);
+    String farmerProfile =
+        await farmerDetails.getFarmerUserProfilePhotoWithParameter(widget.farmerId);
     setState(() {
       farmerPhoto = farmerProfile;
     });
@@ -759,8 +745,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title:
-              poppinsText("Information", Colors.blue, 20.sp, FontWeight.w500),
+          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.w500),
           content: poppinsText(
             "This transaction will be removed from confirmed order list, Go to dispute page to dispute this transaction",
             Colors.black,
@@ -773,8 +758,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                 TextButton(
                   onPressed: () {
                     /*Updates the consumer update field into true*/
-                    update.updateOrderCompletedConsumer(
-                        widget.listingId, widget.consId);
+                    update.updateOrderCompletedConsumer(widget.listingId, widget.consId);
                     /*Navigate back to the confirmed orders page */
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -784,8 +768,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                       ),
                     );
                   },
-                  child: poppinsText(
-                      "Continue", farmSwapTitlegreen, 17.sp, FontWeight.normal),
+                  child: poppinsText("Continue", farmSwapTitlegreen, 17.sp, FontWeight.normal),
                 ),
                 TextButton(
                   onPressed: () {
@@ -798,8 +781,7 @@ class _MyOrderDetailsState extends State<MyOrderDetails> {
                       ),
                     );
                   },
-                  child: poppinsText(
-                      "Cancel", farmSwapTitlegreen, 17.sp, FontWeight.normal),
+                  child: poppinsText("Cancel", farmSwapTitlegreen, 17.sp, FontWeight.normal),
                 ),
               ],
             ),

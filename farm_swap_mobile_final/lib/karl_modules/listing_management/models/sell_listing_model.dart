@@ -18,6 +18,7 @@ class SellListingModels {
     required this.promotionDate,
     required this.renewalDate,
     required this.farmerId,
+    required this.category,
   });
 
 /*Properties*/
@@ -39,6 +40,7 @@ class SellListingModels {
   DateTime promotionDate;
   DateTime renewalDate;
   String farmerId;
+  String category;
 
   Map<String, dynamic> toMap() {
     return {
@@ -60,6 +62,7 @@ class SellListingModels {
       'promotionDate': promotionDate,
       'renewaldate': renewalDate,
       'farmerId': farmerId,
+      'listCategory': category,
     };
   }
 }

@@ -15,21 +15,21 @@ class BarterListingSaving {
 
   /*Function para mag save og data sa database*/
   Future<void> saveBarteringListing(
-    String prodName,
-    String prodDisc,
-    double prodQuan,
-    double prodPrice,
-    String prodCateg,
-    String prodPicUrl,
-    String fnameFarmer,
-    String lnameFarmer,
-    String munisipyoFarmer,
-    String barangayFarmer,
-    String farmerUname,
-    String preffered,
-    DateTime start,
-    DateTime end,
-  ) async {
+      String prodName,
+      String prodDisc,
+      double prodQuan,
+      double prodPrice,
+      String prodCateg,
+      String prodPicUrl,
+      String fnameFarmer,
+      String lnameFarmer,
+      String munisipyoFarmer,
+      String barangayFarmer,
+      String farmerUname,
+      String preffered,
+      DateTime start,
+      DateTime end,
+      String listcategory) async {
     String userid = _firebaseAuth.currentUser!.uid;
 
     /*Assigning our gathered value to our model and putting all of them into one
@@ -54,6 +54,7 @@ class BarterListingSaving {
       promotionDate: DateTime.now(),
       renewalDate: DateTime.now(),
       farmerId: userid,
+      category: listcategory,
     );
 
     /*Construkon nato ang id sa atong listing*/

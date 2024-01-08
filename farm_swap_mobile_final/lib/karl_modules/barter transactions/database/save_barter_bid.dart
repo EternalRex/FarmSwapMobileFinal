@@ -28,6 +28,7 @@ class SaveBarterBid {
     String itemPicUrlBid,
     double itemValueBid,
     bool isAlreadyBarteredBid,
+    String listingCategory,
   ) async {
     String category = "BARTER";
     String docid = '$farmerUnameBid$category$farmerIdBid';
@@ -62,6 +63,7 @@ class SaveBarterBid {
       consumerMunicipality: consumerMunispyoBid,
       completed: false,
       consCompleted: false,
+      listingCategory: listingCategory,
     );
 
     var barterListingRef =

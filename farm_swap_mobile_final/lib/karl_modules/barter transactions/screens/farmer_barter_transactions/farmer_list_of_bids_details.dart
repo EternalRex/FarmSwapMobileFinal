@@ -48,6 +48,7 @@ class FarmerListOfBidsDetils extends StatefulWidget {
     required this.bartered,
     required this.completed,
     required this.listUrl,
+    required this.listingCategory,
   });
 
   final String imgurl;
@@ -78,6 +79,7 @@ class FarmerListOfBidsDetils extends StatefulWidget {
   final String farmerUname = '';
   final String farmerId = '';
   final String listingId = '';
+  final String listingCategory;
 
   @override
   State<FarmerListOfBidsDetils> createState() => _FarmerListOfBidsDetilsState();
@@ -92,16 +94,14 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
-  CountConsumerProfileVisitsQuerry consProfileVisits =
-      CountConsumerProfileVisitsQuerry();
+  CountConsumerProfileVisitsQuerry consProfileVisits = CountConsumerProfileVisitsQuerry();
   BarterTransactionDatabase transaction = BarterTransactionDatabase();
   ComputeDeductibleSwapCoins compute = ComputeDeductibleSwapCoins();
   UpdateSelectedBarterBid updateSelected = UpdateSelectedBarterBid();
   ListinGetFarmerDetails farmerDetails = ListinGetFarmerDetails();
   ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
   ArchiveUpdateListing archive = ArchiveUpdateListing();
-  UpdateConsumerFarmerSwapCoins consumerFarmerSwapCoins =
-      UpdateConsumerFarmerSwapCoins();
+  UpdateConsumerFarmerSwapCoins consumerFarmerSwapCoins = UpdateConsumerFarmerSwapCoins();
 
   bool accepted = false;
   String farmerFname = "";
@@ -179,8 +179,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -276,9 +275,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                         width: 130.w,
                         decoration: BoxDecoration(
                           /*The color of the container will change to green when it is the bid that is selected by farmer */
-                          color: (widget.selected == true)
-                              ? Colors.green
-                              : Colors.red,
+                          color: (widget.selected == true) ? Colors.green : Colors.red,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(30),
                           ),
@@ -301,19 +298,15 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                               if (farmerSwapCoins > deductSwapCoins) {
                                 /*Atong gi total kung pila nalay mahabilin sa swap coins ni farmer og consumer
                                 tapos atong gi pasa ang value ngadto sa function na maoy mo update sa swapcoins value didto sa database */
-                                double newFCoins =
-                                    farmerSwapCoins - deductSwapCoins;
-                                double newCCoins =
-                                    consSwapCoins - deductSwapCoins;
+                                double newFCoins = farmerSwapCoins - deductSwapCoins;
+                                double newCCoins = consSwapCoins - deductSwapCoins;
                                 showConfirmationMessage(newFCoins, newCCoins);
                               } else {
                                 showNoSwapCoinsMessage();
                               }
                             },
                             child: poppinsText(
-                              (widget.selected == true)
-                                  ? "ACCEPTED"
-                                  : "ACCEPT BID",
+                              (widget.selected == true) ? "ACCEPTED" : "ACCEPT BID",
                               Colors.white,
                               15.sp,
                               FontWeight.w500,
@@ -353,15 +346,13 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                                           farmerLName: farmerLname,
                                           farmerUname: farmerUname,
                                           farmerBarangay: farmerBaranggay,
-                                          farmerMunicipality:
-                                              farmerMunicipality,
+                                          farmerMunicipality: farmerMunicipality,
                                           consumerId: widget.consid,
                                           consumerFname: widget.consname,
                                           consumerLname: widget.conslname,
                                           consumerUname: widget.consuname,
                                           consumerBarangay: widget.consbarangay,
-                                          consumerMunicipality:
-                                              widget.consmunicipal,
+                                          consumerMunicipality: widget.consmunicipal,
                                           listingId: widget.listId,
                                           listingName: widget.listName,
                                         );
@@ -401,57 +392,45 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                     ),
                   );
                 },
-                child:
-                    poppinsText("Reviews", orangeDark, 15.sp, FontWeight.w500),
+                child: poppinsText("Reviews", orangeDark, 15.sp, FontWeight.w500),
               ),
             ),
             SizedBox(
               height: 15.h,
             ),
-            poppinsText2(
-                widget.itemname, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(widget.itemname, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
             poppinsText2("Item Name", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(
-                widget.itemDisc, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(widget.itemDisc, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2(
-                "Item Discription", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2("Item Discription", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(
-                widget.itemVal, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(widget.itemVal, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2("Estimated Item Value", Colors.black54, 15.sp,
-                FontWeight.normal),
+            poppinsText2("Estimated Item Values", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(
-                widget.itemquan, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(widget.itemquan, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2(
-                "Number of Items", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2("Number of Items", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(
-                widget.itemCond, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(widget.itemCond, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2(
-                "Condition of Item", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2("Condition of Item", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
-            poppinsText2(
-                widget.consuname, Colors.black, 20.sp, FontWeight.normal),
+            poppinsText2(widget.consuname, Colors.black, 20.sp, FontWeight.normal),
             const Divider(),
-            poppinsText2(
-                "Bidder User Name", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2("Bidder User Name", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
@@ -462,8 +441,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
               FontWeight.normal,
             ),
             const Divider(),
-            poppinsText2(
-                "Bidder Location", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2("Bidder Location", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
@@ -619,8 +597,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                                 ],
                               ),
             const Divider(),
-            poppinsText2(
-                "Bidder Rating", Colors.black54, 15.sp, FontWeight.normal),
+            poppinsText2("Bidder Rating", Colors.black54, 15.sp, FontWeight.normal),
             SizedBox(
               height: 10.h,
             ),
@@ -830,8 +807,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                 ? Container()
                 /*Kung dli pa marked as completed ang transaction so naay button na choices na pwde e label as completed or e dispute lang ang transaction */
                 : Padding(
-                    padding: EdgeInsets.only(
-                        right: 10.sp, left: 10.sp, bottom: 10.sp),
+                    padding: EdgeInsets.only(right: 10.sp, left: 10.sp, bottom: 10.sp),
                     child: Row(
                       children: [
                         TextButton(
@@ -844,8 +820,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                                   widget.listId, widget.consid);
 
                               /*If the tranaction is completed then the barter listing will be archived*/
-                              archive.archiveBarterListing(
-                                  farmerUname, widget.listUrl);
+                              archive.archiveBarterListing(farmerUname, widget.listUrl);
 
                               showArchiveMessage();
 
@@ -876,6 +851,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                                       bartered: widget.bartered,
                                       completed: widget.completed,
                                       listUrl: widget.listUrl,
+                                      listingCategory: widget.listingCategory,
                                     );
                                   },
                                 ),
@@ -1014,8 +990,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText(
-              "Invalid Operation", Colors.red, 20.sp, FontWeight.normal),
+          title: poppinsText("Invalid Operation", Colors.red, 20.sp, FontWeight.normal),
           content: poppinsText(
             "You can only perform this opeartion once you accept this bid",
             Colors.black,
@@ -1051,13 +1026,13 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                         bartered: widget.bartered,
                         completed: widget.completed,
                         listUrl: widget.listUrl,
+                        listingCategory: widget.listingCategory,
                       );
                     },
                   ),
                 );
               },
-              child: poppinsText(
-                  "Back", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: poppinsText("Back", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );
@@ -1098,8 +1073,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
 
 /*Function that will compute the average value range */
   void computeAverageValueRange() {
-    double average = compute.averageValue(
-        double.tryParse(widget.listPrice), double.tryParse(widget.itemVal));
+    double average =
+        compute.averageValue(double.tryParse(widget.listPrice), double.tryParse(widget.itemVal));
     setState(() {
       averageValue = average;
     });
@@ -1137,8 +1112,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
 
   /*Funcntion that will counpute the swap coins of consumer*/
   Future<void> getConsumersSwapCoins() async {
-    double consumerSwapCoins =
-        await consumerDetails.getSwapCoinsWithProvidedId(widget.consid);
+    double consumerSwapCoins = await consumerDetails.getSwapCoinsWithProvidedId(widget.consid);
     setState(() {
       consSwapCoins = consumerSwapCoins;
     });
@@ -1166,8 +1140,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title:
-              poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
+          title: poppinsText("Information", Colors.blue, 20.sp, FontWeight.bold),
           content: poppinsText(
             "This transaction has an average value of ${averageValue.toString()}. The system will deduct $percentValue that is equal to ${deductSwapCoins.toString()} swapCoins",
             Colors.black,
@@ -1187,8 +1160,8 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                     /*Function na mo hansak og swap coins lag ngadto sa farmer og consumer */
 
                     /*Updates the consumer and farmer swap coins/ deducting the consumer and farmer swapcoins */
-                    updateSwapCoins(FirebaseAuth.instance.currentUser!.uid,
-                        newFarmerCoins, widget.consid, newConsumerCoins);
+                    updateSwapCoins(FirebaseAuth.instance.currentUser!.uid, newFarmerCoins,
+                        widget.consid, newConsumerCoins);
 
                     /*Ato e update ang selected na property to true sa bid na napilian */
                     updateSelected.updateBidSelectedStatus(
@@ -1224,6 +1197,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                       deductSwapCoins,
                       deductSwapCoins,
                       percentValue,
+                      widget.listingCategory,
                     );
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -1251,6 +1225,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                             bartered: true,
                             completed: widget.completed,
                             listUrl: widget.listUrl,
+                            listingCategory: widget.listingCategory,
                           );
                         },
                       ),
@@ -1266,8 +1241,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                       "BID_ACCEPTED",
                     );
 
-                    Provider.of<ConsumerNotificationProvider>(context,
-                            listen: false)
+                    Provider.of<ConsumerNotificationProvider>(context, listen: false)
                         .setIncrement(consumerId);
                     print(farmerId);
                     print("$farmerFname, $farmerLname");
@@ -1312,6 +1286,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                             bartered: true,
                             completed: widget.completed,
                             listUrl: widget.listUrl,
+                            listingCategory: widget.listingCategory,
                           );
                         },
                       ),
@@ -1339,8 +1314,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: poppinsText(
-              "Invalid Operation", Colors.red, 17.sp, FontWeight.bold),
+          title: poppinsText("Invalid Operation", Colors.red, 17.sp, FontWeight.bold),
           content: poppinsText(
             "Not enough swapcoins. You need ${neededswapCoins.toString()}",
             Colors.black,
@@ -1376,13 +1350,13 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
                         bartered: true,
                         completed: widget.completed,
                         listUrl: widget.listUrl,
+                        listingCategory: widget.listingCategory,
                       );
                     },
                   ),
                 );
               },
-              child:
-                  poppinsText("Ok", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: poppinsText("Ok", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );
@@ -1406,8 +1380,7 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
           actions: [
             TextButton(
               onPressed: () {},
-              child: poppinsText(
-                  "Finish", farmSwapTitlegreen, 17.sp, FontWeight.bold),
+              child: poppinsText("Finish", farmSwapTitlegreen, 17.sp, FontWeight.bold),
             ),
           ],
         );
@@ -1416,11 +1389,10 @@ class _FarmerListOfBidsDetilsState extends State<FarmerListOfBidsDetils> {
   }
 
   /*Function na mo deduct sa swap coins sa farmer og consumer*/
-  void updateSwapCoins(String farmerId, double newFarmerSwapCoins,
-      String consumerId, double newConsumerSwapCoins) {
+  void updateSwapCoins(
+      String farmerId, double newFarmerSwapCoins, String consumerId, double newConsumerSwapCoins) {
     consumerFarmerSwapCoins.updateFarmerSwapCoins(farmerId, newFarmerSwapCoins);
-    consumerFarmerSwapCoins.updateConsumerSwapCoins(
-        consumerId, newConsumerSwapCoins);
+    consumerFarmerSwapCoins.updateConsumerSwapCoins(consumerId, newConsumerSwapCoins);
   }
 
   void showArchiveMessage() {

@@ -68,8 +68,10 @@ class _GetSelectedBidState extends State<GetSelectedBid> {
     /*Item Data */
     String imageUrl = data["itemPicUrl"];
     String itemName = data["itemName"];
-    String itemquantity = data["itemQuantity"].toString();
-    String itemValue = data["itemValue"].toString();
+    double itemQuantityDouble = (data["itemQuantity"] as num).toDouble();
+    String itemquantity = itemQuantityDouble.toStringAsFixed(2);
+    double itemValueDouble = (data["itemValue"] as num).toDouble();
+    String itemValue = itemValueDouble.toStringAsFixed(2);
     String itemCondition = data["itemCondition"];
     String itemDisc = data["itemDisc"];
     bool isBartered = data["isBarteredOut"];
@@ -90,7 +92,7 @@ class _GetSelectedBidState extends State<GetSelectedBid> {
     String consumeruname = data["consumerUname"];
     String consumerBarangay = data["consumerBaranggay"];
     String consumerMunicipality = data["consumerMuniciplaity"];
-
+    String listingTypeCategory = data["listingCategoryFV"];
 /*Bid time conversion*/
     Timestamp bidtime = data["itemBidTime"];
     DateTime newbidTime = bidtime.toDate();
@@ -145,6 +147,7 @@ class _GetSelectedBidState extends State<GetSelectedBid> {
                     bartered: isBartered,
                     completed: isCompleted,
                     listUrl: widget.listingUrl,
+                    listingCategory: listingTypeCategory,
                   ),
                 ),
               );
@@ -249,6 +252,7 @@ class _GetSelectedBidState extends State<GetSelectedBid> {
                             bartered: isBartered,
                             completed: isCompleted,
                             listUrl: widget.listingUrl,
+                            listingCategory: listingTypeCategory,
                           ),
                         ),
                       );

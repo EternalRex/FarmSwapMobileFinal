@@ -26,6 +26,7 @@ class BarterTransactionModel {
     required this.consumserLastName,
     required this.isDisputed,
     required this.isConsumerDisputed,
+    required this.listingCategory,
   });
 
   /*Farmer Details */
@@ -49,6 +50,7 @@ class BarterTransactionModel {
   String listingid;
   String listingName;
   double listingValue;
+  String listingCategory;
   String itemName;
   double itemValue;
   String itemUrl;
@@ -90,6 +92,7 @@ class BarterTransactionModel {
       'consumerLname': consumserLastName,
       'isDisputed': isDisputed,
       'isConsumerDisputed': isConsumerDisputed,
+      'listingCategory': listingCategory,
     };
   }
 }

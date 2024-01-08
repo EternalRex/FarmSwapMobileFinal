@@ -8,6 +8,7 @@ class SellListingDetailsProvider extends ChangeNotifier {
   String pictureUrl = "";
   DateTime startTime = DateTime.now();
   DateTime endTime = DateTime.now();
+  String listingCategory = "";
 
 /*Setter and getter for listing name */
   void setListingName(String name) {
@@ -77,5 +78,15 @@ class SellListingDetailsProvider extends ChangeNotifier {
 
   DateTime get getEndDate {
     return endTime;
+  }
+
+  /*Getter and setter for the listing category*/
+  void setSellListingCategory(String category) {
+    listingCategory = category;
+    notifyListeners();
+  }
+
+  String get getSellListingCateg {
+    return listingCategory;
   }
 }

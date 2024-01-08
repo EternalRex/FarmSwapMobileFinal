@@ -24,8 +24,7 @@ class _GetConsumerUnselectedState extends State<GetConsumerUnselected> {
     return StreamBuilder(
       stream: firestore
           .collectionGroup('barterbids')
-          .where('consumerId',
-              isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .orderBy('itemBidTime', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
@@ -58,8 +57,10 @@ class _GetConsumerUnselectedState extends State<GetConsumerUnselected> {
     /*Item Data */
     String imageUrl = data["itemPicUrl"];
     String itemName = data["itemName"];
-    String itemquantity = data["itemQuantity"].toString();
-    String itemValue = data["itemValue"].toString();
+    double itemQuantityDouble = (data['itemQuantity'] as num).toDouble();
+    String itemquantity = itemQuantityDouble.toStringAsFixed(2);
+    double itemValueDouble = (data["itemValue"] as num).toDouble();
+    String itemValue = itemValueDouble.toStringAsFixed(2);
     String itemCondition = data["itemCondition"];
     String itemDisc = data["itemDisc"];
     bool isBartered = data["isBarteredOut"];
@@ -70,8 +71,10 @@ class _GetConsumerUnselectedState extends State<GetConsumerUnselected> {
     /*Listing data*/
     String listingId = data["listingId"];
     String listingName = data["listingName"];
-    String listingQuan = data["listingQuantity"].toString();
-    String listingPrice = data["listingPrice"].toString();
+    double listingQuanDouble = (data["listingQuantity"] as num).toDouble();
+    double listingPriceDouble = (data["listingPrice"] as num).toDouble();
+    String listingQuan = listingQuanDouble.toStringAsFixed(2);
+    String listingPrice = listingPriceDouble.toStringAsFixed(2);
     // ignore: unused_local_variable
     String listStatus = data["listingStatus"];
 

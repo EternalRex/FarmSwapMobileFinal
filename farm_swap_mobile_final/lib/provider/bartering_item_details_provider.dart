@@ -17,6 +17,7 @@ class BartertingItemDetailsProvider extends ChangeNotifier {
   String listingprice = "";
   String listingquan = "";
   String listingstatus = "";
+  String listingCategory = '';
 
   /*Details we need from farmer */
   String farmername = "";
@@ -254,5 +255,14 @@ class BartertingItemDetailsProvider extends ChangeNotifier {
 
   String get getConsumerMunisipyo {
     return consumermunicipality;
+  }
+
+  void setListingCategory(String category) {
+    listingCategory = category;
+    notifyListeners();
+  }
+
+  String get getListingCategory {
+    return listingCategory;
   }
 }

@@ -29,6 +29,7 @@ class BarteringModel {
     required this.selected,
     required this.completed,
     required this.consCompleted,
+    required this.listingCategory,
   });
 
 /*The data we needed from the lisiting */
@@ -38,6 +39,7 @@ class BarteringModel {
   double listingQuantity;
   String listingStatus;
   String listingId;
+  String listingCategory;
 
 /*The data that we need from farmer*/
   String farmerId;
@@ -99,6 +101,7 @@ class BarteringModel {
       'consumerMuniciplaity': consumerMunicipality,
       'completed': completed,
       'consumerCompleted': consCompleted,
+      'listingCategoryFV': listingCategory,
     };
   }
 }

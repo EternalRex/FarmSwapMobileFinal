@@ -35,6 +35,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
   int finalRating = 0;
   int finalRating2 = 0;
   double finalRating3 = 0;
+  String finalRatingString = '';
 
   @override
   void initState() {
@@ -44,8 +45,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
 
   @override
   Widget build(BuildContext context) {
-    String userType =
-        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String userType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -62,8 +62,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -90,7 +89,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
               child: Column(
                 children: [
                   poppinsText2(
-                    "$finalRating3",
+                    finalRatingString,
                     Colors.white,
                     30.sp,
                     FontWeight.w500,
@@ -204,8 +203,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
                                 )
                               : (finalRating < 3 && finalRating >= 2)
                                   ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Icon(
                                           Icons.star,
@@ -230,8 +228,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
                                     )
                                   : (finalRating >= 1 && finalRating < 2)
                                       ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Icon(
                                               Icons.star,
@@ -250,8 +247,7 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
                                           ],
                                         )
                                       : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             SizedBox(
                                               width: 10.w,
@@ -331,20 +327,18 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
   }
 
   Future<void> getFarmerRating() async {
-    String userType =
-        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String userType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
     if (userType == "CONSUMER") {
-      double rating =
-          await farmerDetails2.getFarmerRating(widget.farmerId.toString());
+      double rating = await farmerDetails2.getFarmerRating(widget.farmerId.toString());
       setState(() {
         finalRating = rating.toInt();
         finalRating3 = rating.roundToDouble();
       });
     } else {
-      double rating = await farmerDetails2
-          .getFarmerRating(FirebaseAuth.instance.currentUser!.uid);
+      double rating = await farmerDetails2.getFarmerRating(FirebaseAuth.instance.currentUser!.uid);
       setState(() {
         finalRating3 = rating;
+        finalRatingString = rating.toStringAsFixed(2);
         finalRating = rating.toInt();
       });
     }

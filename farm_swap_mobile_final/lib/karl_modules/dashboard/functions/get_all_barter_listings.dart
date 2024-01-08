@@ -89,6 +89,7 @@ class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterLis
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
     String farmerid = data["farmerId"];
+    String listingTypeCategory = data['listCategory'];
 
     /*Actual design of widget to be returned */
     if (listingStatus == "ACTIVE" || listingStatus == "REACTIVATED") {
@@ -117,6 +118,7 @@ class _DashBoardGetAllBarterListingsState extends State<DashBoardGetAllBarterLis
                   listingQuan: listingQuanString,
                   listingStatus: listingStatus,
                   farmerId: farmerid,
+                  listingTypeCategory: listingTypeCategory,
                 );
               },
             ));

@@ -59,7 +59,8 @@ class _GetBarteringListingDetailsState extends State<GetBarteringListingDetails>
     String listingid = document.id;
     String imageUrl = data["listingpictureUrl"];
     String listingname = data["listingName"];
-    String listingQuan = data["listingQuantity"].toString();
+    double listingQuanDouble = (data["listingQuantity"] as num).toDouble();
+    String listingQuan = listingQuanDouble.toStringAsFixed(2);
     String listingStatus = data["listingstatus"];
     bool promoted = data["promoted"];
     String farmerUsername = data["farmerUserName"];

@@ -19,6 +19,7 @@ class BarterListingModel {
     required this.promotionDate,
     required this.renewalDate,
     required this.farmerId,
+    required this.category,
   });
 
 /*Properties*/
@@ -41,6 +42,7 @@ class BarterListingModel {
   DateTime promotionDate;
   DateTime renewalDate;
   String farmerId;
+  String category;
 
   Map<String, dynamic> toMap() {
     return {
@@ -63,6 +65,7 @@ class BarterListingModel {
       'promotionDate': promotionDate,
       'renewaldate': renewalDate,
       'farmerId': farmerId,
+      'listCategory': category,
     };
   }
 }

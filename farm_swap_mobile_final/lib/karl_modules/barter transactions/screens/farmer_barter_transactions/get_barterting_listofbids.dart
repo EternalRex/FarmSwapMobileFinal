@@ -64,8 +64,10 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     /*Item Data */
     String imageUrl = data["itemPicUrl"];
     String itemName = data["itemName"];
-    String itemquantity = data["itemQuantity"].toString();
-    String itemValue = data["itemValue"].toString();
+    double itemQuanDouble = (data["itemQuantity"] as num).toDouble();
+    String itemquantity = itemQuanDouble.toStringAsFixed(2);
+    double itemValueDouble = (data["itemValue"] as num).toDouble();
+    String itemValue = itemValueDouble.toStringAsFixed(2);
     String itemCondition = data["itemCondition"];
     String itemDisc = data["itemDisc"];
     bool isBartered = data["isBarteredOut"];
@@ -75,8 +77,10 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     /*Listing data*/
     String listingId = data["listingId"];
     String listingName = data["listingName"];
-    String listingQuan = data["listingQuantity"].toString();
-    String listingPrice = data["listingPrice"].toString();
+    double listingQuanDouble = (data["listingQuantity"] as num).toDouble();
+    String listingQuan = listingQuanDouble.toStringAsFixed(2);
+    double listingPriceDouble = (data["listingPrice"] as num).toDouble();
+    String listingPrice = listingPriceDouble.toStringAsFixed(2);
     String listStatus = data["listingStatus"];
 
     /*Consumer data*/
@@ -86,6 +90,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     String consumeruname = data["consumerUname"];
     String consumerBarangay = data["consumerBaranggay"];
     String consumerMunicipality = data["consumerMuniciplaity"];
+    String listingCategoryFVV = data["listingCategoryFV"];
 
 /*Bid time conversion*/
     Timestamp bidtime = data["itemBidTime"];
@@ -142,6 +147,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
                     bartered: isBartered,
                     completed: isCompleted,
                     listUrl: widget.listingUrl,
+                    listingCategory: listingCategoryFVV,
                   ),
                 ),
               );
@@ -246,6 +252,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
                             bartered: isBartered,
                             completed: isCompleted,
                             listUrl: widget.listingUrl,
+                            listingCategory: listingCategoryFVV,
                           ),
                         ),
                       );

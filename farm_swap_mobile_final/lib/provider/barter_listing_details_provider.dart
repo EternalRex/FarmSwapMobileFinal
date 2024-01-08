@@ -7,6 +7,7 @@ class BarterListingDetailsProvider extends ChangeNotifier {
   double quantity = 0;
   double price = 0;
   String pictureUrl = "";
+  String listingCategory = "";
   DateTime startTime = DateTime.now();
   DateTime endTime = DateTime.now();
 
@@ -88,5 +89,15 @@ class BarterListingDetailsProvider extends ChangeNotifier {
 
   String get getPrefferedItem {
     return prefferedItem;
+  }
+
+  /*Getter and setter for listing category*/
+  void setListingCategoru(String category) {
+    listingCategory = category;
+    notifyListeners();
+  }
+
+  String get getCategory {
+    return listingCategory;
   }
 }

@@ -22,8 +22,7 @@ class _GetMyOrdersState extends State<GetMyOrders> {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collectionGroup("sellbuy")
-          .where('consumerId',
-              isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('consumerId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .orderBy('purchaseDate', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
@@ -75,6 +74,8 @@ class _GetMyOrdersState extends State<GetMyOrders> {
 
     double purchasekilograms = (data["purchaseQuan"] as num).toDouble();
     double purchasePrice = (data["purchaseTotalPrice"] as num).toDouble();
+    String purchaseKilogramString = purchasekilograms.toStringAsFixed(2);
+    String purchasePriceString = purchasePrice.toStringAsFixed(2);
     bool purchaseIsComplete = data["purchaseIsComplete"];
     bool confirmed = data["confirmed"];
     bool selected = data["selected"];
@@ -88,15 +89,13 @@ class _GetMyOrdersState extends State<GetMyOrders> {
     /*Confirmed time conversion */
     Timestamp confirmedTime = data["confirmedDate"];
     DateTime newConfirmedTime = confirmedTime.toDate();
-    String finalConfirmedTime =
-        DateFormat('yyyy-MM-dd').format(newConfirmedTime);
+    String finalConfirmedTime = DateFormat('yyyy-MM-dd').format(newConfirmedTime);
 
     /*Completed time conversion */
     // ignore: unused_local_variable
     Timestamp completedTime = data["confirmedDate"];
     DateTime newCompletedTime = confirmedTime.toDate();
-    String finalCompletedTime =
-        DateFormat('yyyy-MM-dd').format(newCompletedTime);
+    String finalCompletedTime = DateFormat('yyyy-MM-dd').format(newCompletedTime);
 
     if ((listingstatus == "ACTIVE" || listingstatus == "REACTIVATED") &&
         (confirmed == false && selected == false && declined == false)) {
@@ -154,6 +153,8 @@ class _GetMyOrdersState extends State<GetMyOrders> {
                       declined: declined,
                       imageUrl: imageUrl,
                       consumerCompleted: isConsumerComplete,
+                      purchaseQuantityString: purchaseKilogramString,
+                      purchasePriceString: purchasePriceString,
                     );
                   },
                 ),
@@ -202,7 +203,7 @@ class _GetMyOrdersState extends State<GetMyOrders> {
                     SizedBox(
                       width: 150.sp,
                       child: Text(
-                        "${purchasekilograms.toString()} kilograms",
+                        "$purchaseKilogramString kilograms",
                         style: TextStyle(
                           fontSize: 13.sp,
                           color: Colors.black,
@@ -266,6 +267,8 @@ class _GetMyOrdersState extends State<GetMyOrders> {
                               declined: declined,
                               imageUrl: imageUrl,
                               consumerCompleted: isConsumerComplete,
+                              purchaseQuantityString: purchaseKilogramString,
+                              purchasePriceString: purchasePriceString,
                             );
                           },
                         ),

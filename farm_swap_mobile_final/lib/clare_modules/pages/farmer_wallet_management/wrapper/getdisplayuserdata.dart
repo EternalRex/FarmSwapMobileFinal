@@ -31,6 +31,8 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+          double balanceDouble = (data['balance'] as num).toDouble();
+          String finalBalanceString = balanceDouble.toStringAsFixed(2);
 
           //creating a variable for the current user uid to pass sa builderlist
           final userId = FirebaseAuth.instance.currentUser!.uid;
@@ -63,7 +65,7 @@ class _DisplayWalletDataState extends State<DisplayWalletData> {
                           ),
                           SizedBox(
                             child: Text(
-                              '₱${data['balance']}',
+                              '₱$finalBalanceString',
                               style: Poppins.number.copyWith(
                                 color: const Color(0xFFFFFFFF),
                               ),

@@ -33,6 +33,7 @@ class _DisplayConsumerReviewState extends State<DisplayConsumerReview> {
   int finalRating = 0;
   int finalRating2 = 0;
   double finalRating3 = 0;
+  String finalRatingString = '';
 
   @override
   void initState() {
@@ -86,7 +87,7 @@ class _DisplayConsumerReviewState extends State<DisplayConsumerReview> {
               child: Column(
                 children: [
                   poppinsText2(
-                    "$finalRating3",
+                    finalRatingString,
                     Colors.white,
                     30.sp,
                     FontWeight.w500,
@@ -312,14 +313,16 @@ class _DisplayConsumerReviewState extends State<DisplayConsumerReview> {
     if (userType == "FARMER") {
       double rating = await consumerDetails.getConsumerRating(widget.consumerId.toString());
       setState(() {
+        finalRating3 = rating;
+        finalRatingString = rating.toStringAsFixed(2);
         finalRating = rating.toInt();
-        finalRating3 = rating.roundToDouble();
       });
     } else {
       double rating =
           await consumerDetails.getConsumerRating(FirebaseAuth.instance.currentUser!.uid);
       setState(() {
         finalRating3 = rating;
+        finalRatingString = rating.toStringAsFixed(2);
         finalRating = rating.toInt();
       });
     }

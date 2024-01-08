@@ -35,6 +35,7 @@ class DashboardPromotedProductDetails extends StatefulWidget {
     required this.listingQuan,
     required this.listingStatus,
     required this.farmerId,
+    required this.listingTypeCategory,
   });
 
   final String listingId;
@@ -55,14 +56,13 @@ class DashboardPromotedProductDetails extends StatefulWidget {
   final String startTime;
   final String endTime;
   final String farmerId;
+  final String listingTypeCategory;
 
   @override
-  State<DashboardPromotedProductDetails> createState() =>
-      _DashboardPromotedProductDetailsState();
+  State<DashboardPromotedProductDetails> createState() => _DashboardPromotedProductDetailsState();
 }
 
-class _DashboardPromotedProductDetailsState
-    extends State<DashboardPromotedProductDetails> {
+class _DashboardPromotedProductDetailsState extends State<DashboardPromotedProductDetails> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -73,8 +73,7 @@ class _DashboardPromotedProductDetailsState
 
   @override
   Widget build(BuildContext context) {
-    String loginUserType =
-        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    String loginUserType = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -92,8 +91,7 @@ class _DashboardPromotedProductDetailsState
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -230,8 +228,7 @@ class _DashboardPromotedProductDetailsState
                                   style: TextStyle(
                                     fontSize: 11.sp,
                                     color: Colors.black,
-                                    fontFamily:
-                                        GoogleFonts.poppins().fontFamily,
+                                    fontFamily: GoogleFonts.poppins().fontFamily,
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -370,34 +367,24 @@ class _DashboardPromotedProductDetailsState
                                   (loginUserType == "CONSUMER")
                                       ?
                                       /*We used this kind of navigation so that we can pass data to the next class*/
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
+                                      Navigator.of(context).push(MaterialPageRoute(
                                           builder: (context) {
                                             /*So ato e pasa ang mga data ni listing ni farmer og item
                                       kay para magamit sa next class */
                                             return EnterToBarterItem(
                                               listingIdNeed: widget.listingId,
-                                              listingNameNeed:
-                                                  widget.listingname,
-                                              listingDiscNeed:
-                                                  widget.listingDisc,
-                                              listingEquivalentPriceNeed:
-                                                  widget.listingPrice,
-                                              listingQuantityNeed:
-                                                  widget.listingQuan,
-                                              listingStatusNeed:
-                                                  widget.listingStatus,
-                                              farmerFNameNeed:
-                                                  widget.farmerName,
-                                              farmerUnameNeed:
-                                                  widget.farmerUsername,
-                                              farmerLnameNeed:
-                                                  widget.farmerLname,
-                                              farmerBaranggayNeed:
-                                                  widget.farmerBarangay,
-                                              farmerMunicaplityNeed:
-                                                  widget.farmerMunicipality,
+                                              listingNameNeed: widget.listingname,
+                                              listingDiscNeed: widget.listingDisc,
+                                              listingEquivalentPriceNeed: widget.listingPrice,
+                                              listingQuantityNeed: widget.listingQuan,
+                                              listingStatusNeed: widget.listingStatus,
+                                              farmerFNameNeed: widget.farmerName,
+                                              farmerUnameNeed: widget.farmerUsername,
+                                              farmerLnameNeed: widget.farmerLname,
+                                              farmerBaranggayNeed: widget.farmerBarangay,
+                                              farmerMunicaplityNeed: widget.farmerMunicipality,
                                               farmerId: widget.farmerId,
+                                              listingCategory: widget.listingTypeCategory,
                                             );
                                           },
                                         ))
@@ -417,8 +404,7 @@ class _DashboardPromotedProductDetailsState
                                     ),
                                   );
                                 },
-                                child: poppinsText("Reviews", orangeDark, 15.sp,
-                                    FontWeight.w500),
+                                child: poppinsText("Reviews", orangeDark, 15.sp, FontWeight.w500),
                               ),
                             ],
                           )
@@ -516,8 +502,7 @@ class _DashboardPromotedProductDetailsState
                   ),
                 );
               },
-              child: poppinsText(
-                  "Back", farmSwapTitlegreen, 13.sp, FontWeight.w500),
+              child: poppinsText("Back", farmSwapTitlegreen, 13.sp, FontWeight.w500),
             ),
           ],
         );

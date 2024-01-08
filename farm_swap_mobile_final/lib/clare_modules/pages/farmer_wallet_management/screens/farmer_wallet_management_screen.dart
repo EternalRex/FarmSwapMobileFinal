@@ -49,7 +49,7 @@ class WalletPage extends StatelessWidget {
         ),
       ),
       /*Displaying the drawer */
-      drawer: DashBoardDrawer(),
+      drawer: const DashBoardDrawer(),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -57,8 +57,7 @@ class WalletPage extends StatelessWidget {
               width: 780.w,
               height: 165.h,
               child: const Image(
-                image: AssetImage(
-                    'assets/karl_assets/images/walletbackground.png'),
+                image: AssetImage('assets/karl_assets/images/walletbackground.png'),
                 fit: BoxFit.fill,
               ),
             ),
@@ -69,8 +68,7 @@ class WalletPage extends StatelessWidget {
                 ),
                 //this will display the farmer profile information
                 FutureBuilder<String>(
-                  future: id.getFarmerDocumentId(
-                      FirebaseAuth.instance.currentUser!.uid),
+                  future: id.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       String data = snapshot.data!;
@@ -78,8 +76,7 @@ class WalletPage extends StatelessWidget {
                     } else if (snapshot.hasError) {
                       return Text("Error: ${snapshot.error}");
                     } else {
-                      return const Text(
-                          "Loading..."); // You can use a loading indicator here.
+                      return const Text("Loading..."); // You can use a loading indicator here.
                     }
                   },
                 ),

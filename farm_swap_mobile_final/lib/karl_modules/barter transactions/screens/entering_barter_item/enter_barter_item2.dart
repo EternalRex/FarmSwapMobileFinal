@@ -20,29 +20,42 @@ class UploadBarterItemPicture extends StatefulWidget {
     super.key,
     required this.itemvalue2,
     required this.listingvalue2,
+    required this.listingCategory,
+    required this.listingIdNeed,
+    required this.listingNameNeed,
+    required this.listingDiscNeed,
+    required this.listingEquivalentPriceNeed,
+    required this.listingQuantityNeed,
+    required this.listingStatusNeed,
+    required this.farmerFNameNeed,
+    required this.farmerLnameNeed,
+    required this.farmerUnameNeed,
+    required this.farmerMunicaplityNeed,
+    required this.farmerBaranggayNeed,
+    required this.farmerId,
   });
   final double? itemvalue2;
   final double? listingvalue2;
 
   /*The data we needed from the lisiting */
-  final String listingIdNeed = '';
-  final String listingNameNeed = '';
-  final String listingDiscNeed = '';
-  final String listingEquivalentPriceNeed = '';
-  final String listingQuantityNeed = ' = ';
-  final String listingStatusNeed = '';
+  final String listingIdNeed;
+  final String listingNameNeed;
+  final String listingDiscNeed;
+  final String listingEquivalentPriceNeed;
+  final String listingQuantityNeed;
+  final String listingStatusNeed;
 
 /*The data that we need from farmer*/
-  final String farmerFNameNeed = '';
-  final String farmerLnameNeed = '';
-  final String farmerUnameNeed = '';
-  final String farmerBaranggayNeed = '';
-  final String farmerMunicaplityNeed = '';
-  final String farmerId = '';
+  final String farmerFNameNeed;
+  final String farmerLnameNeed;
+  final String farmerUnameNeed;
+  final String farmerBaranggayNeed;
+  final String farmerMunicaplityNeed;
+  final String farmerId;
+  final String listingCategory;
 
   @override
-  State<UploadBarterItemPicture> createState() =>
-      _UploadBarterItemPictureState();
+  State<UploadBarterItemPicture> createState() => _UploadBarterItemPictureState();
 }
 
 class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
@@ -60,8 +73,7 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
   @override
   Widget build(BuildContext context) {
     String farmerId =
-        Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-            .getFarmerId;
+        Provider.of<BartertingItemDetailsProvider>(context, listen: false).getFarmerId;
     return Scaffold(
       key: _scaffoldKey,
       /*Start of appbar */
@@ -78,8 +90,7 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -154,13 +165,11 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                           // Start loading state
                           _showLoadingDialog(context);
 
-                          String? picUrl =
-                              await upload.uploadImageToFirebaseGallery();
+                          String? picUrl = await upload.uploadImageToFirebaseGallery();
 
                           // End loading state
                           Navigator.pop(context);
-                          Provider.of<BartertingItemDetailsProvider>(context,
-                                  listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                               .setItemUrl(picUrl.toString());
 
                           print(farmerId);
@@ -170,6 +179,18 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                                 farmerId: farmerId,
                                 itemValue: widget.itemvalue2,
                                 listingValue: widget.listingvalue2,
+                                farmerFNameNeed: widget.farmerFNameNeed,
+                                farmerLnameNeed: widget.farmerLnameNeed,
+                                farmerUnameNeed: widget.farmerUnameNeed,
+                                farmerBaranggayNeed: widget.farmerBaranggayNeed,
+                                farmerMunicaplityNeed: widget.farmerMunicaplityNeed,
+                                listingCategory: widget.listingCategory,
+                                listingDiscNeed: widget.listingDiscNeed,
+                                listingEquivalentPriceNeed: widget.listingEquivalentPriceNeed,
+                                listingIdNeed: widget.listingIdNeed,
+                                listingNameNeed: widget.listingNameNeed,
+                                listingQuantityNeed: widget.listingQuantityNeed,
+                                listingStatusNeed: widget.listingStatusNeed,
                               );
                             },
                           ));
@@ -189,12 +210,10 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                         onTap: () async {
                           // Start loading state
                           _showLoadingDialog(context);
-                          String? picUrl =
-                              await upload.uploadImageToFirebaseCamera();
+                          String? picUrl = await upload.uploadImageToFirebaseCamera();
                           // End loading state
                           Navigator.pop(context);
-                          Provider.of<BartertingItemDetailsProvider>(context,
-                                  listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
                               .setItemUrl(
                             picUrl.toString(),
                           );
@@ -206,6 +225,18 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                                 farmerId: farmerId,
                                 itemValue: widget.itemvalue2,
                                 listingValue: widget.listingvalue2,
+                                farmerFNameNeed: widget.farmerFNameNeed,
+                                farmerLnameNeed: widget.farmerLnameNeed,
+                                farmerUnameNeed: widget.farmerUnameNeed,
+                                farmerBaranggayNeed: widget.farmerBaranggayNeed,
+                                farmerMunicaplityNeed: widget.farmerMunicaplityNeed,
+                                listingCategory: widget.listingCategory,
+                                listingDiscNeed: widget.listingDiscNeed,
+                                listingEquivalentPriceNeed: widget.listingEquivalentPriceNeed,
+                                listingIdNeed: widget.listingIdNeed,
+                                listingNameNeed: widget.listingNameNeed,
+                                listingQuantityNeed: widget.listingQuantityNeed,
+                                listingStatusNeed: widget.listingStatusNeed,
                               );
                             },
                           ));
@@ -247,18 +278,20 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => EnterToBarterItem(
-                  listingIdNeed: widget.listingIdNeed,
-                  listingNameNeed: widget.listingNameNeed,
-                  listingDiscNeed: widget.listingDiscNeed,
-                  listingEquivalentPriceNeed: widget.listingEquivalentPriceNeed,
-                  listingQuantityNeed: widget.listingQuantityNeed,
-                  listingStatusNeed: widget.listingStatusNeed,
-                  farmerFNameNeed: widget.farmerFNameNeed,
-                  farmerUnameNeed: widget.farmerUnameNeed,
-                  farmerLnameNeed: widget.farmerLnameNeed,
-                  farmerBaranggayNeed: widget.farmerBaranggayNeed,
-                  farmerMunicaplityNeed: widget.farmerMunicaplityNeed,
-                  farmerId: widget.farmerId),
+                listingIdNeed: widget.listingIdNeed,
+                listingNameNeed: widget.listingNameNeed,
+                listingDiscNeed: widget.listingDiscNeed,
+                listingEquivalentPriceNeed: widget.listingEquivalentPriceNeed,
+                listingQuantityNeed: widget.listingQuantityNeed,
+                listingStatusNeed: widget.listingStatusNeed,
+                farmerFNameNeed: widget.farmerFNameNeed,
+                farmerUnameNeed: widget.farmerUnameNeed,
+                farmerLnameNeed: widget.farmerLnameNeed,
+                farmerBaranggayNeed: widget.farmerBaranggayNeed,
+                farmerMunicaplityNeed: widget.farmerMunicaplityNeed,
+                farmerId: widget.farmerId,
+                listingCategory: widget.listingCategory,
+              ),
             ),
           );
         },

@@ -113,6 +113,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
     String farmerBarangay = data["farmerBaranggay"];
     String farmerUsername = data["farmerUserName"];
     String farmerid = data["farmerId"];
+    String listingTypeCategory = data['listCategory'];
 
     /*Actual design of widget to be returned */
     return GestureDetector(
@@ -138,6 +139,7 @@ class _GetAllBarterPromotionsState extends State<GetAllBarterPromotions> {
               listingQuan: listingQuan,
               listingStatus: listingStatus,
               farmerId: farmerid,
+              listingTypeCategory: listingTypeCategory,
             );
           },
         ));

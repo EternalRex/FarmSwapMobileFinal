@@ -402,6 +402,8 @@ farmer that data is saved */
                       uname,
                       DateTime.now(),
                       Provider.of<SellListingDetailsProvider>(context, listen: false).getEndDate,
+                      Provider.of<SellListingDetailsProvider>(context, listen: false)
+                          .getSellListingCateg,
                     );
                     Navigator.of(context).pushNamed(RouteManager.listingmainpage);
                   },
