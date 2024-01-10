@@ -331,8 +331,9 @@ class _DisplayFarmerReviewsState extends State<DisplayFarmerReviews> {
     if (userType == "CONSUMER") {
       double rating = await farmerDetails2.getFarmerRating(widget.farmerId.toString());
       setState(() {
+        finalRating3 = rating;
+        finalRatingString = rating.toStringAsFixed(2);
         finalRating = rating.toInt();
-        finalRating3 = rating.roundToDouble();
       });
     } else {
       double rating = await farmerDetails2.getFarmerRating(FirebaseAuth.instance.currentUser!.uid);

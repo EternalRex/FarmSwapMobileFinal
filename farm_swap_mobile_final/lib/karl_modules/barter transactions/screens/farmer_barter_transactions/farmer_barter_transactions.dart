@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:farm_swap_mobile_final/common/colors.dart';
+import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/database/check_barter_bid.dart';
 import 'package:farm_swap_mobile_final/karl_modules/barter%20transactions/screens/farmer_barter_transactions/get_bartering_listing_details.dart';
 import 'package:farm_swap_mobile_final/karl_modules/dashboard/widgets/dashbiard_drawer_widgets/drawer.dart';
 import 'package:farm_swap_mobile_final/routes/routes.dart';
@@ -9,18 +12,25 @@ class FarmerBarterTransactionMainPage extends StatefulWidget {
   const FarmerBarterTransactionMainPage({super.key});
 
   @override
-  State<FarmerBarterTransactionMainPage> createState() =>
-      _FarmerBarterTransactionMainPageState();
+  State<FarmerBarterTransactionMainPage> createState() => _FarmerBarterTransactionMainPageState();
 }
 
-class _FarmerBarterTransactionMainPageState
-    extends State<FarmerBarterTransactionMainPage> {
+class _FarmerBarterTransactionMainPageState extends State<FarmerBarterTransactionMainPage> {
 /*Creating a scafoold key so that we can open a drawer that is built from another class */
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  CheckBarterBid checkBid = CheckBarterBid();
+  List<String> bidIds = [];
 
   /*A function for opening a drawer using the scaffold key */
   void openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkBarterBids();
   }
 
   @override
@@ -43,8 +53,7 @@ class _FarmerBarterTransactionMainPageState
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -68,7 +77,7 @@ class _FarmerBarterTransactionMainPageState
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
-              child: const GetBarteringListingDetails(),
+              child: GetBarteringListingDetails(availableids: bidIds),
             ),
           ],
         ),
@@ -90,5 +99,12 @@ class _FarmerBarterTransactionMainPageState
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+  }
+
+  Future<void> checkBarterBids() async {
+    List<String> allid = await checkBid.checkBidPresence();
+    setState(() {
+      bidIds = allid;
+    });
   }
 }

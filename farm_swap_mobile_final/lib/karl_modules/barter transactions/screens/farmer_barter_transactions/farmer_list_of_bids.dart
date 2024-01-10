@@ -53,8 +53,7 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -119,8 +118,7 @@ class _FarmerListOfBidsState extends State<FarmerListOfBids> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .pushNamed(RouteManager.farmerbartertransactionmainpage);
+          Navigator.of(context).pushNamed(RouteManager.farmerbartertransactionmainpage);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
