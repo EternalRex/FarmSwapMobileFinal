@@ -11,7 +11,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class GetBarteringListingDetails extends StatefulWidget {
-  const GetBarteringListingDetails({super.key});
+  const GetBarteringListingDetails({super.key, required this.availableids});
+
+  final List<String> availableids;
 
   @override
   State<GetBarteringListingDetails> createState() => _GetBarteringListingDetailsState();
@@ -49,6 +51,7 @@ class _GetBarteringListingDetailsState extends State<GetBarteringListingDetails>
 
   Widget accessDocumentContents(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+    bool isMember = widget.availableids.contains(document.id);
 
     /*Date Conversions of listing start date*/
     Timestamp timestamp1 = data["listingStartTime"];
@@ -65,7 +68,7 @@ class _GetBarteringListingDetailsState extends State<GetBarteringListingDetails>
     bool promoted = data["promoted"];
     String farmerUsername = data["farmerUserName"];
     String farmerId = data["farmerId"];
-
+/*
     if (listingStatus == "ACTIVE" || listingStatus == "REACTIVATED" && promoted != true) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -93,8 +96,125 @@ class _GetBarteringListingDetailsState extends State<GetBarteringListingDetails>
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) {
                   return FarmerListOfBids(
-                    farmerId: farmerId,
                     farmerUname: farmerUsername,
+                    farmerId: farmerId,
+                    listingId: listingid,
+                    listingUrl: imageUrl,
+                  );
+                },
+              ));
+            },
+            /*A column that contains the details being displayed */
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(15.sp),
+                  height: 100.h,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    /*PUTTING BOX SHADOW ON THE CONTAINER */
+                    image: DecorationImage(
+                      image: CachedNetworkImageProvider(imageUrl),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 12.sp,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    poppinsText(
+                      listingname,
+                      farmSwapTitlegreen,
+                      15.sp,
+                      FontWeight.w500,
+                    ),
+                    poppinsText(
+                      "$listingQuan kg",
+                      Colors.black,
+                      13.sp,
+                      FontWeight.w300,
+                    ),
+                    poppinsText(
+                      finalStartDate,
+                      Colors.black,
+                      13.sp,
+                      FontWeight.w300,
+                    ),
+                  ],
+                ),
+                const Spacer(
+                  flex: 1,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 15.sp),
+                  child: IconButton(
+                    onPressed: () {
+                      /*Pasa nato ang needed na data sa next page nga Farmer list of bids */
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) {
+                          return FarmerListOfBids(
+                            farmerId: farmerId,
+                            farmerUname: farmerUsername,
+                            listingId: listingid,
+                            listingUrl: imageUrl,
+                          );
+                        },
+                      ));
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.eye,
+                      color: farmSwapTitlegreen,
+                    ),
+                    iconSize: 25.sp,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      return Container();
+    }*/
+
+    if (listingStatus == "ACTIVE" ||
+        listingStatus == "REACTIVATED" && promoted != true && isMember) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          alignment: Alignment.bottomLeft,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(30),
+            ),
+            /*PUTTING BOX SHADOW ON THE CONTAINER */
+            boxShadow: [
+              BoxShadow(
+                color: shadow,
+                blurRadius: 2,
+                offset: const Offset(1, 5),
+              ),
+            ],
+          ),
+          width: 190.w,
+          height: 100.h,
+          child: GestureDetector(
+            onTap: () {
+              /*Pasa nato ang needed na data sa next page nga Farmer list of bids */
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) {
+                  return FarmerListOfBids(
+                    farmerUname: farmerUsername,
+                    farmerId: farmerId,
                     listingId: listingid,
                     listingUrl: imageUrl,
                   );

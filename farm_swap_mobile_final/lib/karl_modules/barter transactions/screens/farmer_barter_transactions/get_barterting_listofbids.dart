@@ -81,7 +81,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
     String listingQuan = listingQuanDouble.toStringAsFixed(2);
     double listingPriceDouble = (data["listingPrice"] as num).toDouble();
     String listingPrice = listingPriceDouble.toStringAsFixed(2);
-    String listStatus = data["listingStatus"];
+    // String listStatus = data["listingStatus"];
 
     /*Consumer data*/
     String consumername = data["consumerName"];
@@ -134,7 +134,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
                     bidTime: finalbidTime,
                     listId: listingId,
                     listName: listingName,
-                    listStat: listStatus,
+                    listStat: listingStatus,
                     listPrice: listingPrice,
                     listQuan: listingQuan,
                     consname: consumername,
@@ -239,7 +239,7 @@ class _GetBarteringListOfBidsState extends State<GetBarteringListOfBids> {
                             bidTime: finalbidTime,
                             listId: listingId,
                             listName: listingName,
-                            listStat: listStatus,
+                            listStat: listingStatus,
                             listPrice: listingPrice,
                             listQuan: listingQuan,
                             consname: consumername,
