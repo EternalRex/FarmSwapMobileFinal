@@ -76,7 +76,9 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
     super.initState();
     /*If current user is farmer, then we will get the personal details of a farmer so that we can
     use it  when farmer decides to register to a consumer account*/
-    if (Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType == 'FARMER') {
+    if (Provider.of<LoginUserTypeProvider>(context, listen: false)
+            .getUserType ==
+        'FARMER') {
       getFarmerDetails();
     } else {
       /*If user is a consumer. then we will check if he has a farmer account so that we can offer a switch account
@@ -87,8 +89,11 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    String userRole = Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
-    bool accountNumber = Provider.of<AccountNumberProvider>(context, listen: false).isManyAccounts;
+    String userRole =
+        Provider.of<LoginUserTypeProvider>(context, listen: false).getUserType;
+    bool accountNumber =
+        Provider.of<AccountNumberProvider>(context, listen: false)
+            .isManyAccounts;
 
     return Drawer(
       child: (userRole == "FARMER")
@@ -103,7 +108,8 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                     children: [
                       FutureBuilder(
                         /*Kwaon nato ang document id sa atong current login user */
-                        future: id.getFarmerDocumentId(FirebaseAuth.instance.currentUser!.uid),
+                        future: id.getFarmerDocumentId(
+                            FirebaseAuth.instance.currentUser!.uid),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             String data = snapshot.data!;
@@ -115,24 +121,31 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                         },
                       ),
                       SizedBox(
-                        height: 10.h,
+                        height: 5.h,
                       ),
                       GestureDetector(
                         onTap: () async {
-                          if (await checkEmail.checkFarmerEmail(myEmail.toString()) == true) {
+                          if (await checkEmail
+                                  .checkFarmerEmail(myEmail.toString()) ==
+                              true) {
                             setState(() {
-                              Provider.of<AccountNumberProvider>(context, listen: false)
+                              Provider.of<AccountNumberProvider>(context,
+                                      listen: false)
                                   .isManyAccountNumber(true);
-                              Provider.of<LoginUserTypeProvider>(context, listen: false)
+                              Provider.of<LoginUserTypeProvider>(context,
+                                      listen: false)
                                   .setLoginUsertype("CONSUMER");
-                              userRole = Provider.of<LoginUserTypeProvider>(context, listen: false)
+                              userRole = Provider.of<LoginUserTypeProvider>(
+                                      context,
+                                      listen: false)
                                   .getUserType;
                             });
                           } else {
                             showNotAConsumerMessage();
                           }
                         },
-                        child: poppinsText("Switch Account", Colors.red, 13.sp, FontWeight.w300),
+                        child: poppinsText("Switch Account", Colors.red, 12.sp,
+                            FontWeight.w300),
                       ),
                     ],
                   ),
@@ -185,7 +198,8 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                     children: [
                       FutureBuilder(
                         /*Kwaon nato ang document id sa atong current login user */
-                        future: id.getConsumerDocumentId(FirebaseAuth.instance.currentUser!.uid),
+                        future: id.getConsumerDocumentId(
+                            FirebaseAuth.instance.currentUser!.uid),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             String data = snapshot.data!;
@@ -197,7 +211,7 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                         },
                       ),
                       SizedBox(
-                        height: 10.sp,
+                        height: 5.sp,
                       ),
                       /*Check if the user has two accounts, only farmers has two accounts, if it has
                       then allow switching back to farmer account */
@@ -205,15 +219,17 @@ class _DashBoardDrawerState extends State<DashBoardDrawer> {
                           ? GestureDetector(
                               onTap: () async {
                                 setState(() {
-                                  Provider.of<LoginUserTypeProvider>(context, listen: false)
+                                  Provider.of<LoginUserTypeProvider>(context,
+                                          listen: false)
                                       .setLoginUsertype("FARMER");
-                                  userRole =
-                                      Provider.of<LoginUserTypeProvider>(context, listen: false)
-                                          .getUserType;
+                                  userRole = Provider.of<LoginUserTypeProvider>(
+                                          context,
+                                          listen: false)
+                                      .getUserType;
                                 });
                               },
-                              child:
-                                  poppinsText("Switch Account", Colors.red, 13.sp, FontWeight.w300),
+                              child: poppinsText("Switch Account", Colors.red,
+                                  13.sp, FontWeight.w300),
                             )
                           : Container(),
                     ],
@@ -306,16 +322,19 @@ mo register as a consumer*/
                       );
                       displaySuccessMessage();
                     },
-                    child: poppinsText("Register", Colors.green, 15.sp, FontWeight.normal),
+                    child: poppinsText(
+                        "Register", Colors.green, 15.sp, FontWeight.normal),
                   ),
                   SizedBox(
                     width: 25.w,
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed(RouteManager.activeDashboard);
+                      Navigator.of(context)
+                          .pushNamed(RouteManager.activeDashboard);
                     },
-                    child: poppinsText("Cancel", Colors.red, 15.sp, FontWeight.normal),
+                    child: poppinsText(
+                        "Cancel", Colors.red, 15.sp, FontWeight.normal),
                   ),
                 ],
               ),
@@ -388,7 +407,8 @@ mo register as a consumer*/
                 onPressed: () {
                   Navigator.of(context).pushNamed(RouteManager.activeDashboard);
                 },
-                child: poppinsText2("Finish", farmSwapTitlegreen, 15.sp, FontWeight.w300),
+                child: poppinsText2(
+                    "Finish", farmSwapTitlegreen, 15.sp, FontWeight.w300),
               ),
             ),
           ],

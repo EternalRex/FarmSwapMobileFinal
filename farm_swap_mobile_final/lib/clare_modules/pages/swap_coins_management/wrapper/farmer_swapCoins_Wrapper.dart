@@ -346,7 +346,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                     flex: 1,
                     child: Center(
                       child: Text(
-                        "${data["swapcoins"]}",
+                        '${data['swapcoins'].toStringAsFixed(2)}',
                         style: Poppins.detailsText.copyWith(
                           color: const Color(0xFF09041B),
                         ),
@@ -509,7 +509,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                               "User ID: ",
                               style: Poppins.adminName.copyWith(
                                 color: const Color(0xFF09041B),
-                                fontSize: 15.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -541,7 +541,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                               ),
                             ),
                             Text(
-                              "${data["swapcoins"]} ",
+                              '${data['swapcoins'].toStringAsFixed(2)}',
                               style: Poppins.adminName.copyWith(
                                 color: const Color(0xFF09041B),
                                 fontSize: 15.sp,
@@ -644,7 +644,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                   flex: 1,
                   child: Center(
                     child: Text(
-                      "${data["swapcoins"]}",
+                      '${data['swapcoins'].toStringAsFixed(2)}',
                       style: Poppins.detailsText.copyWith(
                         color: const Color(0xFF09041B),
                       ),
@@ -807,7 +807,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                             "User ID: ",
                             style: Poppins.adminName.copyWith(
                               color: const Color(0xFF09041B),
-                              fontSize: 15.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -839,7 +839,7 @@ class _DisplayFarmerSwapCoinsWrapperState
                             ),
                           ),
                           Text(
-                            "${data["swapcoins"]} ",
+                            '${data['swapcoins'].toStringAsFixed(2)}',
                             style: Poppins.adminName.copyWith(
                               color: const Color(0xFF09041B),
                               fontSize: 15.sp,

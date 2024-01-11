@@ -138,7 +138,7 @@ class _GetMyCartOrdersState extends State<GetMyCartOrders> {
             Padding(
               padding: EdgeInsets.only(right: 10.w),
               child: Text(
-                'Total : ${calculateTotal()}',
+                'Total : ${calculateTotal().toStringAsFixed(2)}',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.black,
