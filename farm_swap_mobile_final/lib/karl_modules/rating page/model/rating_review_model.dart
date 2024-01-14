@@ -15,6 +15,7 @@ class RatingReviewModel {
     required this.review,
     required this.rate,
     required this.reviewDate,
+    required this.profilePhoto,
   });
   /*Farmer Details*/
   String farmerId;
@@ -36,6 +37,7 @@ class RatingReviewModel {
   String review;
   int rate;
   DateTime reviewDate;
+  String profilePhoto;
 
   Map<String, dynamic> toMap() {
     return {
@@ -54,6 +56,7 @@ class RatingReviewModel {
       'review': review,
       'rate': rate,
       'reviewDate': reviewDate,
+      'profilePhoto': profilePhoto,
     };
   }
 }

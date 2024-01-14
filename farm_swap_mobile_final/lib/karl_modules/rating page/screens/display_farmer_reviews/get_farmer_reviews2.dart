@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_swap_mobile_final/common/colors.dart';
 import 'package:farm_swap_mobile_final/common/consumer_individual_details.dart';
@@ -61,6 +62,7 @@ class _GetFarmerReview2State extends State<GetFarmerReview2> {
     int finalRating = (data["rate"] as num).toInt();
     Timestamp reviewDate = data["reviewDate"];
     DateTime finalReviewDate = reviewDate.toDate();
+    String photo = data['profilePhoto'];
     String stringFinalReviewDate = DateFormat('MM-dd-yyyy').format(finalReviewDate);
 
     return Padding(
@@ -86,6 +88,197 @@ class _GetFarmerReview2State extends State<GetFarmerReview2> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Row(
+                children: [
+                  Container(
+                    height: 100.h,
+                    width: 120.w,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(photo),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Container(
+                    height: 100.h,
+                    width: 209.w,
+                    child: Column(
+                      children: [
+                        Text(
+                          consumerUserName,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                          ),
+                        ),
+                        (finalRating == 5)
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: darkGreen,
+                                    size: 25.sp,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  poppinsText2(
+                                    "(5/5)",
+                                    Colors.black,
+                                    13.sp,
+                                    FontWeight.normal,
+                                  ),
+                                ],
+                              )
+                            /*if rating is 4 display 4 stars */
+                            : (finalRating < 5 && finalRating >= 4)
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: darkGreen,
+                                        size: 25.sp,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: darkGreen,
+                                        size: 25.sp,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: darkGreen,
+                                        size: 25.sp,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: darkGreen,
+                                        size: 25.sp,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      poppinsText2(
+                                        "(4/5)",
+                                        Colors.black,
+                                        13.sp,
+                                        FontWeight.normal,
+                                      ),
+                                    ],
+                                  )
+                                : (finalRating < 4 && finalRating >= 3)
+                                    ? Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.star,
+                                            color: darkGreen,
+                                            size: 25.sp,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: darkGreen,
+                                            size: 25.sp,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: darkGreen,
+                                            size: 25.sp,
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          poppinsText2(
+                                            "(3/5)",
+                                            Colors.black,
+                                            13.sp,
+                                            FontWeight.normal,
+                                          ),
+                                        ],
+                                      )
+                                    : (finalRating < 3 && finalRating >= 2)
+                                        ? Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: darkGreen,
+                                                size: 25.sp,
+                                              ),
+                                              Icon(
+                                                Icons.star,
+                                                color: darkGreen,
+                                                size: 25.sp,
+                                              ),
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              poppinsText2(
+                                                "(2/5)",
+                                                Colors.black,
+                                                13.sp,
+                                                FontWeight.normal,
+                                              ),
+                                            ],
+                                          )
+                                        : Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: darkGreen,
+                                                size: 25.sp,
+                                              ),
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              poppinsText2(
+                                                "(1/5)",
+                                                Colors.black,
+                                                13.sp,
+                                                FontWeight.normal,
+                                              ),
+                                            ],
+                                          ),
+                        Text(
+                          stringFinalReviewDate,
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          review,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              /* 
               Text(
                 consumerUserName,
                 textAlign: TextAlign.center,
@@ -248,7 +441,7 @@ class _GetFarmerReview2State extends State<GetFarmerReview2> {
               Text(
                 review,
                 textAlign: TextAlign.center,
-              ),
+              ),*/
             ],
           ),
         ),

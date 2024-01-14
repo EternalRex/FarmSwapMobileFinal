@@ -69,7 +69,7 @@ class _FarmerRatingState extends State<FarmerRating> {
   UpdateFarmerRating farmerRatingFinal = UpdateFarmerRating();
   RatingAndReview review = RatingAndReview();
   ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
-  int average = 0;
+  double average = 0;
 
 /*The rating that will be given to the farmer based on the column of stars being selected */
   int rating = 1;
@@ -86,6 +86,7 @@ class _FarmerRatingState extends State<FarmerRating> {
   String consUname = "";
   String consBarangay = "";
   String constMunispyo = "";
+  String consumerPhoto = '';
 
   @override
   void initState() {
@@ -441,6 +442,7 @@ class _FarmerRatingState extends State<FarmerRating> {
                     reviewController.text,
                     rating,
                     DateTime.now(),
+                    consumerPhoto,
                   );
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) {
@@ -464,6 +466,7 @@ class _FarmerRatingState extends State<FarmerRating> {
     String uname = await consumerDetails.getUname();
     String barangay = await consumerDetails.getBaranggay();
     String municipal = await consumerDetails.getMunicipalityFirstname();
+    String profilePhoto = await consumerDetails.getConsumerProfilePhoto();
     setState(() {
       consid = id;
       consName = name;
@@ -471,6 +474,7 @@ class _FarmerRatingState extends State<FarmerRating> {
       consUname = uname;
       consBarangay = barangay;
       constMunispyo = municipal;
+      consumerPhoto = profilePhoto;
     });
   }
 }

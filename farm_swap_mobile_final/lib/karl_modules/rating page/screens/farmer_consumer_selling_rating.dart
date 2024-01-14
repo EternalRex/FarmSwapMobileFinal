@@ -68,7 +68,7 @@ class _FarmerConsumerSellingRatingState extends State<FarmerConsumerSellingRatin
   GettingFinalRating calculateRating = GettingFinalRating();
   UpdatingConsumerRating consRating = UpdatingConsumerRating();
   RatingAndReview review = RatingAndReview();
-  int average = 0;
+  double average = 0;
   /*I need to reget the farmer details*/
   String fid = "";
   String fName = "";
@@ -76,6 +76,7 @@ class _FarmerConsumerSellingRatingState extends State<FarmerConsumerSellingRatin
   String fUname = "";
   String fbaranga = "";
   String fMunicipal = "";
+  String farmerPhoto = '';
   /*The rating that will be given to the farmer based on the column of stars being selected */
   int rating = 1;
   String ratingString = "1";
@@ -335,6 +336,7 @@ class _FarmerConsumerSellingRatingState extends State<FarmerConsumerSellingRatin
                               reviewController.text,
                               rating,
                               DateTime.now(),
+                              farmerPhoto,
                             );
 
                             showRatingSuccessMessage();
@@ -408,6 +410,7 @@ class _FarmerConsumerSellingRatingState extends State<FarmerConsumerSellingRatin
     String farmerUname = await farmerDetails.getUname();
     String farmerBarangay = await farmerDetails.getBaranggay();
     String farmerMunicipal = await farmerDetails.getMunicipalityFirstname();
+    String photo = await farmerDetails.getFarmerUserProfilePhoto();
 
     setState(() {
       fid = farmerId;
@@ -416,6 +419,7 @@ class _FarmerConsumerSellingRatingState extends State<FarmerConsumerSellingRatin
       fUname = farmerUname;
       fbaranga = farmerBarangay;
       fMunicipal = farmerMunicipal;
+      farmerPhoto = photo;
     });
   }
 

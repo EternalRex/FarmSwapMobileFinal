@@ -20,6 +20,7 @@ class RatingAndReview {
     String review,
     int rate,
     DateTime reviewDate,
+    String photo,
   ) async {
     final rateReviewSave = RatingReviewModel(
       farmerId: farmerId,
@@ -37,6 +38,7 @@ class RatingAndReview {
       review: review,
       rate: rate,
       reviewDate: reviewDate,
+      profilePhoto: photo,
     );
 
     /*Mao ni querry where mag create tag subcollection sa specific na document iniside sa isa ka collection */
@@ -68,6 +70,7 @@ class RatingAndReview {
     String review,
     int rate,
     DateTime reviewDate,
+    String photo,
   ) async {
     final rateReviewSave = RatingReviewModel(
       farmerId: farmerId,
@@ -85,6 +88,7 @@ class RatingAndReview {
       review: review,
       rate: rate,
       reviewDate: reviewDate,
+      profilePhoto: photo,
     );
 
     /*Mao ni querry where mag create tag subcollection sa specific na document iniside sa isa ka collection */

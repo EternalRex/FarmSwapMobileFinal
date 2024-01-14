@@ -50,8 +50,7 @@ class SellConsumerRatingFarmer extends StatefulWidget {
   final String listingUrl;
 
   @override
-  State<SellConsumerRatingFarmer> createState() =>
-      _SellConsumerRatingFarmerState();
+  State<SellConsumerRatingFarmer> createState() => _SellConsumerRatingFarmerState();
 }
 
 class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
@@ -67,7 +66,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
   UpdateFarmerRating farmerRatingFinal = UpdateFarmerRating();
   RatingAndReview review = RatingAndReview();
   ListinGetConsumerDetails consumerDetails = ListinGetConsumerDetails();
-  int average = 0;
+  double average = 0;
 
 /*The rating that will be given to the farmer based on the column of stars being selected */
   int rating = 1;
@@ -84,6 +83,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
   String consUname = "";
   String consBarangay = "";
   String constMunispyo = "";
+  String consumerPhoto = '';
 
   @override
   void initState() {
@@ -109,8 +109,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage(
-                  "assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -139,8 +138,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
                 padding: EdgeInsets.only(top: 20.sp),
                 child: Column(
                   children: [
-                    poppinsText("$ratingString stars", Colors.black, 20.sp,
-                        FontWeight.w500),
+                    poppinsText("$ratingString stars", Colors.black, 20.sp, FontWeight.w500),
                     Divider(
                       thickness: 10.h,
                       color: orangeDark,
@@ -214,8 +212,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
                             : (rating == 3)
                                 ? Center(
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Icon(
                                           Icons.star,
@@ -238,8 +235,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
                                 : (rating == 2)
                                     ? Center(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Icon(
                                               Icons.star,
@@ -256,8 +252,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
                                       )
                                     : Center(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Icon(
                                               Icons.star,
@@ -302,13 +297,11 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
                         ),
                         TextButton(
                           onPressed: () async {
-                            average = await calculateRating
-                                .calculateAverageRating(widget.farmerId);
+                            average = await calculateRating.calculateAverageRating(widget.farmerId);
                             print("AHAHAHAHAHAH $average");
                             showRatingSuccessMessage(average);
                           },
-                          child: poppinsText("Submit", farmSwapTitlegreen,
-                              26.sp, FontWeight.bold),
+                          child: poppinsText("Submit", farmSwapTitlegreen, 26.sp, FontWeight.bold),
                         ),
                         SizedBox(
                           width: 20.w,
@@ -371,8 +364,8 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
       builder: (context) {
         return AlertDialog(
           title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.bold),
-          content: poppinsText("You have reached the maximum star",
-              Colors.black, 15.sp, FontWeight.normal),
+          content: poppinsText(
+              "You have reached the maximum star", Colors.black, 15.sp, FontWeight.normal),
         );
       },
     );
@@ -385,8 +378,8 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
       builder: (context) {
         return AlertDialog(
           title: poppinsText("Warning", Colors.red, 20.sp, FontWeight.bold),
-          content: poppinsText("You have reached the minimum kilogram",
-              Colors.black, 15.sp, FontWeight.normal),
+          content: poppinsText(
+              "You have reached the minimum kilogram", Colors.black, 15.sp, FontWeight.normal),
         );
       },
     );
@@ -411,8 +404,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
             Center(
               child: TextButton(
                 onPressed: () {
-                  farmerRatingFinal.updateFarmerRating(
-                      widget.farmerId, finalAverage);
+                  farmerRatingFinal.updateFarmerRating(widget.farmerId, finalAverage);
                   /*Saving the rating and review*/
                   review.updateRatingValue(
                     widget.farmerUname,
@@ -430,6 +422,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
                     reviewController.text,
                     rating,
                     DateTime.now(),
+                    consumerPhoto,
                   );
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) {
@@ -437,8 +430,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
                     },
                   ));
                 },
-                child: poppinsText(
-                    "Continue", farmSwapTitlegreen, 20.sp, FontWeight.normal),
+                child: poppinsText("Continue", farmSwapTitlegreen, 20.sp, FontWeight.normal),
               ),
             ),
           ],
@@ -454,6 +446,7 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
     String uname = await consumerDetails.getUname();
     String barangay = await consumerDetails.getBaranggay();
     String municipal = await consumerDetails.getMunicipalityFirstname();
+    String photo = await consumerDetails.getConsumerProfilePhoto();
     setState(() {
       consid = id;
       consName = name;
@@ -461,6 +454,9 @@ class _SellConsumerRatingFarmerState extends State<SellConsumerRatingFarmer> {
       consUname = uname;
       consBarangay = barangay;
       constMunispyo = municipal;
+      setState(() {
+        consumerPhoto = photo;
+      });
     });
   }
 }

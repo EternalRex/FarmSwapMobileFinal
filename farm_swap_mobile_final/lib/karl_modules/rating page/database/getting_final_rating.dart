@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GettingFinalRating {
-  Future<int> calculateAverageRating(String farmerId) async {
+  Future<double> calculateAverageRating(String farmerId) async {
     // Reference to the Firestore collection 'sample_FarmerUsers'
     CollectionReference farmerUsersCollection =
         FirebaseFirestore.instance.collection('sample_FarmerUsers');
@@ -20,7 +20,7 @@ class GettingFinalRating {
       // Get documents from the 'ratingreview' subcollection
       QuerySnapshot ratingSnapshot = await ratingReviewCollection.get();
 
-      int totalRatings = 0;
+      double totalRatings = 0;
       int numberOfRatings = 0;
 
       // Iterate through each document in the 'ratingreview' subcollection
@@ -34,7 +34,7 @@ class GettingFinalRating {
           num rating = data['rate'] as num;
 
           // Accumulate the total ratings and count the number of ratings
-          totalRatings += rating.toInt();
+          totalRatings += rating.toDouble();
           numberOfRatings++;
           print("Working diri tooo memememeem");
         }
@@ -44,7 +44,7 @@ class GettingFinalRating {
       double averageRating = numberOfRatings > 0 ? totalRatings / numberOfRatings : 0;
       print("$averageRating mao ni average rating");
       // Return the average rating as an integer
-      return averageRating.toInt();
+      return averageRating.toDouble();
     } else {
       // Handle if the user document with the given userId is not found
       return 0; // Or any default value indicating no ratings
@@ -52,7 +52,7 @@ class GettingFinalRating {
   }
 
   /*Method to calculate the average rating of the consumer*/
-  Future<int> calculateConsumerAverageRating(String consumerId) async {
+  Future<double> calculateConsumerAverageRating(String consumerId) async {
     // Reference to the Firestore collection 'sample_FarmerUsers'
     CollectionReference farmerUsersCollection =
         FirebaseFirestore.instance.collection('sample_ConsumerUsers');
@@ -71,7 +71,7 @@ class GettingFinalRating {
       // Get documents from the 'ratingreview' subcollection
       QuerySnapshot ratingSnapshot = await ratingReviewCollection.get();
 
-      int totalRatings = 0;
+      double totalRatings = 0;
       int numberOfRatings = 0;
 
       // Iterate through each document in the 'ratingreview' subcollection
@@ -95,7 +95,7 @@ class GettingFinalRating {
       double averageRating = numberOfRatings > 0 ? totalRatings / numberOfRatings : 0;
       print("$averageRating mao ni average rating");
       // Return the average rating as an integer
-      return averageRating.toInt();
+      return averageRating.toDouble();
     } else {
       // Handle if the user document with the given userId is not found
       return 0; // Or any default value indicating no ratings
