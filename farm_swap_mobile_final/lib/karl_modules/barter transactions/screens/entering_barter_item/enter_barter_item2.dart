@@ -253,6 +253,9 @@ class _UploadBarterItemPictureState extends State<UploadBarterItemPicture> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 40.h,
+            ),
             /*Expanded for the advertisement */
             Container(
               width: MediaQuery.of(context).size.width,

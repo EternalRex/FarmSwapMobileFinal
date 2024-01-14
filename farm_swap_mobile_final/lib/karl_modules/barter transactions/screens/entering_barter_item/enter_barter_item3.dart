@@ -209,6 +209,9 @@ class _EnterToBarterItem3State extends State<EnterToBarterItem3> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 40.h,
+            ),
             /*Expanded for the advertisement */
             Container(
               width: MediaQuery.of(context).size.width,
