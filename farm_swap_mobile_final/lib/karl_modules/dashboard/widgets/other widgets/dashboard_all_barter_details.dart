@@ -232,14 +232,16 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                 /*For discription */
                                 SizedBox(
                                   width: 300.w,
-                                  child: Text(
-                                    widget.listingDisc,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 11.sp,
-                                      color: Colors.black,
-                                      fontFamily: GoogleFonts.poppins().fontFamily,
-                                      fontWeight: FontWeight.normal,
+                                  child: Flexible(
+                                    child: Text(
+                                      widget.listingDisc,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 11.sp,
+                                        color: Colors.black,
+                                        fontFamily: GoogleFonts.poppins().fontFamily,
+                                        fontWeight: FontWeight.normal,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -355,12 +357,14 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                       SizedBox(
                                         width: 15.w,
                                       ),
-                                      poppinsText(
-                                        "${widget.farmerBarangay} "
-                                        " ${widget.farmerMunicipality}, Cebu, Philippines",
-                                        Colors.black54,
-                                        13.sp,
-                                        FontWeight.normal,
+                                      Flexible(
+                                        child: poppinsText(
+                                          "${widget.farmerBarangay} "
+                                          " ${widget.farmerMunicipality}, Cebu, Philippines",
+                                          Colors.black54,
+                                          13.sp,
+                                          FontWeight.normal,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -456,11 +460,13 @@ class _DashBoardAllBarterDetailsState extends State<DashBoardAllBarterDetails> {
                                       SizedBox(
                                         width: 15.w,
                                       ),
-                                      poppinsText(
-                                        "Preffered Item is ${widget.prefItem}",
-                                        Colors.black54,
-                                        12.sp,
-                                        FontWeight.normal,
+                                      Flexible(
+                                        child: poppinsText(
+                                          "Preffered Item is ${widget.prefItem}",
+                                          Colors.black54,
+                                          12.sp,
+                                          FontWeight.normal,
+                                        ),
                                       ),
                                     ],
                                   ),
