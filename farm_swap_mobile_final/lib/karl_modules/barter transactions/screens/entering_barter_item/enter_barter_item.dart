@@ -152,7 +152,8 @@ class _EnterToBarterItemState extends State<EnterToBarterItem> {
           width: 300.sp,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage("assets/karl_assets/images/appbarpattern.png"),
+              image: const AssetImage(
+                  "assets/karl_assets/images/appbarpattern.png"),
               fit: BoxFit.cover,
               scale: 100.0.sp,
             ),
@@ -279,73 +280,104 @@ class _EnterToBarterItemState extends State<EnterToBarterItem> {
                       TextButton(
                         onPressed: () {
                           /*Item Details */
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setItemName(itemNameController.text);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setItemDisc(itemDiscController.text);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setItemCondition(itemConditionController.text);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                              .setItemQuantity(double.parse(itemQuantityController.text));
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                              .setitemValue(double.parse(itemValueController!.text));
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
+                              .setItemQuantity(
+                                  double.parse(itemQuantityController.text));
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
+                              .setitemValue(
+                                  double.parse(itemValueController!.text));
                           /*Listing Details*/
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setListingName(widget.listingNameNeed);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setListingDisc(widget.listingDiscNeed);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setListingId(widget.listingIdNeed);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
-                              .setListingPrice(widget.listingEquivalentPriceNeed);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
+                              .setListingPrice(
+                                  widget.listingEquivalentPriceNeed);
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setListingQuan(widget.listingQuantityNeed);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setListingStatus(widget.listingStatusNeed);
                           /*Farmer Details*/
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setFarmerId(widget.farmerId);
                           print(widget.farmerId);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setFarmerFname(widget.farmerFNameNeed);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setFarmerLname(widget.farmerLnameNeed);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setFarmerUname(widget.farmerUnameNeed);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setFarmerBaranggay(widget.farmerBaranggayNeed);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setFarmerMunisipyo(widget.farmerMunicaplityNeed);
                           /*Details we need from consumer*/
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setConsumerId(cId);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setConsumerFname(cFname);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setConsumerLname(cLastName);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setCOnsumerUname(cUname);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setConsumerBaranggay(cBarangay);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setConsumerMunisipyo(cMunicipality);
-                          Provider.of<BartertingItemDetailsProvider>(context, listen: false)
+                          Provider.of<BartertingItemDetailsProvider>(context,
+                                  listen: false)
                               .setListingCategory(widget.listingCategory);
 
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
                               return UploadBarterItemPicture(
-                                itemvalue2: double.tryParse(itemValueController!.text),
-                                listingvalue2: double.tryParse(widget.listingEquivalentPriceNeed),
+                                itemvalue2:
+                                    double.tryParse(itemValueController!.text),
+                                listingvalue2: double.tryParse(
+                                    widget.listingEquivalentPriceNeed),
                                 farmerId: widget.farmerId,
                                 farmerFNameNeed: widget.farmerFNameNeed,
                                 farmerLnameNeed: widget.farmerLnameNeed,
                                 farmerUnameNeed: widget.farmerUnameNeed,
                                 farmerBaranggayNeed: widget.farmerBaranggayNeed,
-                                farmerMunicaplityNeed: widget.farmerBaranggayNeed,
+                                farmerMunicaplityNeed:
+                                    widget.farmerBaranggayNeed,
                                 listingCategory: widget.listingCategory,
                                 listingDiscNeed: widget.listingDiscNeed,
-                                listingEquivalentPriceNeed: widget.listingEquivalentPriceNeed,
+                                listingEquivalentPriceNeed:
+                                    widget.listingEquivalentPriceNeed,
                                 listingIdNeed: widget.listingIdNeed,
                                 listingNameNeed: widget.listingNameNeed,
                                 listingQuantityNeed: widget.listingQuantityNeed,
@@ -365,6 +397,9 @@ class _EnterToBarterItemState extends State<EnterToBarterItem> {
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 40.h,
             ),
             /*Expanded for the advertisement */
             Container(
