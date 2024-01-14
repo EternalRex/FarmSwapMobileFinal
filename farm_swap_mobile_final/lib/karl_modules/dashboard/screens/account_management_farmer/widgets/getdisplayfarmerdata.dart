@@ -895,7 +895,7 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                 ),
               ),
               SizedBox(
-                height: 5.h,
+                height: 2.h,
               ),
               //para sa update, deeactivate and archive account button for the current user
               Center(
@@ -914,15 +914,15 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                           SizedBox(
                             width: 2.w,
                           ),
-                          const Text("Update"),
+                          Text(
+                            "Update",
+                            style: TextStyle(fontSize: 11.sp),
+                          ),
                         ],
                       ),
                       onPressed: () {
                         selectfieldUpdate(context, "${data["userId"]}");
                       },
-                    ),
-                    SizedBox(
-                      width: 5.w,
                     ),
                     //deactivate account button
                     ElevatedButton(
@@ -935,7 +935,10 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                           SizedBox(
                             width: 2.w,
                           ),
-                          const Text("Deactivate"),
+                          Text(
+                            "Deactivate",
+                            style: TextStyle(fontSize: 11.sp),
+                          ),
                         ],
                       ),
                       onPressed: () {
@@ -997,9 +1000,6 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                         );
                       },
                     ),
-                    SizedBox(
-                      width: 5.w,
-                    ),
                     //archived account button
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -1011,7 +1011,10 @@ class _DisplayFarmerProfileDataState extends State<DisplayFarmerProfileData> {
                           SizedBox(
                             width: 2.w,
                           ),
-                          const Text("Archive"),
+                          Text(
+                            "Archive",
+                            style: TextStyle(fontSize: 11.sp),
+                          ),
                         ],
                       ),
                       onPressed: () async {
