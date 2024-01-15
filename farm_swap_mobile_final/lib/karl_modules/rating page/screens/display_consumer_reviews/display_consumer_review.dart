@@ -98,27 +98,27 @@ class _DisplayConsumerReviewState extends State<DisplayConsumerReview> {
                           children: [
                             Icon(
                               Icons.star,
-                              color: darkGreen,
+                              color: white,
                               size: 25.sp,
                             ),
                             Icon(
                               Icons.star,
-                              color: darkGreen,
+                              color: white,
                               size: 25.sp,
                             ),
                             Icon(
                               Icons.star,
-                              color: darkGreen,
+                              color: white,
                               size: 25.sp,
                             ),
                             Icon(
                               Icons.star,
-                              color: darkGreen,
+                              color: white,
                               size: 25.sp,
                             ),
                             Icon(
                               Icons.star,
-                              color: darkGreen,
+                              color: white,
                               size: 25.sp,
                             ),
                             SizedBox(
@@ -126,7 +126,7 @@ class _DisplayConsumerReviewState extends State<DisplayConsumerReview> {
                             ),
                             poppinsText2(
                               "(5/5)",
-                              Colors.black,
+                              Colors.white,
                               13.sp,
                               FontWeight.normal,
                             ),

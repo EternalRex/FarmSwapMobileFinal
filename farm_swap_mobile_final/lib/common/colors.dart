@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 
+Color white = const Color(0xFFFFFFFF);
+
 Color farmSwapTitlegreen = const Color(0xFF53E88B);
 Color buttonOrange = const Color(0xFFFFD07D);
 Color buttonWhite = const Color(0xFFFFFFFF);
